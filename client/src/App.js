@@ -24,6 +24,7 @@ import TTC from "./components/Courses/TTC";
 import KaushalaM from "./components/Courses/KaushalaM";
 import AbhayaM from "./components/Courses/AbhayaM";
 import Avistaran from "./components/Courses/Avistaran";
+import SakhyaM from "./components/Courses/SakhyaM";
 import ContactUs from "./components/ContactUs";
 import Terms from "./components/Rules/Terms";
 import Privacy from "./components/Rules/Privacy";
@@ -64,6 +65,7 @@ function App() {
           <Route exact path="/contactus" component={ContactUs} />
           <Route exact path="/abhayam" component={AbhayaM} />
           <Route exact path="/avistaran" component={Avistaran} />
+          <Route exact path="/sakhyam" component={SakhyaM} />
           <Route exact path="/terms" component={Terms} />
           <Route exact path="/privacy" component={Privacy} />
           <Route exact path="/refund" component={Refund} />

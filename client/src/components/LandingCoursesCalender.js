@@ -1,10 +1,18 @@
 import { Button } from 'antd'
 
 const cData = [
+	{
+        cName: 'SakhyaM',
+        cDescription: '',
+        date: '23 May 2022 - 4th Jun 2022',
+        month: '',
+        cId: 1,
+        link:'sakhyam'
+    },
     {
         cName: 'Yoga M Beginners Course',
         cDescription: '',
-        date: '2nd April - 24th April',
+        date: '7 May 2022 - 29th May 2022',
         month: '',
         cId: 1,
         link:'yogam'

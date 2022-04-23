@@ -102,12 +102,12 @@ function LandingCourses() {
                                         {/* </div> */}
                                         {/* <div className="swiper-slide"> */}
                                         <div className="col-lg-4">
-                                            <a href="/about#upcoming">
+                                            <a href="/sakhyam">
                                             <div className="card">
                                             <div className="card-body" style={{textAlign: 'center'}}>
                                                     <img src="images/courses/upcoming.png"></img>
                                                     <div className="text">
-                                                        <div className="testimonial-author" style={{color:'darkblue'}}>Upcoming Courses</div>
+                                                        <div className="testimonial-author" style={{color:'darkblue'}}>SakhyaM</div>
                                                         {/* <div className="occupation">Doctor</div> */}
                                                     </div>
                                                 </div>

@@ -77,6 +77,9 @@ function Nav() {
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item page-scroll" style={{ color: 'black' }} href="/avistaran">Avistaran - Yoga for Professionals
                                 </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item page-scroll" style={{ color: 'black' }} href="/sakhyam">SakhyaM - Course for Women
+                                </a>
 
                             </div>
                         </li>
@@ -88,6 +91,9 @@ function Nav() {
                         </li>
                         <li>
                         <img style={{height:'32px'}} src="/images/logosatsang1.png" alt="byvk"></img>
+                    </li>
+                    <li className="nav-item">
+                            <a className="nav-link page-scroll" style={{ color: 'black' }} href="/register">Sign Up</a>
                     </li>
                     </ul>
                     {/* {isAuthenticated ? <li className="nav-item">
