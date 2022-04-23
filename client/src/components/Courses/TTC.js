@@ -151,7 +151,7 @@ function TTC() {
                             <div className="row">
                                 <div className="col-lg-4">   
                                     <p style={{ textAlign: 'justify', fontFamily: 'Poppins', textAlign: 'justify', fontSize: '16px' }}> 
-                                    Online classes Residential classes :
+                                    Residential classes :
                                     </p>                                  
                                     </div>
                                     <div className="col-lg-8"> 
