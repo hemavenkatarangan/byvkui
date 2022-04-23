@@ -92,9 +92,9 @@ function Nav() {
                         <li>
                         <img style={{height:'32px'}} src="/images/logosatsang1.png" alt="byvk"></img>
                     </li>
-                    <li className="nav-item">
+                  {/*  <li className="nav-item">
                             <a className="nav-link page-scroll" style={{ color: 'black' }} href="/register">Sign Up</a>
-                    </li>
+                    </li>*/}
                     </ul>
                     {/* {isAuthenticated ? <li className="nav-item">
                             <a className="nav-link page-scroll" href="/user">Hi, {user.user.name}</a>
