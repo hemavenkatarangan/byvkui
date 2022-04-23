@@ -147,6 +147,19 @@ function TTC() {
                                     </p>  
                                 </div>
                             </div>
+                           
+                            <div className="row">
+                                <div className="col-lg-4">   
+                                    <p style={{ textAlign: 'justify', fontFamily: 'Poppins', textAlign: 'justify', fontSize: '16px' }}> 
+                                    Online classes Residential classes :
+                                    </p>                                  
+                                    </div>
+                                    <div className="col-lg-8"> 
+                                    <p style={{ float: 'left', fontFamily: 'Poppins', textAlign: 'justify', fontSize: '16px' }}> 
+                                    23rd June (arrival by 12 pm) – 8th July (departure by 9:30 am) 
+                                    </p>  
+                                </div>
+                            </div>
                             <div className="row">
                                 <div className="col-lg-4">   
                                     <p style={{ textAlign: 'justify', fontFamily: 'Poppins', textAlign: 'justify', fontSize: '16px' }}> 
