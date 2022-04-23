@@ -20,7 +20,7 @@ const cData = [
     {
         cName: 'TTC Yoga Teachers Training',
         cDescription: '',
-        date: '3 March - 2 April',
+        date: '6th June 2022 - 8th July 2022',
         month: '',
         cId: 2, 
         link:'ttc'
