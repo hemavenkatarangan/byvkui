@@ -83,9 +83,9 @@ function Nav() {
 
                             </div>
                         </li>
-                        {/* <li className="nav-item">
-                            <a className="nav-link page-scroll" style={{color:'black'}} href="/courses">Courses</a>
-                        </li> */}
+                         <li className="nav-item">
+                            <a className="nav-link page-scroll" style={{color:'black'}} href="/careers">Careers</a>
+                        </li> 
                         <li className="nav-item">
                             <a className="nav-link page-scroll" style={{ color: 'black' }} href="/contactus">Contact Us</a>
                         </li>

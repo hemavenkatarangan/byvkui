@@ -29,6 +29,7 @@ import ContactUs from "./components/ContactUs";
 import Terms from "./components/Rules/Terms";
 import Privacy from "./components/Rules/Privacy";
 import Refund from "./components/Rules/Refund";
+import Careers from "./components/Careers";
 
 if (localStorage.jwtToken) {
   const token = localStorage.jwtToken;
@@ -69,6 +70,7 @@ function App() {
           <Route exact path="/terms" component={Terms} />
           <Route exact path="/privacy" component={Privacy} />
           <Route exact path="/refund" component={Refund} />
+           <Route exact path="/careers" component={Careers} />
           <Switch>
             <PrivateRoute exact path="/home" component={Home} />
             {/* <Route path="/404" component={NotFound} /> */}
