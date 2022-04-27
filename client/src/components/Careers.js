@@ -23,16 +23,29 @@ function Careers() {
 								<div className="text-container" >
 									<h1 className="h1-large" style={{ fontFamily: 'Poppins', color: 'darkblue', fontSize: '24px' }}>Trainer Requirement </h1>
 									
-									
-									<p className="p-large" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: 'darkblue', fontSize: '16px' }}>Vacancy details -</p>
+									<p className="p-large" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: 'darkblue', fontSize: '16px' }}>Bharat Yoga Vidya Kendra (BYVK), an initiative of the Satsang Foundation, has been founded by Sri M with the vision of spreading the ancient science of Yoga to all.</p>
+
+									<p className="p-large" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: 'darkblue', fontSize: '16px' }}>Our aim is to make the ancient yogic teachings relevant to modern times.
+</p>
+<p className="p-large" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: 'darkblue', fontSize: '16px' }}>BYVK is situated at the Satsang Foundation Campus in Madanapalle*. 
+</p>
+<p className="p-large" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: 'darkblue', fontSize: '16px' }}>We are expanding our team of Yoga Teachers! 
+</p>
+
+<p className="p-large" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: 'darkblue', fontSize: '16px' }}>We have two open postions-</br>
+1 is for a full time residential Teacher based in Madanapalle </br>
+1 is for a part time residential teacher who will be visiting Madanapalle during the residential courses.</br> 
+</p>
+<p className="p-large" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: 'darkblue', fontSize: '16px' }}>Mentioning below are vacancy details 
+</p>
 
 									<p className="p-large" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: '#333436', fontSize: '16px' }}>All requirements are Mandatory:</p>
 
     								<p className="p-large" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: '#333436', fontSize: '16px' }}><b>Education:</b> A Postgraduate Degree in any subject</p>
-    										   <p className="p-large" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: '#333436', fontSize: '16px' }}>Yoga Qualification: Level 3 certificate from the Ayush ministry of Yoga.</p>
-    										   <p className="p-large" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: '#333436', fontSize: '16px' }}>Teaching Experience: 4-7 years of teaching yoga experience on document</p>
-                                               <p className="p-large" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: '#333436', fontSize: '16px' }}>Language skills: Fluent in written and spoken English</p>
-                                               <p className="p-large" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: '#333436', fontSize: '16px' }}>Other skills - Basic knowledge of computers and MS office</p>
+    										   <p className="p-large" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: '#333436', fontSize: '16px' }}>Yoga Qualification: Level 2 ( must) or Level 3 (preferable) certificate from the Ayush ministry of Yoga.</p>
+    										   <p className="p-large" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: '#333436', fontSize: '16px' }}><strong>Teaching Experience: </strong> 4-7 years of teaching yoga experience on document</p>
+                                               <p className="p-large" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: '#333436', fontSize: '16px' }}><strong>Language skills:</strong> Fluent in written and spoken English</p>
+                                               <p className="p-large" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: '#333436', fontSize: '16px' }}><strong>Other skills :</strong> Basic knowledge of computers and MS office</p>
 
                                     <p className="p-large" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: '#333436', fontSize: '16px' }}>Pay scale will be at par with experience and market standards.</p>
 
