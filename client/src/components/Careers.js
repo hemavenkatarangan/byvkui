@@ -23,20 +23,23 @@ function Careers() {
 								<div className="text-container" >
 									<h1 className="h1-large" style={{ fontFamily: 'Poppins', color: 'darkblue', fontSize: '24px' }}>Trainer Requirement </h1>
 									
-									<p className="p-large" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: 'darkblue', fontSize: '16px' }}>Bharat Yoga Vidya Kendra (BYVK), an initiative of the Satsang Foundation, has been founded by Sri M with the vision of spreading the ancient science of Yoga to all.</p>
+									<p className="p-large" style={{ fontFamily: 'Poppins', color: '#333436',textAlign: 'justify',  fontSize: '16px' }}>Bharat Yoga Vidya Kendra (BYVK), an initiative of the Satsang Foundation, has been founded by Sri M with the vision of spreading the ancient science of Yoga to all.</p>
 
-									<p className="p-large" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: 'darkblue', fontSize: '16px' }}>Our aim is to make the ancient yogic teachings relevant to modern times.
+									<p className="p-large" style={{ fontFamily: 'Poppins', color: '#333436',textAlign: 'justify',  fontSize: '16px' }}>Our aim is to make the ancient yogic teachings relevant to modern times.
 </p>
-<p className="p-large" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: 'darkblue', fontSize: '16px' }}>BYVK is situated at the Satsang Foundation Campus in Madanapalle*. 
+<p className="p-large" style={{ fontFamily: 'Poppins',color: '#333436', textAlign: 'justify',  fontSize: '16px' }}>BYVK is situated at the Satsang Foundation Campus in Madanapalle*. 
 </p>
-<p className="p-large" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: 'darkblue', fontSize: '16px' }}>We are expanding our team of Yoga Teachers! 
+<p className="p-large" style={{ fontFamily: 'Poppins', color: '#333436',textAlign: 'justify',  fontSize: '16px' }}>We are expanding our team of Yoga Teachers! 
 </p>
 
-<p className="p-large" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: 'darkblue', fontSize: '16px' }}>We have two open postions-</br>
-1 is for a full time residential Teacher based in Madanapalle </br>
-1 is for a part time residential teacher who will be visiting Madanapalle during the residential courses.</br> 
+<p className="p-large" style={{ fontFamily: 'Poppins', color: 'darkblue',textAlign: 'justify', fontSize: '16px' }}>We have two open postions-</p>
+<p className="p-large" style={{ fontFamily: 'Poppins', color: '#333436', textAlign: 'justify', fontSize: '16px' }}>1 is for a full time residential Teacher based in Madanapalle  
 </p>
-<p className="p-large" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: 'darkblue', fontSize: '16px' }}>Mentioning below are vacancy details 
+<p className="p-large" style={{ fontFamily: 'Poppins', color: '#333436',textAlign: 'justify',  fontSize: '16px' }}>
+1 is for a part time residential teacher who will be visiting Madanapalle during the residential courses.
+</p>
+
+<p className="p-large" style={{ fontFamily: 'Poppins', color: 'darkblue', textAlign: 'justify',  fontSize: '16px' }}>Mentioning below are vacancy details 
 </p>
 
 									<p className="p-large" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: '#333436', fontSize: '16px' }}>All requirements are Mandatory:</p>
