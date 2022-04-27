@@ -38,6 +38,8 @@ function Footer() {
                         <p style={{ color: 'white', fontFamily: 'Poppins', fontSize:'12px' }}><a style={{ color: 'white', fontFamily: 'Poppins' }} href="/about">About Us</a></p>
 
                         <p style={{ color: 'white', fontFamily: 'Poppins', fontSize:'12px' }}><a style={{ color: 'white', fontFamily: 'Poppins' }} href="/srim">Sri M</a></p>
+                        <p style={{ color: 'white', fontFamily: 'Poppins' , fontSize:'12px'}}><a style={{ color: 'white', fontFamily: 'Poppins' }} href="/careers">Careers</a></p>
+                        
                         <p style={{ color: 'white', fontFamily: 'Poppins' , fontSize:'12px'}}><a style={{ color: 'white', fontFamily: 'Poppins' }} href="/contactus">Contact Us</a></p>
                         {/* <p style={{ color: 'white', fontFamily:'Poppins' }}><a style={{ color: 'white', fontFamily:'Poppins' }} href="/#courses">Courses</a></p>
                         <p style={{ color: 'white', fontFamily:'Poppins' }}><a style={{ color: 'white', fontFamily:'Poppins' }} href="/yogam">Yoga M</a></p>
