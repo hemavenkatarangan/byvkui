@@ -38,7 +38,7 @@ function Careers() {
 
                                     <p className="p-large" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: '#333436', fontSize: '16px' }}>Please visit <a href="https://bharatyogavidyakendra.in">bharatyogavidyakendra.in</a> to know more about us.</p> 
 
-                                    <p className="p-large" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: '#333436', fontSize: '16px' }}>Please email a copy of your resume and a cover letter to  <a href="mailto:byvk.resume@gmail.com">byvk.resume@gmail.com </a>by 30th March (deadline for applying).</p>
+                                    <p className="p-large" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: '#333436', fontSize: '16px' }}>Please email a copy of your resume and a cover letter to  <a href="mailto:byvk.resume@gmail.com">byvk.resume@gmail.com </a></p>
 									
 									
 									
