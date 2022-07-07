@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Modal, Button, Table, Switch, Tag } from "antd";
-import { EditOutlined, DeleteOutlined, EyeOutlined } from "@ant-design/icons";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-function ProgramDashboard() {
+function UserRegistertedForProgram(props) {
   const user = useSelector((state) => state.auth);
   const [isAuthenticated, setAuthenticated] = useState(false);
   const [programsData, setProgramsData] = useState([]);
@@ -21,14 +21,19 @@ function ProgramDashboard() {
       setAuthenticated(false);
     }
 
-    getProgramsData();
+    getUserRegisteredData();
   }, []);
 
   const columns = [
     {
-      title: "Programs",
-      dataIndex: "name",
-      key: "name",
+      title: "Address",
+      dataIndex: "address_1",
+      key: "address_1",
+    },
+    {
+      title: "State",
+      dataIndex: "state",
+      key: "state",
     },
     {
       title: "Start Date",
@@ -37,32 +42,9 @@ function ProgramDashboard() {
       render: (data) => getFormatedDate(data),
     },
     {
-      title: "End Date",
-      dataIndex: "program_end_date",
-      key: "program_end_date",
-      render: (data) => getFormatedDate(data),
-    },
-    {
-      title: "Action",
-      key: "action",
-      render: (id, data) => (
-        <>
-          {
-            // data.status === 'STARTED' ? null :
-            <>
-              <Link to={{ pathname: "/createprogram/" + data._id, data: data }}>
-                <EditOutlined />
-              </Link>{" "}
-              <DeleteOutlined onClick={(e) => deleteProgram(data)} />{" "}
-              <Link
-                to={{ pathname: "/userforprogram/" + data._id, data: data }}
-              >
-                <EyeOutlined />
-              </Link>
-            </>
-          }
-        </>
-      ),
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
     },
   ];
 
@@ -70,10 +52,11 @@ function ProgramDashboard() {
     return moment(date).format("DD-MMM-YYYY");
   };
 
-  const getProgramsData = () => {
+  const getUserRegisteredData = () => {
     axios
-      .get("/programs/")
+      .get("/usermanagement/program/" + props.match.params.id)
       .then((res) => {
+        console.log(res);
         setProgramsData(res.data.result);
       })
       .catch((err) => {
@@ -81,29 +64,25 @@ function ProgramDashboard() {
       });
   };
 
-  const createProgram = () => {
-    window.location.href = "../createprogram";
-  };
+  //   const editProgram = (data) => {
+  //     console.log(data);
+  //   };
 
-  const editProgram = (data) => {
-    console.log(data);
-  };
-
-  const deleteProgram = (data) => {
-    axios
-      .delete("/programs/" + data._id)
-      .then((res) => {
-        if (res.data.status_code === "200") {
-          alert(res.data.status_message);
-          getProgramsData();
-        } else {
-          alert(res.data.error);
-        }
-      })
-      .catch((err) => {
-        console.log("Error" + err);
-      });
-  };
+  //   const deleteProgram = (data) => {
+  //     axios
+  //       .delete("/programs/" + data._id)
+  //       .then((res) => {
+  //         if (res.data.status_code === "200") {
+  //           alert(res.data.status_message);
+  //           getUserRegisteredData();
+  //         } else {
+  //           alert(res.data.error);
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         console.log("Error" + err);
+  //       });
+  //   };
 
   return (
     <>
@@ -120,7 +99,7 @@ function ProgramDashboard() {
                   fontSize: "32px",
                 }}
               >
-                Programs Dashboard
+                Registered Users Data
               </h1>
             </div>
           </div>
@@ -130,16 +109,6 @@ function ProgramDashboard() {
         <div className="container">
           <div className="row">
             <div className="col-xl-10 offset-xl-1">
-              <div style={{ float: "right" }} className="row">
-                <Button
-                  style={{ backgroundColor: "#ffdb58", fontWeight: "bold" }}
-                  shape="round"
-                  size="large"
-                  onClick={(e) => createProgram()}
-                >
-                  Create Program
-                </Button>
-              </div>
               <Table width="100%" columns={columns} dataSource={programsData} />
             </div>
           </div>
@@ -149,4 +118,4 @@ function ProgramDashboard() {
   );
 }
 
-export default ProgramDashboard;
+export default UserRegistertedForProgram;
