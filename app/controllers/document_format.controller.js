@@ -6,10 +6,10 @@ module.exports = {
 
     allDocumentFormats: async (req, res, next) => {
         try {
-            const DocumentFormats = await DocumentFormats.find({});
+            const docformat = await DocumentFormats.find({});
             response.status_code = "200";
             response.status_message = "Document formats Found";
-            response.result = DocumentFormats;
+            response.result = docformat;
             return res.status(200).json(response);
 
         }
@@ -24,21 +24,41 @@ module.exports = {
     
    
     getDocumentFormatForDocumentName: async (req, res) => {
-        const { name } = req.params;
-        const DocumentFormats = await DocumentFormats.findById(name);
-        if (!DocumentFormats) {
+       var name=req.params.name;
+        console.log("name"+name);
+        const docformats = await DocumentFormats.find({ name: name });
+        if (!docformats) {
 
             response.status_code = "404";
-            response.status_message = "DocumentFormats for User not Found";
+            response.status_message = "DocumentFormats for Document not Found";
             response.result = null;
             res.status(404).json(response);
 
         }
         else {
             response.status_code = "200";
-            response.status_message = "DocumentFormats Found for user";
-            response.result = DocumentFormats;
+            response.status_message = "DocumentFormats Found for docoument name";
+            response.result = docformats;
             res.status(200).json(response);
+        }
+
+    },
+     getDocumentFormatTypeForDocumentName: async (req, res) => {
+       var name=req.params.name;
+        console.log("name"+name);
+        const type = await DocumentFormats.find({ name: name }).select('type');
+        if (!type) {
+
+            response.status_code = "404";
+            response.status_message = "Document Format type not Found";
+            response.result = null;
+            res.status(404).json("");
+
+        }
+        else {
+            response.status_code = "200";
+            response.status_message = "DocumentFormats Found for document name";
+            res.status(200).json(type);
         }
 
     },

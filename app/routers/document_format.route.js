@@ -7,6 +7,9 @@ router.route('/')
 
 router.route('/document_name/:name')
     .get(document_format_Controller.getDocumentFormatForDocumentName);
+router.route('/document_type/:name')
+    .get(document_format_Controller.getDocumentFormatTypeForDocumentName);    
+    
 
   
 

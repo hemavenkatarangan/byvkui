@@ -18,4 +18,4 @@ var DocumentFormatSchema = new Schema(
 
 
 //Export model
-module.exports = mongoose.model('DocumentFormat', DocumentFormatSchema);
+module.exports = mongoose.model('DocumentFormats', DocumentFormatSchema);
