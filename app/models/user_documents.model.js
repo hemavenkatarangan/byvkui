@@ -10,7 +10,10 @@ var UserDocumentsSchema = new Schema(
         user_id :{type:String},
         program_id:{type:String},
         email_id:{type:String},
-        document_format:{type:String}
+        document_format:{type:String},
+        any_disease:{type:Boolean},
+        disease_desc:{type:String}
+        
         
 
     },
