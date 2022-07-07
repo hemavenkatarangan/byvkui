@@ -9,7 +9,11 @@ var UserDocumentsSchema = new Schema(
         document_type: { type: String ,enum: ['PAN_CARD', 'AADHAR_CARD', 'COVID_VACINATION_CERTIFICATE','RTPCR','MEDICAL_REPORTS']},
         user_id :{type:String},
         program_id:{type:String},
-        email_id:{type:String}
+        email_id:{type:String},
+        document_format:{type:String},
+        any_disease:{type:Boolean},
+        disease_desc:{type:String}
+        
         
 
     },
