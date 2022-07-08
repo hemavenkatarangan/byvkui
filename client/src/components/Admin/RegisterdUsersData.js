@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Modal, Button, Table, Switch, Tag } from "antd";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { Modal, Button, Table, Switch, Tag, Tooltip } from "antd";
+import { CheckOutlined, StopOutlined } from "@ant-design/icons";
+import { openNotificationWithIcon } from "../Notifications";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -15,6 +16,9 @@ function UserRegistertedForProgram(props) {
       window.location.href = "/home";
       return;
     }
+
+    console.log(user);
+
     if (user.isAuthenticated) {
       setAuthenticated(true);
     } else {
@@ -25,6 +29,29 @@ function UserRegistertedForProgram(props) {
   }, []);
 
   const columns = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+      render: (data) => user.userData.first_name,
+    },
+    // {
+    //   title: "email",
+    //   dataIndex: "email",
+    //   key: "email",
+    //   render: (data) => user.userData.email_id,
+    // },
+    {
+      title: "email",
+      dataIndex: "email",
+      key: "email",
+      render: (data) => user.userData.phone_num,
+    },
+    {
+      title: "Address",
+      dataIndex: "address_1",
+      key: "address_1",
+    },
     {
       title: "Address",
       dataIndex: "address_1",
@@ -45,8 +72,65 @@ function UserRegistertedForProgram(props) {
       title: "Status",
       dataIndex: "status",
       key: "status",
+      render: (id, data) => {
+        let c =
+          data.status === "APPROVED"
+            ? "green"
+            : data.status === "REJECTED"
+            ? "red"
+            : "orange";
+        return <Tag color={c}>{data.status}</Tag>;
+      },
+    },
+    {
+      title: "Actions",
+      key: "action",
+      render: (id, data) => (
+        <>
+          {
+            <>
+              <Tooltip title="Approve">
+                <Button
+                  shape="circle"
+                  icon={<CheckOutlined />}
+                  onClick={(e) => approveORrejectUser(data, "APPROVED")}
+                />
+              </Tooltip>
+              {"  "}
+              <Tooltip title="Reject">
+                <Button
+                  shape="circle"
+                  icon={<StopOutlined />}
+                  onClick={(e) => approveORrejectUser(data, "REJECTED")}
+                />
+              </Tooltip>
+            </>
+          }
+        </>
+      ),
     },
   ];
+
+  const approveORrejectUser = (data, status) => {
+    let obj = {
+      status: status,
+    };
+    axios
+      .patch("/usermanagement/status/" + data.user_id, obj)
+      .then((res) => {
+        if (res.data.status_code === "200") {
+          openNotificationWithIcon({
+            type: "success",
+            msg: "User Status",
+            description: res.data.status_message,
+          });
+          getUserRegisteredData();
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const getFormatedDate = (date) => {
     return moment(date).format("DD-MMM-YYYY");

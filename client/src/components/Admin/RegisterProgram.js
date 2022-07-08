@@ -169,6 +169,48 @@ function RegisterProgram(props) {
                 <input
                   type="text"
                   className="form-control-input notEmpty"
+                  value={user.userData.first_name}
+                  id="userName"
+                  onChange={(e) => onProgramChange(e)}
+                  required
+                  disabled
+                />
+                <label className="label-control" htmlFor="name">
+                  Name
+                </label>
+              </div>
+              <div className="form-group">
+                <input
+                  type="text"
+                  className="form-control-input notEmpty"
+                  value={user.userData.email_id}
+                  id="email"
+                  onChange={(e) => onProgramChange(e)}
+                  required
+                  disabled
+                />
+                <label className="label-control" htmlFor="email">
+                  Email
+                </label>
+              </div>
+              <div className="form-group">
+                <input
+                  type="text"
+                  className="form-control-input notEmpty"
+                  value={user.userData.phone_num}
+                  id="phoneNum"
+                  onChange={(e) => onProgramChange(e)}
+                  required
+                  disabled
+                />
+                <label className="label-control" htmlFor="phone">
+                  Phone Number
+                </label>
+              </div>
+              <div className="form-group">
+                <input
+                  type="text"
+                  className="form-control-input notEmpty"
                   value={program.address_1}
                   id="address_1"
                   onChange={(e) => onProgramChange(e)}
