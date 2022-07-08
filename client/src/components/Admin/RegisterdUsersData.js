@@ -89,21 +89,40 @@ function UserRegistertedForProgram(props) {
         <>
           {
             <>
-              <Tooltip title="Approve">
-                <Button
-                  shape="circle"
-                  icon={<CheckOutlined />}
-                  onClick={(e) => approveORrejectUser(data, "APPROVED")}
-                />
-              </Tooltip>
-              {"  "}
-              <Tooltip title="Reject">
-                <Button
-                  shape="circle"
-                  icon={<StopOutlined />}
-                  onClick={(e) => approveORrejectUser(data, "REJECTED")}
-                />
-              </Tooltip>
+              {data.status === "REGISTERED" ? (
+                <>
+                  <Tooltip title="Approve">
+                    <Button
+                      shape="circle"
+                      icon={<CheckOutlined />}
+                      onClick={(e) => approveORrejectUser(data, "APPROVED")}
+                    />
+                  </Tooltip>{" "}
+                  <Tooltip title="Reject">
+                    <Button
+                      shape="circle"
+                      icon={<StopOutlined />}
+                      onClick={(e) => approveORrejectUser(data, "REJECTED")}
+                    />
+                  </Tooltip>{" "}
+                </>
+              ) : data.status === "REJECTED" || data.status === "REGISTERED" ? (
+                <Tooltip title="Approve">
+                  <Button
+                    shape="circle"
+                    icon={<CheckOutlined />}
+                    onClick={(e) => approveORrejectUser(data, "APPROVED")}
+                  />
+                </Tooltip>
+              ) : (
+                <Tooltip title="Reject">
+                  <Button
+                    shape="circle"
+                    icon={<StopOutlined />}
+                    onClick={(e) => approveORrejectUser(data, "REJECTED")}
+                  />
+                </Tooltip>
+              )}
             </>
           }
         </>
@@ -116,7 +135,7 @@ function UserRegistertedForProgram(props) {
       status: status,
     };
     axios
-      .patch("/usermanagement/status/" + data.user_id, obj)
+      .patch("/usermanagement/status/" + data._id, obj)
       .then((res) => {
         if (res.data.status_code === "200") {
           openNotificationWithIcon({
