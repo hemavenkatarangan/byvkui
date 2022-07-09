@@ -47,8 +47,8 @@ if (localStorage.jwtToken) {
   setAuthToken(token);
   const decoded = jwt_decode(token);
   const userData = localStorage.userData;
-  console.log("Logger user data ");
-  console.log(userData);
+  // console.log("Logger user data ");
+  // console.log(userData);
   store.dispatch(setCurrentUser(decoded));
   store.dispatch(setUserData(JSON.parse(userData)));
   const currentTime = Date.now() / 1000; // to get in milliseconds

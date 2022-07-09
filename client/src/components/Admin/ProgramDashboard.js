@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Modal, Button, Table, Switch, Tag } from "antd";
-import { EditOutlined, DeleteOutlined, EyeOutlined ,FastForwardOutlined} from "@ant-design/icons";
+import {
+  EditOutlined,
+  DeleteOutlined,
+  EyeOutlined,
+  FastForwardOutlined,
+} from "@ant-design/icons";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -47,44 +52,37 @@ function ProgramDashboard() {
       key: "action",
       render: (id, data) => (
         <>
-          {
-             data.status === 'STARTED' ? null :
+          {data.status === "STARTED" ? null : (
             <>
               <Link to={{ pathname: "/createprogram/" + data._id, data: data }}>
-                <EditOutlined title="Edit Program"/>
+                <EditOutlined title="Edit Program" />
               </Link>{" "}
-              
-              
             </>
-          }
-          
+          )}
+
           {
-            
             <>
-              
-              <DeleteOutlined title="InActivate Program" onClick={(e) => deleteProgram(data)} />{" "}
-              
+              <DeleteOutlined
+                title="InActivate Program"
+                onClick={(e) => deleteProgram(data)}
+              />{" "}
               <Link
                 to={{ pathname: "/userforprogram/" + data._id, data: data }}
               >
-                <EyeOutlined title="View All Users For Program"/>{" "}
+                <EyeOutlined title="View All Users For Program" />{" "}
               </Link>
             </>
           }
-          
-           {
-            data.status === 'NOT_STARTED' ?
+
+          {data.status === "NOT_STARTED" ? (
             <>
-              
-             
-              <FastForwardOutlined title="Start the program" onClick={(e) => startProgram(data)} />{" "}
-               
-             
+              <FastForwardOutlined
+                title="Start the program"
+                onClick={(e) => startProgram(data)}
+              />{" "}
             </>
-            : null
-          }
+          ) : null}
         </>
-        
       ),
     },
   ];
@@ -109,12 +107,12 @@ function ProgramDashboard() {
   };
 
   const editProgram = (data) => {
-    console.log(data);
+    // console.log(data);
   };
 
   const deleteProgram = (data) => {
     axios
-      .patch("/programs/" + data._id+"/status/INACTIVE")
+      .patch("/programs/" + data._id + "/status/INACTIVE")
       .then((res) => {
         if (res.data.status_code === "200") {
           alert(res.data.status_message);
@@ -127,10 +125,10 @@ function ProgramDashboard() {
         console.log("Error" + err);
       });
   };
-  
+
   const startProgram = (data) => {
     axios
-      .patch("/programs/" + data._id+"/status/STARTED")
+      .patch("/programs/" + data._id + "/status/STARTED")
       .then((res) => {
         if (res.data.status_code === "200") {
           alert(res.data.status_message);

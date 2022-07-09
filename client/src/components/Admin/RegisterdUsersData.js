@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Modal, Button, Table, Switch, Tag, Tooltip, Image } from "antd";
 import { CheckOutlined, StopOutlined, EyeOutlined } from "@ant-design/icons";
 import { openNotificationWithIcon } from "../Notifications";
+import { Country, State, City } from "country-state-city";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -11,6 +12,7 @@ function UserRegistertedForProgram(props) {
   const user = useSelector((state) => state.auth);
   const [isAuthenticated, setAuthenticated] = useState(false);
   const [programsData, setProgramsData] = useState([]);
+  const [usersData, setUsersData] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [userImageData, setUserImageData] = useState([]);
   useEffect(() => {
@@ -19,41 +21,95 @@ function UserRegistertedForProgram(props) {
       return;
     }
 
-    console.log(user);
+    // console.log(user);
 
     if (user.isAuthenticated) {
       setAuthenticated(true);
     } else {
       setAuthenticated(false);
     }
-
-    getUserRegisteredData();
+    getAllUsersData();
   }, []);
 
+  const getAllUsersData = () => {
+    axios
+      .get("/users/")
+      .then((res) => {
+        // console.log(res);
+        setUsersData(res.data.user);
+        getUserRegisteredData();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const getCountryAndStateValue = (type, val) => {
+    if (type === "country") {
+      let name = City.getCountryByCode(val.country);
+      // console.log(name);
+    } else {
+      let name = State.getStateByCodeAndCountry(val.country, val.state);
+      // console.log(name);
+    }
+  };
+
+  const getUserDetails = (type, data) => {
+    var name;
+    for (let i = 0; i < usersData.length; i++) {
+      if (data.user_id === usersData[i]._id) {
+        if (type === "NAME") {
+          name = usersData[i].first_name;
+        } else if (type === "EMAIL") {
+          name = usersData[i].email_id;
+        }
+        return name;
+      }
+    }
+  };
   const columns = [
     {
       title: "Name",
-      dataIndex: "name",
+      dataIndex: "first_name",
       key: "name",
-      render: (data) => user.userData.first_name,
+      render: (id, data) => {
+        <p>{getUserDetails("NAME", data)}</p>;
+      },
     },
 
     {
       title: "email",
-      dataIndex: "email",
+      dataIndex: "email_id",
       key: "email",
-      render: (data) => user.userData.email_id,
+      render: (id, data) => {
+        <p>{getUserDetails("EMAIL", data)}</p>;
+      },
     },
     {
       title: "Address",
       dataIndex: "address_1",
       key: "address_1",
     },
-
+    {
+      title: "City",
+      dataIndex: "city",
+      key: "city",
+    },
     {
       title: "State",
       dataIndex: "state",
       key: "state",
+      // render: (id, data) => {
+      //   getCountryAndStateValue("state", data);
+      // },
+    },
+    {
+      title: "Country",
+      dataIndex: "country",
+      key: "country",
+      // render: (id, data) => {
+      //   getCountryAndStateValue("country", data);
+      // },
     },
     {
       title: "Status",
@@ -153,7 +209,7 @@ function UserRegistertedForProgram(props) {
     axios
       .get("/usermanagement/program/" + props.match.params.id)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setProgramsData(res.data.result);
       })
       .catch((err) => {
@@ -166,7 +222,7 @@ function UserRegistertedForProgram(props) {
     axios
       .get(`/userdocuments/program/${data.program_id}/user/${data.user_id}`)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setUserImageData(res.data.result);
       })
       .catch((err) => {
@@ -207,7 +263,12 @@ function UserRegistertedForProgram(props) {
         <div className="container">
           <div className="row">
             <div className="col-xl-10 offset-xl-1">
-              <Table width="100%" columns={columns} dataSource={programsData} />
+              <Table
+                width="100%"
+                rowKey={(record) => record._id}
+                columns={columns}
+                dataSource={programsData}
+              />
             </div>
           </div>
         </div>
@@ -227,7 +288,14 @@ function UserRegistertedForProgram(props) {
             >
               <div className="col">{data.document_type}</div>
               <div className="col">
-                <Image width={150} height={150} src={data.document_path} />
+                {data.document_path.split(".")[1] === "pdf" ||
+                data.document_path.split(".")[1] === "zip" ? (
+                  <a href={data.document_path} target="_blank">
+                    click here to download
+                  </a>
+                ) : (
+                  <Image width={150} height={150} src={data.document_path} />
+                )}
               </div>
             </div>
           );
