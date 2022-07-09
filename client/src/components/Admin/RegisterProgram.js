@@ -11,9 +11,12 @@ const errStyle = {
 };
 
 function RegisterProgram(props) {
+	var programId=props.match.params.id;
+	
   const user = useSelector((state) => state.auth);
   const [isAuthenticated, setAuthenticated] = useState(false);
-  const [courseData, setCourseData] = useState([]);
+ 
+   const [progData, setProgData] = useState([]);
   const [program, setProgram] = useState({
     address_1: "",
     address_2: "",
@@ -32,16 +35,14 @@ function RegisterProgram(props) {
   });
 
   useEffect(() => {
+	getProgramsDataForProgramId(programId);
     if (user.isAuthenticated) {
       setAuthenticated(true);
     } else {
       setAuthenticated(false);
     }
 
-    // if (props.match.params.id) {
-    //   getProgramDataBasedOnId(props.match.params.id);
-    // }
-    // getDataForUploadDocs();
+   
   }, []);
 
   const onProgramChange = (e) => {
@@ -49,6 +50,18 @@ function RegisterProgram(props) {
     setProgram((program) => ({ ...program, [id]: value }));
   };
 
+const getProgramsDataForProgramId = (programId) => {
+    axios
+      .get("/programs/"+programId)
+      .then((res) => {
+        console.log(res.data.result);
+       setProgData(res.data.result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }; 
+  
   const validateProgramData = () => {
     let valid = true;
     if (program.address_1.length <= 3) {
@@ -140,13 +153,16 @@ function RegisterProgram(props) {
         console.log(err);
       });
   };
+  
+ 
 
   return (
     <>
+   
       <div className="ex-basic-1 pt-5 pb-5" style={{ marginTop: "30px" }}>
         <div className="container">
           <div className="row">
-            <div className="col-xl-10 offset-xl-1">
+            <div className="col-xl-10 offset-xl-1" >
               <h1
                 style={{
                   textAlign: "center",
@@ -162,10 +178,26 @@ function RegisterProgram(props) {
           </div>
         </div>
       </div>
-      <div className="container">
+      <div className="container"  style={{
+                 
+                  marginTop: "10px"
+                 
+                }}>
         <div className="row">
-          <div className="col-xl-6 offset-xl-3">
+          <div className="col-xl-6 offset-xl-3" style={{ marginTop: "10px" }}>
             <div className="text-box mt-5 mb-5">
+              <div className="form-group">
+                <input
+                  type="label"
+                  className="form-control-input notEmpty"
+                  value={progData.name}
+                  id="progName"
+                  disabled
+                />
+                <label className="label-control" htmlFor="name">
+                  Program Name
+                </label>
+              </div>
               <div className="form-group">
                 <input
                   type="text"

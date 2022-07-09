@@ -35,6 +35,7 @@ function LandingCoursesCalender() {
         console.log(err);
       });
   };
+   
   const isUserAlreadyRegistered = (programId) => {
 	var usl="/usermanagement/program/"+programId+"/user_id/"+user.userData._id;
 	console.log(usl);
@@ -95,7 +96,7 @@ function LandingCoursesCalender() {
 
         {cData.map((data, index) => {
 	
-	
+	     
           return (
             <>
             

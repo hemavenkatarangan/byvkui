@@ -28,6 +28,7 @@ function UserRegistertedForProgram(props) {
     getUserRegisteredData();
   }, []);
 
+
   const columns = [
     {
       title: "Name",
