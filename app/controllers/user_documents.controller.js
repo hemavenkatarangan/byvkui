@@ -43,7 +43,7 @@ module.exports = {
     },
     getUserDocumentsForUser: async (req, res) => {
         const { user_id } = req.params;
-        const UserDocuments = await UserDocuments.findById(user_id);
+        const UserDocuments = await UserDocuments.find({user_id:user_id});
         if (!course) {
 
             response.status_code = "404";
@@ -55,6 +55,26 @@ module.exports = {
         else {
             response.status_code = "200";
             response.status_message = "User Documents Found for user";
+            response.result = UserDocuments;
+            res.status(200).json(response);
+        }
+
+    },
+     getUserDocumentsForProgram: async (req, res) => {
+        const { user_id } = req.params.user_id;
+        const { program_id } = req.params.program_id;
+        const UserDocuments = await UserDocuments.find({user_id:user_id,program_id:program_id});
+        if (!course) {
+
+            response.status_code = "404";
+            response.status_message = "User Documents for Program not Found";
+            response.result = null;
+            res.status(404).json(response);
+
+        }
+        else {
+            response.status_code = "200";
+            response.status_message = "User Documents Found for program";
             response.result = UserDocuments;
             res.status(200).json(response);
         }

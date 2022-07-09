@@ -8,6 +8,7 @@ router.route('/')
 router.route('/user/:user_id')
     .get(user_documents_Controller.getUserDocumentsForUser);
 
-  
+router.route('/program/:program_id/user/:user_id')
+    .get(user_documents_Controller.getUserDocumentsForProgram);  
 
 module.exports = router;
