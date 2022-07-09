@@ -13,6 +13,10 @@ router.route('/:programId')
     .get(validateParam(schemas.idSchema, ['programId']), programController.getProgram)
     .patch(programController.updateProgram)
     .delete(programController.removeProgram);
+    
+router.route('/:programId/status/:status')
+    .get(validateParam(schemas.idSchema, ['programId']), programController.getProgram)
+    .patch(programController.changeStatusForProgram);
 
 router.route('/course/:courseId')
     .get(validateParam(schemas.idSchema, ['courseId']), programController.getProgramByCourse)

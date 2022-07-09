@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Modal, Button, Table, Switch, Tag } from "antd";
-import { EditOutlined, DeleteOutlined, EyeOutlined } from "@ant-design/icons";
+import { EditOutlined, DeleteOutlined, EyeOutlined ,FastForwardOutlined} from "@ant-design/icons";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -48,20 +48,43 @@ function ProgramDashboard() {
       render: (id, data) => (
         <>
           {
-            // data.status === 'STARTED' ? null :
+             data.status === 'STARTED' ? null :
             <>
               <Link to={{ pathname: "/createprogram/" + data._id, data: data }}>
-                <EditOutlined />
+                <EditOutlined title="Edit Program"/>
               </Link>{" "}
-              <DeleteOutlined onClick={(e) => deleteProgram(data)} />{" "}
+              
+              
+            </>
+          }
+          
+          {
+            
+            <>
+              
+              <DeleteOutlined title="InActivate Program" onClick={(e) => deleteProgram(data)} />{" "}
+              
               <Link
                 to={{ pathname: "/userforprogram/" + data._id, data: data }}
               >
-                <EyeOutlined />
+                <EyeOutlined title="View All Users For Program"/>{" "}
               </Link>
             </>
           }
+          
+           {
+            data.status === 'NOT_STARTED' ?
+            <>
+              
+             
+              <FastForwardOutlined title="Start the program" onClick={(e) => startProgram(data)} />{" "}
+               
+             
+            </>
+            : null
+          }
         </>
+        
       ),
     },
   ];
@@ -91,7 +114,23 @@ function ProgramDashboard() {
 
   const deleteProgram = (data) => {
     axios
-      .delete("/programs/" + data._id)
+      .patch("/programs/" + data._id+"/status/INACTIVE")
+      .then((res) => {
+        if (res.data.status_code === "200") {
+          alert(res.data.status_message);
+          getProgramsData();
+        } else {
+          alert(res.data.error);
+        }
+      })
+      .catch((err) => {
+        console.log("Error" + err);
+      });
+  };
+  
+  const startProgram = (data) => {
+    axios
+      .patch("/programs/" + data._id+"/status/STARTED")
       .then((res) => {
         if (res.data.status_code === "200") {
           alert(res.data.status_message);

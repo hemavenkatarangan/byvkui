@@ -284,7 +284,9 @@ function CreateProgram(props) {
   };
 
   const submitProgram = () => {
+	
     if (props.match.params.id) {
+	program.status="NOT_STARTED";
       axios
         .patch("/programs/" + props.match.params.id, program)
         .then((res) => {

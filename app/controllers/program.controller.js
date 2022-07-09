@@ -149,7 +149,33 @@ module.exports = {
 
 
     },
+ 	changeStatusForProgram: async (req, res) => {
 
+        try {
+            const program = await Program.findByIdAndUpdate(req.params.programId,{ status : req.params.status }, { new: true });
+            if (program) {
+                response.status_code = "200";
+                response.status_message = "Program Changed Status Successfully";
+                response.result = program;
+                res.status(200).json(response);
+
+
+            } else {
+                response.status_code = "404";
+                response.status_message = "Program not found";
+                response.result = null;
+                res.status(200).json(response);
+            }
+
+        }
+        catch (err) {
+            response.status_code = "403";
+            response.errorObj = err;
+            response.status_message = "Program could not be changed with status "+req.params.status;
+            response.result = null;
+            res.status(403).json(response);
+        }
+    },
     updateProgram: async (req, res) => {
 
         try {

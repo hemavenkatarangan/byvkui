@@ -106,7 +106,8 @@ function LandingCoursesCalender() {
                       <a href={"../course/" + data.course}>Learn More</a>
                     </Button>
                   </div>
-                  {isAuthenticated ? (
+                  
+                  {isAuthenticated && data.status !== "INACTIVE" ? (
                     <div className="" style={{ marginTop: "0px" }}>
                       <Button
                         type="primary"
