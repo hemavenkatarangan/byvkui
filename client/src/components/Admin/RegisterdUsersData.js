@@ -28,7 +28,6 @@ function UserRegistertedForProgram(props) {
     getUserRegisteredData();
   }, []);
 
-
   const columns = [
     {
       title: "Name",
@@ -36,7 +35,7 @@ function UserRegistertedForProgram(props) {
       key: "name",
       render: (data) => user.userData.first_name,
     },
-   
+
     {
       title: "email",
       dataIndex: "email",
@@ -47,9 +46,8 @@ function UserRegistertedForProgram(props) {
       title: "Address",
       dataIndex: "address_1",
       key: "address_1",
-      
     },
-    
+
     {
       title: "State",
       dataIndex: "state",
@@ -154,7 +152,9 @@ function UserRegistertedForProgram(props) {
       });
   };
 
- 
+  //  const getDocsOfUser = () => {
+  //   axios.get()
+  //  }
 
   return (
     <>

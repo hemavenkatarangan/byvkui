@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Button } from "antd";
 import axios from "axios";
-import moment from "moment";
+import fileUploadUrl from "../../constants/constants";
 
 const errStyle = {
   color: "red",
@@ -11,12 +10,10 @@ const errStyle = {
 };
 
 function RegisterProgram(props) {
-	var programId=props.match.params.id;
-	
   const user = useSelector((state) => state.auth);
   const [isAuthenticated, setAuthenticated] = useState(false);
- 
-   const [progData, setProgData] = useState([]);
+  const [courseData, setCourseData] = useState([]);
+  const [programData, setProgramData] = useState([]);
   const [program, setProgram] = useState({
     address_1: "",
     address_2: "",
@@ -33,35 +30,36 @@ function RegisterProgram(props) {
     country: "",
     status: "REGISTERED",
   });
+  const [docs, setDocs] = useState([]);
 
   useEffect(() => {
-	getProgramsDataForProgramId(programId);
     if (user.isAuthenticated) {
       setAuthenticated(true);
     } else {
       setAuthenticated(false);
     }
 
-   
+    // if (props.match.params.id) {
+    //   getProgramDataBasedOnId(props.match.params.id);
+    // }
+    getProgramData();
+    // getDataForUploadDocs();
   }, []);
+
+  const getProgramData = () => {
+    axios.get("/programs/" + props.match.params.id).then((res) => {
+      if (res.data.status_code === "200") {
+        setProgramData(res.data.result);
+        setDocs(res.data.result.required_documents);
+      }
+    });
+  };
 
   const onProgramChange = (e) => {
     const { id, value } = e.target;
     setProgram((program) => ({ ...program, [id]: value }));
   };
 
-const getProgramsDataForProgramId = (programId) => {
-    axios
-      .get("/programs/"+programId)
-      .then((res) => {
-        console.log(res.data.result);
-       setProgData(res.data.result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }; 
-  
   const validateProgramData = () => {
     let valid = true;
     if (program.address_1.length <= 3) {
@@ -153,16 +151,49 @@ const getProgramsDataForProgramId = (programId) => {
         console.log(err);
       });
   };
-  
- 
+
+  const arr = [];
+
+  const onFileChange = (e) => {
+    console.log(e.target.files);
+    var form = new FormData();
+    form.append("course_name", e.target.id);
+    // for (let i = 0; i < e.target.files.length; i++) {
+    form.append("files", e.target.files[0]);
+    // }
+
+    axios
+      .post(fileUploadUrl, form)
+      .then((res) => {
+        let obj = {
+          document_path: res.data.result[0],
+          document_type: e.target.id,
+          user_id: user.userData._id,
+          program_id: props.match.params.id,
+          email_id: user.userData.email_id,
+          document_format: "doc",
+        };
+        arr.push(obj);
+        uploadDoctoDatabase(obj);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const uploadDoctoDatabase = (obj) => {
+    axios
+      .post("/userdocuments/", obj)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
 
   return (
     <>
-   
       <div className="ex-basic-1 pt-5 pb-5" style={{ marginTop: "30px" }}>
         <div className="container">
           <div className="row">
-            <div className="col-xl-10 offset-xl-1" >
+            <div className="col-xl-10 offset-xl-1">
               <h1
                 style={{
                   textAlign: "center",
@@ -178,24 +209,22 @@ const getProgramsDataForProgramId = (programId) => {
           </div>
         </div>
       </div>
-      <div className="container"  style={{
-                 
-                  marginTop: "10px"
-                 
-                }}>
+      <div className="container">
         <div className="row">
-          <div className="col-xl-6 offset-xl-3" style={{ marginTop: "10px" }}>
+          <div className="col-xl-6 offset-xl-3">
             <div className="text-box mt-5 mb-5">
               <div className="form-group">
                 <input
-                  type="label"
+                  type="text"
                   className="form-control-input notEmpty"
-                  value={progData.name}
-                  id="progName"
+                  value={programData.name}
+                  id="programName"
+                  // onChange={(e) => onProgramChange(e)}
+                  required
                   disabled
                 />
                 <label className="label-control" htmlFor="name">
-                  Program Name
+                  Name
                 </label>
               </div>
               <div className="form-group">
@@ -310,6 +339,26 @@ const getProgramsDataForProgramId = (programId) => {
                 </label>
                 <p style={errStyle}>{errObj.country}</p>
               </div>
+              {docs.map((data, index) => {
+                return (
+                  <div className="row" style={{ padding: "10px" }} key={index}>
+                    <div className="col-xl-8">Please upload {data}</div>
+                    <div className="col-xl-4">
+                      <input
+                        type="file"
+                        className=""
+                        id={data}
+                        onChange={(e) => onFileChange(e)}
+                        required
+                      />
+                    </div>
+                    {/* <label className="label-control" htmlFor="max_age">
+                      {data} Upload
+                    </label> */}
+                    {/* <p style={errStyle}>{errObj.country}</p> */}
+                  </div>
+                );
+              })}
               <div className="form-group">
                 <button
                   type="submit"

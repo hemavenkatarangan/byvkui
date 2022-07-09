@@ -1,3 +1,5 @@
-const fileUploadUrl = 'https://bharatyogavidyakendra.in/upload'
+const fileUploadUrl = "http://localhost:8080/upload";
 
-export default fileUploadUrl
+// 'https://bharatyogavidyakendra.in/upload'
+
+export default fileUploadUrl;
