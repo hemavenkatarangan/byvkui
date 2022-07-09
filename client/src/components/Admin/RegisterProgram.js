@@ -41,6 +41,7 @@ function RegisterProgram(props) {
     // if (props.match.params.id) {
     //   getProgramDataBasedOnId(props.match.params.id);
     // }
+    // getDataForUploadDocs();
   }, []);
 
   const onProgramChange = (e) => {
