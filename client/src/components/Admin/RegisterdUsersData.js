@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Modal, Button, Table, Switch, Tag, Tooltip } from "antd";
-import { CheckOutlined, StopOutlined } from "@ant-design/icons";
+import { Modal, Button, Table, Switch, Tag, Tooltip, Image } from "antd";
+import { CheckOutlined, StopOutlined, EyeOutlined } from "@ant-design/icons";
 import { openNotificationWithIcon } from "../Notifications";
 import moment from "moment";
 import { Link } from "react-router-dom";
@@ -11,6 +11,8 @@ function UserRegistertedForProgram(props) {
   const user = useSelector((state) => state.auth);
   const [isAuthenticated, setAuthenticated] = useState(false);
   const [programsData, setProgramsData] = useState([]);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [userImageData, setUserImageData] = useState([]);
   useEffect(() => {
     if (user.userData.roles[0] !== "ADMIN") {
       window.location.href = "/home";
@@ -107,7 +109,14 @@ function UserRegistertedForProgram(props) {
                     onClick={(e) => approveORrejectUser(data, "REJECTED")}
                   />
                 </Tooltip>
-              )}
+              )}{" "}
+              <Tooltip title="View Documents">
+                <Button
+                  shape="circle"
+                  icon={<EyeOutlined />}
+                  onClick={(e) => openUserDocuments(data)}
+                />
+              </Tooltip>
             </>
           }
         </>
@@ -152,9 +161,26 @@ function UserRegistertedForProgram(props) {
       });
   };
 
-  //  const getDocsOfUser = () => {
-  //   axios.get()
-  //  }
+  const openUserDocuments = (data) => {
+    setIsModalVisible(true);
+    axios
+      .get(`/userdocuments/program/${data.program_id}/user/${data.user_id}`)
+      .then((res) => {
+        console.log(res);
+        setUserImageData(res.data.result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
 
   return (
     <>
@@ -186,6 +212,27 @@ function UserRegistertedForProgram(props) {
           </div>
         </div>
       </div>
+      <Modal
+        title="User Documents"
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        {userImageData.map((data, index) => {
+          return (
+            <div
+              className="row"
+              style={{ marginBottom: "20px", border: "1px solid black" }}
+              key={index}
+            >
+              <div className="col">{data.document_type}</div>
+              <div className="col">
+                <Image width={150} height={150} src={data.document_path} />
+              </div>
+            </div>
+          );
+        })}
+      </Modal>
     </>
   );
 }

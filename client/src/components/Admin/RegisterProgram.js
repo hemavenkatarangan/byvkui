@@ -224,7 +224,7 @@ function RegisterProgram(props) {
                   disabled
                 />
                 <label className="label-control" htmlFor="name">
-                  Name
+                  Program Name
                 </label>
               </div>
               <div className="form-group">
