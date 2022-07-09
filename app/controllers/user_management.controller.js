@@ -32,7 +32,23 @@ module.exports = {
       res.status(200).json(response);
     }
   },
-
+ getRegisteredUserByUserForProgram: async (req, res) => {
+    var program_id = req.params.program_id;
+    var user_id = req.params.user_id;
+    // console.log("Program id :" + program_id);
+    const users = await UserManagement.find({ program_id: program_id ,user_id:user_id});
+    if (!users) {
+      response.status_code = "404";
+      response.status_message = "Program Users Data not found";
+      response.result = null;
+      return res.status(200).json(response);
+    } else {
+      response.status_code = "200";
+      response.status_message = "Program users data found";
+      response.result = users;
+      res.status(200).json(response);
+    }
+  },
   getUserManagement: async (req, res) => {
     const { userManagementId } = req.params;
     const userManagement = await UserManagement.findById(userManagementId);

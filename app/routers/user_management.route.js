@@ -12,6 +12,9 @@ router.route('/program/:program_id')
 router.route('/status/:userManagementId')
      .get(validateParam(schemas.idSchema, ['userManagementId']), user_management_Controller.getUserManagement)
      .patch(user_management_Controller.updateStatus);
-   
+     
+router.route('/program/:program_id/user_id/:user_id')
+     .get(user_management_Controller.getRegisteredUserByUserForProgram)
+    
 
 module.exports = router;

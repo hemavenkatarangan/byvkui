@@ -35,38 +35,24 @@ function UserRegistertedForProgram(props) {
       key: "name",
       render: (data) => user.userData.first_name,
     },
-    // {
-    //   title: "email",
-    //   dataIndex: "email",
-    //   key: "email",
-    //   render: (data) => user.userData.email_id,
-    // },
+   
     {
       title: "email",
       dataIndex: "email",
       key: "email",
-      render: (data) => user.userData.phone_num,
+      render: (data) => user.userData.email_id,
     },
     {
       title: "Address",
       dataIndex: "address_1",
       key: "address_1",
+      
     },
-    {
-      title: "Address",
-      dataIndex: "address_1",
-      key: "address_1",
-    },
+    
     {
       title: "State",
       dataIndex: "state",
       key: "state",
-    },
-    {
-      title: "Start Date",
-      dataIndex: "program_start_date",
-      key: "program_start_date",
-      render: (data) => getFormatedDate(data),
     },
     {
       title: "Status",
@@ -167,25 +153,7 @@ function UserRegistertedForProgram(props) {
       });
   };
 
-  //   const editProgram = (data) => {
-  //     console.log(data);
-  //   };
-
-  //   const deleteProgram = (data) => {
-  //     axios
-  //       .delete("/programs/" + data._id)
-  //       .then((res) => {
-  //         if (res.data.status_code === "200") {
-  //           alert(res.data.status_message);
-  //           getUserRegisteredData();
-  //         } else {
-  //           alert(res.data.error);
-  //         }
-  //       })
-  //       .catch((err) => {
-  //         console.log("Error" + err);
-  //       });
-  //   };
+ 
 
   return (
     <>

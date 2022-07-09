@@ -7,9 +7,12 @@ import axios from "axios";
 function LandingCoursesCalender() {
   const user = useSelector((state) => state.auth);
   const [isAuthenticated, setAuthenticated] = useState(false);
+  
   const [cData, setcData] = useState([]);
 
   useEffect(() => {
+	console.log("Logged user ");
+	console.log(user);
     if (user.isAuthenticated) {
       setAuthenticated(true);
     } else {
@@ -32,12 +35,36 @@ function LandingCoursesCalender() {
         console.log(err);
       });
   };
-
+  const isUserAlreadyRegistered = (programId) => {
+	var usl="/usermanagement/program/"+programId+"/user_id/"+user.userData._id;
+	console.log(usl);
+    axios
+      .get("/usermanagement/program/"+programId+"/user_id/"+user.userData._id)
+      .then((res) => {
+	    console.log(res.data.result.length);
+        if(res.data.result.length == 0)
+        {
+	       return false;
+		  
+		}
+		else
+		{
+			return true;
+			
+		}
+		
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  
   const getFormatedDate = (date) => {
+	console.log("formatting......")
     return moment(date).format("DD-MMM");
   };
 
-  const handleCourseReg = (id) => {};
+ 
 
   return (
     <>
@@ -67,11 +94,15 @@ function LandingCoursesCalender() {
         </div>
 
         {cData.map((data, index) => {
+	
+	
           return (
             <>
+            
               <div key={index} className="row">
                 <div className="col-lg-4" style={{ textAlign: "center" }}>
                   <h5 style={{ fontFamily: "Poppins", fontSize: "16px" }}>
+                  
                     {getFormatedDate(data.program_start_date)} {"to"}{" "}
                     {getFormatedDate(data.program_end_date)}
                   </h5>
@@ -106,8 +137,8 @@ function LandingCoursesCalender() {
                       <a href={"../course/" + data.course}>Learn More</a>
                     </Button>
                   </div>
-                  
-                  {isAuthenticated && data.status !== "INACTIVE" ? (
+                 
+                  {isAuthenticated && data.status !== "INACTIVE" &&  data.status !== "STARTED" && !isUserAlreadyRegistered(data._id) ? (
                     <div className="" style={{ marginTop: "0px" }}>
                       <Button
                         type="primary"
