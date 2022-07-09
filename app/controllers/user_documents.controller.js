@@ -43,7 +43,7 @@ module.exports = {
     },
     getUserDocumentsForUser: async (req, res) => {
         const { user_id } = req.params;
-        const UserDocuments = await UserDocuments.find({user_id:user_id});
+        const userDocs = await UserDocuments.find({user_id:user_id});
         if (!userDocs) {
 
             response.status_code = "404";
@@ -55,7 +55,7 @@ module.exports = {
         else {
             response.status_code = "200";
             response.status_message = "User Documents Found for user";
-            response.result = UserDocuments;
+            response.result = userDocs;
             res.status(200).json(response);
         }
 
