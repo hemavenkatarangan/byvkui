@@ -133,7 +133,7 @@ function LandingCoursesCalender() {
                   {isAuthenticated &&
                   data.status !== "INACTIVE" &&
                   data.status !== "STARTED" &&
-                  !isUserAlreadyRegistered(data._id) ? (
+                  isUserAlreadyRegistered(data._id) == false ? (
                     <div className="" style={{ marginTop: "0px" }}>
                       <Button
                         type="primary"

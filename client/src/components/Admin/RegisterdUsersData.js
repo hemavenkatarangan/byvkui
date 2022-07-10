@@ -56,13 +56,16 @@ function UserRegistertedForProgram(props) {
 
   const getUserDetails = (type, data) => {
     var name;
+   
     for (let i = 0; i < usersData.length; i++) {
+	 console.log(usersData[i]);
       if (data.user_id === usersData[i]._id) {
         if (type === "NAME") {
-          name = usersData[i].first_name;
+          name = usersData[i].first_name +" "+usersData[i].last_name;
         } else if (type === "EMAIL") {
           name = usersData[i].email_id;
         }
+        console.log("Found "+name);
         return name;
       }
     }
