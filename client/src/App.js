@@ -42,6 +42,7 @@ import MediaDashboard from "./components/Admin/ImagesDashboard";
 import Careers from "./components/Careers";
 import RegisterProgram from "./components/Admin/RegisterProgram";
 import UserRegistertedForProgram from "./components/Admin/RegisterdUsersData";
+import UsersQuery from "./components/Admin/UsersQuery";
 if (localStorage.jwtToken) {
   const token = localStorage.jwtToken;
   setAuthToken(token);
@@ -91,6 +92,7 @@ function App() {
         <Route exact path="/refund" component={Refund} />
         <Route exact path="/careers" component={Careers} />
         <Route exact path="/registercourse/:id" component={RegisterProgram} />
+        <Route exact path="/userquery" component={UsersQuery} />
         <Route
           exact
           path="/userforprogram/:id"
