@@ -35,6 +35,8 @@ import ProgramDashboard from "./components/Admin/ProgramDashboard";
 import CreateProgram from "./components/Admin/CreateProgram";
 import MediaDashboard from "./components/Admin/ImagesDashboard";
 import Careers from "./components/Careers";
+import UsersQuery from "./components/Admin/UsersQuery";
+
 if (localStorage.jwtToken) {
   const token = localStorage.jwtToken;
   setAuthToken(token);
@@ -58,37 +60,39 @@ function App() {
       <Nav />
         <Router>
         <Route exact path="/" component={Landing} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/about" component={About} />
-          <Route exact path="/srim" component={SriM} />
-          <Route exact path="/admin" component={Admin} />
-          <Route exact path="/qa/:id" component={Qa} />
-          <Route exact path="/courses" component={Courses} />
-          <Route exact path="/gallery" component={Gallery} />
-          <Route exact path="/events/:id" component={DisplayEvents} />
-          <Route exact path="/yogam" component={YogaM} />
-          <Route exact path="/coursedashboard" component={CourseDashboard} />
-          <Route exact path="/programdashboard" component={ProgramDashboard} />
-          <Route exact path="/createprogram" component={CreateProgram} />
-          <Route exact path="/createprogram/:id" component={CreateProgram} />
-          <Route exact path="/mediadashboard" component={MediaDashboard} />
-          <Route exact path="/course/:id" component={GenericCourses} />
-          <Route exact path="/ttc" component={TTC} />
-          <Route exact path="/kaushalam" component={KaushalaM} />
-          <Route exact path="/contactus" component={ContactUs} />
-          <Route exact path="/abhayam" component={AbhayaM} />
-          <Route exact path="/avistaran" component={Avistaran} />
-          <Route exact path="/sakhyam" component={SakhyaM} />
-          <Route exact path="/terms" component={Terms} />
-          <Route exact path="/privacy" component={Privacy} />
-          <Route exact path="/refund" component={Refund} />
-          <Route exact path="/careers" component={Careers} />
-          <Switch>
-            <PrivateRoute exact path="/home" component={Home} />
-            {/* <Route path="/404" component={NotFound} /> */}
-            {/* <Route component={NotFound} /> */}
-          </Switch>
+
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/register" component={Register} />
+        <Route exact path="/about" component={About} />
+        <Route exact path="/srim" component={SriM} />
+        <Route exact path="/admin" component={Admin} />
+        <Route exact path="/qa/:id" component={Qa} />
+        <Route exact path="/courses" component={Courses} />
+        <Route exact path="/gallery" component={Gallery} />
+        <Route exact path="/events/:id" component={DisplayEvents} />
+        <Route exact path="/yogam" component={YogaM} />
+        <Route exact path="/coursedashboard" component={CourseDashboard} />
+        <Route exact path="/programdashboard" component={ProgramDashboard} />
+        <Route exact path="/createprogram" component={CreateProgram} />
+        <Route exact path="/createprogram/:id" component={CreateProgram} />
+        <Route exact path="/mediadashboard" component={MediaDashboard} />
+        <Route exact path="/course/:id" component={GenericCourses} />
+        <Route exact path="/ttc" component={TTC} />
+        <Route exact path="/kaushalam" component={KaushalaM} />
+        <Route exact path="/contactus" component={ContactUs} />
+        <Route exact path="/abhayam" component={AbhayaM} />
+        <Route exact path="/avistaran" component={Avistaran} />
+        <Route exact path="/sakhyam" component={SakhyaM} />
+        <Route exact path="/terms" component={Terms} />
+        <Route exact path="/privacy" component={Privacy} />
+        <Route exact path="/refund" component={Refund} />
+        <Route exact path="/careers" component={Careers} />
+       
+        <Route exact path="/userquery" component={UsersQuery} />
+        
+          <PrivateRoute exact path="/home" component={Home} />
+          {/* <Route path="/404" component={NotFound} /> */}
+
           {/* <Route component={NotFound} /> */}
         </Router>
       <Footer />
