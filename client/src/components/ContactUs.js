@@ -183,7 +183,7 @@ function ContactUs() {
                 }}
               >
                 If you wish to leave us a message or have any queries, please
-                fill out the form at below link:
+                fill out the form  below :
               </p>
               <p
                 className=""
