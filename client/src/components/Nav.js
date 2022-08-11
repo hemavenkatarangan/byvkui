@@ -235,7 +235,7 @@ function Nav() {
                     style={{ color: "black", fontSize: "14px" }}
                     href="/userquery"
                   >
-                    Query Data
+                    Query Dashboard
                   </a>
                   <div className="dropdown-divider"></div>
                 </div>

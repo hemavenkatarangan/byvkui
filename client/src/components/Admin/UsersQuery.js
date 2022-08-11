@@ -41,6 +41,11 @@ function UsersQuery() {
       key: "email",
     },
     {
+      title: "Course Name",
+      dataIndex: "courseName",
+      key: "courseName",
+    },
+    {
       title: "Query",
       dataIndex: "query",
       key: "query",
@@ -87,7 +92,7 @@ function UsersQuery() {
                   fontSize: "32px",
                 }}
               >
-                User Questions
+                Queries
               </h1>
             </div>
           </div>

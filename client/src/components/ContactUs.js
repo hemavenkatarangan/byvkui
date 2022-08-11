@@ -14,6 +14,7 @@ function ContactUs() {
     address: "",
     email: "",
     query: "",
+    courseName: "",
     phonenumber: "",
   });
   const [errObj, setErrObj] = useState({
@@ -21,8 +22,16 @@ function ContactUs() {
     address: "",
     email: "",
     query: "",
+    courseName: "",
     phonenumber: "",
   });
+  const [courses, setCourses] = useState([]);
+
+  useEffect(() => {
+    axios.get("/courses").then((resp) => {
+      setCourses(resp.data.result);
+    });
+  }, []);
 
   const handleChage = (e) => {
     const { id, value } = e.target;
@@ -46,6 +55,14 @@ function ContactUs() {
       setErrObj((errObj) => ({
         ...errObj,
         address: "Address should be mandatory",
+      }));
+    }
+
+    if (contact.courseName.length < 1) {
+      proceed = false;
+      setErrObj((errObj) => ({
+        ...errObj,
+        courseName: "Please select a course name",
       }));
     }
 
@@ -209,6 +226,30 @@ function ContactUs() {
                           Address
                         </label>
                         <p style={errStyle}>{errObj.address}</p>
+                      </div>
+                      <div className="form-group">
+                        {/* <input type="" className="form-control-input notEmpty" value={program.course} id="course" onChange={(e) => onProgramChange(e)} required /> */}
+                        <select
+                          className="form-control-input notEmpty"
+                          id="courseName"
+                          onChange={(e) => handleChage(e)}
+                          required
+                        >
+                          <option value="">Select</option>
+                          {courses.map((d, index) => {
+                            if (d.isActive) {
+                              return (
+                                <option value={d.course_name} key={index}>
+                                  {d.course_name}
+                                </option>
+                              );
+                            }
+                          })}
+                        </select>
+                        <label className="label-control" htmlFor="courseName">
+                          Course Name
+                        </label>
+                        <p style={errStyle}>{errObj.courseName}</p>
                       </div>
                       <div className="form-group">
                         <textarea

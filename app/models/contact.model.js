@@ -9,6 +9,7 @@ var ContactSchema = new Schema(
     email: { type: String },
     address: { type: String },
     phonenumber: { type: Number },
+    courseName: { type: String },
   },
   {
     timestamps: true,
