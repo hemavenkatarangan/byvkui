@@ -14,7 +14,6 @@ var ProgramSchema = new Schema(
         max_age: { type: Number },
         registration_start_date: { type: Date },
         registration_end_date: { type: Date },
-        publish_date: { type: Date },
         program_start_date: { type: Date },
         program_end_date: { type: Date },
         program_max_size: { type: Number },
