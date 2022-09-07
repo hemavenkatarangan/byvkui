@@ -7,6 +7,7 @@ import axios from "axios";
 function LandingCoursesCalender() {
   const user = useSelector((state) => state.auth);
   const [isAuthenticated, setAuthenticated] = useState(false);
+  const [isUserHasRegistered,setUserAlreadyRegistered] = useState(false);
 
   const [cData, setcData] = useState([]);
 
@@ -37,24 +38,31 @@ function LandingCoursesCalender() {
   };
 
   const isUserAlreadyRegistered = (programId) => {
+	console.log("Checking user registration");
     var usl =
       "/usermanagement/program/" + programId + "/user_id/" + user.userData._id;
-    // console.log(usl);
+   
     axios
       .get(
         "/usermanagement/program/" + programId + "/user_id/" + user.userData._id
       )
       .then((res) => {
-        // console.log(res.data.result.length);
+	
         if (res.data.result.length == 0) {
-          return false;
+	     
+          setUserAlreadyRegistered(false);
+           return false;
         } else {
-          return true;
+	console.log("Returning true");
+         setUserAlreadyRegistered(true);
+         return true;
         }
       })
       .catch((err) => {
         console.log(err);
       });
+      console.log(isUserHasRegistered)
+      return isUserHasRegistered;
   };
 
   const getFormatedDate = (date) => {
@@ -90,8 +98,11 @@ function LandingCoursesCalender() {
         </div>
 
         {cData.map((data, index) => {
-          return (
+	
+	      return (
             <>
+       
+	
               <div key={index} className="row">
                 <div className="col-lg-4" style={{ textAlign: "center" }}>
                   <h5 style={{ fontFamily: "Poppins", fontSize: "16px" }}>
@@ -111,7 +122,8 @@ function LandingCoursesCalender() {
                     {data.name}
                   </h4>
                   <p style={{ fontFamily: "Poppins", fontSize: "16px" }}>
-                    {data.description}
+                    {data.description} 
+                                        
                   </p>
                 </div>
                 <div className="col-lg-4" style={{ textAlign: "center" }}>
@@ -130,10 +142,11 @@ function LandingCoursesCalender() {
                     </Button>
                   </div>
 
-                  {isAuthenticated &&
+                                   
+                  {(isAuthenticated &&
                   data.status !== "INACTIVE" &&
                   data.status !== "STARTED" &&
-                  isUserAlreadyRegistered(data._id) == false ? (
+                  !isUserHasRegistered) ? (
                     <div className="" style={{ marginTop: "0px" }}>
                       <Button
                         type="primary"
@@ -150,7 +163,7 @@ function LandingCoursesCalender() {
                         </a>
                       </Button>
                     </div>
-                  ) : null}
+                  ) : "You already registered"}
                 </div>
               </div>
               <hr style={{ marginTop: "4px" }} />
