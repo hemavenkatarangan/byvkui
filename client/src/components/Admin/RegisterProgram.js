@@ -35,6 +35,9 @@ function RegisterProgram(props) {
   const [country, setCountry] = useState([]);
   const [states, setStates] = useState([]);
   const [city, setCity] = useState([]);
+  const [isChecked,setIsChecked] = useState(false);
+  const [checkedName,setCheckedName] = useState("");
+  const [relationship,setRelationship]=useState("SELF");
 
   useEffect(() => {
     // console.log(Country.getAllCountries());
@@ -88,6 +91,7 @@ function RegisterProgram(props) {
   };
 
   const validateProgramData = () => {
+	console.log(program,"program");
     let valid = true;
     if (program.address_1.length <= 3) {
       valid = false;
@@ -153,18 +157,40 @@ function RegisterProgram(props) {
   };
 
   const submitProgram = () => {
-    var obj = {
-      program_id: props.match.params.id,
-      user_id: user.user.id,
-      email_id: user.user.name,
-      address_1: program.address_1,
-      address_2: program.address_2,
-      city: program.city,
-      state: program.state,
-      country: program.country,
-      status: "REGISTERED",
-      reject_reason: "",
-    };
+	var obj = {};
+	if(isChecked){
+		obj = {
+	      program_id: props.match.params.id,
+	      user_id: user.user.id,
+	      user_name:checkedName,
+	      user_email:user.userData.email_id,
+	      address_1: program.address_1,
+	      address_2: program.address_2,
+	      city: program.city,
+	      state: program.state,
+	      country: program.country,
+	      status: "REGISTERED",
+	      reject_reason: "",
+	      registered_by:user.user.name,
+	      relationship:relationship,
+	    };	
+	}else{
+		obj = {
+	      program_id: props.match.params.id,
+	      user_id: user.user.id,
+	      user_name: user.user.name,
+	      user_email:user.userData.email_id,
+	      address_1: program.address_1,
+	      address_2: program.address_2,
+	      city: program.city,
+	      state: program.state,
+	      country: program.country,
+	      status: "REGISTERED",
+	      reject_reason: "",
+	      registered_by:user.user.name,
+	      relationship: relationship,
+	    };	
+	}
 
     axios
       .post("/usermanagement/", obj)
@@ -228,6 +254,24 @@ function RegisterProgram(props) {
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
+  
+  const handleCheckboxChange = (e) => {
+	if (e.target.checked){
+		setIsChecked(true);
+		document.getElementById('userName').value='';
+	}else{
+		setIsChecked(false);
+	}
+	
+}
+
+	const checkNameHandler = (e) => {
+		setCheckedName(e.target.value);
+	}
+	
+	const relationshipChangeHandler=(e)=>{
+		setRelationship(e.target.value);
+	}
 
   return (
     <>
@@ -254,6 +298,12 @@ function RegisterProgram(props) {
         <div className="row">
           <div className="col-xl-6 offset-xl-3">
             <div className="text-box mt-5 mb-5">
+              <div className="form-check ml-3 mb-3">
+  				<input className="form-check-input" type="checkbox" value="" id="checked" onChange={handleCheckboxChange}/>
+				  <label className="form-check-label">
+				    Register program for other person
+				  </label>
+				</div>
               <div className="form-group">
                 <input
                   type="text"
@@ -269,15 +319,21 @@ function RegisterProgram(props) {
                 </label>
               </div>
               <div className="form-group">
+              {isChecked ? (
                 <input
+                  type="text"
+                  className="form-control-input notEmpty"
+                  id="userName"
+                  onChange={checkNameHandler}
+                  required
+                />):(<input
                   type="text"
                   className="form-control-input notEmpty"
                   value={user.userData.first_name}
                   id="userName"
-                  onChange={(e) => onProgramChange(e)}
                   required
                   disabled
-                />
+                />)}
                 <label className="label-control" htmlFor="name">
                   Name
                 </label>
@@ -310,6 +366,47 @@ function RegisterProgram(props) {
                   Phone Number
                 </label>
               </div>
+                   {isChecked?( <div className="form-group">
+                <select
+                  className="form-control-input notEmpty"
+                  id="relationship"
+                  required
+                  onChange={relationshipChangeHandler}
+                ><option value="PARENT" key="parent">
+                        Parent
+                      </option>
+                      <option value="SPOUSE" key="spouse">
+                        Spouse
+                      </option>
+                      <option value="SELF" key="self" selected>
+                        Self
+                      </option>
+                      
+                </select>
+                <label className="label-control">
+                  Relationship 
+                </label>
+              </div>):(<div className="form-group">
+                <select
+                  className="form-control-input notEmpty"
+                  id="relationship"
+                  disabled
+                  required
+                ><option value="PARENT" key="parent">
+                        Parent
+                      </option>
+                      <option value="SPOUSE" key="spouse">
+                        Spouse
+                      </option>
+                      <option value="SELF" key="self" selected>
+                        Self
+                      </option>
+                      
+                </select>
+                <label className="label-control" htmlFor="max_age">
+                  Relationship 
+                </label>
+              </div>)}      
               <div className="form-group">
                 <input
                   type="text"

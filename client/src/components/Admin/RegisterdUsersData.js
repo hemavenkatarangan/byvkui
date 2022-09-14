@@ -15,6 +15,7 @@ function UserRegistertedForProgram(props) {
   const [usersData, setUsersData] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [userImageData, setUserImageData] = useState([]);
+  const [getUserInfo,setUserInfo] = useState(String);
   useEffect(() => {
     if (user.userData.roles[0] !== "ADMIN") {
       window.location.href = "/home";
@@ -35,7 +36,6 @@ function UserRegistertedForProgram(props) {
     axios
       .get("/users/")
       .then((res) => {
-        // console.log(res);
         setUsersData(res.data.user);
         getUserRegisteredData();
       })
@@ -58,36 +58,37 @@ function UserRegistertedForProgram(props) {
     var name;
    
     for (let i = 0; i < usersData.length; i++) {
-	 console.log(usersData[i]);
+	 //console.log(usersData[i]);
       if (data.user_id === usersData[i]._id) {
         if (type === "NAME") {
           name = usersData[i].first_name +" "+usersData[i].last_name;
+           setUserInfo(name);
+        
         } else if (type === "EMAIL") {
           name = usersData[i].email_id;
+          setUserInfo(name);
         }
         console.log("Found "+name);
-        return name;
+        return getUserInfo;
       }
     }
   };
   const columns = [
     {
       title: "Name",
-      dataIndex: "first_name",
-      key: "name",
-      render: (id, data) => {
-        <p>{getUserDetails("NAME", data)}</p>;
-      },
+      dataIndex: "user_name",
+      key: "user_name",
     },
-
     {
-      title: "email",
-      dataIndex: "email_id",
-      key: "email",
-      render: (id, data) => {
-        <p>{getUserDetails("EMAIL", data)}</p>;
-      },
+      title: "Email",
+      dataIndex: "user_email",
+      key: "user_email",
     },
+    {
+		title:"Relationship",
+		dataIndex:"relationship",
+		key:"relationship",
+	},
     {
       title: "Address",
       dataIndex: "address_1",
@@ -212,7 +213,7 @@ function UserRegistertedForProgram(props) {
     axios
       .get("/usermanagement/program/" + props.match.params.id)
       .then((res) => {
-        // console.log(res);
+        console.log(res.data.result,"alldata");
         setProgramsData(res.data.result);
       })
       .catch((err) => {

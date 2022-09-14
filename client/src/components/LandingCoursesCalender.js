@@ -29,8 +29,16 @@ function LandingCoursesCalender() {
     axios
       .get("/programs/")
       .then((res) => {
-        // console.log(res.data.result);
+        
         setcData(res.data.result);
+        
+        cData.map((data, index) => {
+	
+	     var isUserRegistered=isUserAlreadyRegistered(data._id);
+	     console.log("Set user registered");
+	     data.isUserRegistered=isUserRegistered;
+	    });
+        
       })
       .catch((err) => {
         console.log(err);
@@ -98,6 +106,7 @@ function LandingCoursesCalender() {
         </div>
 
         {cData.map((data, index) => {
+	console.log(data);
 	
 	      return (
             <>
@@ -146,7 +155,7 @@ function LandingCoursesCalender() {
                   {(isAuthenticated &&
                   data.status !== "INACTIVE" &&
                   data.status !== "STARTED" &&
-                  !isUserHasRegistered) ? (
+                  !data.isUserRegistered) ? (
                     <div className="" style={{ marginTop: "0px" }}>
                       <Button
                         type="primary"
