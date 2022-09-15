@@ -13,7 +13,7 @@ module.exports = {
 
                 if (result.error) {
                     response.status_code = "400";
-                    response.status_message = "Schema validation failed";
+                    response.status_message = "React Schema validation failed";
                     response.result = result.error.details;
                     return res.status(400).json(response);
                 }
@@ -86,7 +86,7 @@ module.exports = {
                 .required(),
             last_name: Joi.string()
                 .alphanum()
-                .min(3)
+                .min(1)
                 .max(30)
                 .required(),
             password: Joi.string()
@@ -94,7 +94,7 @@ module.exports = {
 
             confirm_password: Joi.ref('password'),
             dob: Joi.date(),
-            phone_num: Joi.string().length(10).pattern(/^[0-9]+$/).required(),
+            phone_num: Joi.string().length(10).pattern(/^[0-9]+$/).allow(""),
             email_id: Joi.string()
                 .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).required()
         }).with('password', 'confirm_password'),
@@ -112,7 +112,6 @@ module.exports = {
             status: Joi.string().valid('Not Started', 'Open', 'Started', 'Cancelled', 'Completed', 'Closed').required(),
             registrationStartDate: Joi.date().required(),
             registrationEndDate: Joi.date().required(),
-            publishDate: Joi.date().required(),
             eventStartDate: Joi.date().required(),
             eventEndDate: Joi.date().required(),
             eventMaxSize: Joi.number().required(),

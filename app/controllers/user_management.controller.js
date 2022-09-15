@@ -91,13 +91,13 @@ module.exports = {
       const user = await newUser.save();
 
       response.status_code = "200";
-      response.status_message = "User Registered for Program";
+      response.status_message = "User Registered for Event";
       response.result = user;
       return res.status(200).json(response);
     } catch (err) {
       console.log(err);
       response.status_code = "404";
-      response.status_message = "User not registered for program";
+      response.status_message = "User not registered for Event";
       response.result = null;
       return res.status(404).json(response);
     }

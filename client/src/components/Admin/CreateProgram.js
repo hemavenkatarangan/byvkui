@@ -19,6 +19,10 @@ const docsOptions = [
   "PASSPORT",
 ];
 
+const noDocument = [
+	"No Document"
+];
+
 const programType = [
   {
     pName: "Online",
@@ -53,6 +57,7 @@ function CreateProgram(props) {
   const user = useSelector((state) => state.auth);
   const [isAuthenticated, setAuthenticated] = useState(false);
   const [courseData, setCourseData] = useState([]);
+  const [document,setDocument] = useState(true);
   const [program, setProgram] = useState({
     name: "",
     description: "",
@@ -329,6 +334,15 @@ function CreateProgram(props) {
       required_documents: checkedValues,
     }));
   };
+  
+  const noDocumentHandler = () =>{
+	if(document){
+		setDocument(false);
+	}else{
+		setDocument(true);
+	}
+}
+
 
   return (
     <>
@@ -345,7 +359,7 @@ function CreateProgram(props) {
                   fontSize: "32px",
                 }}
               >
-                Create Program
+                Create Event
               </h1>
             </div>
           </div>
@@ -361,7 +375,7 @@ function CreateProgram(props) {
                 size="large"
                 onClick={(e) => visitProgramDashboard()}
               >
-                Program Dashboard
+                Event Dashboard
               </Button>
             </div>
             <div className="text-box mt-5 mb-5">
@@ -375,7 +389,7 @@ function CreateProgram(props) {
                   required
                 />
                 <label className="label-control" htmlFor="name">
-                  Program Name
+                  Event Name
                 </label>
                 <p style={errStyle}>{errObj.name}</p>
               </div>
@@ -389,7 +403,7 @@ function CreateProgram(props) {
                   required
                 />
                 <label className="label-control" htmlFor="description">
-                  Program Description
+                  Event Description
                 </label>
                 <p style={errStyle}>{errObj.description}</p>
               </div>
@@ -451,7 +465,7 @@ function CreateProgram(props) {
                   })}
                 </select>
                 <label className="label-control" htmlFor="program_type">
-                  Program Type
+                  Event Type
                 </label>
                 <p style={errStyle}>{errObj.program_type}</p>
               </div>
@@ -568,19 +582,27 @@ function CreateProgram(props) {
                   required
                 />
                 <label className="label-control" htmlFor="program_max_size">
-                  Program maximum Size
+                  Event maximum Size
                 </label>
                 <p style={errStyle}>{errObj.program_max_size}</p>
               </div>
               <div className="form-group">
                 <Checkbox.Group
-                  options={docsOptions}
-                  onChange={onCheckChange}
+                	options={noDocument}
+                  onChange={noDocumentHandler}
                 />
                 {/* <label className="label-control" htmlFor="documents">
                   Documents needed
                 </label> */}
               </div>
+              <hr/>
+              {document &&
+              (<div className="form-group">
+                <Checkbox.Group
+                  options={docsOptions}
+                  onChange={onCheckChange}
+                />
+              </div>)}
               <div className="form-group">
                 <button
                   type="submit"
@@ -589,9 +611,9 @@ function CreateProgram(props) {
                   onClick={(e) => validateProgramData(e)}
                 >
                   {props.match.params.id ? (
-                    <>Update Program</>
+                    <>Update Event</>
                   ) : (
-                    <>Create Program</>
+                    <>Create Event</>
                   )}
                 </button>
               </div>

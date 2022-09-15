@@ -28,13 +28,13 @@ module.exports = {
         const program = await Program.findById(programId);
         if (!program) {
             response.status_code = "404";
-            response.status_message = "Program not found";
+            response.status_message = "Event not found";
             response.result = null;
             return res.status(404).send(response);
         }
 
         response.status_code = "200";
-        response.status_message = "Program found";
+        response.status_message = "Event found";
         response.result = program;
         res.status(200).json(response);
     },
@@ -45,13 +45,13 @@ module.exports = {
         if (!program) {
 
             response.status_code = "404";
-            response.status_message = "Program not found";
+            response.status_message = "Event not found";
             response.result = null;
             return res.status(404).send(response);
         }
 
         response.status_code = "200";
-        response.status_message = "Program found";
+        response.status_message = "Event found";
         response.result = program;
         res.status(200).json(response);
     },
@@ -61,12 +61,12 @@ module.exports = {
         const program = await Program.findById(programId).populate('course');
         if (!program) {
             response.status_code = "404";
-            response.status_message = "Program not found";
+            response.status_message = "Event not found";
             response.result = null;
             return res.status(404).send(response);
         }
         response.status_code = "200";
-        response.status_message = "Program found";
+        response.status_message = "Event found";
         response.result = program;
         res.status(200).json(response);
     },
@@ -130,7 +130,7 @@ module.exports = {
             const program = await newProgram.save();
 
             response.status_code = "200";
-            response.status_message = "Program Created Successfully ";
+            response.status_message = "Event Created Successfully ";
             response.result = program;
             res.status(200).json(response);
 
@@ -140,7 +140,7 @@ module.exports = {
            
             response.status_code = "403";
             response.error = error_msg;
-            response.status_message = "Program could not be created";
+            response.status_message = "Event could not be created";
             response.result = null;
             console.log("Error in "+ JSON.stringify(response));
             res.status(403).json(response);
@@ -155,14 +155,14 @@ module.exports = {
             const program = await Program.findByIdAndUpdate(req.params.programId,{ status : req.params.status }, { new: true });
             if (program) {
                 response.status_code = "200";
-                response.status_message = "Program Changed Status Successfully";
+                response.status_message = "Event Changed Status Successfully";
                 response.result = program;
                 res.status(200).json(response);
 
 
             } else {
                 response.status_code = "404";
-                response.status_message = "Program not found";
+                response.status_message = "Event not found";
                 response.result = null;
                 res.status(200).json(response);
             }
@@ -171,7 +171,7 @@ module.exports = {
         catch (err) {
             response.status_code = "403";
             response.errorObj = err;
-            response.status_message = "Program could not be changed with status "+req.params.status;
+            response.status_message = "Event could not be changed with status "+req.params.status;
             response.result = null;
             res.status(403).json(response);
         }
@@ -182,14 +182,14 @@ module.exports = {
             const program = await Program.findByIdAndUpdate(req.params.programId, req.body, { new: true });
             if (program) {
                 response.status_code = "200";
-                response.status_message = "Program Updated Successfully";
+                response.status_message = "Event Updated Successfully";
                 response.result = program;
                 res.status(200).json(response);
 
 
             } else {
                 response.status_code = "404";
-                response.status_message = "Program not found";
+                response.status_message = "Event not found";
                 response.result = null;
                 res.status(200).json(response);
             }
@@ -198,7 +198,7 @@ module.exports = {
         catch (err) {
             response.status_code = "403";
             response.errorObj = err;
-            response.status_message = "Program could not be updated";
+            response.status_message = "Event could not be updated";
             response.result = null;
             res.status(403).json(response);
         }
@@ -209,12 +209,12 @@ module.exports = {
         const program = await Program.findByIdAndRemove(req.params.programId);
         if (!program) {
             response.status_code = "404";
-            response.status_message = "Program not found";
+            response.status_message = "Event not found";
             response.result = null;
             res.status(200).json(response);
         }
         response.status_code = "200";
-        response.status_message = "Program deleted Successfully";
+        response.status_message = "Event deleted Successfully";
         response.result = program;
         res.status(200).json(response);
     }

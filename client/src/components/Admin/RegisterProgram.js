@@ -10,6 +10,12 @@ const errStyle = {
   fontSize: ".7rem",
 };
 
+const noteStyle = {
+	color:"#e5b212",
+	textAlign:"center",
+	fontSize: ".9rem",
+}
+
 function RegisterProgram(props) {
   const user = useSelector((state) => state.auth);
   const [isAuthenticated, setAuthenticated] = useState(false);
@@ -22,6 +28,17 @@ function RegisterProgram(props) {
     state: "",
     country: "",
     status: "REGISTERED",
+    age:"",
+    gender:"",
+    dob:"",
+    maritalstatus:"",
+    qualification:"",
+    occupation:"",
+    health_ailments:"",
+    lifestyle:"",
+    previous_experience:"",
+    experty_level:"",
+    about_byuk:"",    
   });
   const [errObj, setErrObj] = useState({
     address_1: "",
@@ -30,6 +47,17 @@ function RegisterProgram(props) {
     state: "",
     country: "",
     status: "REGISTERED",
+    gender:"",
+    age:"",
+    dob:"",
+    maritalstatus:"",
+    qualification:"",
+    occupation:"",
+    health_ailments:"",
+    lifestyle:"",
+    previous_experience:"",
+    experty_level:"",
+    about_byuk:"",
   });
   const [docs, setDocs] = useState([]);
   const [country, setCountry] = useState([]);
@@ -37,7 +65,10 @@ function RegisterProgram(props) {
   const [city, setCity] = useState([]);
   const [isChecked,setIsChecked] = useState(false);
   const [checkedName,setCheckedName] = useState("");
-  const [relationship,setRelationship]=useState("SELF");
+  const [relationship,setRelationship]=useState("Self");
+  const [otherOccupation,setOtherOccupation]=useState(false);
+  const [prevExperience,setPrevExperience]=useState(false);
+  const [otherSource,setOtherSource]=useState(false);
 
   useEffect(() => {
     // console.log(Country.getAllCountries());
@@ -64,14 +95,28 @@ function RegisterProgram(props) {
   const getProgramData = () => {
     axios.get("/programs/" + props.match.params.id).then((res) => {
       if (res.data.status_code === "200") {
+	     //console.log(res.data.result,"program data");
         setProgramData(res.data.result);
+        axios.get("/courses/"+res.data.result.course).then((res) =>{
+		 setCourseData(res.data.result);
+	});
         setDocs(res.data.result.required_documents);
       }
     });
   };
 
   const onProgramChange = (e) => {
-    const { id, value } = e.target;
+	const { id, value } = e.target;
+    console.log(id,value,"test");
+	if(id === "occupation" && value ==="other"){
+		setOtherOccupation(true);
+	}
+	if(id === "previous_experience" && value ==="Yes"){
+		setPrevExperience(true);
+	}
+	if(id==="about_byuk"  && value=="other"){
+		setOtherSource(true);
+	}	
     if (id === "country" || id === "state") {
       getDataBasedOnSelection(id, value);
     } else {
@@ -91,7 +136,6 @@ function RegisterProgram(props) {
   };
 
   const validateProgramData = () => {
-	console.log(program,"program");
     let valid = true;
     if (program.address_1.length <= 3) {
       valid = false;
@@ -100,7 +144,81 @@ function RegisterProgram(props) {
         address_1: "address_1 should be minimum 3 letters",
       }));
     }
+    
+    if (program.gender == "") {
+      valid = false;
+      setErrObj((errObj) => ({
+        ...errObj,
+        gender: "Please Select The Gender",
+      }));
+    }
+    
+        if (program.age == "") {
+      valid = false;
+      setErrObj((errObj) => ({
+        ...errObj,
+        age: "Please Enter Age",
+      }));
+    }
 
+    if (program.dob == "") {
+      valid = false;
+      setErrObj((errObj) => ({
+        ...errObj,
+        dob: "Please Select The Date of Birth",
+      }));
+    }
+  
+    if (program.maritalstatus == "") {
+      valid = false;
+      setErrObj((errObj) => ({
+        ...errObj,
+        maritalstatus: "Please Select The Marital Status",
+      }));
+    }
+    
+      if (program.qualification == "") {
+      valid = false;
+      setErrObj((errObj) => ({
+        ...errObj,
+        qualification: "Please Select The Qualification",
+      }));
+    }
+    
+     if (program.occupation == "") {
+      valid = false;
+      setErrObj((errObj) => ({
+        ...errObj,
+        occupation: "Please Select The Occupation",
+      }));
+    }
+    
+    
+    if (program.lifestyle == "") {
+      valid = false;
+      setErrObj((errObj) => ({
+        ...errObj,
+        lifestyle: "Please Select The Lifestyle",
+      }));
+    }
+    
+    if (program.previous_experience && program.experty_level == "") {
+      valid = false;
+      setErrObj((errObj) => ({
+        ...errObj,
+        experty_level: "Please Select Experty Level",
+      }));
+    }
+    
+    if (program.about_byuk == "") {
+      valid = false;
+      setErrObj((errObj) => ({
+        ...errObj,
+        about_byuk: "Please Select The Option",
+      }));
+    }
+    
+    
     if (program.address_2.length <= 3) {
       valid = false;
       setErrObj((errObj) => ({
@@ -137,21 +255,43 @@ function RegisterProgram(props) {
       submitProgram();
       setErrObj((errObj) => ({
         ...errObj,
-        address_1: "",
-        address_2: "",
-        city: "",
-        state: "",
-        country: "",
-        status: "REGISTERED",
+    address_1: "",
+    address_2: "",
+    city: "",
+    state: "",
+    country: "",
+    status: "REGISTERED",
+    gender:"",
+    age:"",
+    dob:"",
+    maritalstatus:"",
+    qualification:"",
+    occupation:"",
+    health_ailments:"",
+    lifestyle:"",
+    previous_experience:"",
+    experty_level:"",
+    about_byuk:"",
       }));
       setProgram((errObj) => ({
         ...errObj,
-        address_1: "",
-        address_2: "",
-        city: "",
-        state: "",
-        country: "",
-        status: "REGISTERED",
+    address_1: "",
+    address_2: "",
+    city: "",
+    state: "",
+    country: "",
+    status: "REGISTERED",
+    age:"",
+    gender:"",
+    dob:"",
+    maritalstatus:"",
+    qualification:"",
+    occupation:"",
+    health_ailments:"",
+    lifestyle:"",
+    previous_experience:"",
+    experty_level:"",
+    about_byuk:"", 
       }));
     }
   };
@@ -173,12 +313,22 @@ function RegisterProgram(props) {
 	      reject_reason: "",
 	      registered_by:user.user.name,
 	      relationship:relationship,
+	      age:program.age,
+	      date_of_birth:program.dob,
+	      gender:program.gender,
+	      qualification:program.qualification,
+	      occupation:program.occupation,
+	      //health_ailments:program.health_ailments,
+	      lifestyle:program.lifestyle,
+	      previous_experience:program.previous_experience,
+	      experty_level:program.experty_level,
+	      about_byuk:program.about_byuk,
 	    };	
 	}else{
 		obj = {
 	      program_id: props.match.params.id,
 	      user_id: user.user.id,
-	      user_name: user.user.name,
+	      user_name: user.user.username,
 	      user_email:user.userData.email_id,
 	      address_1: program.address_1,
 	      address_2: program.address_2,
@@ -189,13 +339,23 @@ function RegisterProgram(props) {
 	      reject_reason: "",
 	      registered_by:user.user.name,
 	      relationship: relationship,
+	      age:program.age,
+	      date_of_birth:program.dob,
+	      gender:program.gender,
+	      qualification:program.qualification,
+	      occupation:program.occupation,
+	      //health_ailments:program.health_ailments,
+	      lifestyle:program.lifestyle,
+	      previous_experience:program.previous_experience,
+	      experty_level:program.experty_level,
+	      about_byuk:program.about_byuk,
 	    };	
 	}
 
     axios
       .post("/usermanagement/", obj)
       .then((res) => {
-        // console.log(res);
+        console.log(res);
         if (res.data.status_code === "200") {
           alert(res.data.status_message);
           setTimeout(function () {
@@ -288,7 +448,7 @@ function RegisterProgram(props) {
                   fontSize: "32px",
                 }}
               >
-                Register Program
+                Register Event
               </h1>
             </div>
           </div>
@@ -299,9 +459,18 @@ function RegisterProgram(props) {
           <div className="col-xl-6 offset-xl-3">
             <div className="text-box mt-5 mb-5">
               <div className="form-check ml-3 mb-3">
+              <h1
+                style={{
+                  fontFamily: "Poppins",
+                  color: "darkblue",
+                  fontSize: "20px",
+                }}
+              >
+                Personal Details
+              </h1>
   				<input className="form-check-input" type="checkbox" value="" id="checked" onChange={handleCheckboxChange}/>
 				  <label className="form-check-label">
-				    Register program for other person
+				    Register Event for other person
 				  </label>
 				</div>
               <div className="form-group">
@@ -316,6 +485,19 @@ function RegisterProgram(props) {
                 />
                 <label className="label-control" htmlFor="name">
                   Program Name
+                </label>
+              </div>
+              <div className="form-group">
+                <input
+                  type="text"
+                  className="form-control-input notEmpty"
+                  value={courseData.course_name}
+                  id="courseName"
+                  required
+                  disabled
+                />
+                <label className="label-control" htmlFor="name">
+                  Course Name
                 </label>
               </div>
               <div className="form-group">
@@ -338,6 +520,55 @@ function RegisterProgram(props) {
                   Name
                 </label>
               </div>
+              <div className="form-group">
+                <select
+                  className="form-control-input notEmpty"
+                  id="gender"
+                  onChange={(e) => onProgramChange(e)}
+                  required
+                >
+                <option value="" key="" selected></option>
+                <option value="Male" key="male">
+                        Male
+                      </option>
+                      <option value="Female" key="female">
+                        Female
+                      </option>
+                      <option value="Rather Not Say" key="rather not say">
+                        Rather Not Say
+                      </option>
+                </select>
+                <label className="label-control">
+                  Gender 
+                </label>
+                <p style={errStyle}>{errObj.gender}</p>
+              </div>
+              <div className="form-group">
+                <input
+                  type="number"
+                  className="form-control-input notEmpty"
+                  id="age"
+                  onChange={(e) => onProgramChange(e)}
+                  required
+                />
+                <label className="label-control">
+                  Age
+                </label>
+                <p style={errStyle}>{errObj.age}</p>
+              </div>
+              <div className="form-group">
+                <input
+                  type="date"
+                  className="form-control-input notEmpty"
+                  id="dob"
+                  onChange={(e) => onProgramChange(e)}
+                  required
+                />
+                <label className="label-control">
+                  Date of Birth
+                </label>
+                <p style={errStyle}>{errObj.dob}</p>
+              </div>  
               <div className="form-group">
                 <input
                   type="text"
@@ -372,13 +603,13 @@ function RegisterProgram(props) {
                   id="relationship"
                   required
                   onChange={relationshipChangeHandler}
-                ><option value="PARENT" key="parent">
+                ><option value="Parent" key="parent">
                         Parent
                       </option>
-                      <option value="SPOUSE" key="spouse">
+                      <option value="Spouse" key="spouse">
                         Spouse
                       </option>
-                      <option value="SELF" key="self" selected>
+                      <option value="Self" key="self" selected>
                         Self
                       </option>
                       
@@ -392,18 +623,18 @@ function RegisterProgram(props) {
                   id="relationship"
                   disabled
                   required
-                ><option value="PARENT" key="parent">
+                ><option value="Parent" key="parent">
                         Parent
                       </option>
-                      <option value="SPOUSE" key="spouse">
+                      <option value="Spouse" key="spouse">
                         Spouse
                       </option>
-                      <option value="SELF" key="self" selected>
+                      <option value="Self" key="self" selected>
                         Self
                       </option>
                       
                 </select>
-                <label className="label-control" htmlFor="max_age">
+                <label className="label-control">
                   Relationship 
                 </label>
               </div>)}      
@@ -506,12 +737,279 @@ function RegisterProgram(props) {
                 </label>
                 <p style={errStyle}>{errObj.city}</p>
               </div>
-              <p style={errStyle}>
-                Please upload documents carefully, once you uploaded its not
-                able to replace. use (Jpeg/png/pdf/zip)
-              </p>
+              <div className="form-group">
+                <select
+                  className="form-control-input notEmpty"
+                  onChange={(e) => onProgramChange(e)}
+                  id="maritalstatus"
+                  required
+                >
+                <option value="" selected></option>
+                <option value="Single" key="single">
+                        Single
+                      </option>
+                      <option value="Married" key="married">
+                        Married
+                      </option>
+                      <option value="Rather Not Say" key="rather not say">
+                        Rather Not Say
+                      </option>
+                </select>
+                <label className="label-control">
+                  Marital Status 
+                </label>
+              <p style={errStyle}>{errObj.maritalstatus}</p>
+              </div>
+              <div className="form-group">
+                <select
+                  className="form-control-input notEmpty"
+                  id="qualification"
+                  onChange={(e) => onProgramChange(e)}
+                  required
+                >
+                <option value="" selected></option>
+                	<option value="School" key="school">
+                        School
+                      </option>
+                      <option value="Undergraduate" key="undergraduate">
+                        Undergraduate
+                      </option>
+                      <option value="Graduate" key="Graduate">
+                        Graduate
+                      </option>
+                      <option value="Diploma" key="diploma">
+                        Diploma
+                      </option>
+                      <option value="Post Graduate" key="post graduate">
+                        Post Graduate
+                      </option>
+                      <option value="PhD" key="PhD">
+                        PhD
+                      </option>
+                      <option value="Rather Not Say" key="rather not say">
+                        Rather Not Say
+                      </option>
+                </select>
+                <label className="label-control">
+                  Qualification 
+                </label>
+                <p style={errStyle}>{errObj.qualification}</p>
+              </div>
+              <div className="form-group">
+                <select
+                  className="form-control-input notEmpty"
+                  id="occupation"
+                  onChange={(e) => onProgramChange(e)}
+                  required
+                >
+                <option value="" selected></option>
+                <option value="Student" key="student">
+                        Student
+                      </option>
+                      <option value="Unemployed" key="unemployed">
+                        Unemployed
+                      </option>
+                      <option value="Self Employed" key="self employed">
+                        Self Employed
+                      </option>
+                      <option value="Homemaker" key="Homemaker">
+                        Homemaker
+                      </option>
+                      <option value="Govt/Public Sector" key="govt/public sector">
+                        Govt/Public Sector
+                      </option>
+                      <option value="Private Sector" key="private sector">
+                        Private Sector
+                      </option>
+                      <option value="other" key="other">
+                        Other (Please Specify)
+                      </option>
+                </select>
+                <label className="label-control">
+                  Occupation 
+                </label>
+                <p style={errStyle}>{errObj.occupation}</p>
+              </div>
+              {otherOccupation && (<div className="form-group">
+                <input
+                  type="text"
+                  className="form-control-input notEmpty"
+                  id="occupation"
+                  onChange={(e) => onProgramChange(e)}
+                  required
+                />
+                <label className="label-control">
+                  Type The Occupation Here
+                </label>
+                <p style={errStyle}>{errObj.otheroccupation}</p>
+              </div>  )}
+				<h1
+                style={{
+                  fontFamily: "Poppins",
+                  color: "darkblue",
+                  fontSize: "20px",
+                }}
+              >
+                Health & Lifestyle
+              </h1>
+              <div className="form-group">
+                <select
+                  className="form-control-input notEmpty"
+                  id="qualification"
+                  required
+                >
+                
+                
+                
+                </select>
+                <label className="label-control">
+                  Health/Ailments 
+                </label>
+              </div>
+              <div className="form-group">
+                <select
+                  className="form-control-input notEmpty"
+                  id="lifestyle"
+                  onChange={(e) => onProgramChange(e)}
+                  required
+                >
+                <option value="" selected></option>
+                <option value="Sedentary" key="sedentary">
+                        Sedentary
+                      </option>
+                      <option value="Moderately active" key="moderately active">
+                        Moderately Active
+                      </option>
+                      <option value="Highly active" key="highly active">
+                        Highly Active
+                      </option>
+                </select>
+                <label className="label-control">
+                  Lifestyle 
+                </label>
+               	<p style={errStyle}>{errObj.lifestyle}</p>
+              </div>
+              <h1
+                style={{
+                  fontFamily: "Poppins",
+                  color: "darkblue",
+                  fontSize: "20px",
+                }}
+              >
+                Yoga Experience
+              </h1>
+              <div className="form-group">
+                <select
+                  className="form-control-input notEmpty"
+                  id="previous_experience"
+                  onChange={(e) => onProgramChange(e)}
+                  required
+                ><option value="Yes" key="yes">
+                        Yes
+                      </option>
+                      <option value="No" key="no" selected>
+                        No
+                      </option>
+                </select>
+                <label className="label-control">
+                  Any Previous Yoga Experience 
+                </label>
+              </div>
+              {prevExperience && (<div className="form-group">
+                <select
+                  className="form-control-input notEmpty"
+                  id="experty_level"
+                  onChange={(e) => onProgramChange(e)}
+                  required
+                >
+                <option value="" selected></option>
+                <option value="Begginer" key="begginer">
+                        Begginer
+                      </option>
+                      <option value="Intermediate" key="intermediate">
+                        Intermediate
+                      </option>
+                      <option value="Advanced" key="advanced">
+                        Advanced
+                      </option>
+                </select>
+                <label className="label-control">
+                 	Experty Level 
+                </label>
+                <p style={errStyle}>{errObj.experty_level}</p>
+              </div>)}
+              <div className="form-group">
+                <select
+                  className="form-control-input notEmpty"
+                  id="about_byuk"
+                  onChange={(e) => onProgramChange(e)}
+                  required
+                >
+                <option value="Email by BYVK" key="Email by BYVK">
+                	Email by BYVK
+                </option>
+                <option value="BYVK Website" key="BYVK Website">
+					BYVK Website
+				</option>
+				<option value="BYVK Instagram" key="BYVK Instagram">
+					BYVK Instagram
+				</option>
+				<option value="BYVK FB" key="BYVK FB">
+					BYVK FB
+				</option>
+				<option value="BYVK LinkedIn" key="BYVK LinkedIn">
+					BYVK LinkedIn
+				</option>
+				<option value="Whatsapp groups - BYVK" key="Whatsapp groups - BYVK">
+					Whatsapp groups - BYVK
+				</option>
+				<option value="TSF Website" key="TSF Website">
+					TSF Website
+				</option>
+				<option value="TSF Instagram" key="TSF Instagram">
+					TSF Instagram
+				</option>
+				<option value="TSF FB" key="TSF FB">
+					TSF FB
+				</option>
+				<option value="TSF WhatsApp" key="TSF WhatsApp">
+					TSF WhatsApp
+				</option>
+				<option value="TSF Email" key="TSF Email">
+					TSF Email
+				</option>
+				<option value="From a friend" key="From a friend">
+					From a friend
+				</option>
+				<option value="other" key="others">
+					Others (please specify)
+				</option>
+                </select>
+                <label className="label-control">
+                 	How did you come to know about BYVK 
+                </label>
+                <p style={errStyle}>{errObj.about_byuk}</p>
+              </div>
+              {otherSource && (<div className="form-group">
+                <input
+                  type="text"
+                  className="form-control-input notEmpty"
+                  id="about_byuk"
+                  onChange={(e) => onProgramChange(e)}
+                  required
+                />
+                <label className="label-control">
+                  Type Other Source 
+                </label>
+                <p style={errStyle}>{errObj.othersource}</p>
+              </div>  )}            				
               {docs.map((data, index) => {
                 return (
+				<>
+				<p style={noteStyle}>
+                	Please upload documents carefully, once you uploaded its not
+                	able to replace. use (Jpeg/png/pdf/zip)
+              	</p>
                   <div className="row" style={{ padding: "10px" }} key={index}>
                     <div className="col-xl-8">Please upload {data}</div>
                     <div className="col-xl-4">
@@ -528,6 +1026,7 @@ function RegisterProgram(props) {
                     </label> */}
                     {/* <p style={errStyle}>{errObj.country}</p> */}
                   </div>
+                  </>
                 );
               })}
               <div className="form-group">

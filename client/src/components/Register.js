@@ -74,7 +74,7 @@ function Register(props) {
                                 <p style={errStyle}>{errors.confirm_password}</p>
                             </div>
                              <div className="form-group">
-                                <input type="number" className="form-control-input notEmpty" id="phone_num" onChange={(e) => handleChage(e)} required />
+                                <input type="number" className="form-control-input notEmpty" id="phone_num" onChange={(e) => handleChage(e)} />
                                 <label className="label-control" htmlFor="phone_num">Mobile</label>
                                 <p style={errStyle}>{errors.phone_num}</p>
                             </div> 

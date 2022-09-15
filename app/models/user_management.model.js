@@ -18,8 +18,17 @@ var UserManagementSchema = new Schema(
         reject_reason:{type:String},
         registered_by:{type:String},
         medical_reason:{type:String},
-        relationship:{type:String,enum: ['SELF', 'PARENTS', 'SPOUSE','OTHERS'], default: 'SELF'}
-        
+        relationship:{type:String,enum: ['Self', 'Parent', 'Spouse','Others'], default: 'Self'},
+        age:{type:String},
+        gender:{type:String,enum: ['Male', 'Female', 'Rather Not Say']},
+        maritalstatus:{type:String,enum: ['Single', 'Married', 'Rather Not Say']},
+        qualification:{type:String,enum:['School', 'Undergraduate', 'Graduate','Diploma', 'Post Graduate', 'PhD', 'Rather Not Say']},
+        occupation:{type:String},
+        health_ailments:{type:String},
+        lifestyle:{type:String,enum:['Sedentary','Moderately active','Highly active']},
+        previous_experience:{type:String,enum:['Yes','No'],default:'No'},
+        experty_level:{type:String},
+        about_byuk:{type:String},     
     },
     {
         timestamps: true

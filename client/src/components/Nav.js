@@ -219,7 +219,7 @@ function Nav() {
                     style={{ color: "black", fontSize: "14px" }}
                     href="/programdashboard"
                   >
-                    Programs Dashboard
+                    Events Dashboard
                   </a>
                   <div className="dropdown-divider"></div>
                   <a

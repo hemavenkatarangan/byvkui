@@ -172,7 +172,7 @@ function LandingCoursesCalender() {
                         </a>
                       </Button>
                     </div>
-                  ) : "You already registered"}
+                  ) : ""}
                 </div>
               </div>
               <hr style={{ marginTop: "4px" }} />

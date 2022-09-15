@@ -31,7 +31,7 @@ function ProgramDashboard() {
 
   const columns = [
     {
-      title: "Programs",
+      title: "Events",
       dataIndex: "name",
       key: "name",
     },
@@ -55,7 +55,7 @@ function ProgramDashboard() {
           {data.status === "STARTED" ? null : (
             <>
               <Link to={{ pathname: "/createprogram/" + data._id, data: data }}>
-                <EditOutlined title="Edit Program" />
+                <EditOutlined title="Edit Event" />
               </Link>{" "}
             </>
           )}
@@ -63,13 +63,13 @@ function ProgramDashboard() {
           {
             <>
               <DeleteOutlined
-                title="InActivate Program"
+                title="InActivate Event"
                 onClick={(e) => deleteProgram(data)}
               />{" "}
               <Link
                 to={{ pathname: "/userforprogram/" + data._id, data: data }}
               >
-                <EyeOutlined title="View All Users For Program" />{" "}
+                <EyeOutlined title="View All Users For Event" />{" "}
               </Link>
             </>
           }
@@ -77,7 +77,7 @@ function ProgramDashboard() {
           {data.status === "NOT_STARTED" ? (
             <>
               <FastForwardOutlined
-                title="Start the program"
+                title="Start the Event"
                 onClick={(e) => startProgram(data)}
               />{" "}
             </>
@@ -157,7 +157,7 @@ function ProgramDashboard() {
                   fontSize: "32px",
                 }}
               >
-                Programs Dashboard
+                Events Dashboard
               </h1>
             </div>
           </div>
@@ -174,7 +174,7 @@ function ProgramDashboard() {
                   size="large"
                   onClick={(e) => createProgram()}
                 >
-                  Create Program
+                  Create Event
                 </Button>
               </div>
               <Table width="100%" columns={columns} dataSource={programsData} />
