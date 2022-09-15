@@ -9,6 +9,7 @@ var UserManagementSchema = new Schema(
         course_name:{type:String},
         user_id: { type: String },
         user_name:{type:String},
+        user_email:{type:String},
         address_1: { type: String },
         address_2: { type: String },
         city:{type: String},
