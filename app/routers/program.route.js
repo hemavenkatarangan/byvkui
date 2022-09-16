@@ -7,7 +7,8 @@ router.route('/')
     .get(programController.allPrograms)
     .post(programController.createProgram);
 
-
+router.route('/course/:courseId/programtype/:programType')
+    .get(programController.getProgramByCourseProgramType);
 
 router.route('/:programId')
     .get(validateParam(schemas.idSchema, ['programId']), programController.getProgram)
