@@ -82,6 +82,7 @@ function RegisterProgram(props) {
     // if (props.match.params.id) {
     //   getProgramDataBasedOnId(props.match.params.id);
     // }
+    console.log(user.userData.email_id);
     getProgramData();
     updateStateCityCounty();
     // getDataForUploadDocs();
@@ -303,7 +304,7 @@ function RegisterProgram(props) {
 	      program_id: props.match.params.id,
 	      user_id: user.user.id,
 	      user_name:checkedName,
-	      user_email:user.user.name,
+	      user_email:user.userData.email_id,
 	      address_1: program.address_1,
 	      address_2: program.address_2,
 	      city: program.city,
@@ -329,7 +330,7 @@ function RegisterProgram(props) {
 	      program_id: props.match.params.id,
 	      user_id: user.user.id,
 	      user_name: user.user.username,
-	      user_email:user.user.name,
+	      user_email:user.userData.email_id,
 	      address_1: program.address_1,
 	      address_2: program.address_2,
 	      city: program.city,
