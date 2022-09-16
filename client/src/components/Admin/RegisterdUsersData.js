@@ -284,6 +284,7 @@ function UserRegistertedForProgram(props) {
         onCancel={handleCancel}
       >
         {userImageData.map((data, index) => {
+	     console.log("File extension "+data.document_path.split(".")[1]);
           return (
             <div
               className="row"
@@ -292,8 +293,9 @@ function UserRegistertedForProgram(props) {
             >
               <div className="col">{data.document_type}</div>
               <div className="col">
-                {data.document_path.split(".")[1] === "pdf" ||
-                data.document_path.split(".")[1] === "zip" ? (
+             
+                {data.document_path.includes(".pdf") ||
+                data.document_path.includes(".zip") ? (
                   <a href={data.document_path} target="_blank">
                     click here to download
                   </a>
