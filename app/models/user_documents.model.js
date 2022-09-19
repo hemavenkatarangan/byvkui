@@ -14,14 +14,14 @@ var UserDocumentsSchema = new Schema(
         "RTPCR",
         "MEDICAL_REPORTS",
         "PASSPORT",
+        "PHOTO"
       ],
     },
     user_id: { type: String },
     program_id: { type: String },
     email_id: { type: String },
     document_format: { type: String },
-    any_disease: { type: Boolean },
-    disease_desc: { type: String },
+   
   },
   {
     timestamps: true,

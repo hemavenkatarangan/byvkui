@@ -34,6 +34,7 @@ function RegisterProgram(props) {
     maritalstatus:"",
     qualification:"",
     occupation:"",
+    occupation_details:"",
     health_ailments:"",
     lifestyle:"",
     previous_experience:"",
@@ -53,6 +54,7 @@ function RegisterProgram(props) {
     maritalstatus:"",
     qualification:"",
     occupation:"",
+    occupation_details:"",
     health_ailments:"",
     lifestyle:"",
     previous_experience:"",
@@ -66,9 +68,9 @@ function RegisterProgram(props) {
   const [isChecked,setIsChecked] = useState(false);
   const [checkedName,setCheckedName] = useState("");
   const [relationship,setRelationship]=useState("Self");
-  const [otherOccupation,setOtherOccupation]=useState(false);
   const [prevExperience,setPrevExperience]=useState(false);
   const [otherSource,setOtherSource]=useState(false);
+  const [residentialCourse,setResidentialCourse]=useState(true);
 
   useEffect(() => {
     // console.log(Country.getAllCountries());
@@ -96,8 +98,11 @@ function RegisterProgram(props) {
   const getProgramData = () => {
     axios.get("/programs/" + props.match.params.id).then((res) => {
       if (res.data.status_code === "200") {
-	     //console.log(res.data.result,"program data");
+	    //console.log(res.data.result.program_type,"program data");
         setProgramData(res.data.result);
+        if(res.data.result.program_type == 'OFFLINE'){
+			setResidentialCourse(true);	
+		}
         axios.get("/courses/"+res.data.result.course).then((res) =>{
 		 setCourseData(res.data.result);
 	});
@@ -109,11 +114,11 @@ function RegisterProgram(props) {
   const onProgramChange = (e) => {
 	const { id, value } = e.target;
     console.log(id,value,"test");
-	if(id === "occupation" && value ==="other"){
-		setOtherOccupation(true);
-	}
+
 	if(id === "previous_experience" && value ==="Yes"){
 		setPrevExperience(true);
+	}else{
+		setPrevExperience(false);
 	}
 	if(id==="about_byuk"  && value=="other"){
 		setOtherSource(true);
@@ -268,6 +273,7 @@ function RegisterProgram(props) {
     maritalstatus:"",
     qualification:"",
     occupation:"",
+    occupation_details:"",
     health_ailments:"",
     lifestyle:"",
     previous_experience:"",
@@ -288,6 +294,7 @@ function RegisterProgram(props) {
     maritalstatus:"",
     qualification:"",
     occupation:"",
+    occupation_details:"",
     health_ailments:"",
     lifestyle:"",
     previous_experience:"",
@@ -319,6 +326,7 @@ function RegisterProgram(props) {
 	      gender:program.gender,
 	      qualification:program.qualification,
 	      occupation:program.occupation,
+	      occupation_details:program.occupation_details,
 	      //health_ailments:program.health_ailments,
 	      lifestyle:program.lifestyle,
 	      previous_experience:program.previous_experience,
@@ -528,7 +536,7 @@ function RegisterProgram(props) {
                   onChange={(e) => onProgramChange(e)}
                   required
                 >
-                <option value="" key="" selected></option>
+                <option value="" key="" selected>Select Option</option>
                 <option value="Male" key="male">
                         Male
                       </option>
@@ -745,13 +753,14 @@ function RegisterProgram(props) {
                   id="maritalstatus"
                   required
                 >
-                <option value="" selected></option>
+                <option value="" selected>Select Option</option>
                 <option value="Single" key="single">
                         Single
                       </option>
                       <option value="Married" key="married">
                         Married
                       </option>
+                      <option value="Widower/Divorsed" key="widower/divorsed">Widower/Divorsed</option>
                       <option value="Rather Not Say" key="rather not say">
                         Rather Not Say
                       </option>
@@ -768,7 +777,7 @@ function RegisterProgram(props) {
                   onChange={(e) => onProgramChange(e)}
                   required
                 >
-                <option value="" selected></option>
+                <option value="" selected>Select Option</option>
                 	<option value="School" key="school">
                         School
                       </option>
@@ -803,7 +812,7 @@ function RegisterProgram(props) {
                   onChange={(e) => onProgramChange(e)}
                   required
                 >
-                <option value="" selected></option>
+                <option value="" selected>Select Option</option>
                 <option value="Student" key="student">
                         Student
                       </option>
@@ -831,19 +840,18 @@ function RegisterProgram(props) {
                 </label>
                 <p style={errStyle}>{errObj.occupation}</p>
               </div>
-              {otherOccupation && (<div className="form-group">
+              <div className="form-group">
                 <input
                   type="text"
                   className="form-control-input notEmpty"
-                  id="occupation"
+                  id="occupation_details"
                   onChange={(e) => onProgramChange(e)}
-                  required
                 />
                 <label className="label-control">
-                  Type The Occupation Here
+                  Occupation Details
                 </label>
-                <p style={errStyle}>{errObj.otheroccupation}</p>
-              </div>  )}
+                <p style={errStyle}>{errObj.occupation_details}</p>
+              </div>
 				<h1
                 style={{
                   fontFamily: "Poppins",
@@ -874,7 +882,7 @@ function RegisterProgram(props) {
                   onChange={(e) => onProgramChange(e)}
                   required
                 >
-                <option value="" selected></option>
+                <option value="" selected>Select Option</option>
                 <option value="Sedentary" key="sedentary">
                         Sedentary
                       </option>
@@ -935,7 +943,7 @@ function RegisterProgram(props) {
                       </option>
                 </select>
                 <label className="label-control">
-                 	Experty Level 
+                 	Expertise 
                 </label>
                 <p style={errStyle}>{errObj.experty_level}</p>
               </div>)}
@@ -946,6 +954,7 @@ function RegisterProgram(props) {
                   onChange={(e) => onProgramChange(e)}
                   required
                 >
+                <option value="" selected>Select Option</option>
                 <option value="Email by BYVK" key="Email by BYVK">
                 	Email by BYVK
                 </option>
@@ -991,6 +1000,31 @@ function RegisterProgram(props) {
                 </label>
                 <p style={errStyle}>{errObj.about_byuk}</p>
               </div>
+              {residentialCourse && (<div>
+              <h1
+                style={{
+                  fontFamily: "Poppins",
+                  color: "darkblue",
+                  fontSize: "20px",
+                }}
+              >
+                Required Details for Residential Course
+              </h1>
+              <div className="form-group">
+                <input
+                  type="text"
+                  className="form-control-input notEmpty"
+                  value={program.address_1}
+                  id=""
+                  onChange={(e) => onProgramChange(e)}
+                  required
+                />
+                <label className="label-control" htmlFor="name">
+                  Address 1
+                </label>
+                <p style={errStyle}>{errObj.address_1}</p>
+              </div>
+              </div>)}
               {otherSource && (<div className="form-group">
                 <input
                   type="text"

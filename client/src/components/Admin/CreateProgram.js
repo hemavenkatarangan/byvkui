@@ -17,6 +17,7 @@ const docsOptions = [
   "RTPCR",
   "MEDICAL_REPORTS",
   "PASSPORT",
+  "PHOTO"
 ];
 
 const noDocument = [

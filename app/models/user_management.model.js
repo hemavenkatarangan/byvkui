@@ -25,6 +25,7 @@ var UserManagementSchema = new Schema(
         maritalstatus:{type:String,enum: ['Single', 'Married', 'Rather Not Say']},
         qualification:{type:String,enum:['School', 'Undergraduate', 'Graduate','Diploma', 'Post Graduate', 'PhD', 'Rather Not Say']},
         occupation:{type:String},
+        occupation_details:{type:String},
         health_ailments:{type:String},
         lifestyle:{type:String,enum:['Sedentary','Moderately active','Highly active']},
         previous_experience:{type:String,enum:['Yes','No'],default:'No'},
