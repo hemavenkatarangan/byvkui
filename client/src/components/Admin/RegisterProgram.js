@@ -4,6 +4,8 @@ import axios from "axios";
 import { Country, State, City } from "country-state-city";
 import fileUploadUrl from "../../constants/constants";
 
+import { Checkbox } from "antd";
+
 const errStyle = {
   color: "red",
   textAlign: "center",
@@ -11,10 +13,74 @@ const errStyle = {
 };
 
 const noteStyle = {
-	color:"#e5b212",
-	textAlign:"center",
-	fontSize: ".9rem",
-}
+  color: "#e5b212",
+  textAlign: "center",
+  fontSize: ".9rem",
+};
+
+const healthOptions = [
+  {
+    value: "Physical limitations or disabilities",
+    label: "Physical limitations or disabilities",
+  },
+  { value: "Communicable disease", label: "Communicable disease" },
+  { value: "Diabetes/ Hypoglycemia", label: "Diabetes/ Hypoglycemia" },
+  {
+    value: "Urinary infection/condition",
+    label: "Urinary infection/condition",
+  },
+  { value: "Heart conditions/ Stroke", label: "Heart conditions/ Stroke" },
+  { value: "High/low blood pressure", label: "High/low blood pressure" },
+  { value: "Hernia", label: "Hernia" },
+  {
+    value: "Asthma/ other Respiratory conditions",
+    label: "Asthma/ other Respiratory conditions",
+  },
+  { value: "Psychiatric condition", label: "Psychiatric condition" },
+  { value: "Heartburn", label: "Heartburn" },
+  { value: "Arthritis", label: "Arthritis" },
+  { value: "Ligament Injuries", label: "Ligament Injuries" },
+  { value: "Osteoporosis", label: "Osteoporosis" },
+  { value: "Seizure/ Epilepsy", label: "Seizure/ Epilepsy" },
+  { value: "Frozen Shoulder", label: "Frozen Shoulder" },
+  {
+    value: "Insomnia / Sleep Disorder/ Snoring",
+    label: "Insomnia / Sleep Disorder/ Snoring",
+  },
+  { value: "Anemia", label: "Anemia" },
+  {
+    value: "Spinal conditions/ Slip Disc/ Chronic back pain",
+    label: "Spinal conditions/ Slip Disc/ Chronic back pain",
+  },
+  { value: "Endocrine conditions", label: "Endocrine conditions" },
+  { value: "Chronic sinus conditions", label: "Chronic sinus conditions" },
+  { value: "Chronic joint pain", label: "Chronic joint pain" },
+  {
+    value: "Recovering from an addiction",
+    label: "Recovering from an addiction",
+  },
+  {
+    value: "Hospitalization for a condition",
+    label: "Hospitalization for a condition",
+  },
+  { value: "Peptic ulcer", label: "Peptic ulcer" },
+  {
+    value:
+      "Serious illness/ Major accident or injury / Surgery in last 5 years",
+    label:
+      "Serious illness/ Major accident or injury / Surgery in last 5 years",
+  },
+  {
+    value: "Any Psychological disorders",
+    label: "Any Psychological disorders",
+  },
+  {
+    value: "Vitamin Deficiency (esp. Vitamin B12 & D)",
+    label: "Vitamin Deficiency (esp. Vitamin B12 & D)",
+  },
+  { value: "Pregnancy", label: "Pregnancy" },
+  { value: "None of the Above", label: "None of the Above" },
+];
 
 function RegisterProgram(props) {
   const user = useSelector((state) => state.auth);
@@ -28,18 +94,40 @@ function RegisterProgram(props) {
     state: "",
     country: "",
     status: "REGISTERED",
-    age:"",
-    gender:"",
-    dob:"",
-    maritalstatus:"",
-    qualification:"",
-    occupation:"",
-    occupation_details:"",
-    health_ailments:"",
-    lifestyle:"",
-    previous_experience:"",
-    experty_level:"",
-    about_byuk:"",    
+    age: "",
+    gender: "",
+    dob: "",
+    maritalstatus: "",
+    qualification: "",
+    occupation: "",
+    occupation_details: "",
+    health_ailments: "",
+    lifestyle: "",
+    previous_experience: "",
+    experty_level: "",
+    about_byuk: "",
+    alternate_phone_number: "",
+    emergency_contactname: "",
+    emergency_contactnumber: "",
+    emergency_contactrelationship: "",
+    emergency_contactname2: "",
+    emergency_contactnumber2: "",
+    emergency_contactrelationship2: "",
+    languages: "",
+    learning_yoga: "",
+    kind_of_yoga: "",
+    health_conditions: "",
+    medicines_details: "",
+    covid_vaccine_dose: "",
+    tobbaco_consumption: "",
+    frequency_details_of_tobaaco_use: "",
+    role_of_yoga_teacher: "",
+    planning_to_teach: "",
+    why_teach_yoga: "",
+    teaching_experience: "",
+    teaching_experience_description: "",
+    attraction_to_yoga_path: "",
+    meditation_practices: "",
   });
   const [errObj, setErrObj] = useState({
     address_1: "",
@@ -48,29 +136,55 @@ function RegisterProgram(props) {
     state: "",
     country: "",
     status: "REGISTERED",
-    gender:"",
-    age:"",
-    dob:"",
-    maritalstatus:"",
-    qualification:"",
-    occupation:"",
-    occupation_details:"",
-    health_ailments:"",
-    lifestyle:"",
-    previous_experience:"",
-    experty_level:"",
-    about_byuk:"",
+    gender: "",
+    age: "",
+    dob: "",
+    maritalstatus: "",
+    qualification: "",
+    occupation: "",
+    occupation_details: "",
+    health_ailments: "",
+    lifestyle: "",
+    previous_experience: "",
+    experty_level: "",
+    about_byuk: "",
+    alternate_phone_number: "",
+    emergency_contactname: "",
+    emergency_contactnumber: "",
+    emergency_contactrelationship: "",
+    emergency_contactname2: "",
+    emergency_contactnumber2: "",
+    emergency_contactrelationship2: "",
+    languages: "",
+    kind_of_yoga: "",
+    health_conditions: "",
+    medicines_details: "",
+    covid_vaccine_dose: "",
+    tobbaco_consumption: "",
+    frequency_details_of_tobaaco_use: "",
+    role_of_yoga_teacher: "",
+    planning_to_teach: "",
+    why_teach_yoga: "",
+    teaching_experience: "",
+    teaching_experience_description: "",
+    attraction_to_yoga_path: "",
+    meditation_practices: "",
   });
   const [docs, setDocs] = useState([]);
   const [country, setCountry] = useState([]);
   const [states, setStates] = useState([]);
   const [city, setCity] = useState([]);
-  const [isChecked,setIsChecked] = useState(false);
-  const [checkedName,setCheckedName] = useState("");
-  const [relationship,setRelationship]=useState("Self");
-  const [prevExperience,setPrevExperience]=useState(false);
-  const [otherSource,setOtherSource]=useState(false);
-  const [residentialCourse,setResidentialCourse]=useState(true);
+  const [isChecked, setIsChecked] = useState(false);
+  const [checkedName, setCheckedName] = useState("");
+  const [relationship, setRelationship] = useState("Self");
+  const [prevExperience, setPrevExperience] = useState(false);
+  const [otherSource, setOtherSource] = useState(false);
+  const [residentialCourse, setResidentialCourse] = useState(false);
+  const [checkedHealth, setCheckedHealth] = useState([]);
+  const [termsClicked, setTermsClicked] = useState(false);
+  const [termsAgreed, setTermsAgreed] = useState(false);
+  const [rulesClicked, setRulesClicked] = useState(false);
+  const [rulesAgreed, setRulesAgreed] = useState(false);
 
   useEffect(() => {
     // console.log(Country.getAllCountries());
@@ -98,31 +212,32 @@ function RegisterProgram(props) {
   const getProgramData = () => {
     axios.get("/programs/" + props.match.params.id).then((res) => {
       if (res.data.status_code === "200") {
-	    //console.log(res.data.result.program_type,"program data");
         setProgramData(res.data.result);
-        if(res.data.result.program_type == 'OFFLINE'){
-			setResidentialCourse(true);	
-		}
-        axios.get("/courses/"+res.data.result.course).then((res) =>{
-		 setCourseData(res.data.result);
-	});
+        if (res.data.result.program_type == "OFFLINE") {
+          setResidentialCourse(true);
+        }
+        axios.get("/courses/" + res.data.result.course).then((res) => {
+          setCourseData(res.data.result);
+        });
         setDocs(res.data.result.required_documents);
       }
     });
   };
 
   const onProgramChange = (e) => {
-	const { id, value } = e.target;
-    console.log(id,value,"test");
+    const { id, value } = e.target;
+    console.log(id, value, "test");
 
-	if(id === "previous_experience" && value ==="Yes"){
-		setPrevExperience(true);
-	}else{
-		setPrevExperience(false);
-	}
-	if(id==="about_byuk"  && value=="other"){
-		setOtherSource(true);
-	}	
+    if (id === "previous_experience" && value === "Yes") {
+      setPrevExperience(true);
+    } else {
+      setPrevExperience(false);
+    }
+    if (id === "about_byuk" && value == "other") {
+      setOtherSource(true);
+    } else {
+      setOtherSource(false);
+    }
     if (id === "country" || id === "state") {
       getDataBasedOnSelection(id, value);
     } else {
@@ -150,7 +265,7 @@ function RegisterProgram(props) {
         address_1: "address_1 should be minimum 3 letters",
       }));
     }
-    
+
     if (program.gender == "") {
       valid = false;
       setErrObj((errObj) => ({
@@ -158,8 +273,8 @@ function RegisterProgram(props) {
         gender: "Please Select The Gender",
       }));
     }
-    
-        if (program.age == "") {
+
+    if (program.age == "") {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
@@ -174,7 +289,7 @@ function RegisterProgram(props) {
         dob: "Please Select The Date of Birth",
       }));
     }
-  
+
     if (program.maritalstatus == "") {
       valid = false;
       setErrObj((errObj) => ({
@@ -182,24 +297,23 @@ function RegisterProgram(props) {
         maritalstatus: "Please Select The Marital Status",
       }));
     }
-    
-      if (program.qualification == "") {
+
+    if (program.qualification == "") {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
         qualification: "Please Select The Qualification",
       }));
     }
-    
-     if (program.occupation == "") {
+
+    if (program.occupation == "") {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
         occupation: "Please Select The Occupation",
       }));
     }
-    
-    
+
     if (program.lifestyle == "") {
       valid = false;
       setErrObj((errObj) => ({
@@ -207,7 +321,7 @@ function RegisterProgram(props) {
         lifestyle: "Please Select The Lifestyle",
       }));
     }
-    
+
     if (program.previous_experience && program.experty_level == "") {
       valid = false;
       setErrObj((errObj) => ({
@@ -215,7 +329,7 @@ function RegisterProgram(props) {
         experty_level: "Please Select Experty Level",
       }));
     }
-    
+
     if (program.about_byuk == "") {
       valid = false;
       setErrObj((errObj) => ({
@@ -223,8 +337,7 @@ function RegisterProgram(props) {
         about_byuk: "Please Select The Option",
       }));
     }
-    
-    
+
     if (program.address_2.length <= 3) {
       valid = false;
       setErrObj((errObj) => ({
@@ -257,109 +370,315 @@ function RegisterProgram(props) {
       }));
     }
 
+    if (program.emergency_contactname.length <= 3) {
+      valid = false;
+      setErrObj((errObj) => ({
+        ...errObj,
+        emergency_contactname: "Please enter the contact person's name",
+      }));
+    }
+
+    if (program.emergency_contactnumber.length == 0) {
+      valid = false;
+      setErrObj((errObj) => ({
+        ...errObj,
+        emergency_contactnumber: "Please enter the contact person's number",
+      }));
+    }
+
+    if (program.emergency_contactnumber.length < 10) {
+      valid = false;
+      setErrObj((errObj) => ({
+        ...errObj,
+        emergency_contactnumber: "Please enter a valid contact number",
+      }));
+    }
+
+    if (program.emergency_contactrelationship.length == 0) {
+      valid = false;
+      setErrObj((errObj) => ({
+        ...errObj,
+        emergency_contactrelationship: "Please enter the relationship",
+      }));
+    }
+
+    if (program.health_conditions == "") {
+      valid = false;
+      setErrObj((errObj) => ({
+        ...errObj,
+        health_conditions: "Please enter your health conditions",
+      }));
+    }
+
+    if (program.medicines_details == "") {
+      valid = false;
+      setErrObj((errObj) => ({
+        ...errObj,
+        medicines_details: "Please enter your medicines details",
+      }));
+    }
+
+    if (program.covid_vaccine_dose == "") {
+      valid = false;
+      setErrObj((errObj) => ({
+        ...errObj,
+        covid_vaccine_dose: "Please select the option",
+      }));
+    }
+
+    if (program.role_of_yoga_teacher == "") {
+      valid = false;
+      setErrObj((errObj) => ({
+        ...errObj,
+        role_of_yoga_teacher: "Please Do not leave this feild blank",
+      }));
+    }
+
+    if (program.planning_to_teach == "") {
+      valid = false;
+      setErrObj((errObj) => ({
+        ...errObj,
+        planning_to_teach: "Please select an option",
+      }));
+    }
+
+    if (program.why_teach_yoga == "") {
+      valid = false;
+      setErrObj((errObj) => ({
+        ...errObj,
+        why_teach_yoga: "Please enter why you wanna teach yoga",
+      }));
+    }
+
+    if (program.teaching_experience_description == "") {
+      valid = false;
+      setErrObj((errObj) => ({
+        ...errObj,
+        teaching_experience_description: "Please Do not leave this feild blank",
+      }));
+    }
+
+    if (program.attraction_to_yoga_path == "") {
+      valid = false;
+      setErrObj((errObj) => ({
+        ...errObj,
+        attraction_to_yoga_path: "Please Do not leave this feild blank",
+      }));
+    }
+
+    if (program.meditation_practices == "") {
+      valid = false;
+      setErrObj((errObj) => ({
+        ...errObj,
+        meditation_practices: "Please Do not leave this feild blank",
+      }));
+    }
+
+    if (!rulesAgreed) {
+      valid = false;
+      setErrObj((errObj) => ({
+        ...errObj,
+        rules_agreed:
+          "Please read the rules and regualtions and select the option",
+      }));
+    }
+
     if (valid) {
       submitProgram();
       setErrObj((errObj) => ({
         ...errObj,
-    address_1: "",
-    address_2: "",
-    city: "",
-    state: "",
-    country: "",
-    status: "REGISTERED",
-    gender:"",
-    age:"",
-    dob:"",
-    maritalstatus:"",
-    qualification:"",
-    occupation:"",
-    occupation_details:"",
-    health_ailments:"",
-    lifestyle:"",
-    previous_experience:"",
-    experty_level:"",
-    about_byuk:"",
+        address_1: "",
+        address_2: "",
+        city: "",
+        state: "",
+        country: "",
+        status: "REGISTERED",
+        gender: "",
+        age: "",
+        dob: "",
+        maritalstatus: "",
+        qualification: "",
+        occupation: "",
+        occupation_details: "",
+        health_ailments: "",
+        lifestyle: "",
+        previous_experience: "",
+        experty_level: "",
+        about_byuk: "",
+        alternate_phone_number: "",
+        emergency_contactname: "",
+        emergency_contactnumber: "",
+        emergency_contactrelationship: "",
+        emergency_contactname2: "",
+        emergency_contactnumber2: "",
+        emergency_contactrelationship2: "",
+        languages: "",
+        kind_of_yoga: "",
+        health_conditions: "",
+        medicines_details: "",
+        covid_vaccine_dose: "",
+        tobbaco_consumption: "",
+        frequency_details_of_tobaaco_use: "",
+        planning_to_teach: "",
+        why_teach_yoga: "",
+        teaching_experience: "",
+        teaching_experience_description: "",
+        attraction_to_yoga_path: "",
+        meditation_practices: "",
       }));
       setProgram((errObj) => ({
         ...errObj,
-    address_1: "",
-    address_2: "",
-    city: "",
-    state: "",
-    country: "",
-    status: "REGISTERED",
-    age:"",
-    gender:"",
-    dob:"",
-    maritalstatus:"",
-    qualification:"",
-    occupation:"",
-    occupation_details:"",
-    health_ailments:"",
-    lifestyle:"",
-    previous_experience:"",
-    experty_level:"",
-    about_byuk:"", 
+        address_1: "",
+        address_2: "",
+        city: "",
+        state: "",
+        country: "",
+        status: "REGISTERED",
+        age: "",
+        gender: "",
+        dob: "",
+        maritalstatus: "",
+        qualification: "",
+        occupation: "",
+        occupation_details: "",
+        health_ailments: "",
+        lifestyle: "",
+        previous_experience: "",
+        experty_level: "",
+        about_byuk: "",
+        alternate_phone_number: "",
+        emergency_contactname: "",
+        emergency_contactnumber: "",
+        emergency_contactrelationship: "",
+        emergency_contactname2: "",
+        emergency_contactnumber2: "",
+        emergency_contactrelationship2: "",
+        languages: "",
+        kind_of_yoga: "",
+        health_conditions: "",
+        medicines_details: "",
+        covid_vaccine_dose: "",
+        tobbaco_consumption: "",
+        frequency_details_of_tobaaco_use: "",
+        role_of_yoga_teacher: "",
+        planning_to_teach: "",
+        why_teach_yoga: "",
+        teaching_experience: "",
+        teaching_experience_description: "",
+        attraction_to_yoga_path: "",
+        meditation_practices: "",
       }));
     }
   };
 
   const submitProgram = () => {
-	var obj = {};
-	if(isChecked){
-		obj = {
-	      program_id: props.match.params.id,
-	      user_id: user.user.id,
-	      user_name:checkedName,
-	      user_email:user.userData.email_id,
-	      address_1: program.address_1,
-	      address_2: program.address_2,
-	      city: program.city,
-	      state: program.state,
-	      country: program.country,
-	      status: "REGISTERED",
-	      reject_reason: "",
-	      registered_by:user.user.name,
-	      relationship:relationship,
-	      age:program.age,
-	      date_of_birth:program.dob,
-	      gender:program.gender,
-	      qualification:program.qualification,
-	      occupation:program.occupation,
-	      occupation_details:program.occupation_details,
-	      //health_ailments:program.health_ailments,
-	      lifestyle:program.lifestyle,
-	      previous_experience:program.previous_experience,
-	      experty_level:program.experty_level,
-	      about_byuk:program.about_byuk,
-	    };	
-	}else{
-		obj = {
-	      program_id: props.match.params.id,
-	      user_id: user.user.id,
-	      user_name: user.user.username,
-	      user_email:user.userData.email_id,
-	      address_1: program.address_1,
-	      address_2: program.address_2,
-	      city: program.city,
-	      state: program.state,
-	      country: program.country,
-	      status: "REGISTERED",
-	      reject_reason: "",
-	      registered_by:user.user.name,
-	      relationship: relationship,
-	      age:program.age,
-	      date_of_birth:program.dob,
-	      gender:program.gender,
-	      qualification:program.qualification,
-	      occupation:program.occupation,
-	      //health_ailments:program.health_ailments,
-	      lifestyle:program.lifestyle,
-	      previous_experience:program.previous_experience,
-	      experty_level:program.experty_level,
-	      about_byuk:program.about_byuk,
-	    };	
-	}
+    var obj = {};
+    if (isChecked) {
+      obj = {
+        program_id: props.match.params.id,
+        user_id: user.user.id,
+        user_name: checkedName,
+        user_email: user.userData.email_id,
+        address_1: program.address_1,
+        address_2: program.address_2,
+        city: program.city,
+        state: program.state,
+        country: program.country,
+        status: "REGISTERED",
+        reject_reason: "",
+        registered_by: user.user.name,
+        relationship: relationship,
+        age: program.age,
+        date_of_birth: program.dob,
+        gender: program.gender,
+        qualification: program.qualification,
+        occupation: program.occupation,
+        occupation_details: program.occupation_details,
+        health_ailments: checkedHealth,
+        lifestyle: program.lifestyle,
+        previous_experience: program.previous_experience,
+        experty_level: program.experty_level,
+        about_byuk: program.about_byuk,
+        alternate_phone_number: program.alternate_phone_number,
+        emergency_contactname: program.emergency_contactname,
+        emergency_contactnumber: program.emergency_contactnumber,
+        emergency_contactrelationship: program.emergency_contactrelationship,
+        emergency_contactname2: program.emergency_contactname2,
+        emergency_contactnumber2: program.emergency_contactnumber2,
+        emergency_contactrelationship2: program.emergency_contactrelationship2,
+        languages: program.languages,
+        learning_yoga: program.learning_yoga,
+        kind_of_yoga: program.kind_of_yoga,
+        health_conditions: program.health_conditions,
+        medicines_details: program.medicines_details,
+        covid_vaccine_dose: program.covid_vaccine_dose,
+        tobbaco_consumption: program.tobbaco_consumption,
+        frequency_details_of_tobaaco_use:
+          program.frequency_details_of_tobaaco_use,
+        role_of_yoga_teacher: program.role_of_yoga_teacher,
+        planning_to_teach: program.planning_to_teach,
+        why_teach_yoga: program.why_teach_yoga,
+        teaching_experience: program.teaching_experience,
+        teaching_experience_description:
+          program.teaching_experience_description,
+        attraction_to_yoga_path: program.attraction_to_yoga_path,
+        meditation_practices: program.meditation_practices,
+        tandc_agreed: "Yes",
+        rulesandregulations: "Yes",
+      };
+    } else {
+      obj = {
+        program_id: props.match.params.id,
+        user_id: user.user.id,
+        user_name: user.user.username,
+        user_email: user.userData.email_id,
+        address_1: program.address_1,
+        address_2: program.address_2,
+        city: program.city,
+        state: program.state,
+        country: program.country,
+        status: "REGISTERED",
+        reject_reason: "",
+        registered_by: user.user.name,
+        relationship: relationship,
+        age: program.age,
+        date_of_birth: program.dob,
+        gender: program.gender,
+        qualification: program.qualification,
+        occupation: program.occupation,
+        health_ailments: checkedHealth,
+        lifestyle: program.lifestyle,
+        previous_experience: program.previous_experience,
+        experty_level: program.experty_level,
+        about_byuk: program.about_byuk,
+        alternate_phone_number: program.alternate_phone_number,
+        emergency_contactname: program.emergency_contactname,
+        emergency_contactnumber: program.emergency_contactnumber,
+        emergency_contactrelationship: program.emergency_contactrelationship,
+        emergency_contactname2: program.emergency_contactname2,
+        emergency_contactnumber2: program.emergency_contactnumber2,
+        emergency_contactrelationship2: program.emergency_contactrelationship2,
+        languages: program.languages,
+        learning_yoga: program.learning_yoga,
+        kind_of_yoga: program.kind_of_yoga,
+        health_conditions: program.health_conditions,
+        medicines_details: program.medicines_details,
+        covid_vaccine_dose: program.covid_vaccine_dose,
+        tobbaco_consumption: program.tobbaco_consumption,
+        frequency_details_of_tobaaco_use:
+          program.frequency_details_of_tobaaco_use,
+        role_of_yoga_teacher: program.role_of_yoga_teacher,
+        planning_to_teach: program.planning_to_teach,
+        why_teach_yoga: program.why_teach_yoga,
+        teaching_experience: program.teaching_experience,
+        teaching_experience_description:
+          program.teaching_experience_description,
+        attraction_to_yoga_path: program.attraction_to_yoga_path,
+        meditation_practices: program.meditation_practices,
+        tandc_agreed: "Yes",
+        rulesandregulations: "Yes",
+      };
+    }
 
     axios
       .post("/usermanagement/", obj)
@@ -423,24 +742,52 @@ function RegisterProgram(props) {
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
-  
-  const handleCheckboxChange = (e) => {
-	if (e.target.checked){
-		setIsChecked(true);
-		document.getElementById('userName').value='';
-	}else{
-		setIsChecked(false);
-	}
-	
-}
 
-	const checkNameHandler = (e) => {
-		setCheckedName(e.target.value);
-	}
-	
-	const relationshipChangeHandler=(e)=>{
-		setRelationship(e.target.value);
-	}
+  const handleCheckboxChange = (e) => {
+    if (e.target.checked) {
+      setIsChecked(true);
+      document.getElementById("userName").value = "";
+    } else {
+      setIsChecked(false);
+    }
+  };
+
+  const checkNameHandler = (e) => {
+    setCheckedName(e.target.value);
+  };
+
+  const relationshipChangeHandler = (e) => {
+    setRelationship(e.target.value);
+  };
+
+  const handleMultiSelect = (data) => {
+    console.log(data, "checked data");
+    setCheckedHealth(data);
+  };
+
+  const rulesHandler = () => {
+    setRulesClicked(true);
+  };
+
+  const termsHandler = () => {
+    setTermsClicked(true);
+  };
+
+  const termsAgreementHandler = (event) => {
+    if (event.target.checked) {
+      setTermsAgreed(true);
+    } else {
+      setTermsAgreed(false);
+    }
+  };
+
+  const rulesAgreementHandler = (event) => {
+    if (event.target.checked) {
+      setRulesAgreed(true);
+    } else {
+      setRulesAgreed(false);
+    }
+  };
 
   return (
     <>
@@ -468,20 +815,26 @@ function RegisterProgram(props) {
           <div className="col-xl-6 offset-xl-3">
             <div className="text-box mt-5 mb-5">
               <div className="form-check ml-3 mb-3">
-              <h1
-                style={{
-                  fontFamily: "Poppins",
-                  color: "darkblue",
-                  fontSize: "20px",
-                }}
-              >
-                Personal Details
-              </h1>
-  				<input className="form-check-input" type="checkbox" value="" id="checked" onChange={handleCheckboxChange}/>
-				  <label className="form-check-label">
-				    Register Event for other person
-				  </label>
-				</div>
+                <h1
+                  style={{
+                    fontFamily: "Poppins",
+                    color: "darkblue",
+                    fontSize: "20px",
+                  }}
+                >
+                  Personal Details
+                </h1>
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="checked"
+                  onChange={handleCheckboxChange}
+                />
+                <label className="form-check-label">
+                  Register Event for other person
+                </label>
+              </div>
               <div className="form-group">
                 <input
                   type="text"
@@ -510,21 +863,24 @@ function RegisterProgram(props) {
                 </label>
               </div>
               <div className="form-group">
-              {isChecked ? (
-                <input
-                  type="text"
-                  className="form-control-input notEmpty"
-                  id="userName"
-                  onChange={checkNameHandler}
-                  required
-                />):(<input
-                  type="text"
-                  className="form-control-input notEmpty"
-                  value={user.userData.first_name}
-                  id="userName"
-                  required
-                  disabled
-                />)}
+                {isChecked ? (
+                  <input
+                    type="text"
+                    className="form-control-input notEmpty"
+                    id="userName"
+                    onChange={checkNameHandler}
+                    required
+                  />
+                ) : (
+                  <input
+                    type="text"
+                    className="form-control-input notEmpty"
+                    value={user.userData.first_name}
+                    id="userName"
+                    required
+                    disabled
+                  />
+                )}
                 <label className="label-control" htmlFor="name">
                   Name
                 </label>
@@ -536,20 +892,20 @@ function RegisterProgram(props) {
                   onChange={(e) => onProgramChange(e)}
                   required
                 >
-                <option value="" key="" selected>Select Option</option>
-                <option value="Male" key="male">
-                        Male
-                      </option>
-                      <option value="Female" key="female">
-                        Female
-                      </option>
-                      <option value="Rather Not Say" key="rather not say">
-                        Rather Not Say
-                      </option>
+                  <option value="" key="" selected>
+                    Select Option
+                  </option>
+                  <option value="Male" key="male">
+                    Male
+                  </option>
+                  <option value="Female" key="female">
+                    Female
+                  </option>
+                  <option value="Rather Not Say" key="rather not say">
+                    Rather Not Say
+                  </option>
                 </select>
-                <label className="label-control">
-                  Gender 
-                </label>
+                <label className="label-control">Gender</label>
                 <p style={errStyle}>{errObj.gender}</p>
               </div>
               <div className="form-group">
@@ -560,9 +916,7 @@ function RegisterProgram(props) {
                   onChange={(e) => onProgramChange(e)}
                   required
                 />
-                <label className="label-control">
-                  Age
-                </label>
+                <label className="label-control">Age</label>
                 <p style={errStyle}>{errObj.age}</p>
               </div>
               <div className="form-group">
@@ -573,11 +927,9 @@ function RegisterProgram(props) {
                   onChange={(e) => onProgramChange(e)}
                   required
                 />
-                <label className="label-control">
-                  Date of Birth
-                </label>
+                <label className="label-control">Date of Birth</label>
                 <p style={errStyle}>{errObj.dob}</p>
-              </div>  
+              </div>
               <div className="form-group">
                 <input
                   type="text"
@@ -606,47 +958,47 @@ function RegisterProgram(props) {
                   Phone Number
                 </label>
               </div>
-                   {isChecked?( <div className="form-group">
-                <select
-                  className="form-control-input notEmpty"
-                  id="relationship"
-                  required
-                  onChange={relationshipChangeHandler}
-                ><option value="Parent" key="parent">
-                        Parent
-                      </option>
-                      <option value="Spouse" key="spouse">
-                        Spouse
-                      </option>
-                      <option value="Self" key="self" selected>
-                        Self
-                      </option>
-                      
-                </select>
-                <label className="label-control">
-                  Relationship 
-                </label>
-              </div>):(<div className="form-group">
-                <select
-                  className="form-control-input notEmpty"
-                  id="relationship"
-                  disabled
-                  required
-                ><option value="Parent" key="parent">
-                        Parent
-                      </option>
-                      <option value="Spouse" key="spouse">
-                        Spouse
-                      </option>
-                      <option value="Self" key="self" selected>
-                        Self
-                      </option>
-                      
-                </select>
-                <label className="label-control">
-                  Relationship 
-                </label>
-              </div>)}      
+              {isChecked ? (
+                <div className="form-group">
+                  <select
+                    className="form-control-input notEmpty"
+                    id="relationship"
+                    required
+                    onChange={relationshipChangeHandler}
+                  >
+                    <option value="Parent" key="parent">
+                      Parent
+                    </option>
+                    <option value="Spouse" key="spouse">
+                      Spouse
+                    </option>
+                    <option value="Self" key="self" selected>
+                      Self
+                    </option>
+                  </select>
+                  <label className="label-control">Relationship</label>
+                </div>
+              ) : (
+                <div className="form-group">
+                  <select
+                    className="form-control-input notEmpty"
+                    id="relationship"
+                    disabled
+                    required
+                  >
+                    <option value="Parent" key="parent">
+                      Parent
+                    </option>
+                    <option value="Spouse" key="spouse">
+                      Spouse
+                    </option>
+                    <option value="Self" key="self" selected>
+                      Self
+                    </option>
+                  </select>
+                  <label className="label-control">Relationship</label>
+                </div>
+              )}
               <div className="form-group">
                 <input
                   type="text"
@@ -753,22 +1105,24 @@ function RegisterProgram(props) {
                   id="maritalstatus"
                   required
                 >
-                <option value="" selected>Select Option</option>
-                <option value="Single" key="single">
-                        Single
-                      </option>
-                      <option value="Married" key="married">
-                        Married
-                      </option>
-                      <option value="Widower/Divorsed" key="widower/divorsed">Widower/Divorsed</option>
-                      <option value="Rather Not Say" key="rather not say">
-                        Rather Not Say
-                      </option>
+                  <option value="" selected>
+                    Select Option
+                  </option>
+                  <option value="Single" key="single">
+                    Single
+                  </option>
+                  <option value="Married" key="married">
+                    Married
+                  </option>
+                  <option value="Widower/Divorsed" key="widower/divorsed">
+                    Widower/Divorsed
+                  </option>
+                  <option value="Rather Not Say" key="rather not say">
+                    Rather Not Say
+                  </option>
                 </select>
-                <label className="label-control">
-                  Marital Status 
-                </label>
-              <p style={errStyle}>{errObj.maritalstatus}</p>
+                <label className="label-control">Marital Status</label>
+                <p style={errStyle}>{errObj.maritalstatus}</p>
               </div>
               <div className="form-group">
                 <select
@@ -777,32 +1131,32 @@ function RegisterProgram(props) {
                   onChange={(e) => onProgramChange(e)}
                   required
                 >
-                <option value="" selected>Select Option</option>
-                	<option value="School" key="school">
-                        School
-                      </option>
-                      <option value="Undergraduate" key="undergraduate">
-                        Undergraduate
-                      </option>
-                      <option value="Graduate" key="Graduate">
-                        Graduate
-                      </option>
-                      <option value="Diploma" key="diploma">
-                        Diploma
-                      </option>
-                      <option value="Post Graduate" key="post graduate">
-                        Post Graduate
-                      </option>
-                      <option value="PhD" key="PhD">
-                        PhD
-                      </option>
-                      <option value="Rather Not Say" key="rather not say">
-                        Rather Not Say
-                      </option>
+                  <option value="" selected>
+                    Select Option
+                  </option>
+                  <option value="School" key="school">
+                    School
+                  </option>
+                  <option value="Undergraduate" key="undergraduate">
+                    Undergraduate
+                  </option>
+                  <option value="Graduate" key="Graduate">
+                    Graduate
+                  </option>
+                  <option value="Diploma" key="diploma">
+                    Diploma
+                  </option>
+                  <option value="Post Graduate" key="post graduate">
+                    Post Graduate
+                  </option>
+                  <option value="PhD" key="PhD">
+                    PhD
+                  </option>
+                  <option value="Rather Not Say" key="rather not say">
+                    Rather Not Say
+                  </option>
                 </select>
-                <label className="label-control">
-                  Qualification 
-                </label>
+                <label className="label-control">Qualification</label>
                 <p style={errStyle}>{errObj.qualification}</p>
               </div>
               <div className="form-group">
@@ -812,32 +1166,32 @@ function RegisterProgram(props) {
                   onChange={(e) => onProgramChange(e)}
                   required
                 >
-                <option value="" selected>Select Option</option>
-                <option value="Student" key="student">
-                        Student
-                      </option>
-                      <option value="Unemployed" key="unemployed">
-                        Unemployed
-                      </option>
-                      <option value="Self Employed" key="self employed">
-                        Self Employed
-                      </option>
-                      <option value="Homemaker" key="Homemaker">
-                        Homemaker
-                      </option>
-                      <option value="Govt/Public Sector" key="govt/public sector">
-                        Govt/Public Sector
-                      </option>
-                      <option value="Private Sector" key="private sector">
-                        Private Sector
-                      </option>
-                      <option value="other" key="other">
-                        Other (Please Specify)
-                      </option>
+                  <option value="" selected>
+                    Select Option
+                  </option>
+                  <option value="Student" key="student">
+                    Student
+                  </option>
+                  <option value="Unemployed" key="unemployed">
+                    Unemployed
+                  </option>
+                  <option value="Self Employed" key="self employed">
+                    Self Employed
+                  </option>
+                  <option value="Homemaker" key="Homemaker">
+                    Homemaker
+                  </option>
+                  <option value="Govt/Public Sector" key="govt/public sector">
+                    Govt/Public Sector
+                  </option>
+                  <option value="Private Sector" key="private sector">
+                    Private Sector
+                  </option>
+                  <option value="other" key="other">
+                    Other (Please Specify)
+                  </option>
                 </select>
-                <label className="label-control">
-                  Occupation 
-                </label>
+                <label className="label-control">Occupation</label>
                 <p style={errStyle}>{errObj.occupation}</p>
               </div>
               <div className="form-group">
@@ -847,12 +1201,10 @@ function RegisterProgram(props) {
                   id="occupation_details"
                   onChange={(e) => onProgramChange(e)}
                 />
-                <label className="label-control">
-                  Occupation Details
-                </label>
+                <label className="label-control">Occupation Details</label>
                 <p style={errStyle}>{errObj.occupation_details}</p>
               </div>
-				<h1
+              <h1
                 style={{
                   fontFamily: "Poppins",
                   color: "darkblue",
@@ -862,18 +1214,10 @@ function RegisterProgram(props) {
                 Health & Lifestyle
               </h1>
               <div className="form-group">
-                <select
-                  className="form-control-input notEmpty"
-                  id="qualification"
-                  required
-                >
-                
-                
-                
-                </select>
-                <label className="label-control">
-                  Health/Ailments 
-                </label>
+                <Checkbox.Group
+                  options={healthOptions}
+                  onChange={handleMultiSelect}
+                />
               </div>
               <div className="form-group">
                 <select
@@ -882,22 +1226,106 @@ function RegisterProgram(props) {
                   onChange={(e) => onProgramChange(e)}
                   required
                 >
-                <option value="" selected>Select Option</option>
-                <option value="Sedentary" key="sedentary">
-                        Sedentary
-                      </option>
-                      <option value="Moderately active" key="moderately active">
-                        Moderately Active
-                      </option>
-                      <option value="Highly active" key="highly active">
-                        Highly Active
-                      </option>
+                  <option value="" selected>
+                    Select Option
+                  </option>
+                  <option value="Sedentary" key="sedentary">
+                    Sedentary
+                  </option>
+                  <option value="Moderately active" key="moderately active">
+                    Moderately Active
+                  </option>
+                  <option value="Highly active" key="highly active">
+                    Highly Active
+                  </option>
                 </select>
-                <label className="label-control">
-                  Lifestyle 
-                </label>
-               	<p style={errStyle}>{errObj.lifestyle}</p>
+                <label className="label-control">Lifestyle</label>
+                <p style={errStyle}>{errObj.lifestyle}</p>
               </div>
+              {residentialCourse && (
+                <>
+                  <div className="form-group">
+                    <textarea
+                      className="form-control-input notEmpty"
+                      id="health_conditions"
+                      rows="2"
+                      onChange={(e) => onProgramChange(e)}
+                    />
+                    <label className="label-control">
+                      Write about your health conditions in detail
+                    </label>
+                    <p style={errStyle}>{errObj.health_conditions}</p>
+                  </div>
+                  <div className="form-group">
+                    <textarea
+                      className="form-control-input notEmpty"
+                      id="medicines_details"
+                      rows="2"
+                      onChange={(e) => onProgramChange(e)}
+                    />
+                    <label className="label-control">
+                      List down any allopathic or ayurvedic medicines you take
+                    </label>
+                    <p style={errStyle}>{errObj.medicines_details}</p>
+                  </div>
+                  <div className="form-group">
+                    <select
+                      className="form-control-input notEmpty"
+                      id="covid_vaccine_dose"
+                      onChange={(e) => onProgramChange(e)}
+                      required
+                    >
+                      <option value="" selected>
+                        Select Option
+                      </option>
+                      <option value="Yes Single Dose" key="single dose">
+                        Yes - Single Dose
+                      </option>
+                      <option value="Yes Both Dose" key="both dose">
+                        Yes - Both Dose
+                      </option>
+                      <option value="No" key="no">
+                        No
+                      </option>
+                    </select>
+                    <label className="label-control">
+                      Have you been vaccinated for COVID
+                    </label>
+                    <p style={errStyle}>{errObj.covid_vaccine_dose}</p>
+                  </div>
+                  <div className="form-group">
+                    <select
+                      className="form-control-input notEmpty"
+                      id="tobbaco_consumption"
+                      onChange={(e) => onProgramChange(e)}
+                      required
+                    >
+                      <option value="Yes" key="yes">
+                        Yes
+                      </option>
+                      <option value="No" key="no" selected>
+                        No
+                      </option>
+                    </select>
+                    <label className="label-control mb-4">
+                      Have you used tobacco,alcohol, recreational drugs or
+                      illicit substances in last 12 months?
+                    </label>
+                  </div>
+                  <div className="form-group">
+                    <textarea
+                      className="form-control-input notEmpty"
+                      id="frequency_details_of_tobaaco_use"
+                      rows="3"
+                      onChange={(e) => onProgramChange(e)}
+                    />
+                    <label className="label-control">
+                      Do you currently continue to use any of these substances?
+                      If yes, please list substance and frequency of use:
+                    </label>
+                  </div>
+                </>
+              )}
               <h1
                 style={{
                   fontFamily: "Poppins",
@@ -913,40 +1341,41 @@ function RegisterProgram(props) {
                   id="previous_experience"
                   onChange={(e) => onProgramChange(e)}
                   required
-                ><option value="Yes" key="yes">
-                        Yes
-                      </option>
-                      <option value="No" key="no" selected>
-                        No
-                      </option>
+                >
+                  <option value="Yes" key="yes">
+                    Yes
+                  </option>
+                  <option value="No" key="no" selected>
+                    No
+                  </option>
                 </select>
                 <label className="label-control">
-                  Any Previous Yoga Experience 
+                  Any Previous Yoga Experience
                 </label>
               </div>
-              {prevExperience && (<div className="form-group">
-                <select
-                  className="form-control-input notEmpty"
-                  id="experty_level"
-                  onChange={(e) => onProgramChange(e)}
-                  required
-                >
-                <option value="" selected></option>
-                <option value="Begginer" key="begginer">
-                        Begginer
-                      </option>
-                      <option value="Intermediate" key="intermediate">
-                        Intermediate
-                      </option>
-                      <option value="Advanced" key="advanced">
-                        Advanced
-                      </option>
-                </select>
-                <label className="label-control">
-                 	Expertise 
-                </label>
-                <p style={errStyle}>{errObj.experty_level}</p>
-              </div>)}
+              {prevExperience && (
+                <div className="form-group">
+                  <select
+                    className="form-control-input notEmpty"
+                    id="experty_level"
+                    onChange={(e) => onProgramChange(e)}
+                    required
+                  >
+                    <option value="" selected></option>
+                    <option value="Begginer" key="begginer">
+                      Begginer
+                    </option>
+                    <option value="Intermediate" key="intermediate">
+                      Intermediate
+                    </option>
+                    <option value="Advanced" key="advanced">
+                      Advanced
+                    </option>
+                  </select>
+                  <label className="label-control">Expertise</label>
+                  <p style={errStyle}>{errObj.experty_level}</p>
+                </div>
+              )}
               <div className="form-group">
                 <select
                   className="form-control-input notEmpty"
@@ -954,125 +1383,447 @@ function RegisterProgram(props) {
                   onChange={(e) => onProgramChange(e)}
                   required
                 >
-                <option value="" selected>Select Option</option>
-                <option value="Email by BYVK" key="Email by BYVK">
-                	Email by BYVK
-                </option>
-                <option value="BYVK Website" key="BYVK Website">
-					BYVK Website
-				</option>
-				<option value="BYVK Instagram" key="BYVK Instagram">
-					BYVK Instagram
-				</option>
-				<option value="BYVK FB" key="BYVK FB">
-					BYVK FB
-				</option>
-				<option value="BYVK LinkedIn" key="BYVK LinkedIn">
-					BYVK LinkedIn
-				</option>
-				<option value="Whatsapp groups - BYVK" key="Whatsapp groups - BYVK">
-					Whatsapp groups - BYVK
-				</option>
-				<option value="TSF Website" key="TSF Website">
-					TSF Website
-				</option>
-				<option value="TSF Instagram" key="TSF Instagram">
-					TSF Instagram
-				</option>
-				<option value="TSF FB" key="TSF FB">
-					TSF FB
-				</option>
-				<option value="TSF WhatsApp" key="TSF WhatsApp">
-					TSF WhatsApp
-				</option>
-				<option value="TSF Email" key="TSF Email">
-					TSF Email
-				</option>
-				<option value="From a friend" key="From a friend">
-					From a friend
-				</option>
-				<option value="other" key="others">
-					Others (please specify)
-				</option>
+                  <option value="" selected>
+                    Select Option
+                  </option>
+                  <option value="Email by BYVK" key="Email by BYVK">
+                    Email by BYVK
+                  </option>
+                  <option value="BYVK Website" key="BYVK Website">
+                    BYVK Website
+                  </option>
+                  <option value="BYVK Instagram" key="BYVK Instagram">
+                    BYVK Instagram
+                  </option>
+                  <option value="BYVK FB" key="BYVK FB">
+                    BYVK FB
+                  </option>
+                  <option value="BYVK LinkedIn" key="BYVK LinkedIn">
+                    BYVK LinkedIn
+                  </option>
+                  <option
+                    value="Whatsapp groups - BYVK"
+                    key="Whatsapp groups - BYVK"
+                  >
+                    Whatsapp groups - BYVK
+                  </option>
+                  <option value="TSF Website" key="TSF Website">
+                    TSF Website
+                  </option>
+                  <option value="TSF Instagram" key="TSF Instagram">
+                    TSF Instagram
+                  </option>
+                  <option value="TSF FB" key="TSF FB">
+                    TSF FB
+                  </option>
+                  <option value="TSF WhatsApp" key="TSF WhatsApp">
+                    TSF WhatsApp
+                  </option>
+                  <option value="TSF Email" key="TSF Email">
+                    TSF Email
+                  </option>
+                  <option value="From a friend" key="From a friend">
+                    From a friend
+                  </option>
+                  <option value="other" key="others">
+                    Others (please specify)
+                  </option>
                 </select>
                 <label className="label-control">
-                 	How did you come to know about BYVK 
+                  How did you come to know about BYVK
                 </label>
                 <p style={errStyle}>{errObj.about_byuk}</p>
               </div>
-              {residentialCourse && (<div>
-              <h1
+              {otherSource && (
+                <div className="form-group">
+                  <input
+                    type="text"
+                    className="form-control-input notEmpty"
+                    id="about_byuk"
+                    onChange={(e) => onProgramChange(e)}
+                    required
+                  />
+                  <label className="label-control">Type Other Source</label>
+                  <p style={errStyle}>{errObj.othersource}</p>
+                </div>
+              )}
+              {residentialCourse && (
+                <>
+                  <div className="form-group">
+                    <select
+                      className="form-control-input notEmpty"
+                      id="learning_yoga"
+                      onChange={(e) => onProgramChange(e)}
+                      required
+                    >
+                      <option value="No Experience" key="no" selected>
+                        No Experience
+                      </option>
+                      <option value="Yes 6 Months" key="yes">
+                        Yes - 6 Months
+                      </option>
+                      <option value="Yes More Than 1 Year" key="yes 1 year">
+                        Yes - More than 1 Year
+                      </option>
+                    </select>
+                    <label className="label-control">
+                      How Long Have You Been Learning/Practicing Yoga
+                    </label>
+                  </div>
+                  <div className="form-group">
+                    <textarea
+                      className="form-control-input notEmpty"
+                      id="kind_of_yoga"
+                      rows="2"
+                      onChange={(e) => onProgramChange(e)}
+                    />
+                    <label className="label-control">
+                      Style of Yoga You Practice, Give Details
+                    </label>
+                  </div>
+                </>
+              )}
+              {courseData.course_name === "T T C" && (
+                <>
+                  <div className="form-group">
+                    <textarea
+                      className="form-control-input notEmpty"
+                      id="role_of_yoga_teacher"
+                      rows="2"
+                      onChange={(e) => onProgramChange(e)}
+                    />
+                    <label className="label-control">
+                      What does Yoga mean to you? What should the role of a Yoga
+                      teacher be?
+                    </label>
+                    <p style={errStyle}>{errObj.role_of_yoga_teacher}</p>
+                  </div>
+                  <div className="form-group">
+                    <select
+                      className="form-control-input notEmpty"
+                      id="planning_to_teach"
+                      onChange={(e) => onProgramChange(e)}
+                    >
+                      <option value="" selected>
+                        Select Option
+                      </option>
+                      <option value="No" key="no">
+                        No
+                      </option>
+                      <option value="Yes" key="yes">
+                        Yes
+                      </option>
+                      <option value="Maybe after a few months" key="no">
+                        Maybe after a few months
+                      </option>
+                    </select>
+                    <label className="label-control">
+                      Are you planning to teach Yoga after completing this
+                      course?
+                    </label>
+                    <p style={errStyle}>{errObj.planning_to_teach}</p>
+                  </div>
+                  <div className="form-group">
+                    <textarea
+                      className="form-control-input notEmpty"
+                      id="why_teach_yoga"
+                      rows="2"
+                      onChange={(e) => onProgramChange(e)}
+                    />
+                    <label className="label-control">
+                      Explain why you want to teach Yoga?
+                    </label>
+                    <p style={errStyle}>{errObj.why_teach_yoga}</p>
+                  </div>
+                  <div className="form-group">
+                    <textarea
+                      className="form-control-input notEmpty"
+                      id="why_teach_yoga"
+                      rows="2"
+                      onChange={(e) => onProgramChange(e)}
+                    />
+                    <label className="label-control">
+                      Explain why you want to teach Yoga?
+                    </label>
+                    <p style={errStyle}>{errObj.why_teach_yoga}</p>
+                  </div>
+                  <div className="form-group">
+                    <select
+                      className="form-control-input notEmpty"
+                      id="teaching_experience"
+                      onChange={(e) => onProgramChange(e)}
+                    >
+                      <option value="No" key="no" selected>
+                        No
+                      </option>
+                      <option value="Yes" key="yes">
+                        Yes
+                      </option>
+                    </select>
+                    <label className="label-control">
+                      Are you planning to teach Yoga after completing this
+                      course?
+                    </label>
+                  </div>
+                  <div className="form-group">
+                    <textarea
+                      className="form-control-input notEmpty"
+                      id="teaching_experience_description"
+                      rows="2"
+                      onChange={(e) => onProgramChange(e)}
+                    />
+                    <label className="label-control">
+                      If yes, Please explain your prior teaching experience in
+                      brief
+                    </label>
+                    <p style={errStyle}>
+                      {errObj.teaching_experience_description}
+                    </p>
+                  </div>
+                  <div className="form-group">
+                    <textarea
+                      className="form-control-input notEmpty"
+                      id="attraction_to_yoga_path"
+                      rows="2"
+                      onChange={(e) => onProgramChange(e)}
+                    />
+                    <label className="label-control">
+                      What attracts you to spirituality and specifically to the
+                      path of Yoga?
+                    </label>
+                    <p style={errStyle}>{errObj.attraction_to_yoga_path}</p>
+                  </div>
+                  <div className="form-group">
+                    <textarea
+                      className="form-control-input notEmpty"
+                      id="meditation_practices"
+                      rows="2"
+                      onChange={(e) => onProgramChange(e)}
+                    />
+                    <label className="label-control">
+                      Please describe any other spiritual or meditation
+                      practices which you follow?
+                    </label>
+                    <p style={errStyle}>{errObj.meditation_practices}</p>
+                  </div>
+                </>
+              )}
+              {residentialCourse && (
+                <div>
+                  <h1
+                    style={{
+                      fontFamily: "Poppins",
+                      color: "darkblue",
+                      fontSize: "20px",
+                    }}
+                  >
+                    Required Details for Residential Course
+                  </h1>
+                  <div className="form-group">
+                    <input
+                      type="number"
+                      className="form-control-input notEmpty"
+                      id="alternate_phone_number"
+                      onChange={(e) => onProgramChange(e)}
+                      required
+                    />
+                    <label className="label-control">
+                      Alternate Phone Number
+                    </label>
+                    <p style={errStyle}>{errObj.alternate_phone_number}</p>
+                  </div>
+                  <p>Emergency Contact Details</p>
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      className="form-control-input notEmpty"
+                      id="emergency_contactname"
+                      onChange={(e) => onProgramChange(e)}
+                      required
+                    />
+                    <label className="label-control">
+                      Emergency Contact Name
+                    </label>
+                    <p style={errStyle}>{errObj.emergency_contactname}</p>
+                  </div>
+                  <div className="form-group">
+                    <input
+                      type="number"
+                      className="form-control-input notEmpty"
+                      id="emergency_contactnumber"
+                      onChange={(e) => onProgramChange(e)}
+                      required
+                    />
+                    <label className="label-control">
+                      Emergency Contact Number
+                    </label>
+                    <p style={errStyle}>{errObj.emergency_contactnumber}</p>
+                  </div>
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      className="form-control-input notEmpty"
+                      id="emergency_contactrelationship"
+                      onChange={(e) => onProgramChange(e)}
+                      required
+                    />
+                    <label className="label-control">
+                      Emergency Contact Relationship
+                    </label>
+                    <p style={errStyle}>
+                      {errObj.emergency_contactrelationship}
+                    </p>
+                  </div>
+                  <p>Alternate Emergency Contact Details (optional)</p>
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      className="form-control-input notEmpty"
+                      id="emergency_contactname2"
+                      onChange={(e) => onProgramChange(e)}
+                    />
+                    <label className="label-control">
+                      Emergency Contact Name
+                    </label>
+                    <p style={errStyle}>{errObj.emergency_contactname2}</p>
+                  </div>
+                  <div className="form-group">
+                    <input
+                      type="number"
+                      className="form-control-input notEmpty"
+                      id="emergency_contactnumber2"
+                      onChange={(e) => onProgramChange(e)}
+                    />
+                    <label className="label-control">
+                      Emergency Contact Number
+                    </label>
+                    <p style={errStyle}>{errObj.emergency_contactnumber2}</p>
+                  </div>
+                  <div className="form-group mb-5">
+                    <input
+                      type="text"
+                      className="form-control-input notEmpty"
+                      id="emergency_contactrelationship2"
+                      onChange={(e) => onProgramChange(e)}
+                    />
+                    <label className="label-control">
+                      Emergency Contact Relationship
+                    </label>
+                    <p style={errStyle}>
+                      {errObj.emergency_contactrelationship2}
+                    </p>
+                  </div>
+                  <div className="form-group mt-5">
+                    <input
+                      type="text"
+                      className="form-control-input notEmpty"
+                      id="languages"
+                      onChange={(e) => onProgramChange(e)}
+                    />
+                    <label className="label-control">Languages</label>
+                    <p style={errStyle}>{errObj.languages}</p>
+                  </div>
+                </div>
+              )}
+              {docs.map((data, index) => {
+                return (
+                  <>
+                    <p style={noteStyle}>
+                      Please upload documents carefully, once you uploaded its
+                      not able to replace. use (Jpeg/png/pdf/zip)
+                    </p>
+                    <div
+                      className="row"
+                      style={{ padding: "10px" }}
+                      key={index}
+                    >
+                      <div className="col-xl-8">Please upload {data}</div>
+                      <div className="col-xl-4">
+                        <input
+                          type="file"
+                          className=""
+                          id={data}
+                          onChange={(e) => onFileChange(e)}
+                          required
+                        />
+                      </div>
+                      {/* <label className="label-control" htmlFor="max_age">
+                      {data} Upload
+                    </label> */}
+                      {/* <p style={errStyle}>{errObj.country}</p> */}
+                    </div>
+                  </>
+                );
+              })}
+              <h3
                 style={{
                   fontFamily: "Poppins",
                   color: "darkblue",
                   fontSize: "20px",
                 }}
               >
-                Required Details for Residential Course
-              </h1>
-              <div className="form-group">
-                <input
-                  type="text"
-                  className="form-control-input notEmpty"
-                  value={program.address_1}
-                  id=""
-                  onChange={(e) => onProgramChange(e)}
-                  required
-                />
-                <label className="label-control" htmlFor="name">
-                  Address 1
-                </label>
-                <p style={errStyle}>{errObj.address_1}</p>
-              </div>
-              </div>)}
-              {otherSource && (<div className="form-group">
-                <input
-                  type="text"
-                  className="form-control-input notEmpty"
-                  id="about_byuk"
-                  onChange={(e) => onProgramChange(e)}
-                  required
-                />
-                <label className="label-control">
-                  Type Other Source 
-                </label>
-                <p style={errStyle}>{errObj.othersource}</p>
-              </div>  )}            				
-              {docs.map((data, index) => {
-                return (
-				<>
-				<p style={noteStyle}>
-                	Please upload documents carefully, once you uploaded its not
-                	able to replace. use (Jpeg/png/pdf/zip)
-              	</p>
-                  <div className="row" style={{ padding: "10px" }} key={index}>
-                    <div className="col-xl-8">Please upload {data}</div>
-                    <div className="col-xl-4">
-                      <input
-                        type="file"
-                        className=""
-                        id={data}
-                        onChange={(e) => onFileChange(e)}
-                        required
-                      />
-                    </div>
-                    {/* <label className="label-control" htmlFor="max_age">
-                      {data} Upload
-                    </label> */}
-                    {/* <p style={errStyle}>{errObj.country}</p> */}
-                  </div>
-                  </>
-                );
-              })}
-              <div className="form-group">
-                <button
-                  type="submit"
-                  className="form-control-submit-button"
-                  onClick={(e) => validateProgramData(e)}
-                >
-                  Register
-                </button>
-              </div>
+                Ashram Rules & Regulations
+              </h3>
+              <a href="/termsconditions" target="_blank" onClick={rulesHandler}>
+                Click Here to read Ashram Rules & Regulations
+              </a>
+              {rulesClicked && (
+                <div className="form-group mt-2">
+                  <input
+                    type="checkbox"
+                    id="rules"
+                    onClick={rulesAgreementHandler}
+                  />
+                  <label>
+                    Yes , I Agree All Conditions
+                    <span style={{ color: "red" }}>*</span>
+                  </label>
+                  <p style={errStyle}>{errObj.rules_agreed}</p>
+                </div>
+              )}
+              <h3
+                style={{
+                  fontFamily: "Poppins",
+                  color: "darkblue",
+                  fontSize: "20px",
+                }}
+              >
+                Terms & Conditions
+              </h3>
+              <a href="/termsconditions" target="_blank" onClick={termsHandler}>
+                Click Here to read Terms & Conditions
+              </a>
+              {termsClicked && (
+                <div className="form-group mt-2">
+                  <input
+                    type="checkbox"
+                    id="t&c"
+                    onClick={termsAgreementHandler}
+                  />
+                  <label>
+                    Yes , I Agree All Conditions
+                    <span style={{ color: "red" }}>*</span>
+                  </label>
+                </div>
+              )}
+
+              {termsAgreed ? (
+                <div className="form-group mt-4">
+                  <button
+                    type="submit"
+                    className="form-control-submit-button"
+                    onClick={(e) => validateProgramData(e)}
+                  >
+                    Register
+                  </button>
+                </div>
+              ) : (
+                <div className="form-group mt-4">
+                  <button type="submit" className="form-control" disabled>
+                    Register
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>
