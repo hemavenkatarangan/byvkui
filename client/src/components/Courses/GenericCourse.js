@@ -135,28 +135,9 @@ function GenericCourses() {
               <Panel header="1. Residential Courses" key="1">
                 <div
                   className="container"
-                  style={{
-                    background:
-                      "url(../images/header-background.png) center center no-repeat",
-                  }}
+                 
                 >
-                  <div className="row">
-                    <div className="col-lg-12">
-                      <h2
-                        className="heading"
-                        style={{
-                          color: "darkblue",
-                          fontFamily: "Poppins",
-                          marginTop: "20px",
-                          marginBottom: "20px",
-                          fontSize: "24px",
-                        }}
-                      >
-                        Course Calendar
-                      </h2>
-                      {/* <p className="p-heading"></p> */}
-                    </div>
-                  </div>
+                  
                   {courseRelatedData.length > 0 ? (
                     courseRelatedData.map((data, index) => {
                       return (
@@ -185,37 +166,15 @@ function GenericCourses() {
                                   textAlign: "center",
                                 }}
                               >
-                                {data.name}
+                                {data.name} - {data.description}
                               </h4>
-                              <p
-                                style={{
-                                  fontFamily: "Poppins",
-                                  fontSize: "16px",
-                                }}
-                              >
-                                {data.description}
-                              </p>
+                              
                             </div>
                             <div
                               className="col-lg-4"
                               style={{ textAlign: "center" }}
                             >
-                              <div className="" style={{ marginTop: "0px" }}>
-                                <Button
-                                  type="primary"
-                                  style={{
-                                    fontFamily: "Poppins",
-                                    width: "50%",
-                                    background: "#f3cd74",
-                                    color: "black",
-                                    borderRadius: "18px",
-                                  }}
-                                >
-                                  <a href={"../course/" + data.course}>
-                                    Learn More
-                                  </a>
-                                </Button>
-                              </div>
+                              
 
                               {isAuthenticated &&
                               data.status !== "INACTIVE" &&
@@ -254,27 +213,10 @@ function GenericCourses() {
               <Panel header="2. Online courses" key="2">
                 <div
                   className="container"
-                  style={{
-                    background:
-                      "url(../images/header-background.png) center center no-repeat",
-                  }}
+                  
                 >
                   <div className="row">
-                    <div className="col-lg-12">
-                      <h2
-                        className="heading"
-                        style={{
-                          color: "darkblue",
-                          fontFamily: "Poppins",
-                          marginTop: "20px",
-                          marginBottom: "20px",
-                          fontSize: "24px",
-                        }}
-                      >
-                        Course Calendar
-                      </h2>
-                      {/* <p className="p-heading"></p> */}
-                    </div>
+                   
                   </div>
                   {onlineCourseData.length > 0 ? (
                     onlineCourseData.map((data, index) => {
@@ -304,37 +246,15 @@ function GenericCourses() {
                                   textAlign: "center",
                                 }}
                               >
-                                {data.name}
+                                {data.name} -  {data.description}
                               </h4>
-                              <p
-                                style={{
-                                  fontFamily: "Poppins",
-                                  fontSize: "16px",
-                                }}
-                              >
-                                {data.description}
-                              </p>
+                              
                             </div>
                             <div
                               className="col-lg-4"
                               style={{ textAlign: "center" }}
                             >
-                              <div className="" style={{ marginTop: "0px" }}>
-                                <Button
-                                  type="primary"
-                                  style={{
-                                    fontFamily: "Poppins",
-                                    width: "50%",
-                                    background: "#f3cd74",
-                                    color: "black",
-                                    borderRadius: "18px",
-                                  }}
-                                >
-                                  <a href={"../course/" + data.course}>
-                                    Learn More
-                                  </a>
-                                </Button>
-                              </div>
+                              
 
                               {isAuthenticated &&
                               data.status !== "INACTIVE" &&
@@ -373,27 +293,10 @@ function GenericCourses() {
               <Panel header="3. Hybrid courses" key="3">
                 <div
                   className="container"
-                  style={{
-                    background:
-                      "url(../images/header-background.png) center center no-repeat",
-                  }}
+                 
                 >
                   <div className="row">
-                    <div className="col-lg-12">
-                      <h2
-                        className="heading"
-                        style={{
-                          color: "darkblue",
-                          fontFamily: "Poppins",
-                          marginTop: "20px",
-                          marginBottom: "20px",
-                          fontSize: "24px",
-                        }}
-                      >
-                        Course Calendar
-                      </h2>
-                      {/* <p className="p-heading"></p> */}
-                    </div>
+                    
                   </div>
                   {hybridCourseData.length > 0 ? (
                     hybridCourseData.map((data, index) => {
@@ -423,37 +326,15 @@ function GenericCourses() {
                                   textAlign: "center",
                                 }}
                               >
-                                {data.name}
+                                {data.name} -   {data.description}
                               </h4>
-                              <p
-                                style={{
-                                  fontFamily: "Poppins",
-                                  fontSize: "16px",
-                                }}
-                              >
-                                {data.description}
-                              </p>
+                             
                             </div>
                             <div
                               className="col-lg-4"
                               style={{ textAlign: "center" }}
                             >
-                              <div className="" style={{ marginTop: "0px" }}>
-                                <Button
-                                  type="primary"
-                                  style={{
-                                    fontFamily: "Poppins",
-                                    width: "50%",
-                                    background: "#f3cd74",
-                                    color: "black",
-                                    borderRadius: "18px",
-                                  }}
-                                >
-                                  <a href={"../course/" + data.course}>
-                                    Learn More
-                                  </a>
-                                </Button>
-                              </div>
+                              
 
                               {isAuthenticated &&
                               data.status !== "INACTIVE" &&
