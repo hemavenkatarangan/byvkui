@@ -37,7 +37,7 @@ function GenericCourses() {
     axios
       .get("/courses/" + id)
       .then((res) => {
-        // console.log(res.data)
+        console.log(res.data.result);
         setData(res.data.result);
         getEventsRelatedToThisCourse(id, 1);
       })
@@ -122,7 +122,7 @@ function GenericCourses() {
             </div>
           </div>
           <br />
-          {data.contents && (
+          {data.contents === "" && (
             <div className="row">
               <div class="editor-container">
                 <ReactQuill
