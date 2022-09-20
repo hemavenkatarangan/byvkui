@@ -121,23 +121,22 @@ function GenericCourses() {
               </div>
             </div>
           </div>
-          <div className="row">
-            <div class="editor-container">
-              <ReactQuill
-                value={data.contents || ""}
-                readOnly={true}
-                theme={"bubble"}
-              />
+          <br />
+          {data.contents && (
+            <div className="row">
+              <div class="editor-container">
+                <ReactQuill
+                  value={data.contents}
+                  readOnly={true}
+                  theme={"bubble"}
+                />
+              </div>
             </div>
-          </div>
+          )}
           <div>
             <Collapse defaultActiveKey={["1"]} onChange={onChange}>
               <Panel header="1. Residential Courses" key="1">
-                <div
-                  className="container"
-                 
-                >
-                  
+                <div className="container">
                   {courseRelatedData.length > 0 ? (
                     courseRelatedData.map((data, index) => {
                       return (
@@ -168,14 +167,11 @@ function GenericCourses() {
                               >
                                 {data.name} - {data.description}
                               </h4>
-                              
                             </div>
                             <div
                               className="col-lg-4"
                               style={{ textAlign: "center" }}
                             >
-                              
-
                               {isAuthenticated &&
                               data.status !== "INACTIVE" &&
                               data.status !== "STARTED" &&
@@ -211,13 +207,8 @@ function GenericCourses() {
                 </div>
               </Panel>
               <Panel header="2. Online courses" key="2">
-                <div
-                  className="container"
-                  
-                >
-                  <div className="row">
-                   
-                  </div>
+                <div className="container">
+                  <div className="row"></div>
                   {onlineCourseData.length > 0 ? (
                     onlineCourseData.map((data, index) => {
                       return (
@@ -246,16 +237,13 @@ function GenericCourses() {
                                   textAlign: "center",
                                 }}
                               >
-                                {data.name} -  {data.description}
+                                {data.name} - {data.description}
                               </h4>
-                              
                             </div>
                             <div
                               className="col-lg-4"
                               style={{ textAlign: "center" }}
                             >
-                              
-
                               {isAuthenticated &&
                               data.status !== "INACTIVE" &&
                               data.status !== "STARTED" &&
@@ -291,13 +279,8 @@ function GenericCourses() {
                 </div>
               </Panel>
               <Panel header="3. Hybrid courses" key="3">
-                <div
-                  className="container"
-                 
-                >
-                  <div className="row">
-                    
-                  </div>
+                <div className="container">
+                  <div className="row"></div>
                   {hybridCourseData.length > 0 ? (
                     hybridCourseData.map((data, index) => {
                       return (
@@ -326,16 +309,13 @@ function GenericCourses() {
                                   textAlign: "center",
                                 }}
                               >
-                                {data.name} -   {data.description}
+                                {data.name} - {data.description}
                               </h4>
-                             
                             </div>
                             <div
                               className="col-lg-4"
                               style={{ textAlign: "center" }}
                             >
-                              
-
                               {isAuthenticated &&
                               data.status !== "INACTIVE" &&
                               data.status !== "STARTED" &&

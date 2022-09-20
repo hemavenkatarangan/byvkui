@@ -128,9 +128,9 @@ function RegisterProgram(props) {
     teaching_experience_description: "",
     attraction_to_yoga_path: "",
     meditation_practices: "",
-    terms_agreed:"No",
-    rules_agreed:"No",
-    fees_agreed:"No"
+    terms_agreed: "No",
+    rules_agreed: "No",
+    fees_agreed: "No",
   });
   const [errObj, setErrObj] = useState({
     address_1: "",
@@ -172,9 +172,9 @@ function RegisterProgram(props) {
     teaching_experience_description: "",
     attraction_to_yoga_path: "",
     meditation_practices: "",
-    terms_agreed:"No",
-    rules_agreed:"No",
-    fees_agreed:"No"
+    terms_agreed: "No",
+    rules_agreed: "No",
+    fees_agreed: "No",
   });
   const [docs, setDocs] = useState([]);
   const [country, setCountry] = useState([]);
@@ -193,6 +193,7 @@ function RegisterProgram(props) {
   const [rulesAgreed, setRulesAgreed] = useState(false);
   const [feesClicked, setFeesClicked] = useState(false);
   const [feesAgreed, setFeesAgreed] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState(user.userData.phone_num);
 
   useEffect(() => {
     // console.log(Country.getAllCountries());
@@ -235,7 +236,7 @@ function RegisterProgram(props) {
   const onProgramChange = (e) => {
     const { id, value } = e.target;
     console.log(id, value, "test");
-    
+
     if (id === "previous_experience" && value === "Yes") {
       setPrevExperience(true);
     } else {
@@ -377,7 +378,7 @@ function RegisterProgram(props) {
         country: "country type should be Selected",
       }));
     }
-   console.log("Validation till here"+valid);
+    console.log("Validation till here" + valid);
     if (residentialCourse && program.emergency_contactname.length <= 3) {
       valid = false;
       setErrObj((errObj) => ({
@@ -393,7 +394,14 @@ function RegisterProgram(props) {
         emergency_contactnumber: "Please enter the contact person's number",
       }));
     }
-console.log("Validation till here 2"+valid +" program type "+residentialCourse+" course name "+courseData.course_name);
+    console.log(
+      "Validation till here 2" +
+        valid +
+        " program type " +
+        residentialCourse +
+        " course name " +
+        courseData.course_name
+    );
     if (residentialCourse && program.emergency_contactnumber.length < 10) {
       valid = false;
       setErrObj((errObj) => ({
@@ -402,7 +410,10 @@ console.log("Validation till here 2"+valid +" program type "+residentialCourse+"
       }));
     }
 
-    if (residentialCourse && program.emergency_contactrelationship.length == 0) {
+    if (
+      residentialCourse &&
+      program.emergency_contactrelationship.length == 0
+    ) {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
@@ -417,7 +428,12 @@ console.log("Validation till here 2"+valid +" program type "+residentialCourse+"
         health_conditions: "Please enter your health conditions",
       }));
     }
-console.log("Validation till here 3"+valid +" program type "+programData.program_type);
+    console.log(
+      "Validation till here 3" +
+        valid +
+        " program type " +
+        programData.program_type
+    );
     if (residentialCourse && program.medicines_details == "") {
       valid = false;
       setErrObj((errObj) => ({
@@ -433,15 +449,18 @@ console.log("Validation till here 3"+valid +" program type "+programData.program
         covid_vaccine_dose: "Please select the option",
       }));
     }
-console.log("Validation till here 4"+valid);
-    if (courseData.course_name === "T T C" && program.role_of_yoga_teacher == "") {
+    console.log("Validation till here 4" + valid);
+    if (
+      courseData.course_name === "T T C" &&
+      program.role_of_yoga_teacher == ""
+    ) {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
         role_of_yoga_teacher: "Please Do not leave this feild blank",
       }));
     }
-console.log("Validation till here 5"+valid);
+    console.log("Validation till here 5" + valid);
     if (courseData.course_name === "T T C" && program.planning_to_teach == "") {
       valid = false;
       setErrObj((errObj) => ({
@@ -457,8 +476,11 @@ console.log("Validation till here 5"+valid);
         why_teach_yoga: "Please enter why you wanna teach yoga",
       }));
     }
-console.log("Validation till here 6"+valid);
-    if (courseData.course_name === "T T C" && program.teaching_experience_description == "") {
+    console.log("Validation till here 6" + valid);
+    if (
+      courseData.course_name === "T T C" &&
+      program.teaching_experience_description == ""
+    ) {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
@@ -466,15 +488,21 @@ console.log("Validation till here 6"+valid);
       }));
     }
 
-    if (courseData.course_name === "T T C" &&program.attraction_to_yoga_path == "") {
+    if (
+      courseData.course_name === "T T C" &&
+      program.attraction_to_yoga_path == ""
+    ) {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
         attraction_to_yoga_path: "Please Do not leave this feild blank",
       }));
     }
-console.log("Validation till here 7"+valid);
-    if (courseData.course_name === "T T C" && program.meditation_practices == "") {
+    console.log("Validation till here 7" + valid);
+    if (
+      courseData.course_name === "T T C" &&
+      program.meditation_practices == ""
+    ) {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
@@ -486,12 +514,13 @@ console.log("Validation till here 7"+valid);
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
-        rules_agreed:
-          "Please read the rules and regulations and Select Agree",
+        rules_agreed: "Please read the rules and regulations and Select Agree",
       }));
-      alert("Please read Ashram rules and regulations and provide your concern");
+      alert(
+        "Please read Ashram rules and regulations and provide your concern"
+      );
     }
-console.log("Validation till here 8" + valid);
+    console.log("Validation till here 8" + valid);
     if (valid) {
       submitProgram();
       setErrObj((errObj) => ({
@@ -534,9 +563,9 @@ console.log("Validation till here 8" + valid);
         teaching_experience_description: "",
         attraction_to_yoga_path: "",
         meditation_practices: "",
-         terms_agreed:"No",
-    rules_agreed:"No",
-    fees_agreed:"No"
+        terms_agreed: "No",
+        rules_agreed: "No",
+        fees_agreed: "No",
       }));
       setProgram((errObj) => ({
         ...errObj,
@@ -579,15 +608,15 @@ console.log("Validation till here 8" + valid);
         teaching_experience_description: "",
         attraction_to_yoga_path: "",
         meditation_practices: "",
-         terms_agreed:"No",
-    rules_agreed:"No",
-    fees_agreed:"No"
+        terms_agreed: "No",
+        rules_agreed: "No",
+        fees_agreed: "No",
       }));
     }
   };
 
   const submitProgram = () => {
-	console.log(program);
+    console.log(program);
     var obj = {};
     if (isChecked) {
       obj = {
@@ -595,6 +624,7 @@ console.log("Validation till here 8" + valid);
         user_id: user.user.id,
         user_name: checkedName,
         user_email: user.userData.email_id,
+        phoneNum: phoneNumber,
         address_1: program.address_1,
         address_2: program.address_2,
         city: program.city,
@@ -639,9 +669,9 @@ console.log("Validation till here 8" + valid);
           program.teaching_experience_description,
         attraction_to_yoga_path: program.attraction_to_yoga_path,
         meditation_practices: program.meditation_practices,
-         terms_agreed:termsAgreed?"Yes":"No",
-    rules_agreed:rulesAgreed?"Yes":"No",
-    fees_agreed:feesAgreed?"Yes":"No"
+        terms_agreed: termsAgreed ? "Yes" : "No",
+        rules_agreed: rulesAgreed ? "Yes" : "No",
+        fees_agreed: feesAgreed ? "Yes" : "No",
       };
     } else {
       obj = {
@@ -649,6 +679,7 @@ console.log("Validation till here 8" + valid);
         user_id: user.user.id,
         user_name: user.user.username,
         user_email: user.userData.email_id,
+        phoneNum: phoneNumber,
         address_1: program.address_1,
         address_2: program.address_2,
         city: program.city,
@@ -692,9 +723,9 @@ console.log("Validation till here 8" + valid);
           program.teaching_experience_description,
         attraction_to_yoga_path: program.attraction_to_yoga_path,
         meditation_practices: program.meditation_practices,
-      terms_agreed:termsAgreed?"Yes":"No",
-    rules_agreed:rulesAgreed?"Yes":"No",
-    fees_agreed:feesAgreed?"Yes":"No"
+        terms_agreed: termsAgreed ? "Yes" : "No",
+        rules_agreed: rulesAgreed ? "Yes" : "No",
+        fees_agreed: feesAgreed ? "Yes" : "No",
       };
     }
 
@@ -786,7 +817,7 @@ console.log("Validation till here 8" + valid);
   const rulesHandler = () => {
     setRulesClicked(true);
   };
-   const feesHandler = () => {
+  const feesHandler = () => {
     setFeesClicked(true);
   };
 
@@ -801,7 +832,7 @@ console.log("Validation till here 8" + valid);
       setTermsAgreed(false);
     }
   };
-  
+
   const feesAgreementHandler = (event) => {
     if (event.target.checked) {
       setFeesAgreed(true);
@@ -816,6 +847,10 @@ console.log("Validation till here 8" + valid);
     } else {
       setRulesAgreed(false);
     }
+  };
+
+  const phoneNumberHandler = (e) => {
+    setPhoneNumber(e.target.value);
   };
 
   return (
@@ -975,17 +1010,14 @@ console.log("Validation till here 8" + valid);
               </div>
               <div className="form-group">
                 <input
-                  type="text"
+                  type="number"
                   className="form-control-input notEmpty"
-                  value={user.userData.phone_num}
+                  value={phoneNumber}
                   id="phoneNum"
-                  onChange={(e) => onProgramChange(e)}
+                  onChange={phoneNumberHandler}
                   required
-                  disabled
                 />
-                <label className="label-control" htmlFor="phone">
-                  Phone Number
-                </label>
+                <label className="label-control">Phone Number</label>
               </div>
               {isChecked ? (
                 <div className="form-group">
@@ -1564,7 +1596,7 @@ console.log("Validation till here 8" + valid);
                     </label>
                     <p style={errStyle}>{errObj.why_teach_yoga}</p>
                   </div>
-                  
+
                   <div className="form-group">
                     <select
                       className="form-control-input notEmpty"
@@ -1780,10 +1812,11 @@ console.log("Validation till here 8" + valid);
                   fontSize: "20px",
                 }}
               >
-                Fee Structure and Cancellation Policy <span style={{ color: "red" }}>*</span>
+                Fee Structure and Cancellation Policy{" "}
+                <span style={{ color: "red" }}>*</span>
               </h3>
               <a href="/refund" target="_blank" onClick={feesHandler}>
-                Click Here to read Fee Cancellation/Refund Policy 
+                Click Here to read Fee Cancellation/Refund Policy
               </a>
               {feesClicked && (
                 <div className="form-group mt-2">
@@ -1792,16 +1825,12 @@ console.log("Validation till here 8" + valid);
                     id="fees"
                     onClick={feesAgreementHandler}
                   />
-                  <label>
-                   Yes/No (Yes -I agree ,No - I Disagree)
-                    
-                  </label>
-                                   
-                  
+                  <label>Yes/No (Yes -I agree ,No - I Disagree)</label>
+
                   <p style={errStyle}>{errObj.fees_agreed}</p>
                 </div>
               )}
-            
+
               <h3
                 style={{
                   fontFamily: "Poppins",
@@ -1811,10 +1840,15 @@ console.log("Validation till here 8" + valid);
               >
                 Ashram Rules & Regulations
               </h3>
-              <a href="/rulesregulations" target="_blank" onClick={rulesHandler}>
-                Click Here to read Ashram Rules & Regulations <span style={{ color: "red" }}>*</span>
+              <a
+                href="/rulesregulations"
+                target="_blank"
+                onClick={rulesHandler}
+              >
+                Click Here to read Ashram Rules & Regulations{" "}
+                <span style={{ color: "red" }}>*</span>
               </a>
-              
+
               {rulesClicked && (
                 <div className="form-group mt-2">
                   <input
@@ -1822,17 +1856,12 @@ console.log("Validation till here 8" + valid);
                     id="rules"
                     onClick={rulesAgreementHandler}
                   />
-                  <label>
-                   Yes/No (Yes -I agree ,No - I Disagree)
-                    
-                  </label>
-                                   
-                  
+                  <label>Yes/No (Yes -I agree ,No - I Disagree)</label>
+
                   <p style={errStyle}>{errObj.rules_agreed}</p>
                 </div>
-               
-              )} 
-             
+              )}
+
               <h3
                 style={{
                   fontFamily: "Poppins",
