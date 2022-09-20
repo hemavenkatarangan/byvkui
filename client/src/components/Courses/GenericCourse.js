@@ -128,8 +128,7 @@ const App = () => <div dangerouslySetInnerHTML={{ __html: mySafeHTML }} />;
             </div>
           </div>
           <br />
-         
-          <div dangerouslySetInnerHTML={{ __html: data.contents }} />
+           <div dangerouslySetInnerHTML={{ __html: data.contents }} />
                     <div>
             <Collapse defaultActiveKey={["1"]} onChange={onChange}>
               <Panel header="1. Residential Courses" key="1">
