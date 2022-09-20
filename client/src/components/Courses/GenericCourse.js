@@ -1,7 +1,9 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import ReactQuill from "react-quill";
 import { Collapse, Card, Button } from "antd";
+import moment from "moment";
 
 const { Meta } = Card;
 const { Panel } = Collapse;
@@ -14,6 +16,8 @@ const errStyle = {
 };
 
 function GenericCourses() {
+  const user = useSelector((state) => state.auth);
+  const [isAuthenticated, setAuthenticated] = useState(false);
   const [data, setData] = useState({});
   const [courseId, setCourseId] = useState("");
   const [courseRelatedData, setCourseRelatedData] = useState([]);
@@ -21,6 +25,12 @@ function GenericCourses() {
   const [hybridCourseData, setHybridCourseData] = useState([]);
 
   useEffect(() => {
+    if (user.isAuthenticated) {
+      setAuthenticated(true);
+    } else {
+      setAuthenticated(false);
+    }
+
     var idFind = window.location.href.split("/");
     var id = idFind[idFind.length - 1];
     setCourseId(id);
@@ -57,6 +67,11 @@ function GenericCourses() {
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  const getFormatedDate = (date) => {
+    // console.log("formatting......")
+    return moment(date).format("DD-MMM");
   };
 
   return (
@@ -118,44 +133,117 @@ function GenericCourses() {
           <div>
             <Collapse defaultActiveKey={["1"]} onChange={onChange}>
               <Panel header="1. Residential Courses" key="1">
-                <div className="row">
+                <div
+                  className="container"
+                  style={{
+                    background:
+                      "url(../images/header-background.png) center center no-repeat",
+                  }}
+                >
+                  <div className="row">
+                    <div className="col-lg-12">
+                      <h2
+                        className="heading"
+                        style={{
+                          color: "darkblue",
+                          fontFamily: "Poppins",
+                          marginTop: "20px",
+                          marginBottom: "20px",
+                          fontSize: "24px",
+                        }}
+                      >
+                        Course Calendar
+                      </h2>
+                      {/* <p className="p-heading"></p> */}
+                    </div>
+                  </div>
                   {courseRelatedData.length > 0 ? (
-                    courseRelatedData.map((course, index) => {
+                    courseRelatedData.map((data, index) => {
                       return (
-                        <div className="col-md-4" key={index}>
-                          <Card
-                            hoverable
-                            style={{ width: 240 }}
-                            cover={<img alt="Course" src="/images/logo.png" />}
-                          >
-                            <Meta
-                              title={course.name}
-                              description={course.description}
-                            />
-                            {course.status !== "INACTIVE" &&
-                            course.status !== "STARTED" &&
-                            !course.isUserRegistered ? (
+                        <>
+                          <div key={index} className="row">
+                            <div
+                              className="col-lg-4"
+                              style={{ textAlign: "center" }}
+                            >
+                              <h5
+                                style={{
+                                  fontFamily: "Poppins",
+                                  fontSize: "16px",
+                                }}
+                              >
+                                {getFormatedDate(data.program_start_date)}{" "}
+                                {"to"} {getFormatedDate(data.program_end_date)}
+                              </h5>
+                              {/* <p style={{fontFamily:'Poppins',fontSize:'16px'}}>{getFormatedDate(data.registration_end_date)}</p> */}
+                            </div>
+                            <div className="col-lg-4">
+                              <h4
+                                style={{
+                                  fontFamily: "Poppins",
+                                  fontSize: "16px",
+                                  textAlign: "center",
+                                }}
+                              >
+                                {data.name}
+                              </h4>
+                              <p
+                                style={{
+                                  fontFamily: "Poppins",
+                                  fontSize: "16px",
+                                }}
+                              >
+                                {data.description}
+                              </p>
+                            </div>
+                            <div
+                              className="col-lg-4"
+                              style={{ textAlign: "center" }}
+                            >
                               <div className="" style={{ marginTop: "0px" }}>
                                 <Button
                                   type="primary"
                                   style={{
                                     fontFamily: "Poppins",
-                                    width: "100%",
+                                    width: "50%",
                                     background: "#f3cd74",
                                     color: "black",
                                     borderRadius: "18px",
                                   }}
                                 >
-                                  <a href={"../registercourse/" + course._id}>
-                                    Register Course
+                                  <a href={"../course/" + data.course}>
+                                    Learn More
                                   </a>
                                 </Button>
                               </div>
-                            ) : (
-                              ""
-                            )}
-                          </Card>
-                        </div>
+
+                              {isAuthenticated &&
+                              data.status !== "INACTIVE" &&
+                              data.status !== "STARTED" &&
+                              !data.isUserRegistered ? (
+                                <div className="" style={{ marginTop: "0px" }}>
+                                  <Button
+                                    type="primary"
+                                    style={{
+                                      fontFamily: "Poppins",
+                                      width: "50%",
+                                      background: "#f3cd74",
+                                      color: "black",
+                                      borderRadius: "18px",
+                                    }}
+                                  >
+                                    <a href={"../registercourse/" + data._id}>
+                                      Register Course
+                                    </a>
+                                  </Button>
+                                </div>
+                              ) : (
+                                ""
+                              )}
+                            </div>
+                          </div>
+                          <hr style={{ marginTop: "4px" }} />{" "}
+                        </>
                       );
                     })
                   ) : (
@@ -164,44 +252,117 @@ function GenericCourses() {
                 </div>
               </Panel>
               <Panel header="2. Online courses" key="2">
-                <div className="row">
+                <div
+                  className="container"
+                  style={{
+                    background:
+                      "url(../images/header-background.png) center center no-repeat",
+                  }}
+                >
+                  <div className="row">
+                    <div className="col-lg-12">
+                      <h2
+                        className="heading"
+                        style={{
+                          color: "darkblue",
+                          fontFamily: "Poppins",
+                          marginTop: "20px",
+                          marginBottom: "20px",
+                          fontSize: "24px",
+                        }}
+                      >
+                        Course Calendar
+                      </h2>
+                      {/* <p className="p-heading"></p> */}
+                    </div>
+                  </div>
                   {onlineCourseData.length > 0 ? (
-                    onlineCourseData.map((course, index) => {
+                    onlineCourseData.map((data, index) => {
                       return (
-                        <div className="col-md-4" key={index}>
-                          <Card
-                            hoverable
-                            style={{ width: 240 }}
-                            cover={<img alt="Course" src="/images/logo.png" />}
-                          >
-                            <Meta
-                              title={course.name}
-                              description={course.description}
-                            />
-                            {course.status !== "INACTIVE" &&
-                            course.status !== "STARTED" &&
-                            !course.isUserRegistered ? (
+                        <>
+                          <div key={index} className="row">
+                            <div
+                              className="col-lg-4"
+                              style={{ textAlign: "center" }}
+                            >
+                              <h5
+                                style={{
+                                  fontFamily: "Poppins",
+                                  fontSize: "16px",
+                                }}
+                              >
+                                {getFormatedDate(data.program_start_date)}{" "}
+                                {"to"} {getFormatedDate(data.program_end_date)}
+                              </h5>
+                              {/* <p style={{fontFamily:'Poppins',fontSize:'16px'}}>{getFormatedDate(data.registration_end_date)}</p> */}
+                            </div>
+                            <div className="col-lg-4">
+                              <h4
+                                style={{
+                                  fontFamily: "Poppins",
+                                  fontSize: "16px",
+                                  textAlign: "center",
+                                }}
+                              >
+                                {data.name}
+                              </h4>
+                              <p
+                                style={{
+                                  fontFamily: "Poppins",
+                                  fontSize: "16px",
+                                }}
+                              >
+                                {data.description}
+                              </p>
+                            </div>
+                            <div
+                              className="col-lg-4"
+                              style={{ textAlign: "center" }}
+                            >
                               <div className="" style={{ marginTop: "0px" }}>
                                 <Button
                                   type="primary"
                                   style={{
                                     fontFamily: "Poppins",
-                                    width: "100%",
+                                    width: "50%",
                                     background: "#f3cd74",
                                     color: "black",
                                     borderRadius: "18px",
                                   }}
                                 >
-                                  <a href={"../registercourse/" + course._id}>
-                                    Register Course
+                                  <a href={"../course/" + data.course}>
+                                    Learn More
                                   </a>
                                 </Button>
                               </div>
-                            ) : (
-                              ""
-                            )}
-                          </Card>
-                        </div>
+
+                              {isAuthenticated &&
+                              data.status !== "INACTIVE" &&
+                              data.status !== "STARTED" &&
+                              !data.isUserRegistered ? (
+                                <div className="" style={{ marginTop: "0px" }}>
+                                  <Button
+                                    type="primary"
+                                    style={{
+                                      fontFamily: "Poppins",
+                                      width: "50%",
+                                      background: "#f3cd74",
+                                      color: "black",
+                                      borderRadius: "18px",
+                                    }}
+                                  >
+                                    <a href={"../registercourse/" + data._id}>
+                                      Register Course
+                                    </a>
+                                  </Button>
+                                </div>
+                              ) : (
+                                ""
+                              )}
+                            </div>
+                          </div>
+                          <hr style={{ marginTop: "4px" }} />{" "}
+                        </>
                       );
                     })
                   ) : (
@@ -210,44 +371,117 @@ function GenericCourses() {
                 </div>
               </Panel>
               <Panel header="3. Hybrid courses" key="3">
-                <div className="row">
+                <div
+                  className="container"
+                  style={{
+                    background:
+                      "url(../images/header-background.png) center center no-repeat",
+                  }}
+                >
+                  <div className="row">
+                    <div className="col-lg-12">
+                      <h2
+                        className="heading"
+                        style={{
+                          color: "darkblue",
+                          fontFamily: "Poppins",
+                          marginTop: "20px",
+                          marginBottom: "20px",
+                          fontSize: "24px",
+                        }}
+                      >
+                        Course Calendar
+                      </h2>
+                      {/* <p className="p-heading"></p> */}
+                    </div>
+                  </div>
                   {hybridCourseData.length > 0 ? (
-                    hybridCourseData.map((course, index) => {
+                    hybridCourseData.map((data, index) => {
                       return (
-                        <div className="col-md-4" key={index}>
-                          <Card
-                            hoverable
-                            style={{ width: 240 }}
-                            cover={<img alt="Course" src="/images/logo.png" />}
-                          >
-                            <Meta
-                              title={course.name}
-                              description={course.description}
-                            />
-                            {course.status !== "INACTIVE" &&
-                            course.status !== "STARTED" &&
-                            !course.isUserRegistered ? (
+                        <>
+                          <div key={index} className="row">
+                            <div
+                              className="col-lg-4"
+                              style={{ textAlign: "center" }}
+                            >
+                              <h5
+                                style={{
+                                  fontFamily: "Poppins",
+                                  fontSize: "16px",
+                                }}
+                              >
+                                {getFormatedDate(data.program_start_date)}{" "}
+                                {"to"} {getFormatedDate(data.program_end_date)}
+                              </h5>
+                              {/* <p style={{fontFamily:'Poppins',fontSize:'16px'}}>{getFormatedDate(data.registration_end_date)}</p> */}
+                            </div>
+                            <div className="col-lg-4">
+                              <h4
+                                style={{
+                                  fontFamily: "Poppins",
+                                  fontSize: "16px",
+                                  textAlign: "center",
+                                }}
+                              >
+                                {data.name}
+                              </h4>
+                              <p
+                                style={{
+                                  fontFamily: "Poppins",
+                                  fontSize: "16px",
+                                }}
+                              >
+                                {data.description}
+                              </p>
+                            </div>
+                            <div
+                              className="col-lg-4"
+                              style={{ textAlign: "center" }}
+                            >
                               <div className="" style={{ marginTop: "0px" }}>
                                 <Button
                                   type="primary"
                                   style={{
                                     fontFamily: "Poppins",
-                                    width: "100%",
+                                    width: "50%",
                                     background: "#f3cd74",
                                     color: "black",
                                     borderRadius: "18px",
                                   }}
                                 >
-                                  <a href={"../registercourse/" + course._id}>
-                                    Register Course
+                                  <a href={"../course/" + data.course}>
+                                    Learn More
                                   </a>
                                 </Button>
                               </div>
-                            ) : (
-                              ""
-                            )}
-                          </Card>
-                        </div>
+
+                              {isAuthenticated &&
+                              data.status !== "INACTIVE" &&
+                              data.status !== "STARTED" &&
+                              !data.isUserRegistered ? (
+                                <div className="" style={{ marginTop: "0px" }}>
+                                  <Button
+                                    type="primary"
+                                    style={{
+                                      fontFamily: "Poppins",
+                                      width: "50%",
+                                      background: "#f3cd74",
+                                      color: "black",
+                                      borderRadius: "18px",
+                                    }}
+                                  >
+                                    <a href={"../registercourse/" + data._id}>
+                                      Register Course
+                                    </a>
+                                  </Button>
+                                </div>
+                              ) : (
+                                ""
+                              )}
+                            </div>
+                          </div>
+                          <hr style={{ marginTop: "4px" }} />{" "}
+                        </>
                       );
                     })
                   ) : (

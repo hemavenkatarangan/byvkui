@@ -7,7 +7,7 @@ import axios from "axios";
 function LandingCoursesCalender() {
   const user = useSelector((state) => state.auth);
   const [isAuthenticated, setAuthenticated] = useState(false);
-  const [isUserHasRegistered,setUserAlreadyRegistered] = useState(false);
+  const [isUserHasRegistered, setUserAlreadyRegistered] = useState(false);
 
   const [cData, setcData] = useState([]);
 
@@ -29,16 +29,13 @@ function LandingCoursesCalender() {
     axios
       .get("/programs/")
       .then((res) => {
-        
         setcData(res.data.result);
-        
+
         cData.map((data, index) => {
-	
-	     var isUserRegistered=isUserAlreadyRegistered(data._id);
-	     console.log("Set user registered");
-	     data.isUserRegistered=isUserRegistered;
-	    });
-        
+          var isUserRegistered = isUserAlreadyRegistered(data._id);
+          console.log("Set user registered");
+          data.isUserRegistered = isUserRegistered;
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -46,31 +43,29 @@ function LandingCoursesCalender() {
   };
 
   const isUserAlreadyRegistered = (programId) => {
-	console.log("Checking user registration");
+    console.log("Checking user registration");
     var usl =
       "/usermanagement/program/" + programId + "/user_id/" + user.userData._id;
-   
+
     axios
       .get(
         "/usermanagement/program/" + programId + "/user_id/" + user.userData._id
       )
       .then((res) => {
-	
         if (res.data.result.length == 0) {
-	     
           setUserAlreadyRegistered(false);
-           return false;
+          return false;
         } else {
-	console.log("Returning true");
-         setUserAlreadyRegistered(true);
-         return true;
+          console.log("Returning true");
+          setUserAlreadyRegistered(true);
+          return true;
         }
       })
       .catch((err) => {
         console.log(err);
       });
-      console.log(isUserHasRegistered)
-      return isUserHasRegistered;
+    console.log(isUserHasRegistered);
+    return isUserHasRegistered;
   };
 
   const getFormatedDate = (date) => {
@@ -106,12 +101,8 @@ function LandingCoursesCalender() {
         </div>
 
         {cData.map((data, index) => {
-	console.log(data);
-	
-	      return (
+          return (
             <>
-       
-	
               <div key={index} className="row">
                 <div className="col-lg-4" style={{ textAlign: "center" }}>
                   <h5 style={{ fontFamily: "Poppins", fontSize: "16px" }}>
@@ -131,8 +122,7 @@ function LandingCoursesCalender() {
                     {data.name}
                   </h4>
                   <p style={{ fontFamily: "Poppins", fontSize: "16px" }}>
-                    {data.description} 
-                                        
+                    {data.description}
                   </p>
                 </div>
                 <div className="col-lg-4" style={{ textAlign: "center" }}>
@@ -151,11 +141,10 @@ function LandingCoursesCalender() {
                     </Button>
                   </div>
 
-                                   
-                  {(isAuthenticated &&
+                  {isAuthenticated &&
                   data.status !== "INACTIVE" &&
                   data.status !== "STARTED" &&
-                  !data.isUserRegistered) ? (
+                  !data.isUserRegistered ? (
                     <div className="" style={{ marginTop: "0px" }}>
                       <Button
                         type="primary"
@@ -172,7 +161,9 @@ function LandingCoursesCalender() {
                         </a>
                       </Button>
                     </div>
-                  ) : ""}
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
               <hr style={{ marginTop: "4px" }} />
