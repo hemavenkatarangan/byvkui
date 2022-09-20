@@ -487,8 +487,9 @@ console.log("Validation till here 7"+valid);
       setErrObj((errObj) => ({
         ...errObj,
         rules_agreed:
-          "Please read the rules and regulations and select the option",
+          "Please read the rules and regulations and Select Agree",
       }));
+      alert("Please read Ashram rules and regulations and provide your concern");
     }
 console.log("Validation till here 8" + valid);
     if (valid) {
@@ -1563,18 +1564,7 @@ console.log("Validation till here 8" + valid);
                     </label>
                     <p style={errStyle}>{errObj.why_teach_yoga}</p>
                   </div>
-                  <div className="form-group">
-                    <textarea
-                      className="form-control-input notEmpty"
-                      id="why_teach_yoga"
-                      rows="2"
-                      onChange={(e) => onProgramChange(e)}
-                    />
-                    <label className="label-control">
-                      Explain why you want to teach Yoga?
-                    </label>
-                    <p style={errStyle}>{errObj.why_teach_yoga}</p>
-                  </div>
+                  
                   <div className="form-group">
                     <select
                       className="form-control-input notEmpty"
