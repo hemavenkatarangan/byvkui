@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Modal, Button, Table, Switch, Tag, Tooltip, Image } from "antd";
-import { CheckOutlined, StopOutlined, EyeOutlined } from "@ant-design/icons";
+import { CheckOutlined, StopOutlined, EyeOutlined,ReadOutlined } from "@ant-design/icons";
 import { openNotificationWithIcon } from "../Notifications";
 import { Country, State, City } from "country-state-city";
 import moment from "moment";
@@ -16,6 +16,7 @@ function UserRegistertedForProgram(props) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [userImageData, setUserImageData] = useState([]);
   const [getUserInfo, setUserInfo] = useState(String);
+  const [userData,setUserData] = useState({});
   useEffect(() => {
     if (user.userData.roles[0] !== "ADMIN") {
       window.location.href = "/home";
@@ -132,9 +133,11 @@ function UserRegistertedForProgram(props) {
       title: "Actions",
       key: "action",
       render: (id, data) => (
+	
         <>
+        { console.log("Data of user " ,data)}
           {
-            <>
+            <>     
               {data.status === "REGISTERED" ? (
                 <>
                   <Tooltip title="Approve">
@@ -175,12 +178,12 @@ function UserRegistertedForProgram(props) {
                   icon={<ReadOutlined />}
                   onClick={(e) => openUserDocuments(data)}
                 />
-              </Tooltip>
+              </Tooltip>{" "}
               <Tooltip title="User Details">
                 <Button
                   shape="circle"
                   icon={<EyeOutlined />}
-                  onClick={(e) => openUserDocuments(data)}
+                  onClick={(e) => openUserData(data)}
                 />
               </Tooltip>
             </>
@@ -247,6 +250,12 @@ function UserRegistertedForProgram(props) {
   const handleCancel = () => {
     setIsModalVisible(false);
   };
+  
+  const openUserData = (data) => {
+	setIsModalVisible(true);
+	console.log(data.user_name,"UserData Entered");
+	setUserData(data);
+}
 
   return (
     <>
@@ -311,6 +320,117 @@ function UserRegistertedForProgram(props) {
             </div>
           );
         })}
+      </Modal>
+      <Modal
+        title="User Details"
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <div className="container">
+        	<div className="row">
+        		<div className="col-md-6">
+        			<div className="row">
+    					<h5 style={{color:"darkblue"}}>Personal Details </h5>
+    				</div>
+        			<div className="row">
+        				<p>Name : {userData.user_name}</p>
+        			</div>
+        			<div className="row">
+        				<p>Gender : {userData.gender}</p>
+        			</div>
+        			<div className="row">
+        				<p>Age : {userData.age}</p>
+        			</div>
+        			<div className="row">
+        				<p>DOB : {userData.date_of_birth}</p>
+        			</div>
+        			<div className="row">
+        				<p>Email : {userData.user_email}</p>
+        			</div>
+        			<div className="row">
+        				<p>Phone Number : {userData.phoneNum}</p>
+        			</div>
+        			<div className="row">
+        				<p>Relationship : {userData.relationship}</p>
+        			</div>
+        		</div>
+        		<div className="col-md-6">
+        			<div className="row mt-4">
+        				<p>Address : {userData.address_1} {userData.address_2}</p>
+        			</div>
+        			<div className="row">
+        				<p>Country : {userData.country}</p>
+        			</div>
+        			<div className="row">
+        				<p>State : {userData.state}</p>
+        			</div>
+        			<div className="row">
+        				<p>City : {userData.city}</p>
+        			</div>
+        			<div className="row">
+        				<p>Marital Status : {userData.maritalstatus}</p>
+        			</div>
+        			<div className="row">
+        				<p>Qualification : {userData.qualification}</p>
+        			</div>
+        			<div className="row">
+        				<p>Occupation : {userData.occupation}</p>
+        			</div>
+        		</div>
+        	</div>
+        	<div className="row">
+        		<div className="col-md-6">
+        			<div className="row">
+    					<h5 style={{color:"darkblue"}}>Health & Lifestyle </h5>
+    				</div>
+        			<div className="row">
+        				<p>Health Ailments : {userData.user_name}</p>
+        			</div>
+        			<div className="row">
+        				<p>Lifestyle : {userData.lifestyle}</p>
+        			</div>
+        			<div className="row">
+        				<p>Age : {userData.age}</p>
+        			</div>
+        			<div className="row">
+        				<p>DOB : {userData.date_of_birth}</p>
+        			</div>
+        			<div className="row">
+        				<p>Email : {userData.user_email}</p>
+        			</div>
+        			<div className="row">
+        				<p>Phone Number : {userData.phoneNum}</p>
+        			</div>
+        			<div className="row">
+        				<p>Relationship : {userData.relationship}</p>
+        			</div>
+        		</div>
+        		<div className="col-md-6">
+        			<div className="row mt-4">
+        				<p>Address : {userData.address_1} {userData.address_2}</p>
+        			</div>
+        			<div className="row">
+        				<p>Country : {userData.country}</p>
+        			</div>
+        			<div className="row">
+        				<p>State : {userData.state}</p>
+        			</div>
+        			<div className="row">
+        				<p>City : {userData.city}</p>
+        			</div>
+        			<div className="row">
+        				<p>Marital Status : {userData.maritalstatus}</p>
+        			</div>
+        			<div className="row">
+        				<p>Qualification : {userData.qualification}</p>
+        			</div>
+        			<div className="row">
+        				<p>Occupation : {userData.occupation}</p>
+        			</div>
+        		</div>
+        	</div>
+        </div>
       </Modal>
     </>
   );
