@@ -235,7 +235,7 @@ function RegisterProgram(props) {
   const onProgramChange = (e) => {
     const { id, value } = e.target;
     console.log(id, value, "test");
-
+    
     if (id === "previous_experience" && value === "Yes") {
       setPrevExperience(true);
     } else {
@@ -1542,7 +1542,7 @@ console.log("Validation till here 8" + valid);
                       <option value="Yes" key="yes">
                         Yes
                       </option>
-                      <option value="Maybe after a few months" key="no">
+                      <option value="Maybe after a few months" key="maybe">
                         Maybe after a few months
                       </option>
                     </select>

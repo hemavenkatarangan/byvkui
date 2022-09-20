@@ -56,8 +56,10 @@ module.exports = {
         res.status(200).json(response);
     },
     getProgramByCourseProgramType: async (req, res) => {
-        const { courseId } = req.params.courseId;
-        const { programType } = req.params.programType
+	
+        const  courseId  = req.params.courseId;
+        const programType = req.params.programType;
+       
         const program = await Program.find({ course: courseId,program_type : programType});
         if (!program) {
 
