@@ -1,21 +1,44 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import ReactQuill from "react-quill";
+import { Collapse } from "antd";
+
+const { Panel } = Collapse;
 
 function GenericCourses() {
   const [data, setData] = useState({});
+  const [courseId, setCourseId] = useState("");
 
   useEffect(() => {
     var idFind = window.location.href.split("/");
     var id = idFind[idFind.length - 1];
+    setCourseId(id);
     axios
       .get("/courses/" + id)
       .then((res) => {
         // console.log(res.data)
         setData(res.data.result);
+        getEventsRelatedToThisCourse(id, "1");
       })
       .catch((err) => console.error(err));
   }, []);
+
+  const onChange = (key) => {
+    console.log(key);
+    getEventsRelatedToThisCourse(courseId, key[key.length - 1]);
+  };
+
+  const getEventsRelatedToThisCourse = (cId, index) => {
+    axios
+      .get("api key")
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <>
       <div className="ex-basic-1 pt-5 pb-5" style={{ marginTop: "30px" }}>
@@ -71,6 +94,19 @@ function GenericCourses() {
                 theme={"bubble"}
               />
             </div>
+          </div>
+          <div>
+            <Collapse defaultActiveKey={["1"]} onChange={onChange}>
+              <Panel header="1. Residential Courses" key="1">
+                <p>Divakara</p>
+              </Panel>
+              <Panel header="2. Hybrid courses" key="2">
+                <p>Divakara</p>
+              </Panel>
+              <Panel header="3. Online courses" key="3">
+                <p>Divakara</p>
+              </Panel>
+            </Collapse>
           </div>
         </div>
       </div>
