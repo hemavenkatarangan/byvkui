@@ -1,13 +1,24 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import ReactQuill from "react-quill";
-import { Collapse } from "antd";
+import { Collapse, Card, Button } from "antd";
 
+const { Meta } = Card;
 const { Panel } = Collapse;
+const courseType = ["OFFLINE", "ONLINE", "HYBRID"];
+
+const errStyle = {
+  color: "red",
+  textAlign: "center",
+  fontSize: ".7rem",
+};
 
 function GenericCourses() {
   const [data, setData] = useState({});
   const [courseId, setCourseId] = useState("");
+  const [courseRelatedData, setCourseRelatedData] = useState([]);
+  const [onlineCourseData, setOnlineCourseData] = useState([]);
+  const [hybridCourseData, setHybridCourseData] = useState([]);
 
   useEffect(() => {
     var idFind = window.location.href.split("/");
@@ -18,7 +29,7 @@ function GenericCourses() {
       .then((res) => {
         // console.log(res.data)
         setData(res.data.result);
-        getEventsRelatedToThisCourse(id, "1");
+        getEventsRelatedToThisCourse(id, 1);
       })
       .catch((err) => console.error(err));
   }, []);
@@ -29,10 +40,19 @@ function GenericCourses() {
   };
 
   const getEventsRelatedToThisCourse = (cId, index) => {
+    var type = courseType[index - 1];
     axios
-      .get("api key")
+      .get(`/programs/course/${cId}/programtype/${type}`)
       .then((res) => {
-        console.log(res);
+        if (res.data.status_code === "200") {
+          if (type === courseType[0]) {
+            setCourseRelatedData(res.data.result);
+          } else if (type === courseType[1]) {
+            setOnlineCourseData(res.data.result);
+          } else {
+            setHybridCourseData(res.data.result);
+          }
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -98,13 +118,142 @@ function GenericCourses() {
           <div>
             <Collapse defaultActiveKey={["1"]} onChange={onChange}>
               <Panel header="1. Residential Courses" key="1">
-                <p>Divakara</p>
+                <div className="row">
+                  {courseRelatedData.length > 0 ? (
+                    courseRelatedData.map((course, index) => {
+                      return (
+                        <div className="col-md-4" key={index}>
+                          <Card
+                            hoverable
+                            style={{ width: 240 }}
+                            cover={<img alt="Course" src="/images/logo.png" />}
+                          >
+                            <Meta
+                              title={course.name}
+                              description={course.description}
+                            />
+                            {course.status !== "INACTIVE" &&
+                            course.status !== "STARTED" &&
+                            !course.isUserRegistered ? (
+                              <div className="" style={{ marginTop: "0px" }}>
+                                <Button
+                                  type="primary"
+                                  style={{
+                                    fontFamily: "Poppins",
+                                    width: "100%",
+                                    background: "#f3cd74",
+                                    color: "black",
+                                    borderRadius: "18px",
+                                  }}
+                                >
+                                  <a href={"../registercourse/" + course._id}>
+                                    Register Course
+                                  </a>
+                                </Button>
+                              </div>
+                            ) : (
+                              ""
+                            )}
+                          </Card>
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <p style={errStyle}>No Course Found</p>
+                  )}
+                </div>
               </Panel>
-              <Panel header="2. Hybrid courses" key="2">
-                <p>Divakara</p>
+              <Panel header="2. Online courses" key="2">
+                <div className="row">
+                  {onlineCourseData.length > 0 ? (
+                    onlineCourseData.map((course, index) => {
+                      return (
+                        <div className="col-md-4" key={index}>
+                          <Card
+                            hoverable
+                            style={{ width: 240 }}
+                            cover={<img alt="Course" src="/images/logo.png" />}
+                          >
+                            <Meta
+                              title={course.name}
+                              description={course.description}
+                            />
+                            {course.status !== "INACTIVE" &&
+                            course.status !== "STARTED" &&
+                            !course.isUserRegistered ? (
+                              <div className="" style={{ marginTop: "0px" }}>
+                                <Button
+                                  type="primary"
+                                  style={{
+                                    fontFamily: "Poppins",
+                                    width: "100%",
+                                    background: "#f3cd74",
+                                    color: "black",
+                                    borderRadius: "18px",
+                                  }}
+                                >
+                                  <a href={"../registercourse/" + course._id}>
+                                    Register Course
+                                  </a>
+                                </Button>
+                              </div>
+                            ) : (
+                              ""
+                            )}
+                          </Card>
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <p style={errStyle}>No Course Found</p>
+                  )}
+                </div>
               </Panel>
-              <Panel header="3. Online courses" key="3">
-                <p>Divakara</p>
+              <Panel header="3. Hybrid courses" key="3">
+                <div className="row">
+                  {hybridCourseData.length > 0 ? (
+                    hybridCourseData.map((course, index) => {
+                      return (
+                        <div className="col-md-4" key={index}>
+                          <Card
+                            hoverable
+                            style={{ width: 240 }}
+                            cover={<img alt="Course" src="/images/logo.png" />}
+                          >
+                            <Meta
+                              title={course.name}
+                              description={course.description}
+                            />
+                            {course.status !== "INACTIVE" &&
+                            course.status !== "STARTED" &&
+                            !course.isUserRegistered ? (
+                              <div className="" style={{ marginTop: "0px" }}>
+                                <Button
+                                  type="primary"
+                                  style={{
+                                    fontFamily: "Poppins",
+                                    width: "100%",
+                                    background: "#f3cd74",
+                                    color: "black",
+                                    borderRadius: "18px",
+                                  }}
+                                >
+                                  <a href={"../registercourse/" + course._id}>
+                                    Register Course
+                                  </a>
+                                </Button>
+                              </div>
+                            ) : (
+                              ""
+                            )}
+                          </Card>
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <p style={errStyle}>No Course Found</p>
+                  )}
+                </div>
               </Panel>
             </Collapse>
           </div>
