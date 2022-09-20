@@ -122,9 +122,9 @@ function GenericCourses() {
             </div>
           </div>
           <br />
-          {data.contents === "" && (
+          {data.contents && (
             <div className="row">
-              <div class="editor-container">
+              <div className="editor-container">
                 <ReactQuill
                   value={data.contents}
                   readOnly={true}
