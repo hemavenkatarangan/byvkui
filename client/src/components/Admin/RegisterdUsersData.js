@@ -14,6 +14,7 @@ function UserRegistertedForProgram(props) {
   const [programsData, setProgramsData] = useState([]);
   const [usersData, setUsersData] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isDocumentModalVisible, setIsDocumentModalVisible] = useState(false);
   const [userImageData, setUserImageData] = useState([]);
   const [getUserInfo, setUserInfo] = useState(String);
   const [userData,setUserData] = useState({});
@@ -231,7 +232,7 @@ function UserRegistertedForProgram(props) {
   };
 
   const openUserDocuments = (data) => {
-    setIsModalVisible(true);
+    setIsDocumentModalVisible(true);
     axios
       .get(`/userdocuments/program/${data.program_id}/user/${data.user_id}`)
       .then((res) => {
@@ -251,9 +252,17 @@ function UserRegistertedForProgram(props) {
     setIsModalVisible(false);
   };
   
+  const handleDocumentModalOk = () => {
+    setIsDocumentModalVisible(false);
+  };
+
+  const handleDocumentModalCancel = () => {
+    setIsDocumentModalVisible(false);
+  };
+  
   const openUserData = (data) => {
 	setIsModalVisible(true);
-	console.log(data.user_name,"UserData Entered");
+	console.log(data);
 	setUserData(data);
 }
 
@@ -294,9 +303,9 @@ function UserRegistertedForProgram(props) {
       </div>
       <Modal
         title="User Documents"
-        visible={isModalVisible}
-        onOk={handleOk}
-        onCancel={handleCancel}
+        visible={isDocumentModalVisible}
+        onOk={handleDocumentModalOk}
+        onCancel={handleDocumentModalCancel}
       >
         {userImageData.map((data, index) => {
           console.log("File extension " + data.document_path.split(".")[1]);
@@ -326,6 +335,7 @@ function UserRegistertedForProgram(props) {
         visible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
+        size="lg"
       >
         <div className="container">
         	<div className="row">
@@ -385,13 +395,13 @@ function UserRegistertedForProgram(props) {
     					<h5 style={{color:"darkblue"}}>Health & Lifestyle </h5>
     				</div>
         			<div className="row">
-        				<p>Health Ailments : {userData.user_name}</p>
+        				<p>Health Ailments : {userData.health_ailments}</p>
         			</div>
         			<div className="row">
         				<p>Lifestyle : {userData.lifestyle}</p>
         			</div>
         			<div className="row">
-        				<p>Age : {userData.age}</p>
+        				<p>Health Conditions : {userData.health_conditions}</p>
         			</div>
         			<div className="row">
         				<p>DOB : {userData.date_of_birth}</p>
