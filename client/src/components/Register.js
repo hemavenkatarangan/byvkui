@@ -161,6 +161,11 @@ function Register(props) {
                   </label>
                   <StrengthMeter poorPassword={poorPassword} weakPassword={weakPassword} strongPassword={strongPassword} passwordError={passwordError} />
                   <p style={errStyle}>{errors.password}</p>
+                  <p style={{ fontFamily: "Poppins", textAlign: "justify" ,fontSize:"8px", color :"red"}}>
+                    <i>
+                     Note: Password should be 8 characters minimum, it should contain alphabets and numbers, can use special characters too.
+                    </i>
+                  </p>
                 </div>
                 <div className="form-group">
                   <input
