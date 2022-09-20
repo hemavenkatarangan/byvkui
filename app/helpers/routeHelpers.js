@@ -89,8 +89,8 @@ module.exports = {
                 .min(1)
                 .max(30)
                 .required(),
-            password: Joi.string()
-                .pattern(new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')).required(),
+            password: Joi.string().length(8)
+                .required(),
 
             confirm_password: Joi.ref('password'),
             dob: Joi.date(),

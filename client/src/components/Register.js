@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../actions/authActions";
-
+import StrengthMeter from "./StrengthMeter";
 const errStyle = {
   color: "red",
   textAlign: "center",
@@ -20,7 +20,55 @@ function Register(props) {
   });
   const errors = useSelector((state) => state.errors);
   const dispatch = useDispatch();
-
+   const [poorPassword, setPoorPassword] = useState(false);
+    const [weakPassword, setWeakPassword] = useState(false);
+    const [strongPassword, setStrongPassword] = useState(false);
+    const [passwordError, setPasswordErr] = useState("");
+    
+     const passwordStrength=(evnt)=>{
+    const passwordValue= evnt.target.value;
+    const passwordLength= passwordValue.length;
+    const poorRegExp = /[a-z]/;
+    const weakRegExp = /(?=.*?[0-9])/;;
+    const strongRegExp = /(?=.*?[#?!@$%^&*-])/;
+    const whitespaceRegExp = /^$|\s+/;
+    const poorPassword= poorRegExp.test(passwordValue);
+    const weakPassword= weakRegExp.test(passwordValue);
+    const strongPassword= strongRegExp.test(passwordValue);
+    const whiteSpace= whitespaceRegExp.test(passwordValue);
+   
+    if(passwordValue===''){
+        setPasswordErr("Password is Empty");
+    }else{
+        
+        // to check whitespace
+        if(whiteSpace){
+            setPasswordErr("Whitespaces are not allowed");
+        }
+        // to check poor password
+        if(passwordLength <= 3 && (poorPassword || weakPassword || strongPassword))
+        {
+        setPoorPassword(true);
+        setPasswordErr("Password is Poor");
+        }
+        // to check weak password
+        if(passwordLength>= 4 && poorPassword && (weakPassword || strongPassword))
+        {
+            setWeakPassword(true);
+            setPasswordErr("Password is Weak");
+        }else{
+        setWeakPassword(false); 
+        }
+        // to check strong Password
+        if(passwordLength >= 6 && (poorPassword && weakPassword) && strongPassword)
+        {
+            setStrongPassword(true);
+            setPasswordErr("Password is Strong");
+        }else{
+           setStrongPassword(false);  
+        }
+    }
+}
   const handleChage = (e) => {
     const { id, value } = e.target;
     setUser((user) => ({ ...user, [id]: value }));
@@ -104,12 +152,14 @@ function Register(props) {
                     type="password"
                     className="form-control-input notEmpty"
                     id="password"
+                    onInput={passwordStrength}
                     onChange={(e) => handleChage(e)}
                     required
                   />
                   <label className="label-control" htmlFor="password">
                     Password <span style={{ color: "red" }}>*</span>
                   </label>
+                  <StrengthMeter poorPassword={poorPassword} weakPassword={weakPassword} strongPassword={strongPassword} passwordError={passwordError} />
                   <p style={errStyle}>{errors.password}</p>
                 </div>
                 <div className="form-group">
