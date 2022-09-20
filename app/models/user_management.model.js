@@ -88,8 +88,9 @@ var UserManagementSchema = new Schema(
     teaching_experience_description: { type: String },
     attraction_to_yoga_path: { type: String },
     meditation_practices: { type: String },
-    tandc_agreed: { type: String, enum: ["Yes", "No"], default: "No" },
-    rulesandregulations: { type: String, enum: ["Yes", "No"], default: "No" },
+    terms_agreed: { type: String, enum: ["Yes", "No"], default: "No" },
+    rules_agreed: { type: String, enum: ["Yes", "No"], default: "No" },
+    fees_agreed: { type: String, enum: ["Yes", "No"], default: "No" },
   },
   {
     timestamps: true,

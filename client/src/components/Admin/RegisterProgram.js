@@ -103,7 +103,7 @@ function RegisterProgram(props) {
     occupation_details: "",
     health_ailments: "",
     lifestyle: "",
-    previous_experience: "",
+    previous_experience: "No",
     experty_level: "",
     about_byuk: "",
     alternate_phone_number: "",
@@ -114,20 +114,23 @@ function RegisterProgram(props) {
     emergency_contactnumber2: "",
     emergency_contactrelationship2: "",
     languages: "",
-    learning_yoga: "",
+    learning_yoga: "No Experience",
     kind_of_yoga: "",
     health_conditions: "",
     medicines_details: "",
-    covid_vaccine_dose: "",
-    tobbaco_consumption: "",
+    covid_vaccine_dose: "No",
+    tobbaco_consumption: "No",
     frequency_details_of_tobaaco_use: "",
     role_of_yoga_teacher: "",
     planning_to_teach: "",
     why_teach_yoga: "",
-    teaching_experience: "",
+    teaching_experience: "No",
     teaching_experience_description: "",
     attraction_to_yoga_path: "",
     meditation_practices: "",
+    terms_agreed:"No",
+    rules_agreed:"No",
+    fees_agreed:"No"
   });
   const [errObj, setErrObj] = useState({
     address_1: "",
@@ -145,7 +148,7 @@ function RegisterProgram(props) {
     occupation_details: "",
     health_ailments: "",
     lifestyle: "",
-    previous_experience: "",
+    previous_experience: "No",
     experty_level: "",
     about_byuk: "",
     alternate_phone_number: "",
@@ -159,16 +162,19 @@ function RegisterProgram(props) {
     kind_of_yoga: "",
     health_conditions: "",
     medicines_details: "",
-    covid_vaccine_dose: "",
-    tobbaco_consumption: "",
+    covid_vaccine_dose: "No",
+    tobbaco_consumption: "No",
     frequency_details_of_tobaaco_use: "",
     role_of_yoga_teacher: "",
     planning_to_teach: "",
     why_teach_yoga: "",
-    teaching_experience: "",
+    teaching_experience: "No",
     teaching_experience_description: "",
     attraction_to_yoga_path: "",
     meditation_practices: "",
+    terms_agreed:"No",
+    rules_agreed:"No",
+    fees_agreed:"No"
   });
   const [docs, setDocs] = useState([]);
   const [country, setCountry] = useState([]);
@@ -185,6 +191,8 @@ function RegisterProgram(props) {
   const [termsAgreed, setTermsAgreed] = useState(false);
   const [rulesClicked, setRulesClicked] = useState(false);
   const [rulesAgreed, setRulesAgreed] = useState(false);
+  const [feesClicked, setFeesClicked] = useState(false);
+  const [feesAgreed, setFeesAgreed] = useState(false);
 
   useEffect(() => {
     // console.log(Country.getAllCountries());
@@ -322,7 +330,7 @@ function RegisterProgram(props) {
       }));
     }
 
-    if (program.previous_experience && program.experty_level == "") {
+    if (prevExperience && program.experty_level == "") {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
@@ -369,8 +377,8 @@ function RegisterProgram(props) {
         country: "country type should be Selected",
       }));
     }
-
-    if (program.emergency_contactname.length <= 3) {
+   console.log("Validation till here"+valid);
+    if (residentialCourse && program.emergency_contactname.length <= 3) {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
@@ -378,15 +386,15 @@ function RegisterProgram(props) {
       }));
     }
 
-    if (program.emergency_contactnumber.length == 0) {
+    if (residentialCourse && program.emergency_contactnumber.length == 0) {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
         emergency_contactnumber: "Please enter the contact person's number",
       }));
     }
-
-    if (program.emergency_contactnumber.length < 10) {
+console.log("Validation till here 2"+valid +" program type "+residentialCourse+" course name "+courseData.course_name);
+    if (residentialCourse && program.emergency_contactnumber.length < 10) {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
@@ -394,7 +402,7 @@ function RegisterProgram(props) {
       }));
     }
 
-    if (program.emergency_contactrelationship.length == 0) {
+    if (residentialCourse && program.emergency_contactrelationship.length == 0) {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
@@ -402,15 +410,15 @@ function RegisterProgram(props) {
       }));
     }
 
-    if (program.health_conditions == "") {
+    if (residentialCourse && program.health_conditions.length == 0) {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
         health_conditions: "Please enter your health conditions",
       }));
     }
-
-    if (program.medicines_details == "") {
+console.log("Validation till here 3"+valid +" program type "+programData.program_type);
+    if (residentialCourse && program.medicines_details == "") {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
@@ -418,23 +426,23 @@ function RegisterProgram(props) {
       }));
     }
 
-    if (program.covid_vaccine_dose == "") {
+    if (residentialCourse && program.covid_vaccine_dose == "") {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
         covid_vaccine_dose: "Please select the option",
       }));
     }
-
-    if (program.role_of_yoga_teacher == "") {
+console.log("Validation till here 4"+valid);
+    if (courseData.course_name === "T T C" && program.role_of_yoga_teacher == "") {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
         role_of_yoga_teacher: "Please Do not leave this feild blank",
       }));
     }
-
-    if (program.planning_to_teach == "") {
+console.log("Validation till here 5"+valid);
+    if (courseData.course_name === "T T C" && program.planning_to_teach == "") {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
@@ -442,15 +450,15 @@ function RegisterProgram(props) {
       }));
     }
 
-    if (program.why_teach_yoga == "") {
+    if (courseData.course_name === "T T C" && program.why_teach_yoga == "") {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
         why_teach_yoga: "Please enter why you wanna teach yoga",
       }));
     }
-
-    if (program.teaching_experience_description == "") {
+console.log("Validation till here 6"+valid);
+    if (courseData.course_name === "T T C" && program.teaching_experience_description == "") {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
@@ -458,15 +466,15 @@ function RegisterProgram(props) {
       }));
     }
 
-    if (program.attraction_to_yoga_path == "") {
+    if (courseData.course_name === "T T C" &&program.attraction_to_yoga_path == "") {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
         attraction_to_yoga_path: "Please Do not leave this feild blank",
       }));
     }
-
-    if (program.meditation_practices == "") {
+console.log("Validation till here 7"+valid);
+    if (courseData.course_name === "T T C" && program.meditation_practices == "") {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
@@ -474,15 +482,15 @@ function RegisterProgram(props) {
       }));
     }
 
-    if (!rulesAgreed) {
+    if (courseData.course_name === "T T C" && !rulesAgreed) {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
         rules_agreed:
-          "Please read the rules and regualtions and select the option",
+          "Please read the rules and regulations and select the option",
       }));
     }
-
+console.log("Validation till here 8" + valid);
     if (valid) {
       submitProgram();
       setErrObj((errObj) => ({
@@ -502,7 +510,7 @@ function RegisterProgram(props) {
         occupation_details: "",
         health_ailments: "",
         lifestyle: "",
-        previous_experience: "",
+        previous_experience: "No",
         experty_level: "",
         about_byuk: "",
         alternate_phone_number: "",
@@ -516,15 +524,18 @@ function RegisterProgram(props) {
         kind_of_yoga: "",
         health_conditions: "",
         medicines_details: "",
-        covid_vaccine_dose: "",
-        tobbaco_consumption: "",
+        covid_vaccine_dose: "No",
+        tobbaco_consumption: "No",
         frequency_details_of_tobaaco_use: "",
         planning_to_teach: "",
         why_teach_yoga: "",
-        teaching_experience: "",
+        teaching_experience: "No",
         teaching_experience_description: "",
         attraction_to_yoga_path: "",
         meditation_practices: "",
+         terms_agreed:"No",
+    rules_agreed:"No",
+    fees_agreed:"No"
       }));
       setProgram((errObj) => ({
         ...errObj,
@@ -543,7 +554,7 @@ function RegisterProgram(props) {
         occupation_details: "",
         health_ailments: "",
         lifestyle: "",
-        previous_experience: "",
+        previous_experience: "No",
         experty_level: "",
         about_byuk: "",
         alternate_phone_number: "",
@@ -557,21 +568,25 @@ function RegisterProgram(props) {
         kind_of_yoga: "",
         health_conditions: "",
         medicines_details: "",
-        covid_vaccine_dose: "",
-        tobbaco_consumption: "",
+        covid_vaccine_dose: "No",
+        tobbaco_consumption: "No",
         frequency_details_of_tobaaco_use: "",
         role_of_yoga_teacher: "",
         planning_to_teach: "",
         why_teach_yoga: "",
-        teaching_experience: "",
+        teaching_experience: "No",
         teaching_experience_description: "",
         attraction_to_yoga_path: "",
         meditation_practices: "",
+         terms_agreed:"No",
+    rules_agreed:"No",
+    fees_agreed:"No"
       }));
     }
   };
 
   const submitProgram = () => {
+	console.log(program);
     var obj = {};
     if (isChecked) {
       obj = {
@@ -623,8 +638,9 @@ function RegisterProgram(props) {
           program.teaching_experience_description,
         attraction_to_yoga_path: program.attraction_to_yoga_path,
         meditation_practices: program.meditation_practices,
-        tandc_agreed: "Yes",
-        rulesandregulations: "Yes",
+         terms_agreed:termsAgreed?"Yes":"No",
+    rules_agreed:rulesAgreed?"Yes":"No",
+    fees_agreed:feesAgreed?"Yes":"No"
       };
     } else {
       obj = {
@@ -675,8 +691,9 @@ function RegisterProgram(props) {
           program.teaching_experience_description,
         attraction_to_yoga_path: program.attraction_to_yoga_path,
         meditation_practices: program.meditation_practices,
-        tandc_agreed: "Yes",
-        rulesandregulations: "Yes",
+      terms_agreed:termsAgreed?"Yes":"No",
+    rules_agreed:rulesAgreed?"Yes":"No",
+    fees_agreed:feesAgreed?"Yes":"No"
       };
     }
 
@@ -768,6 +785,9 @@ function RegisterProgram(props) {
   const rulesHandler = () => {
     setRulesClicked(true);
   };
+   const feesHandler = () => {
+    setFeesClicked(true);
+  };
 
   const termsHandler = () => {
     setTermsClicked(true);
@@ -778,6 +798,14 @@ function RegisterProgram(props) {
       setTermsAgreed(true);
     } else {
       setTermsAgreed(false);
+    }
+  };
+  
+  const feesAgreementHandler = (event) => {
+    if (event.target.checked) {
+      setFeesAgreed(true);
+    } else {
+      setFeesAgreed(false);
     }
   };
 
@@ -1762,11 +1790,41 @@ function RegisterProgram(props) {
                   fontSize: "20px",
                 }}
               >
+                Fee Structure and Cancellation Policy <span style={{ color: "red" }}>*</span>
+              </h3>
+              <a href="/refund" target="_blank" onClick={feesHandler}>
+                Click Here to read Fee Cancellation/Refund Policy 
+              </a>
+              {feesClicked && (
+                <div className="form-group mt-2">
+                  <input
+                    type="checkbox"
+                    id="fees"
+                    onClick={feesAgreementHandler}
+                  />
+                  <label>
+                   Yes/No (Yes -I agree ,No - I Disagree)
+                    
+                  </label>
+                                   
+                  
+                  <p style={errStyle}>{errObj.fees_agreed}</p>
+                </div>
+              )}
+            
+              <h3
+                style={{
+                  fontFamily: "Poppins",
+                  color: "darkblue",
+                  fontSize: "20px",
+                }}
+              >
                 Ashram Rules & Regulations
               </h3>
-              <a href="/termsconditions" target="_blank" onClick={rulesHandler}>
-                Click Here to read Ashram Rules & Regulations
+              <a href="/rulesregulations" target="_blank" onClick={rulesHandler}>
+                Click Here to read Ashram Rules & Regulations <span style={{ color: "red" }}>*</span>
               </a>
+              
               {rulesClicked && (
                 <div className="form-group mt-2">
                   <input
@@ -1775,12 +1833,16 @@ function RegisterProgram(props) {
                     onClick={rulesAgreementHandler}
                   />
                   <label>
-                    Yes , I Agree All Conditions
-                    <span style={{ color: "red" }}>*</span>
+                   Yes/No (Yes -I agree ,No - I Disagree)
+                    
                   </label>
+                                   
+                  
                   <p style={errStyle}>{errObj.rules_agreed}</p>
                 </div>
-              )}
+               
+              )} 
+             
               <h3
                 style={{
                   fontFamily: "Poppins",
