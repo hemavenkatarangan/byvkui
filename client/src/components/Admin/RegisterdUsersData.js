@@ -331,11 +331,12 @@ function UserRegistertedForProgram(props) {
         })}
       </Modal>
       <Modal
+        width={750}
         title="User Details"
         visible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
-        size="lg"
+        
       >
         <div className="container">
         	<div className="row">
