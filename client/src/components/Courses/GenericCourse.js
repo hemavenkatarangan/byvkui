@@ -4,6 +4,9 @@ import { useSelector } from "react-redux";
 import ReactQuill from "react-quill";
 import { Collapse, Card, Button } from "antd";
 import moment from "moment";
+import DOMPurify from "dompurify";
+
+
 
 const { Meta } = Card;
 const { Panel } = Collapse;
@@ -23,7 +26,7 @@ function GenericCourses() {
   const [courseRelatedData, setCourseRelatedData] = useState([]);
   const [onlineCourseData, setOnlineCourseData] = useState([]);
   const [hybridCourseData, setHybridCourseData] = useState([]);
-
+const mySafeHTML = "";
   useEffect(() => {
     if (user.isAuthenticated) {
       setAuthenticated(true);
@@ -39,11 +42,14 @@ function GenericCourses() {
       .then((res) => {
         console.log(res.data.result);
         setData(res.data.result);
+       
+        console.log("Data"+mySafeHTML);
         getEventsRelatedToThisCourse(id, 1);
       })
       .catch((err) => console.error(err));
   }, []);
 
+const App = () => <div dangerouslySetInnerHTML={{ __html: mySafeHTML }} />;
   const onChange = (key) => {
     console.log(key);
     getEventsRelatedToThisCourse(courseId, key[key.length - 1]);
@@ -122,18 +128,8 @@ function GenericCourses() {
             </div>
           </div>
           <br />
-          {data.contents && (
-            <div className="row">
-              <div className="editor-container">
-                <ReactQuill
-                  value={data.contents}
-                  readOnly={true}
-                  theme={"bubble"}
-                />
-              </div>
-            </div>
-          )}
-          <div>
+           <div dangerouslySetInnerHTML={{ __html: data.contents }} />
+                    <div>
             <Collapse defaultActiveKey={["1"]} onChange={onChange}>
               <Panel header="1. Residential Courses" key="1">
                 <div className="container">
