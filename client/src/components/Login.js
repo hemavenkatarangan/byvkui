@@ -19,13 +19,13 @@ function Login(props) {
     
     useEffect(() => { 
        if(auth.isAuthenticated) {
-           props.history.push('/home')
+           props.history.push('/')
        }
     }, []);
 
     useEffect(() => {
         if(auth.isAuthenticated) {
-            props.history.push('/home')
+            props.history.push('/')
         }
     })
 

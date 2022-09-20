@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import "./Landing.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -10,6 +11,7 @@ import SriMTeachings from "./SriMTeachings";
 import LandingYogaStories from "./LandingYogaStories";
 
 function Landing() {
+const user = useSelector((state) => state.auth);
   const [isOpen, setOpen] = useState(false);
   const [images, setImages] = useState([]);
 
@@ -39,10 +41,24 @@ function Landing() {
   }, []);
 
   return (
+	
+	
     <div className="container">
-      <div style={{ marginTop: " 120px" }}>
+   
+      <div style={{ marginTop: " 100px" }}>
         <div>
-          <div className="slider-container">
+         
+          <h3
+                
+                style={{
+                  color: "darkblue",
+                  fontFamily: "Poppins",
+                  fontSize: "16px",
+                }}
+              >
+                Welcome {user.user.username} !!!
+              </h3>
+          <div className="slider-container" >
             <div className="swiper-container slide-slider">
               <div className="swiper-wrapper">
                 {images.map((data, index) => {
