@@ -15,7 +15,7 @@ function UserRegistertedForProgram(props) {
   const [usersData, setUsersData] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [userImageData, setUserImageData] = useState([]);
-  const [getUserInfo,setUserInfo] = useState(String);
+  const [getUserInfo, setUserInfo] = useState(String);
   useEffect(() => {
     if (user.userData.roles[0] !== "ADMIN") {
       window.location.href = "/home";
@@ -56,19 +56,18 @@ function UserRegistertedForProgram(props) {
 
   const getUserDetails = (type, data) => {
     var name;
-   
+
     for (let i = 0; i < usersData.length; i++) {
-	 //console.log(usersData[i]);
+      //console.log(usersData[i]);
       if (data.user_id === usersData[i]._id) {
         if (type === "NAME") {
-          name = usersData[i].first_name +" "+usersData[i].last_name;
-           setUserInfo(name);
-        
+          name = usersData[i].first_name + " " + usersData[i].last_name;
+          setUserInfo(name);
         } else if (type === "EMAIL") {
           name = usersData[i].email_id;
           setUserInfo(name);
         }
-        console.log("Found "+name);
+        console.log("Found " + name);
         return getUserInfo;
       }
     }
@@ -85,10 +84,10 @@ function UserRegistertedForProgram(props) {
       key: "user_email",
     },
     {
-		title:"Relationship",
-		dataIndex:"relationship",
-		key:"relationship",
-	},
+      title: "Relationship",
+      dataIndex: "relationship",
+      key: "relationship",
+    },
     {
       title: "Address",
       dataIndex: "address_1",
@@ -173,6 +172,13 @@ function UserRegistertedForProgram(props) {
               <Tooltip title="View Documents">
                 <Button
                   shape="circle"
+                  icon={<ReadOutlined />}
+                  onClick={(e) => openUserDocuments(data)}
+                />
+              </Tooltip>
+              <Tooltip title="User Details">
+                <Button
+                  shape="circle"
                   icon={<EyeOutlined />}
                   onClick={(e) => openUserDocuments(data)}
                 />
@@ -213,7 +219,7 @@ function UserRegistertedForProgram(props) {
     axios
       .get("/usermanagement/program/" + props.match.params.id)
       .then((res) => {
-        console.log(res.data.result,"alldata");
+        console.log(res.data.result, "alldata");
         setProgramsData(res.data.result);
       })
       .catch((err) => {
@@ -284,7 +290,7 @@ function UserRegistertedForProgram(props) {
         onCancel={handleCancel}
       >
         {userImageData.map((data, index) => {
-	     console.log("File extension "+data.document_path.split(".")[1]);
+          console.log("File extension " + data.document_path.split(".")[1]);
           return (
             <div
               className="row"
@@ -293,7 +299,6 @@ function UserRegistertedForProgram(props) {
             >
               <div className="col">{data.document_type}</div>
               <div className="col">
-             
                 {data.document_path.includes(".pdf") ||
                 data.document_path.includes(".zip") ? (
                   <a href={data.document_path} target="_blank">
