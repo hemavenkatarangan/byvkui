@@ -348,50 +348,50 @@ function UserRegistertedForProgram(props) {
                 <h5 style={{ color: "darkblue" }}>Personal Details </h5>
               </div>
               <div className="row">
-                <p>Name : {userData.user_name}</p>
+                <p ><span style={{ color: "orange" }}>Name</span> : {userData.user_name}</p>
               </div>
               <div className="row">
-                <p>Gender : {userData.gender}</p>
+                <p><span style={{ color: "orange" }}>Gender</span> : {userData.gender}</p>
               </div>
               <div className="row">
-                <p>Age : {userData.age}</p>
+                <p><span style={{ color: "orange" }}>Age </span>: {userData.age}</p>
               </div>
               <div className="row">
-                <p>DOB : {userData.date_of_birth}</p>
+                <p><span style={{ color: "orange" }}>DOB </span>: {userData.date_of_birth}</p>
               </div>
               <div className="row">
-                <p>Email : {userData.user_email}</p>
+                <p><span style={{ color: "orange" }}>Email </span>: {userData.user_email}</p>
               </div>
               <div className="row">
-                <p>Phone Number : {userData.phoneNum}</p>
+                <p><span style={{ color: "orange" }}>Phone Number </span>: {userData.phoneNum}</p>
               </div>
               <div className="row">
-                <p>Relationship : {userData.relationship}</p>
+                <p><span style={{ color: "orange" }}>Relationship </span>: {userData.relationship}</p>
               </div>
             </div>
             <div className="col-md-6">
               <div className="row mt-4">
                 <p>
-                  Address : {userData.address_1} {userData.address_2}
+                  <span style={{ color: "orange" }}>Address </span>: {userData.address_1} {userData.address_2}
                 </p>
               </div>
               <div className="row">
-                <p>Country : {userData.country}</p>
+                <p><span style={{ color: "orange" }}>Country </span>: {userData.country}</p>
               </div>
               <div className="row">
-                <p>State : {userData.state}</p>
+                <p><span style={{ color: "orange" }}>State </span>: {userData.state}</p>
               </div>
               <div className="row">
-                <p>City : {userData.city}</p>
+                <p><span style={{ color: "orange" }}>City </span>: {userData.city}</p>
               </div>
               <div className="row">
-                <p>Marital Status : {userData.maritalstatus}</p>
+                <p><span style={{ color: "orange" }}>Marital Status </span>: {userData.maritalstatus}</p>
               </div>
               <div className="row">
-                <p>Qualification : {userData.qualification}</p>
+                <p><span style={{ color: "orange" }}>Qualification </span>: {userData.qualification}</p>
               </div>
               <div className="row">
-                <p>Occupation : {userData.occupation}</p>
+                <p><span style={{ color: "orange" }}>Occupation </span>: {userData.occupation}</p>
               </div>
             </div>
           </div>
@@ -401,28 +401,29 @@ function UserRegistertedForProgram(props) {
                 <h5 style={{ color: "darkblue" }}>Health & Lifestyle </h5>
               </div>
               <div className="row">
-                <p>Health Ailments : {userData.health_ailments}</p>
+                <p><span style={{ color: "orange" }}>Health Ailments </span>: {userData.health_ailments}</p>
               </div>
               <div className="row">
-                <p>Lifestyle : {userData.lifestyle}</p>
+                <p><span style={{ color: "orange" }}>Lifestyle </span> : {userData.lifestyle}</p>
               </div>
               <div className="row">
-                <p>Health Conditions : {userData.health_conditions}</p>
+                <p><span style={{ color: "orange" }}>Health Conditions </span>
+                : {userData.health_conditions}</p>
               </div>
               <div className="row">
-                <p>Medication Details : {userData.medicines_details}</p>
+                <p><span style={{ color: "orange" }}>Medication Details </span>: {userData.medicines_details}</p>
               </div>
             </div>
             <div className="col-md-6">
               <div className="row mt-4">
-                <p>Covid Vaccine Dose : {userData.covid_vaccine_dose}</p>
+                <p><span style={{ color: "orange" }}>Covid Vaccine Dose </span>: {userData.covid_vaccine_dose}</p>
               </div>
               <div className="row">
-                <p>Tobbaco Consumption : {userData.tobbaco_consumption}</p>
+                <p><span style={{ color: "orange" }}>Tobbaco Consumption </span>: {userData.tobbaco_consumption}</p>
               </div>
               <div className="row">
                 <p>
-                  Frequency of use of tobbaco or other substances :
+                  <span style={{ color: "orange" }}>Frequency of use of tobbaco or other substances </span>:
                   {userData.frequency_details_of_tobaaco_use}
                 </p>
               </div>
@@ -434,40 +435,41 @@ function UserRegistertedForProgram(props) {
                 <h5 style={{ color: "darkblue" }}>Yoga Experience </h5>
               </div>
               <div className="row">
-                <p>Previous Yoga Experience : {userData.previous_experience}</p>
+                <p><span style={{ color: "orange" }}>Previous Yoga Experience </span> : {userData.previous_experience}</p>
               </div>
               <div className="row">
-                <p>Expertise : {userData.experty_level}</p>
+                <p><span style={{ color: "orange" }}>Expertise</span> : {userData.experty_level}</p>
               </div>
               <div className="row">
-                <p>About BYVK : {userData.about_byuk}</p>
+                <p><span style={{ color: "orange" }}>About BYVK </span>: {userData.about_byuk}</p>
               </div>
               <div className="row">
-                <p>Yoga Experience : {userData.learning_yoga}</p>
+                <p><span style={{ color: "orange" }}>Yoga Experience </span>: {userData.learning_yoga}</p>
               </div>
               <div className="row">
-                <p>Style of Yoga : {userData.kind_of_yoga}</p>
+                <p><span style={{ color: "orange" }}>Style of Yoga </span>: {userData.kind_of_yoga}</p>
               </div>
             </div>
             <div className="col-md-6">
               <div className="row mt-4">
-                <p>Role of Yoga teacher : {userData.role_of_yoga_teacher}</p>
+                <p><span style={{ color: "orange" }}>Role of Yoga teacher </span>: {userData.role_of_yoga_teacher}</p>
               </div>
               <div className="row">
-                <p>Planning to Teach Yoga : {userData.planning_to_teach}</p>
+                <p><span style={{ color: "orange" }}>Planning to Teach Yoga </span>: {userData.planning_to_teach}</p>
               </div>
               <div className="row">
-                <p>Why User wants to teach Yoga :{userData.why_teach_yoga}</p>
+                <p><span style={{ color: "orange" }}>Why User wants to teach Yoga </span>
+                :{userData.why_teach_yoga}</p>
               </div>
               <div className="row">
                 <p>
-                  Planning to teach after this course? :
+                  <span style={{ color: "orange" }}>Planning to teach after this course? </span>:
                   {userData.teaching_experience}
                 </p>
               </div>
               <div className="row">
                 <p>
-                  Prior teaching experience :
+                 <span style={{ color: "orange" }}> Prior teaching experience </span>:
                   {userData.teaching_experience_description}
                 </p>
               </div>
@@ -482,41 +484,41 @@ function UserRegistertedForProgram(props) {
               </div>
               <div className="row">
                 <p>
-                  Alternate Phone Number : {userData.alternate_phone_number}
+                  <span style={{ color: "orange" }}>Alternate Phone Number </span>: {userData.alternate_phone_number}
                 </p>
               </div>
               <div className="row">
-                <p>Emergency Contact Name : {userData.emergency_contactname}</p>
+                <p><span style={{ color: "orange" }}>Emergency Contact Name </span>: {userData.emergency_contactname}</p>
               </div>
               <div className="row">
                 <p>
-                  Emergency Contact Number : {userData.emergency_contactnumber}
+                  <span style={{ color: "orange" }}>Emergency Contact Number </span>: {userData.emergency_contactnumber}
                 </p>
               </div>
               <div className="row">
                 <p>
-                  Emergency Contact Relationship :
+                  <span style={{ color: "orange" }}>Emergency Contact Relationship </span>:
                   {userData.emergency_contactrelationship}
                 </p>
               </div>
             </div>
             <div className="col-md-6">
               <div className="row mt-4">
-                <p>Languages : {userData.languages}</p>
+                <p><span style={{ color: "orange" }}>Languages </span>: {userData.languages}</p>
               </div>
               <div className="row">
                 <p>
-                  Emergency Contact Name : {userData.emergency_contactname2}
+                  <span style={{ color: "orange" }}>Emergency Contact Name </span>: {userData.emergency_contactname2}
                 </p>
               </div>
               <div className="row">
                 <p>
-                  Emergency Contact Number : {userData.emergency_contactnumber2}
+                  <span style={{ color: "orange" }}>Emergency Contact Number </span>: {userData.emergency_contactnumber2}
                 </p>
               </div>
               <div className="row">
                 <p>
-                  Emergency Contact Relationship :
+                  <span style={{ color: "orange" }}>Emergency Contact Relationship </span>:
                   {userData.emergency_contactrelationship2}
                 </p>
               </div>
