@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Modal, Button, Table, Switch, Tag, Tooltip, Image } from "antd";
-import { CheckOutlined, StopOutlined, EyeOutlined,ReadOutlined } from "@ant-design/icons";
+import {
+  CheckOutlined,
+  StopOutlined,
+  EyeOutlined,
+  ReadOutlined,
+} from "@ant-design/icons";
 import { openNotificationWithIcon } from "../Notifications";
 import { Country, State, City } from "country-state-city";
 import moment from "moment";
@@ -17,7 +22,7 @@ function UserRegistertedForProgram(props) {
   const [isDocumentModalVisible, setIsDocumentModalVisible] = useState(false);
   const [userImageData, setUserImageData] = useState([]);
   const [getUserInfo, setUserInfo] = useState(String);
-  const [userData,setUserData] = useState({});
+  const [userData, setUserData] = useState({});
   useEffect(() => {
     if (user.userData.roles[0] !== "ADMIN") {
       window.location.href = "/home";
@@ -134,11 +139,10 @@ function UserRegistertedForProgram(props) {
       title: "Actions",
       key: "action",
       render: (id, data) => (
-	
         <>
-        { console.log("Data of user " ,data)}
+          {console.log("Data of user ", data)}
           {
-            <>     
+            <>
               {data.status === "REGISTERED" ? (
                 <>
                   <Tooltip title="Approve">
@@ -251,7 +255,7 @@ function UserRegistertedForProgram(props) {
   const handleCancel = () => {
     setIsModalVisible(false);
   };
-  
+
   const handleDocumentModalOk = () => {
     setIsDocumentModalVisible(false);
   };
@@ -259,12 +263,12 @@ function UserRegistertedForProgram(props) {
   const handleDocumentModalCancel = () => {
     setIsDocumentModalVisible(false);
   };
-  
+
   const openUserData = (data) => {
-	setIsModalVisible(true);
-	console.log(data);
-	setUserData(data);
-}
+    setIsModalVisible(true);
+    console.log(data);
+    setUserData(data);
+  };
 
   return (
     <>
@@ -336,112 +340,188 @@ function UserRegistertedForProgram(props) {
         visible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
-        
       >
-      
         <div className="container">
-        	<div className="row">
-        		<div className="col-md-6">
-        			<div className="row">
-    					<h5 style={{color:"darkblue"}}>Personal Details </h5>
-    				</div>
-        			<div className="row">
-        				<p>Name : {userData.user_name}</p>
-        			</div>
-        			<div className="row">
-        				<p>Gender : {userData.gender}</p>
-        			</div>
-        			<div className="row">
-        				<p>Age : {userData.age}</p>
-        			</div>
-        			<div className="row">
-        				<p>DOB : {userData.date_of_birth}</p>
-        			</div>
-        			<div className="row">
-        				<p>Email : {userData.user_email}</p>
-        			</div>
-        			<div className="row">
-        				<p>Phone Number : {userData.phoneNum}</p>
-        			</div>
-        			<div className="row">
-        				<p>Relationship : {userData.relationship}</p>
-        			</div>
-        		</div>
-        		<div className="col-md-6">
-        			<div className="row mt-4">
-        				<p>Address : {userData.address_1} {userData.address_2}</p>
-        			</div>
-        			<div className="row">
-        				<p>Country : {userData.country}</p>
-        			</div>
-        			<div className="row">
-        				<p>State : {userData.state}</p>
-        			</div>
-        			<div className="row">
-        				<p>City : {userData.city}</p>
-        			</div>
-        			<div className="row">
-        				<p>Marital Status : {userData.maritalstatus}</p>
-        			</div>
-        			<div className="row">
-        				<p>Qualification : {userData.qualification}</p>
-        			</div>
-        			<div className="row">
-        				<p>Occupation : {userData.occupation}</p>
-        			</div>
-        		</div>
-        	</div>
-        	<div className="row">
-        		<div className="col-md-6">
-        			<div className="row">
-    					<h5 style={{color:"darkblue"}}>Health & Lifestyle </h5>
-    				</div>
-        			<div className="row">
-        				<p>Health Ailments : {userData.health_ailments}</p>
-        			</div>
-        			<div className="row">
-        				<p>Lifestyle : {userData.lifestyle}</p>
-        			</div>
-        			<div className="row">
-        				<p>Health Conditions : {userData.health_conditions}</p>
-        			</div>
-        			<div className="row">
-        				<p>DOB : {userData.date_of_birth}</p>
-        			</div>
-        			<div className="row">
-        				<p>Email : {userData.user_email}</p>
-        			</div>
-        			<div className="row">
-        				<p>Phone Number : {userData.phoneNum}</p>
-        			</div>
-        			<div className="row">
-        				<p>Relationship : {userData.relationship}</p>
-        			</div>
-        		</div>
-        		<div className="col-md-6">
-        			<div className="row mt-4">
-        				<p>Address : {userData.address_1} {userData.address_2}</p>
-        			</div>
-        			<div className="row">
-        				<p>Country : {userData.country}</p>
-        			</div>
-        			<div className="row">
-        				<p>State : {userData.state}</p>
-        			</div>
-        			<div className="row">
-        				<p>City : {userData.city}</p>
-        			</div>
-        			<div className="row">
-        				<p>Marital Status : {userData.maritalstatus}</p>
-        			</div>
-        			<div className="row">
-        				<p>Qualification : {userData.qualification}</p>
-        			</div>
-        			<div className="row">
-        				<p>Occupation : {userData.occupation}</p>
-        			</div>
-        		</div>
-        	</div>
+          <div className="row">
+            <div className="col-md-6">
+              <div className="row">
+                <h5 style={{ color: "darkblue" }}>Personal Details </h5>
+              </div>
+              <div className="row">
+                <p>Name : {userData.user_name}</p>
+              </div>
+              <div className="row">
+                <p>Gender : {userData.gender}</p>
+              </div>
+              <div className="row">
+                <p>Age : {userData.age}</p>
+              </div>
+              <div className="row">
+                <p>DOB : {userData.date_of_birth}</p>
+              </div>
+              <div className="row">
+                <p>Email : {userData.user_email}</p>
+              </div>
+              <div className="row">
+                <p>Phone Number : {userData.phoneNum}</p>
+              </div>
+              <div className="row">
+                <p>Relationship : {userData.relationship}</p>
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="row mt-4">
+                <p>
+                  Address : {userData.address_1} {userData.address_2}
+                </p>
+              </div>
+              <div className="row">
+                <p>Country : {userData.country}</p>
+              </div>
+              <div className="row">
+                <p>State : {userData.state}</p>
+              </div>
+              <div className="row">
+                <p>City : {userData.city}</p>
+              </div>
+              <div className="row">
+                <p>Marital Status : {userData.maritalstatus}</p>
+              </div>
+              <div className="row">
+                <p>Qualification : {userData.qualification}</p>
+              </div>
+              <div className="row">
+                <p>Occupation : {userData.occupation}</p>
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-6">
+              <div className="row">
+                <h5 style={{ color: "darkblue" }}>Health & Lifestyle </h5>
+              </div>
+              <div className="row">
+                <p>Health Ailments : {userData.health_ailments}</p>
+              </div>
+              <div className="row">
+                <p>Lifestyle : {userData.lifestyle}</p>
+              </div>
+              <div className="row">
+                <p>Health Conditions : {userData.health_conditions}</p>
+              </div>
+              <div className="row">
+                <p>Medication Details : {userData.medicines_details}</p>
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="row mt-4">
+                <p>Covid Vaccine Dose : {userData.covid_vaccine_dose}</p>
+              </div>
+              <div className="row">
+                <p>Tobbaco Consumption : {userData.tobbaco_consumption}</p>
+              </div>
+              <div className="row">
+                <p>
+                  Frequency of use of tobbaco or other substances :
+                  {userData.frequency_details_of_tobaaco_use}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-6">
+              <div className="row">
+                <h5 style={{ color: "darkblue" }}>Yoga Experience </h5>
+              </div>
+              <div className="row">
+                <p>Previous Yoga Experience : {userData.previous_experience}</p>
+              </div>
+              <div className="row">
+                <p>Expertise : {userData.experty_level}</p>
+              </div>
+              <div className="row">
+                <p>About BYVK : {userData.about_byuk}</p>
+              </div>
+              <div className="row">
+                <p>Yoga Experience : {userData.learning_yoga}</p>
+              </div>
+              <div className="row">
+                <p>Style of Yoga : {userData.kind_of_yoga}</p>
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="row mt-4">
+                <p>Role of Yoga teacher : {userData.role_of_yoga_teacher}</p>
+              </div>
+              <div className="row">
+                <p>Planning to Teach Yoga : {userData.planning_to_teach}</p>
+              </div>
+              <div className="row">
+                <p>Why User wants to teach Yoga :{userData.why_teach_yoga}</p>
+              </div>
+              <div className="row">
+                <p>
+                  Planning to teach after this course? :
+                  {userData.teaching_experience}
+                </p>
+              </div>
+              <div className="row">
+                <p>
+                  Prior teaching experience :
+                  {userData.teaching_experience_description}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-6">
+              <div className="row">
+                <h5 style={{ color: "darkblue" }}>
+                  Details of Residential Course
+                </h5>
+              </div>
+              <div className="row">
+                <p>
+                  Alternate Phone Number : {userData.alternate_phone_number}
+                </p>
+              </div>
+              <div className="row">
+                <p>Emergency Contact Name : {userData.emergency_contactname}</p>
+              </div>
+              <div className="row">
+                <p>
+                  Emergency Contact Number : {userData.emergency_contactnumber}
+                </p>
+              </div>
+              <div className="row">
+                <p>
+                  Emergency Contact Relationship :
+                  {userData.emergency_contactrelationship}
+                </p>
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="row mt-4">
+                <p>Languages : {userData.languages}</p>
+              </div>
+              <div className="row">
+                <p>
+                  Emergency Contact Name : {userData.emergency_contactname2}
+                </p>
+              </div>
+              <div className="row">
+                <p>
+                  Emergency Contact Number : {userData.emergency_contactnumber2}
+                </p>
+              </div>
+              <div className="row">
+                <p>
+                  Emergency Contact Relationship :
+                  {userData.emergency_contactrelationship2}
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </Modal>
     </>
