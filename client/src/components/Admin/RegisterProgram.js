@@ -737,9 +737,18 @@ function RegisterProgram(props) {
         console.log(res);
         if (res.data.status_code === "200") {
           alert(res.data.status_message);
+          if(residentialCourse)
+          {
           setTimeout(function () {
             window.location.href = "/home";
           }, 300);
+          }
+          else
+          {
+	        setTimeout(function () {
+            window.location.href = "/payments";
+          }, 300);
+			}
         }
       })
       .catch((err) => {
@@ -1037,6 +1046,15 @@ function RegisterProgram(props) {
                     </option>
                     <option value="Self" key="self" selected>
                       Self
+                    </option>
+                     <option value="Child1" key="child1" >
+                      Child 1
+                    </option>
+                     <option value="Child2" key="child2" >
+                      Child 2
+                    </option>
+                    <option value="Relative" key="relative" >
+                      Relative
                     </option>
                   </select>
                   <label className="label-control">Relationship</label>

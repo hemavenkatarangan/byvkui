@@ -26,7 +26,7 @@ var UserManagementSchema = new Schema(
     medical_reason: { type: String },
     relationship: {
       type: String,
-      enum: ["Self", "Parent", "Spouse", "Others"],
+      enum: ["Self", "Parent", "Spouse", "Others","Child1","Child2","Relative"],
       default: "Self",
     },
     age: { type: String },

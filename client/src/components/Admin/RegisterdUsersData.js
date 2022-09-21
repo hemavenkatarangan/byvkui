@@ -338,6 +338,7 @@ function UserRegistertedForProgram(props) {
         onCancel={handleCancel}
         
       >
+      
         <div className="container">
         	<div className="row">
         		<div className="col-md-6">

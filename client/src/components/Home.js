@@ -24,11 +24,10 @@ function Home() {
             <div className="col-lg-12">
               <div className="text-container">
                 <h3 className="h3-large" style={{ fontFamily: "Poppins" }}>
-                  Thanks for signing up to BYVK!
+                  Thanks for Registering to the course!!!
                 </h3>
                 <p className="" style={{ fontFamily: "Poppins" }}>
-                  We will keep you informed about our ongoing programs and
-                  opportunities to learn.
+                  We will get back to you in 5 days for furthur procedures
                 </p>
                 <p style={{ fontFamily: "Poppins" }}>
                   To learn more about BYVK please go to our{" "}

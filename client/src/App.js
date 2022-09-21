@@ -11,6 +11,7 @@ import store from "./store";
 import { setCurrentUser, logoutUser, setUserData } from "./actions/authActions";
 import PrivateRoute from "./privateroute/PrivateRoute";
 import Home from "./components/Home";
+import Payments from "./components/Payments";
 import Login from "./components/Login";
 import Landing from "./components/Landing";
 import NotFound from "./components/NotFound";
@@ -70,6 +71,7 @@ function App() {
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/about" component={About} />
+        <Route exact path="/payments" component={Payments} />
         <Route exact path="/srim" component={SriM} />
         <Route exact path="/admin" component={Admin} />
         <Route exact path="/qa/:id" component={Qa} />
