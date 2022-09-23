@@ -89,7 +89,7 @@ module.exports = {
                 .min(1)
                 .max(30)
                 .required(),
-            password: Joi.string().min(8)
+            password: Joi.string().min(8).max(30)
                 .required(),
 
             confirm_password: Joi.ref('password'),
