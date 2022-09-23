@@ -1294,12 +1294,14 @@ function RegisterProgram(props) {
               >
                 Health & Lifestyle
               </h1>
+              
               <div className="form-group">
                 <Checkbox.Group
                   options={healthOptions}
                   onChange={handleMultiSelect}
                 />
               </div>
+              
               <div className="form-group">
                 <select
                   className="form-control-input notEmpty"
