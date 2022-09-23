@@ -1459,78 +1459,8 @@ function RegisterProgram(props) {
                   <p style={errStyle}>{errObj.experty_level}</p>
                 </div>
               )}
-              <div className="form-group">
-                <select
-                  className="form-control-input notEmpty"
-                  id="about_byuk"
-                  onChange={(e) => onProgramChange(e)}
-                  required
-                >
-                  <option value="" selected>
-                    Select Option
-                  </option>
-                  <option value="Email by BYVK" key="Email by BYVK">
-                    Email by BYVK
-                  </option>
-                  <option value="BYVK Website" key="BYVK Website">
-                    BYVK Website
-                  </option>
-                  <option value="BYVK Instagram" key="BYVK Instagram">
-                    BYVK Instagram
-                  </option>
-                  <option value="BYVK FB" key="BYVK FB">
-                    BYVK FB
-                  </option>
-                  <option value="BYVK LinkedIn" key="BYVK LinkedIn">
-                    BYVK LinkedIn
-                  </option>
-                  <option
-                    value="Whatsapp groups - BYVK"
-                    key="Whatsapp groups - BYVK"
-                  >
-                    Whatsapp groups - BYVK
-                  </option>
-                  <option value="TSF Website" key="TSF Website">
-                    TSF Website
-                  </option>
-                  <option value="TSF Instagram" key="TSF Instagram">
-                    TSF Instagram
-                  </option>
-                  <option value="TSF FB" key="TSF FB">
-                    TSF FB
-                  </option>
-                  <option value="TSF WhatsApp" key="TSF WhatsApp">
-                    TSF WhatsApp
-                  </option>
-                  <option value="TSF Email" key="TSF Email">
-                    TSF Email
-                  </option>
-                  <option value="From a friend" key="From a friend">
-                    From a friend
-                  </option>
-                  <option value="other" key="others">
-                    Others (please specify)
-                  </option>
-                </select>
-                <label className="label-control">
-                  How did you come to know about BYVK
-                </label>
-                <p style={errStyle}>{errObj.about_byuk}</p>
-              </div>
-              {otherSource && (
-                <div className="form-group">
-                  <input
-                    type="text"
-                    className="form-control-input notEmpty"
-                    id="about_byuk"
-                    onChange={(e) => onProgramChange(e)}
-                    required
-                  />
-                  <label className="label-control">Type Other Source</label>
-                  <p style={errStyle}>{errObj.othersource}</p>
-                </div>
-              )}
-              {residentialCourse && (
+              
+              {prevExperience && residentialCourse && (
                 <>
                   <div className="form-group">
                     <select
@@ -1746,6 +1676,7 @@ function RegisterProgram(props) {
                       {errObj.emergency_contactrelationship}
                     </p>
                   </div>
+                  
                   <p>Alternate Emergency Contact Details (optional)</p>
                   <div className="form-group">
                     <input
@@ -1795,6 +1726,78 @@ function RegisterProgram(props) {
                     <label className="label-control">Languages</label>
                     <p style={errStyle}>{errObj.languages}</p>
                   </div>
+                </div>
+              )}
+              
+              <div className="form-group">
+                <select
+                  className="form-control-input notEmpty"
+                  id="about_byuk"
+                  onChange={(e) => onProgramChange(e)}
+                  required
+                >
+                  <option value="" selected>
+                    Select Option
+                  </option>
+                  <option value="Email by BYVK" key="Email by BYVK">
+                    Email by BYVK
+                  </option>
+                  <option value="BYVK Website" key="BYVK Website">
+                    BYVK Website
+                  </option>
+                  <option value="BYVK Instagram" key="BYVK Instagram">
+                    BYVK Instagram
+                  </option>
+                  <option value="BYVK FB" key="BYVK FB">
+                    BYVK FB
+                  </option>
+                  <option value="BYVK LinkedIn" key="BYVK LinkedIn">
+                    BYVK LinkedIn
+                  </option>
+                  <option
+                    value="Whatsapp groups - BYVK"
+                    key="Whatsapp groups - BYVK"
+                  >
+                    Whatsapp groups - BYVK
+                  </option>
+                  <option value="TSF Website" key="TSF Website">
+                    TSF Website
+                  </option>
+                  <option value="TSF Instagram" key="TSF Instagram">
+                    TSF Instagram
+                  </option>
+                  <option value="TSF FB" key="TSF FB">
+                    TSF FB
+                  </option>
+                  <option value="TSF WhatsApp" key="TSF WhatsApp">
+                    TSF WhatsApp
+                  </option>
+                  <option value="TSF Email" key="TSF Email">
+                    TSF Email
+                  </option>
+                  <option value="From a friend" key="From a friend">
+                    From a friend
+                  </option>
+                  <option value="other" key="others">
+                    Others (please specify)
+                  </option>
+                </select>
+                <label className="label-control">
+                  How did you come to know about BYVK
+                </label>
+                <p style={errStyle}>{errObj.about_byuk}</p>
+              </div>
+              {otherSource && (
+                <div className="form-group">
+                  <input
+                    type="text"
+                    className="form-control-input notEmpty"
+                    id="about_byuk"
+                    onChange={(e) => onProgramChange(e)}
+                    required
+                  />
+                  <label className="label-control">Type Other Source</label>
+                  <p style={errStyle}>{errObj.othersource}</p>
                 </div>
               )}
               {docs.map((data, index) => {
@@ -1847,9 +1850,9 @@ function RegisterProgram(props) {
                     id="fees"
                     onClick={feesAgreementHandler}
                   />
-                  <label>Yes/No (Yes -I agree ,No - I Disagree)</label>
+                  <label>Yes- I Agree  all conditions</label>
 
-                  <p style={errStyle}>{errObj.fees_agreed}</p>
+                  
                 </div>
               )}
 
@@ -1878,9 +1881,9 @@ function RegisterProgram(props) {
                     id="rules"
                     onClick={rulesAgreementHandler}
                   />
-                  <label>Yes/No (Yes -I agree ,No - I Disagree)</label>
+                  <label>Yes - I Agree  conditions</label>
 
-                  <p style={errStyle}>{errObj.rules_agreed}</p>
+                  
                 </div>
               )}
 
@@ -1910,7 +1913,11 @@ function RegisterProgram(props) {
                 </div>
               )}
 
-              {termsAgreed ? (
+              <label>
+                     <span style={{ color: "orange" }}>Note: Agreeing to the terms and conditions, fee structures, rules and regulation etc is mandatory to submit the application 
+                   </span>
+                    </label>
+              {termsAgreed && rulesAgreed && feesAgreed ? (
                 <div className="form-group mt-4">
                   <button
                     type="submit"

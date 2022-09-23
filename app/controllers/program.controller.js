@@ -59,20 +59,39 @@ module.exports = {
 	
         const  courseId  = req.params.courseId;
         const programType = req.params.programType;
-       
-        const program = await Program.find({ course: courseId,program_type : programType});
-        if (!program) {
+        
+        if(programType === "ALL")
+        {
+         const program = await Program.find({ course: courseId});
+          if (!program) {
 
             response.status_code = "404";
             response.status_message = "Event not found for course and program type";
             response.result = null;
             return res.status(404).send(response);
         }
-
-        response.status_code = "200";
+         response.status_code = "200";
         response.status_message = "Event found for course and program type";
         response.result = program;
         res.status(200).json(response);
+         }
+        else
+        {
+         const program = await Program.find({ course: courseId,program_type : programType});
+          if (!program) {
+
+            response.status_code = "404";
+            response.status_message = "Event not found for course and program type";
+            response.result = null;
+            return res.status(404).send(response);
+        }
+         response.status_code = "200";
+        response.status_message = "Event found for course and program type";
+        response.result = program;
+        res.status(200).json(response);
+       }
+
+       
     },
 
     getCompleteProgram: async (req, res) => {

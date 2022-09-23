@@ -7,7 +7,8 @@ import moment from "moment";
 
 const { Meta } = Card;
 const { Panel } = Collapse;
-const courseType = ["OFFLINE", "ONLINE", "HYBRID"];
+//const courseType = ["OFFLINE", "ONLINE", "HYBRID"];
+const courseType = ["ALL"];
 
 const errStyle = {
   color: "red",
@@ -46,7 +47,7 @@ function GenericCourses() {
       .catch((err) => console.error(err));
   }, []);
 
-  const App = () => <div dangerouslySetInnerHTML={{ __html: mySafeHTML }} />;
+  
   const onChange = (key) => {
     console.log(key);
     getEventsRelatedToThisCourse(courseId, key[key.length - 1]);
@@ -55,7 +56,7 @@ function GenericCourses() {
   const getEventsRelatedToThisCourse = (cId, index) => {
     var type = courseType[index - 1];
     axios
-      .get(`/programs/course/${cId}/programtype/${type}`)
+      .get(`/programs/course/${cId}/programtype/ALL`)
       .then((res) => {
         if (res.data.status_code === "200") {
           if (type === courseType[0]) {
@@ -127,8 +128,8 @@ function GenericCourses() {
           <br />
           <div dangerouslySetInnerHTML={{ __html: data.contents }} />
           <div>
-            <Collapse defaultActiveKey={["1"]} onChange={onChange}>
-              <Panel header="1. Residential Courses" key="1">
+            <Collapse defaultActiveKey={["1"]} onChange={onChange} > 
+              <Panel header="UpComing Courses" key="1">
                 <div className="container">
                   {courseRelatedData.length > 0 ? (
                     courseRelatedData.map((data, index) => {
@@ -199,150 +200,7 @@ function GenericCourses() {
                   )}
                 </div>
               </Panel>
-              <Panel header="2. Online courses" key="2">
-                <div className="container">
-                  <div className="row"></div>
-                  {onlineCourseData.length > 0 ? (
-                    onlineCourseData.map((data, index) => {
-                      return (
-                        <>
-                          <div key={index} className="row">
-                            <div
-                              className="col-lg-4"
-                              style={{ textAlign: "center" }}
-                            >
-                              <h5
-                                style={{
-                                  fontFamily: "Poppins",
-                                  fontSize: "16px",
-                                }}
-                              >
-                                {getFormatedDate(data.program_start_date)}{" "}
-                                {"to"} {getFormatedDate(data.program_end_date)}
-                              </h5>
-                              {/* <p style={{fontFamily:'Poppins',fontSize:'16px'}}>{getFormatedDate(data.registration_end_date)}</p> */}
-                            </div>
-                            <div className="col-lg-4">
-                              <h4
-                                style={{
-                                  fontFamily: "Poppins",
-                                  fontSize: "16px",
-                                  textAlign: "center",
-                                }}
-                              >
-                                {data.name} - {data.description}
-                              </h4>
-                            </div>
-                            <div
-                              className="col-lg-4"
-                              style={{ textAlign: "center" }}
-                            >
-                              {isAuthenticated &&
-                              data.status !== "INACTIVE" &&
-                              data.status !== "STARTED" &&
-                              !data.isUserRegistered ? (
-                                <div className="" style={{ marginTop: "0px" }}>
-                                  <Button
-                                    type="primary"
-                                    style={{
-                                      fontFamily: "Poppins",
-                                      width: "50%",
-                                      background: "#f3cd74",
-                                      color: "black",
-                                      borderRadius: "18px",
-                                    }}
-                                  >
-                                    <a href={"../registercourse/" + data._id}>
-                                      Register Course
-                                    </a>
-                                  </Button>
-                                </div>
-                              ) : (
-                                ""
-                              )}
-                            </div>
-                          </div>
-                          <hr style={{ marginTop: "4px" }} />{" "}
-                        </>
-                      );
-                    })
-                  ) : (
-                    <p style={errStyle}>No Course Found</p>
-                  )}
-                </div>
-              </Panel>
-              <Panel header="3. Hybrid courses" key="3">
-                <div className="container">
-                  <div className="row"></div>
-                  {hybridCourseData.length > 0 ? (
-                    hybridCourseData.map((data, index) => {
-                      return (
-                        <>
-                          <div key={index} className="row">
-                            <div
-                              className="col-lg-4"
-                              style={{ textAlign: "center" }}
-                            >
-                              <h5
-                                style={{
-                                  fontFamily: "Poppins",
-                                  fontSize: "16px",
-                                }}
-                              >
-                                {getFormatedDate(data.program_start_date)}{" "}
-                                {"to"} {getFormatedDate(data.program_end_date)}
-                              </h5>
-                              {/* <p style={{fontFamily:'Poppins',fontSize:'16px'}}>{getFormatedDate(data.registration_end_date)}</p> */}
-                            </div>
-                            <div className="col-lg-4">
-                              <h4
-                                style={{
-                                  fontFamily: "Poppins",
-                                  fontSize: "16px",
-                                  textAlign: "center",
-                                }}
-                              >
-                                {data.name} - {data.description}
-                              </h4>
-                            </div>
-                            <div
-                              className="col-lg-4"
-                              style={{ textAlign: "center" }}
-                            >
-                              {isAuthenticated &&
-                              data.status !== "INACTIVE" &&
-                              data.status !== "STARTED" &&
-                              !data.isUserRegistered ? (
-                                <div className="" style={{ marginTop: "0px" }}>
-                                  <Button
-                                    type="primary"
-                                    style={{
-                                      fontFamily: "Poppins",
-                                      width: "50%",
-                                      background: "#f3cd74",
-                                      color: "black",
-                                      borderRadius: "18px",
-                                    }}
-                                  >
-                                    <a href={"../registercourse/" + data._id}>
-                                      Register Course
-                                    </a>
-                                  </Button>
-                                </div>
-                              ) : (
-                                ""
-                              )}
-                            </div>
-                          </div>
-                          <hr style={{ marginTop: "4px" }} />{" "}
-                        </>
-                      );
-                    })
-                  ) : (
-                    <p style={errStyle}>No Course Found</p>
-                  )}
-                </div>
-              </Panel>
+              
             </Collapse>
           </div>
         </div>
