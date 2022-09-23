@@ -196,6 +196,7 @@ function RegisterProgram(props) {
   const [feesAgreed, setFeesAgreed] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState(user.userData.phone_num);
  let feesCourseNameUrl="/refund?fees="+programData.program_fee+"&course_name="+programData.name;
+ let onlineFeesCourseNameUrl="/onlinerefund?fees="+programData.program_fee+"&course_name="+programData.name;
  let paymentsfeesCourseNameUrl="/payments?fees="+programData.program_fee+"&course_name="+programData.name;
   useEffect(() => {
     // console.log(Country.getAllCountries());
@@ -1842,9 +1843,14 @@ function RegisterProgram(props) {
                 Fee Structure and Cancellation Policy{" "}
                 <span style={{ color: "red" }}>*</span>
               </h3>
+              {!residentialCourse && (
+              <a href={onlineFeesCourseNameUrl} target="_blank" onClick={feesHandler}>
+                Click Here to read Fee Cancellation/Refund Policy
+              </a>)}
+              {residentialCourse && (
               <a href={feesCourseNameUrl} target="_blank" onClick={feesHandler}>
                 Click Here to read Fee Cancellation/Refund Policy
-              </a>
+              </a>)}
               {feesClicked && (
                 <div className="form-group mt-2">
                   <input

@@ -11,6 +11,7 @@ import store from "./store";
 import { setCurrentUser, logoutUser, setUserData } from "./actions/authActions";
 import PrivateRoute from "./privateroute/PrivateRoute";
 import Home from "./components/Home";
+import OnlineRefund from "./components/OnlineRefund";
 import Payments from "./components/Payments";
 import Login from "./components/Login";
 import Landing from "./components/Landing";
@@ -99,6 +100,7 @@ function App() {
         <Route exact path="/userquery" component={UsersQuery} />
         <Route exact path="/termsconditions" component={Termsconditions} />
         <Route exact path="/rulesregulations" component={Rulesregulations} />
+         <Route exact path="/onlinerefund" component={OnlineRefund} />
         <Route
           exact
           path="/userforprogram/:id"
