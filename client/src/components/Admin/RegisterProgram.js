@@ -83,6 +83,7 @@ const healthOptions = [
 ];
 
 function RegisterProgram(props) {
+ 
   const user = useSelector((state) => state.auth);
   const [isAuthenticated, setAuthenticated] = useState(false);
   const [courseData, setCourseData] = useState([]);
@@ -194,7 +195,8 @@ function RegisterProgram(props) {
   const [feesClicked, setFeesClicked] = useState(false);
   const [feesAgreed, setFeesAgreed] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState(user.userData.phone_num);
-
+ let feesCourseNameUrl="/refund?fees="+programData.program_fee+"&course_name="+programData.name;
+ let paymentsfeesCourseNameUrl="/payments?fees="+programData.program_fee+"&course_name="+programData.name;
   useEffect(() => {
     // console.log(Country.getAllCountries());
     // console.log(State.getStatesOfCountry("AF"));
@@ -746,7 +748,7 @@ function RegisterProgram(props) {
           else
           {
 	        setTimeout(function () {
-            window.location.href = "/payments";
+            window.location.href = paymentsfeesCourseNameUrl;
           }, 300);
 			}
         }
@@ -1840,7 +1842,7 @@ function RegisterProgram(props) {
                 Fee Structure and Cancellation Policy{" "}
                 <span style={{ color: "red" }}>*</span>
               </h3>
-              <a href="/refund" target="_blank" onClick={feesHandler}>
+              <a href={feesCourseNameUrl} target="_blank" onClick={feesHandler}>
                 Click Here to read Fee Cancellation/Refund Policy
               </a>
               {feesClicked && (

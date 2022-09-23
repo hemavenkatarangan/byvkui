@@ -6,6 +6,10 @@ function Payments() {
   const user = useSelector((state) => state.auth);
   const [isAuthenticated, setAuthenticated] = useState(false);
   const dispatch = useDispatch();
+  const search = window.location.search; // returns the URL query String
+const params = new URLSearchParams(search); 
+const feesFromURL = params.get('fees');
+const courseNameFromURL = params.get('course_name');
 
   useEffect(() => {
     // console.log(user)
@@ -35,11 +39,11 @@ function Payments() {
                 Payments Section
               </h1>
                 <p className="" style={{ fontFamily: "Poppins",
-                  fontSize: "20px" }}>
-                  India Fund Transfer
+                  fontSize: "20px" ,color:"orange"}}>
+                  India & Non Indian Residents Fund Transfer
                 </p>
                 <p className="" style={{ fontFamily: "Poppins" }}>
-                Please transfer amount to below account. Please enter the participant's name in the remarks section (in the Bank's NEFT transfer page)                                                                                                                                                                                                                                                                                                                                                                                                                  
+                Please transfer amount {feesFromURL} {'\u20A8'} for Indian Residents & for Non Indian Residents USD.{feesFromURL * 80 } {'\u0024'} for course {courseNameFromURL} to below account. Please enter the participant's name in the remarks section (in the Bank's NEFT transfer page)                                                                                                                                                                                                                                                                                                                                                                                                                  
                 </p>
 <p className="" style={{ fontFamily: "Poppins" }}>NOTE: Please make sure to save a screenshot of your transaction.</p>                                                                                              
 
@@ -49,21 +53,7 @@ function Payments() {
 <p className="" style={{ fontFamily: "Poppins",fontSize: "12px" }}>IFSC: UTIB0001854</p>
 <p className="" style={{ fontFamily: "Poppins" ,fontSize: "12px"}}>SWIFT CODE: AXISINBBA17
                 </p>
-                 <p className="" style={{ fontFamily: "Poppins",
-                  fontSize: "20px" }}>
-                  Outside India Fund Transfer
-                </p>
-                <p className="" style={{ fontFamily: "Poppins" }}>
-                Please transfer amount to below account. Please enter the participant's name in the remarks section (in the Bank's NEFT transfer page)                                                                                                                                                                                                                                                                                                                                                                                                                  
-                </p>
-<p className="" style={{ fontFamily: "Poppins" }}>NOTE: Please make sure to save a screenshot of your transaction.</p>                                                                                              
-
-<p className="" style={{ fontFamily: "Poppins" ,fontSize: "12px"}}>Account Name: BHARAT YOGA VIDYA KENDRA</p>
-<p className="" style={{ fontFamily: "Poppins" ,fontSize: "12px"}}>Bank Name: Axis Bank</p>
-<p className="" style={{ fontFamily: "Poppins",fontSize: "12px" }}>Account Number 921010029132727</p>
-<p className="" style={{ fontFamily: "Poppins",fontSize: "12px" }}>IFSC: UTIB0001854</p>
-<p className="" style={{ fontFamily: "Poppins" ,fontSize: "12px"}}>SWIFT CODE: AXISINBBA17
-                </p>
+                 
                 
                 <p style={{ fontFamily: "Poppins" }}>
                   To learn more about BYVK please go to our{" "}
