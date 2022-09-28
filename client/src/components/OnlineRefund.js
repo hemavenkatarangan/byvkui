@@ -12,9 +12,7 @@ const courseNameFromURL = params.get('course_name');
                         <div className="text-container" style={{ marginTop: '45px' }}>
                             
                             <h3 className="h3-large" style={{ fontFamily: 'Poppins', color: 'darkblue' }}>Fees & Cancellation Policy</h3>
-                             <p className="" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: 'red', fontSize: '16px' }}>
-                            Fee Structure : I Fully Understand that course fee of INR. {feesFromURL} {'\u20A8'} here for Indian Residents & for Non Indian Residents USD.{feesFromURL * 80 } {'\u0024'} for course {courseNameFromURL}
-                            </p>
+                           
                             
                             <p className="" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: 'black', fontSize: '16px' }}>
                            

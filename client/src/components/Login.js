@@ -16,6 +16,7 @@ function Login(props) {
     const errors = useSelector(state => state.errors)
     const auth = useSelector(state => state.auth)
     const dispatch = useDispatch();
+    const [agreedTerms,setAgreedTerms]=useState(false);
     
     useEffect(() => { 
        if(auth.isAuthenticated) {
@@ -35,8 +36,17 @@ function Login(props) {
     }
 
     const submitForm = () => {
+	console.log("clicked");
         dispatch(loginUser({email_id:user.userName, password:user.password}))
     }
+    
+    const handleCheckbox = (e) => {
+	if(e.target.checked){
+		setAgreedTerms(true);
+	}else{
+		setAgreedTerms(false);
+	}
+}
 
     return (
         <div>
@@ -62,12 +72,15 @@ function Login(props) {
                                 <p style={errStyle}>{errors.password}</p>
                             </div>
                             <div className="form-group checkbox">
-                                <input type="checkbox" id="terms" value="Agreed-to-Terms" />I agree with the site's stated <a href="/privacy">Privacy Policy</a> and <a href="/terms">Terms & Conditions</a>
+                                <input type="checkbox" id="terms" value="Agreed-to-Terms" onChange={handleCheckbox}/>I agree with the site's stated <a href="/privacy">Privacy Policy</a> and <a href="/terms">Terms & Conditions</a>
                             </div>
                             <p style={errStyle}>{errors.verificationPending ? errors.verificationPending : errors.emailnotfound}</p>
-                            <div className="form-group" style={{ fontFamily: 'Poppins'}}>
+                            {agreedTerms ? (<div className="form-group" style={{ fontFamily: 'Poppins'}}>
                                 <button type="submit" onClick={(e) => submitForm(e)} className="form-control-submit-button">Log In</button>
-                            </div>
+                            </div>):(<div className="form-group" style={{ fontFamily: 'Poppins'}}>
+                                <button type="submit" className="form-control" disabled>Log In</button>
+                            </div>)}
+                           
                     </div>
                 </div>
             </div>

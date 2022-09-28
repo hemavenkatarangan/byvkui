@@ -38,12 +38,20 @@ const healthOptions = [
   },
   { value: "Psychiatric condition", label: "Psychiatric condition" },
   { value: "Heartburn", label: "Heartburn" },
-  { value: "Arthritis", label: "Arthritis" },
+
   { value: "Ligament Injuries", label: "Ligament Injuries" },
   { value: "Osteoporosis", label: "Osteoporosis" },
   { value: "Seizure/ Epilepsy", label: "Seizure/ Epilepsy" },
   { value: "Frozen Shoulder", label: "Frozen Shoulder" },
-  {
+  { value: "Arthritis", label: "Arthritis" },
+    {
+    value: "Vitamin Deficiency (esp. Vitamin B12 & D)",
+    label: "Vitamin Deficiency (esp. Vitamin B12 & D)",
+  },
+];
+
+const healthOptions2 = [
+	{
     value: "Insomnia / Sleep Disorder/ Snoring",
     label: "Insomnia / Sleep Disorder/ Snoring",
   },
@@ -74,12 +82,8 @@ const healthOptions = [
     value: "Any Psychological disorders",
     label: "Any Psychological disorders",
   },
-  {
-    value: "Vitamin Deficiency (esp. Vitamin B12 & D)",
-    label: "Vitamin Deficiency (esp. Vitamin B12 & D)",
-  },
   { value: "Pregnancy", label: "Pregnancy" },
-  { value: "None of the Above", label: "None of the Above" },
+  { value: "", label: "None of the Above" },
 ];
 
 function RegisterProgram(props) {
@@ -187,7 +191,9 @@ function RegisterProgram(props) {
   const [prevExperience, setPrevExperience] = useState(false);
   const [otherSource, setOtherSource] = useState(false);
   const [residentialCourse, setResidentialCourse] = useState(false);
-  const [checkedHealth, setCheckedHealth] = useState([]);
+    const [checkedHealth, setCheckedHealth] = useState([]);
+  const [checkedHealth1, setCheckedHealth1] = useState([]);
+  const [checkedHealth2, setCheckedHealth2] = useState([]);
   const [termsClicked, setTermsClicked] = useState(false);
   const [termsAgreed, setTermsAgreed] = useState(false);
   const [rulesClicked, setRulesClicked] = useState(false);
@@ -195,6 +201,8 @@ function RegisterProgram(props) {
   const [feesClicked, setFeesClicked] = useState(false);
   const [feesAgreed, setFeesAgreed] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState(user.userData.phone_num);
+  const [calculatedAge,setCalculatedAge]= useState("");
+  const [feeStructure,setFeeStructure] = useState(false);
  let feesCourseNameUrl="/refund?fees="+programData.program_fee+"&course_name="+programData.name;
  let onlineFeesCourseNameUrl="/onlinerefund?fees="+programData.program_fee+"&course_name="+programData.name;
  let paymentsfeesCourseNameUrl="/payments?fees="+programData.program_fee+"&course_name="+programData.name;
@@ -224,6 +232,7 @@ function RegisterProgram(props) {
   const getProgramData = () => {
     axios.get("/programs/" + props.match.params.id).then((res) => {
       if (res.data.status_code === "200") {
+	console.log(res.data.result,"program data");
         setProgramData(res.data.result);
         if (res.data.result.program_type == "OFFLINE") {
           setResidentialCourse(true);
@@ -239,7 +248,9 @@ function RegisterProgram(props) {
   const onProgramChange = (e) => {
     const { id, value } = e.target;
     console.log(id, value, "test");
-
+	if(id === "dob"){
+		calculateAge(value);
+	} 
     if (id === "previous_experience" && value === "Yes") {
       setPrevExperience(true);
     } else {
@@ -270,6 +281,8 @@ function RegisterProgram(props) {
 
   const validateProgramData = () => {
     let valid = true;
+    const concateArray = checkedHealth1.concat(checkedHealth2);
+    setCheckedHealth(concateArray);
     if (program.address_1.length <= 3) {
       valid = false;
       setErrObj((errObj) => ({
@@ -286,11 +299,11 @@ function RegisterProgram(props) {
       }));
     }
 
-    if (program.age == "") {
+    if (calculatedAge == "") {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
-        age: "Please Enter Age",
+        age: "Please Select The Date of Birth in the above feild",
       }));
     }
 
@@ -637,7 +650,7 @@ function RegisterProgram(props) {
         reject_reason: "",
         registered_by: user.user.name,
         relationship: relationship,
-        age: program.age,
+        age: calculatedAge,
         maritalstatus: program.maritalstatus,
         date_of_birth: program.dob,
         gender: program.gender,
@@ -694,7 +707,7 @@ function RegisterProgram(props) {
         reject_reason: "",
         registered_by: user.user.name,
         relationship: relationship,
-        age: program.age,
+        age: calculatedAge,
         date_of_birth: program.dob,
         gender: program.gender,
         qualification: program.qualification,
@@ -823,9 +836,12 @@ function RegisterProgram(props) {
     setRelationship(e.target.value);
   };
 
-  const handleMultiSelect = (data) => {
-    console.log(data, "checked data");
-    setCheckedHealth(data);
+  const handleMultiSelect1 = (data) => {
+    setCheckedHealth1(data);
+  };
+  
+    const handleMultiSelect2 = (data) => {
+    setCheckedHealth2(data);
   };
 
   const rulesHandler = () => {
@@ -862,10 +878,42 @@ function RegisterProgram(props) {
       setRulesAgreed(false);
     }
   };
+  
+    const feeStructureHandler = (event) => {
+    if (event.target.checked) {
+      setFeeStructure(true);
+    } else {
+      setFeeStructure(false);
+    }
+  };
 
   const phoneNumberHandler = (e) => {
-    setPhoneNumber(e.target.value);
+	if(e.target.value.length > 10){
+		alert("Phone Number should be 10 digits");
+	}else{
+		setPhoneNumber(e.target.value);
+	}
   };
+
+	const calculateAge = (value) => {
+		var today = new Date();
+    	var birthDate = new Date(value);
+    	var age = today.getFullYear() - birthDate.getFullYear();
+    	var m = today.getMonth() - birthDate.getMonth();
+    	if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) 
+    	{
+        	age--;
+    	}
+    	age = age.toString();
+    	
+    	 if(!((age >= programData.min_age) && (age<= programData.max_age))){
+			console.log("block entered for age");
+			alert("Your age should match the event requirment");
+		}else{
+			setCalculatedAge(age);
+		}
+		
+	}
 
   return (
     <>
@@ -988,17 +1036,6 @@ function RegisterProgram(props) {
               </div>
               <div className="form-group">
                 <input
-                  type="number"
-                  className="form-control-input notEmpty"
-                  id="age"
-                  onChange={(e) => onProgramChange(e)}
-                  required
-                />
-                <label className="label-control">Age</label>
-                <p style={errStyle}>{errObj.age}</p>
-              </div>
-              <div className="form-group">
-                <input
                   type="date"
                   className="form-control-input notEmpty"
                   id="dob"
@@ -1007,6 +1044,17 @@ function RegisterProgram(props) {
                 />
                 <label className="label-control">Date of Birth</label>
                 <p style={errStyle}>{errObj.dob}</p>
+              </div>
+              <div className="form-group">
+                <input
+                  type="number"
+                  className="form-control-input notEmpty"
+	                 required
+                  disabled
+                  value={calculatedAge}              
+                />
+                <label className="label-control">Age</label>
+                <p style={errStyle}>{errObj.age}</p>
               </div>
               <div className="form-group">
                 <input
@@ -1297,12 +1345,23 @@ function RegisterProgram(props) {
               >
                 Health & Lifestyle
               </h1>
-              
-              <div className="form-group">
-                <Checkbox.Group
-                  options={healthOptions}
-                  onChange={handleMultiSelect}
-                />
+              <div className="row">
+	              <div className="col-md-5">
+		              <div className="form-group">
+		                <Checkbox.Group
+		                  options={healthOptions}
+		                  onChange={handleMultiSelect1}
+		                />
+		              </div>
+	              </div>
+	              <div className="col-md-5">
+		              <div className="form-group">
+		                <Checkbox.Group
+		                  options={healthOptions2}
+		                  onChange={handleMultiSelect2}
+		                />
+		              </div>
+	              </div>
               </div>
               
               <div className="form-group">
@@ -1863,7 +1922,7 @@ function RegisterProgram(props) {
                   
                 </div>
               )}
-
+{residentialCourse && (<>
               <h3
                 style={{
                   fontFamily: "Poppins",
@@ -1878,9 +1937,9 @@ function RegisterProgram(props) {
                 target="_blank"
                 onClick={rulesHandler}
               >
-                Click Here to read Ashram Rules & Regulations{" "}
+                Click Here to read Ashram Rules & Regulations
                 <span style={{ color: "red" }}>*</span>
-              </a>
+              </a></>)}
 
               {rulesClicked && (
                 <div className="form-group mt-2">
@@ -1920,12 +1979,23 @@ function RegisterProgram(props) {
                   </label>
                 </div>
               )}
+              <div className="form-group">
+              	
+                <p style={{ fontFamily: 'Poppins', textAlign: 'justify', color: 'red', fontSize: '14px', marginTop:'10px' }}><input
+                    type="checkbox"
+                    id=""
+                    onClick={feeStructureHandler}
+                  />
+               		Fee Structure : I Fully Understand that course fee of INR. {programData.program_fee} {'\u20A8'} here for Indian Residents & for Non Indian Residents USD.{programData.program_fee * 80 } {'\u0024'} for course {programData.name}
+                </p>
+                </div>
 
               <label>
                      <span style={{ color: "orange" }}>Note: Agreeing to the terms and conditions, fee structures, rules and regulation etc is mandatory to submit the application 
                    </span>
                     </label>
-              {termsAgreed && rulesAgreed && feesAgreed ? (
+               {residentialCourse && (<>     
+              {termsAgreed && rulesAgreed && feesAgreed && feeStructure ? (
                 <div className="form-group mt-4">
                   <button
                     type="submit"
@@ -1941,7 +2011,27 @@ function RegisterProgram(props) {
                     Register
                   </button>
                 </div>
-              )}
+              )}</>)}
+              
+               {!residentialCourse && (<>     
+              {termsAgreed && feesAgreed && feeStructure ? (
+                <div className="form-group mt-4">
+                  <button
+                    type="submit"
+                    className="form-control-submit-button"
+                    onClick={(e) => validateProgramData(e)}
+                  >
+                    Register
+                  </button>
+                </div>
+              ) : (
+                <div className="form-group mt-4">
+                  <button type="submit" className="form-control" disabled>
+                    Register
+                  </button>
+                </div>
+              )}</>)}
+              
             </div>
           </div>
         </div>
