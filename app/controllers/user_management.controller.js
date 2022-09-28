@@ -87,6 +87,10 @@ module.exports = {
 
   registerForProgram: async (req, res) => {
     try {
+	  console.log(req.body);
+	  const users = await UserManagement.find({ program_id: req.body.program_id ,user_name:req.body.user_name});
+	  if(!users)
+	  {
       const newUser = new UserManagement(req.body);
       const user = await newUser.save();
 
@@ -94,6 +98,14 @@ module.exports = {
       response.status_message = "User Registered for Event";
       response.result = user;
       return res.status(200).json(response);
+      }
+      else
+      {
+	 response.status_code = "404";
+      response.status_message = "User Already Registered for the Event";
+      response.result = null;
+      return res.status(404).json(response);
+}
     } catch (err) {
       console.log(err);
       response.status_code = "404";

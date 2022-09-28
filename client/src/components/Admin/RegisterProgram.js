@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect ,useRef} from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { Country, State, City } from "country-state-city";
@@ -90,6 +90,7 @@ function RegisterProgram(props) {
  
   const user = useSelector((state) => state.auth);
   const [isAuthenticated, setAuthenticated] = useState(false);
+   const [isValidAge, setValidAge] = useState(true);
   const [courseData, setCourseData] = useState([]);
   const [programData, setProgramData] = useState([]);
   const [program, setProgram] = useState({
@@ -205,6 +206,7 @@ function RegisterProgram(props) {
   const [phoneNumber, setPhoneNumber] = useState(user.userData.phone_num);
   const [calculatedAge,setCalculatedAge]= useState("");
   const [feeStructure,setFeeStructure] = useState(false);
+  const ref = useRef(null);
  let feesCourseNameUrl="/refund?fees="+programData.program_fee+"&course_name="+programData.name;
  let onlineFeesCourseNameUrl="/onlinerefund?fees="+programData.program_fee+"&course_name="+programData.name;
  let paymentsfeesCourseNameUrl="/payments?fees="+programData.program_fee+"&course_name="+programData.name;
@@ -283,6 +285,12 @@ function RegisterProgram(props) {
   };
 
   const validateProgramData = () => {
+	
+	if(!isValidAge)
+	{
+		 alert("Your Age does not meet event criteria, your age should between "+programData.min_age+" & "+programData.max_age+" age ");
+		 ref.current.focus();
+	}
     let valid = true;
     const concateArray = checkedHealth1.concat(checkedHealth2);
     setCheckedHealth(concateArray);
@@ -306,7 +314,7 @@ function RegisterProgram(props) {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
-        age: "Please Select The Date of Birth in the above feild",
+        age: "Please Select The Date of Birth in the above field Properly",
       }));
     }
 
@@ -643,7 +651,7 @@ if (program.nationality == "") {
   };
 
   const submitProgram = () => {
-    console.log(program);
+   
     var obj = {};
     if (isChecked) {
       obj = {
@@ -765,9 +773,10 @@ if (program.nationality == "") {
       .then((res) => {
         console.log(res);
         if (res.data.status_code === "200") {
-          alert(res.data.status_message);
+          
           if(residentialCourse)
           {
+	      alert(res.data.status_message);
           setTimeout(function () {
             window.location.href = "/home";
           }, 300);
@@ -781,6 +790,10 @@ if (program.nationality == "") {
           }, 300);
 			}
         }
+        else
+        {
+	  alert(res.data.status_message);
+}
       })
       .catch((err) => {
         console.log(err);
@@ -911,6 +924,7 @@ if (program.nationality == "") {
   };
 
 	const calculateAge = (value) => {
+		
 		var today = new Date();
     	var birthDate = new Date(value);
     	var age = today.getFullYear() - birthDate.getFullYear();
@@ -923,10 +937,11 @@ if (program.nationality == "") {
     	
     	 if(!((age >= programData.min_age) && (age<= programData.max_age))){
 			console.log("block entered for age");
-			alert("Your age should match the event requirment,Event expects person to be between "+programData.min_age+" to "+programData.max_age+" age " );
-			program.dob="";
+			setValidAge(false);
 		}else{
 			setCalculatedAge(age);
+			setValidAge(true);
+			
 		}
 		
 	}
@@ -1052,6 +1067,7 @@ if (program.nationality == "") {
               </div>
               <div className="form-group">
                 <input
+                  ref={ref}
                   type="date"
                   className="form-control-input notEmpty"
                   id="dob"
