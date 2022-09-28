@@ -774,7 +774,9 @@ if (program.nationality == "") {
           }
           else
           {
+	        alert("You have successfully registered for Event ,Please proceed for payment!!!");
 	        setTimeout(function () {
+		    
             window.location.href = paymentsfeesCourseNameUrl;
           }, 300);
 			}
