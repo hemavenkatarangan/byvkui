@@ -31,6 +31,10 @@ var UserManagementSchema = new Schema(
     },
     age: { type: String },
     gender: { type: String, enum: ["Male", "Female", "Rather Not Say"] },
+     nationality: {
+      type: String,
+      enum: ["Indian", "NRI", "Rather Not Say"],
+    },
     maritalstatus: {
       type: String,
       enum: ["Single", "Married", "Rather Not Say"],

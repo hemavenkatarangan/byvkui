@@ -102,6 +102,7 @@ function RegisterProgram(props) {
     age: "",
     gender: "",
     dob: "",
+    nationality:"",
     maritalstatus: "",
     qualification: "",
     occupation: "",
@@ -147,6 +148,7 @@ function RegisterProgram(props) {
     gender: "",
     age: "",
     dob: "",
+    nationality:"",
     maritalstatus: "",
     qualification: "",
     occupation: "",
@@ -246,6 +248,7 @@ function RegisterProgram(props) {
   };
 
   const onProgramChange = (e) => {
+	console.log(e);
     const { id, value } = e.target;
     console.log(id, value, "test");
 	if(id === "dob"){
@@ -354,7 +357,13 @@ function RegisterProgram(props) {
         experty_level: "Please Select Experty Level",
       }));
     }
-
+if (program.nationality == "") {
+      valid = false;
+      setErrObj((errObj) => ({
+        ...errObj,
+        experty_level: "Please Select Nationality",
+      }));
+    }
     if (program.about_byuk == "") {
       valid = false;
       setErrObj((errObj) => ({
@@ -550,6 +559,7 @@ function RegisterProgram(props) {
         gender: "",
         age: "",
         dob: "",
+        nationality:"",
         maritalstatus: "",
         qualification: "",
         occupation: "",
@@ -594,6 +604,7 @@ function RegisterProgram(props) {
         age: "",
         gender: "",
         dob: "",
+        nationality:"",
         maritalstatus: "",
         qualification: "",
         occupation: "",
@@ -651,6 +662,7 @@ function RegisterProgram(props) {
         registered_by: user.user.name,
         relationship: relationship,
         age: calculatedAge,
+        nationality:program.nationality,
         maritalstatus: program.maritalstatus,
         date_of_birth: program.dob,
         gender: program.gender,
@@ -702,6 +714,7 @@ function RegisterProgram(props) {
         city: program.city,
         state: program.state,
         country: program.country,
+        nationality:program.nationality,
         maritalstatus: program.maritalstatus,
         status: "REGISTERED",
         reject_reason: "",
@@ -908,7 +921,8 @@ function RegisterProgram(props) {
     	
     	 if(!((age >= programData.min_age) && (age<= programData.max_age))){
 			console.log("block entered for age");
-			alert("Your age should match the event requirment");
+			alert("Your age should match the event requirment,Event expects person to be between "+programData.min_age+" to "+programData.max_age+" age " );
+			program.dob="";
 		}else{
 			setCalculatedAge(age);
 		}
@@ -1039,7 +1053,7 @@ function RegisterProgram(props) {
                   type="date"
                   className="form-control-input notEmpty"
                   id="dob"
-                  onChange={(e) => onProgramChange(e)}
+                  onInput={(e) => onProgramChange(e)}
                   required
                 />
                 <label className="label-control">Date of Birth</label>
@@ -1081,7 +1095,7 @@ function RegisterProgram(props) {
                 />
                 <label className="label-control">Phone Number</label>
               </div>
-              {isChecked ? (
+              {isChecked && residentialCourse? (
                 <div className="form-group">
                   <select
                     className="form-control-input notEmpty"
@@ -1110,27 +1124,7 @@ function RegisterProgram(props) {
                   </select>
                   <label className="label-control">Relationship</label>
                 </div>
-              ) : (
-                <div className="form-group">
-                  <select
-                    className="form-control-input notEmpty"
-                    id="relationship"
-                    disabled
-                    required
-                  >
-                    <option value="Parent" key="parent">
-                      Parent
-                    </option>
-                    <option value="Spouse" key="spouse">
-                      Spouse
-                    </option>
-                    <option value="Self" key="self" selected>
-                      Self
-                    </option>
-                  </select>
-                  <label className="label-control">Relationship</label>
-                </div>
-              )}
+              ) : ""}
               <div className="form-group">
                 <input
                   type="text"
@@ -1175,14 +1169,8 @@ function RegisterProgram(props) {
                     );
                   })}
                 </select>
-                {/* <input
-                  type="text"
-                  className="form-control-input notEmpty"
-                  value={program.country}
-                  id="country"
-                  onChange={(e) => onProgramChange(e)}
-                  required
-                /> */}
+               
+                
                 <label className="label-control" htmlFor="max_age">
                   Country
                 </label>
@@ -1230,6 +1218,41 @@ function RegisterProgram(props) {
                 </label>
                 <p style={errStyle}>{errObj.city}</p>
               </div>
+              
+              <div className="form-group">
+                <select
+                  className="form-control-input notEmpty"
+                  onChange={(e) => onProgramChange(e)}
+                  id="nationality"
+                  required
+                >
+                  <option value="" selected>
+                    Select Option
+                  </option>
+                  <option value="Indian" key="indian">
+                    Indian
+                  </option>
+                  <option value="NRI" key="nri">
+                    NRI
+                  </option>
+                 <option value="Rather Not Say" key="rather not say">
+                    Rather Not Say
+                  </option>
+                </select>
+                <label className="label-control">Nationality</label>
+                <p style={errStyle}>{errObj.nationality}</p>
+              </div>
+               <div className="form-group mt-5">
+                    <input
+                      type="text"
+                      className="form-control-input notEmpty"
+                      id="languages"
+                      onChange={(e) => onProgramChange(e)}
+                    />
+                    <label className="label-control">Languages</label>
+                    <p style={errStyle}>{errObj.languages}</p>
+                  </div>
+              
               <div className="form-group">
                 <select
                   className="form-control-input notEmpty"
@@ -1778,19 +1801,10 @@ function RegisterProgram(props) {
                       {errObj.emergency_contactrelationship2}
                     </p>
                   </div>
-                  <div className="form-group mt-5">
-                    <input
-                      type="text"
-                      className="form-control-input notEmpty"
-                      id="languages"
-                      onChange={(e) => onProgramChange(e)}
-                    />
-                    <label className="label-control">Languages</label>
-                    <p style={errStyle}>{errObj.languages}</p>
-                  </div>
+                  
                 </div>
               )}
-              
+             
               <div className="form-group">
                 <select
                   className="form-control-input notEmpty"
