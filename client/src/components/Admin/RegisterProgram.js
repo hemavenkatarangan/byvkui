@@ -796,7 +796,8 @@ if (program.nationality == "") {
 }
       })
       .catch((err) => {
-        console.log(err);
+        console.log("Error in registering please check logs ");
+        alert("You have not registered for Event ,Could be you have already Registered!!!");
       });
   };
 
