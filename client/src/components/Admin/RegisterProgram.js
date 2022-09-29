@@ -558,48 +558,60 @@ if (program.nationality == "") {
       submitProgram();
       setErrObj((errObj) => ({
         ...errObj,
-        address_1: "",
-        address_2: "",
-        city: "",
-        state: "",
-        country: "",
+         program_id: props.match.params.id,
+        user_id: user.user.id,
+        user_name: checkedName,
+        user_email: user.userData.email_id,
+        phoneNum: phoneNumber,
+        address_1: program.address_1,
+        address_2: program.address_2,
+        city: program.city,
+        state: program.state,
+        country: program.country,
         status: "REGISTERED",
-        gender: "",
-        age: "",
-        dob: "",
-        nationality:"",
-        maritalstatus: "",
-        qualification: "",
-        occupation: "",
-        occupation_details: "",
-        health_ailments: "",
-        lifestyle: "",
-        previous_experience: "No",
-        experty_level: "",
-        about_byuk: "",
-        alternate_phone_number: "",
-        emergency_contactname: "",
-        emergency_contactnumber: "",
-        emergency_contactrelationship: "",
-        emergency_contactname2: "",
-        emergency_contactnumber2: "",
-        emergency_contactrelationship2: "",
-        languages: "",
-        kind_of_yoga: "",
-        health_conditions: "",
-        medicines_details: "",
-        covid_vaccine_dose: "No",
-        tobbaco_consumption: "No",
-        frequency_details_of_tobaaco_use: "",
-        planning_to_teach: "",
-        why_teach_yoga: "",
-        teaching_experience: "No",
-        teaching_experience_description: "",
-        attraction_to_yoga_path: "",
-        meditation_practices: "",
-        terms_agreed: "No",
-        rules_agreed: "No",
-        fees_agreed: "No",
+        reject_reason: "",
+        registered_by: user.user.name,
+        relationship: relationship,
+        age: calculatedAge,
+        nationality:program.nationality,
+        maritalstatus: program.maritalstatus,
+        date_of_birth: program.dob,
+        gender: program.gender,
+        qualification: program.qualification,
+        occupation: program.occupation,
+        occupation_details: program.occupation_details,
+        health_ailments: checkedHealth,
+        lifestyle: program.lifestyle,
+        previous_experience: program.previous_experience,
+        experty_level: program.experty_level,
+        about_byuk: program.about_byuk,
+        alternate_phone_number: program.alternate_phone_number,
+        emergency_contactname: program.emergency_contactname,
+        emergency_contactnumber: program.emergency_contactnumber,
+        emergency_contactrelationship: program.emergency_contactrelationship,
+        emergency_contactname2: program.emergency_contactname2,
+        emergency_contactnumber2: program.emergency_contactnumber2,
+        emergency_contactrelationship2: program.emergency_contactrelationship2,
+        languages: program.languages,
+        learning_yoga: program.learning_yoga,
+        kind_of_yoga: program.kind_of_yoga,
+        health_conditions: program.health_conditions,
+        medicines_details: program.medicines_details,
+        covid_vaccine_dose: program.covid_vaccine_dose,
+        tobbaco_consumption: program.tobbaco_consumption,
+        frequency_details_of_tobaaco_use:
+          program.frequency_details_of_tobaaco_use,
+        role_of_yoga_teacher: program.role_of_yoga_teacher,
+        planning_to_teach: program.planning_to_teach,
+        why_teach_yoga: program.why_teach_yoga,
+        teaching_experience: program.teaching_experience,
+        teaching_experience_description:
+          program.teaching_experience_description,
+        attraction_to_yoga_path: program.attraction_to_yoga_path,
+        meditation_practices: program.meditation_practices,
+        terms_agreed: termsAgreed ? "Yes" : "No",
+        rules_agreed: rulesAgreed ? "Yes" : "No",
+        fees_agreed: feesAgreed ? "Yes" : "No",
       }));
       setProgram((errObj) => ({
         ...errObj,
@@ -796,7 +808,7 @@ if (program.nationality == "") {
 }
       })
       .catch((err) => {
-        console.log("Error in registering please check logs ");
+        console.log("Error in registering please check logs "+err);
         alert("You have not registered for Event ,Could be you have already Registered!!!");
       });
   };
@@ -2019,7 +2031,7 @@ if (program.nationality == "") {
                     id=""
                     onClick={feeStructureHandler}
                   />
-               		Fee Structure : I Fully Understand that course fee of INR. {programData.program_fee} {'\u20A8'} here for Indian Residents & for Non Indian Residents USD.{programData.program_fee * 80 } {'\u0024'} for course {programData.name}
+               		Fee Structure : I Fully Understand that course fee of INR. {programData.program_fee} {'\u20A8'} here for Indian Residents & for Non Indian Residents USD. {programData.program_fee / 80 } {'\u0024'} for course {programData.name}
                 </p>
                 </div>
 

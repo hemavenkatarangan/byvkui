@@ -87,9 +87,10 @@ module.exports = {
 
   registerForProgram: async (req, res) => {
     try {
-	  console.log(req.body);
+	 
 	  const users = await UserManagement.find({ program_id: req.body.program_id ,user_name:req.body.user_name});
-	  if(!users)
+	  console.log(users);
+	  if(users && users.length === 0 )
 	  {
       const newUser = new UserManagement(req.body);
       const user = await newUser.save();
