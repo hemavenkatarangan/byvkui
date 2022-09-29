@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
+import { Checkbox, Popover } from "antd";
 import axios from "axios";
 import { Country, State, City } from "country-state-city";
 import fileUploadUrl from "../../constants/constants";
-
-import { Checkbox } from "antd";
+import Termsconditions from "../Rules/Termsconditions";
 
 const errStyle = {
   color: "red",
@@ -17,6 +17,12 @@ const noteStyle = {
   textAlign: "center",
   fontSize: ".9rem",
 };
+
+const content = (
+  <div style={{ marginTop: "-150px" }}>
+    <Termsconditions />
+  </div>
+);
 
 const healthOptions = [
   {
@@ -98,7 +104,7 @@ function RegisterProgram(props) {
     city: "",
     state: "",
     country: "",
-    status: "REGISTERED",
+    status: "APPLICATION_SUBMITTED",
     age: "",
     gender: "",
     dob: "",
@@ -144,7 +150,7 @@ function RegisterProgram(props) {
     city: "",
     state: "",
     country: "",
-    status: "REGISTERED",
+    status: "APPLICATION_SUBMITTED",
     gender: "",
     age: "",
     dob: "",
@@ -220,7 +226,9 @@ function RegisterProgram(props) {
     "/payments?fees=" +
     programData.program_fee +
     "&course_name=" +
-    programData.name;
+    programData.name +
+    "&user_name=" +
+    checkedName;
   useEffect(() => {
     // console.log(Country.getAllCountries());
     // console.log(State.getStatesOfCountry("AF"));
@@ -583,7 +591,7 @@ function RegisterProgram(props) {
         city: program.city,
         state: program.state,
         country: program.country,
-        status: "REGISTERED",
+        status: "APPLICATION_SUBMITTED",
         reject_reason: "",
         registered_by: user.user.name,
         relationship: relationship,
@@ -635,7 +643,7 @@ function RegisterProgram(props) {
         city: "",
         state: "",
         country: "",
-        status: "REGISTERED",
+        status: "APPLICATION_SUBMITTED",
         age: "",
         gender: "",
         dob: "",
@@ -691,7 +699,7 @@ function RegisterProgram(props) {
         city: program.city,
         state: program.state,
         country: program.country,
-        status: "REGISTERED",
+        status: "APPLICATION_SUBMITTED",
         reject_reason: "",
         registered_by: user.user.name,
         relationship: relationship,
@@ -750,7 +758,7 @@ function RegisterProgram(props) {
         country: program.country,
         nationality: program.nationality,
         maritalstatus: program.maritalstatus,
-        status: "REGISTERED",
+        status: "APPLICATION_SUBMITTED",
         reject_reason: "",
         registered_by: user.user.name,
         relationship: relationship,
@@ -2042,9 +2050,11 @@ function RegisterProgram(props) {
               >
                 Terms & Conditions
               </h3>
-              <a href="/termsconditions" target="_blank" onClick={termsHandler}>
-                Click Here to read Terms & Conditions
-              </a>
+              <Popover content={content}>
+                <p style={{ color: "blue" }}>
+                  Click Here to read Terms & Conditions
+                </p>
+              </Popover>
               {termsClicked && (
                 <div className="form-group mt-2">
                   <input

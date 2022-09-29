@@ -7,21 +7,21 @@ function Payments() {
   const [isAuthenticated, setAuthenticated] = useState(false);
   const dispatch = useDispatch();
   const search = window.location.search; // returns the URL query String
-const params = new URLSearchParams(search); 
-const feesFromURL = params.get('fees');
-const courseNameFromURL = params.get('course_name');
- const [errObj, setErrObj] = useState({
-    whompayment:""
+  const params = new URLSearchParams(search);
+  const feesFromURL = params.get("fees");
+  const courseNameFromURL = params.get("course_name");
+  const uname = params.get("user_name");
+  const [errObj, setErrObj] = useState({
+    whompayment: "",
   });
   const errStyle = {
-  color: "red",
-  textAlign: "center",
-  fontSize: ".7rem",
-};
+    color: "red",
+    textAlign: "center",
+    fontSize: ".7rem",
+  };
 
-const onProgramChange = (e) => {
-	console.log(e);
-   
+  const onProgramChange = (e) => {
+    console.log(e);
   };
   useEffect(() => {
     // console.log(user)
@@ -39,45 +39,84 @@ const onProgramChange = (e) => {
           <div className="row">
             <div className="col-lg-12">
               <div className="text-container">
-               <h1
-                style={{
-                  textAlign: "center",
-                  marginTop: "50px",
-                  fontFamily: "Poppins",
-                  color: "darkblue",
-                  fontSize: "32px",
-                }}
-              >
-                Payments Section
-              </h1>
-                <p className="" style={{ fontFamily: "Poppins",
-                  fontSize: "20px" ,color:"orange"}}>
+                <h1
+                  style={{
+                    textAlign: "center",
+                    marginTop: "50px",
+                    fontFamily: "Poppins",
+                    color: "darkblue",
+                    fontSize: "32px",
+                  }}
+                >
+                  Payments Section
+                </h1>
+                <p
+                  className=""
+                  style={{
+                    fontFamily: "Poppins",
+                    fontSize: "20px",
+                    color: "orange",
+                  }}
+                >
                   India & Non Indian Residents Fund Transfer
                 </p>
                 <p className="" style={{ fontFamily: "Poppins" }}>
-                Please transfer amount {feesFromURL} {'\u20A8'} for Indian Residents & for Non Indian Residents USD.{feesFromURL / 80 } {'\u0024'} for course {courseNameFromURL} to below account. Please enter the participant's name in the remarks section (in the Bank's NEFT transfer page)                                                                                                                                                                                                                                                                                                                                                                                                                  
+                  Please transfer amount {feesFromURL} {"\u20A8"} for Indian
+                  Residents & for Non Indian Residents USD.{feesFromURL / 80}{" "}
+                  {"\u0024"} for course {courseNameFromURL} to below account.
+                  Please enter the participant's name in the remarks section (in
+                  the Bank's NEFT transfer page)
                 </p>
-<p className="" style={{ fontFamily: "Poppins" }}>NOTE: Please make sure to save a screenshot of your transaction.</p>                                                                                              
+                <p className="" style={{ fontFamily: "Poppins" }}>
+                  NOTE: Please make sure to save a screenshot of your
+                  transaction.
+                </p>
 
-<p className="" style={{ fontFamily: "Poppins" ,fontSize: "12px"}}>Account Name: BHARAT YOGA VIDYA KENDRA</p>
-<p className="" style={{ fontFamily: "Poppins" ,fontSize: "12px"}}>Bank Name: Axis Bank</p>
-<p className="" style={{ fontFamily: "Poppins",fontSize: "12px" }}>Account Number 921010029132727</p>
-<p className="" style={{ fontFamily: "Poppins",fontSize: "12px" }}>IFSC: UTIB0001854</p>
-<p className="" style={{ fontFamily: "Poppins" ,fontSize: "12px"}}>SWIFT CODE: AXISINBBA17
+                <p
+                  className=""
+                  style={{ fontFamily: "Poppins", fontSize: "12px" }}
+                >
+                  Account Name: BHARAT YOGA VIDYA KENDRA
                 </p>
-                
+                <p
+                  className=""
+                  style={{ fontFamily: "Poppins", fontSize: "12px" }}
+                >
+                  Bank Name: Axis Bank
+                </p>
+                <p
+                  className=""
+                  style={{ fontFamily: "Poppins", fontSize: "12px" }}
+                >
+                  Account Number 921010029132727
+                </p>
+                <p
+                  className=""
+                  style={{ fontFamily: "Poppins", fontSize: "12px" }}
+                >
+                  IFSC: UTIB0001854
+                </p>
+                <p
+                  className=""
+                  style={{ fontFamily: "Poppins", fontSize: "12px" }}
+                >
+                  SWIFT CODE: AXISINBBA17
+                </p>
+
                 <div className="form-group mt-5">
-                    <input
-                      type="text"
-                      className="form-control-input notEmpty"
-                      id="whompayment"
-                      onChange={(e) => onProgramChange(e)}
-                    />
-                    <label className="label-control">For Whom Payment made?</label>
-                    <p style={errStyle}>{errObj.whompayment}</p>
-                  </div>
-                 
-                
+                  <input
+                    type="text"
+                    className="form-control-input notEmpty"
+                    id="whompayment"
+                    value={uname}
+                    onChange={(e) => onProgramChange(e)}
+                  />
+                  <label className="label-control">
+                    For Whom Payment made?
+                  </label>
+                  <p style={errStyle}>{errObj.whompayment}</p>
+                </div>
+
                 <p style={{ fontFamily: "Poppins" }}>
                   To learn more about BYVK please go to our{" "}
                   <a href="/about">[About Us section]</a>
@@ -90,10 +129,8 @@ const onProgramChange = (e) => {
                   Warmly, <br />
                   BYVK Team
                 </p>
-               
               </div>
             </div>
-           
           </div>
         </div>
       </header>
