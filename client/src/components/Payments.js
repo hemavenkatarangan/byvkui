@@ -10,7 +10,19 @@ function Payments() {
 const params = new URLSearchParams(search); 
 const feesFromURL = params.get('fees');
 const courseNameFromURL = params.get('course_name');
+ const [errObj, setErrObj] = useState({
+    whompayment:""
+  });
+  const errStyle = {
+  color: "red",
+  textAlign: "center",
+  fontSize: ".7rem",
+};
 
+const onProgramChange = (e) => {
+	console.log(e);
+   
+  };
   useEffect(() => {
     // console.log(user)
     if (user.isAuthenticated) {
@@ -53,6 +65,17 @@ const courseNameFromURL = params.get('course_name');
 <p className="" style={{ fontFamily: "Poppins",fontSize: "12px" }}>IFSC: UTIB0001854</p>
 <p className="" style={{ fontFamily: "Poppins" ,fontSize: "12px"}}>SWIFT CODE: AXISINBBA17
                 </p>
+                
+                <div className="form-group mt-5">
+                    <input
+                      type="text"
+                      className="form-control-input notEmpty"
+                      id="whompayment"
+                      onChange={(e) => onProgramChange(e)}
+                    />
+                    <label className="label-control">For Whom Payment made?</label>
+                    <p style={errStyle}>{errObj.whompayment}</p>
+                  </div>
                  
                 
                 <p style={{ fontFamily: "Poppins" }}>
