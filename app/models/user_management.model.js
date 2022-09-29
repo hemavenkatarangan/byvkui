@@ -18,8 +18,8 @@ var UserManagementSchema = new Schema(
     date_of_birth:{type:String},
     status: {
       type: String,
-      enum: ["REGISTERED", "APPROVED", "REJECTED"],
-      default: "REGISTERED",
+      enum: ["APPLICATION_SUBMITTED","REGISTERED", "APPROVED", "REJECTED"],
+      default: "APPLICATION_SUBMITTED",
     },
     reject_reason: { type: String },
     registered_by: { type: String },
