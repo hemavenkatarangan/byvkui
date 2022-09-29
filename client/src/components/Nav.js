@@ -240,6 +240,18 @@ function Nav() {
                   <div className="dropdown-divider"></div>
                 </div>
               </li>
+            ) : isAuthenticated ? (
+              <>
+                <li className="nav-item">
+                  <a
+                    className="nav-link page-scroll"
+                    style={{ color: "black", fontSize: "14px" }}
+                    href="/contactus"
+                  >
+                    Your Data
+                  </a>
+                </li>
+              </>
             ) : (
               <></>
             )}

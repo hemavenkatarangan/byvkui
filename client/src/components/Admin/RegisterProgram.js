@@ -1,4 +1,4 @@
-import { useState, useEffect ,useRef} from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { Country, State, City } from "country-state-city";
@@ -44,14 +44,14 @@ const healthOptions = [
   { value: "Seizure/ Epilepsy", label: "Seizure/ Epilepsy" },
   { value: "Frozen Shoulder", label: "Frozen Shoulder" },
   { value: "Arthritis", label: "Arthritis" },
-    {
+  {
     value: "Vitamin Deficiency (esp. Vitamin B12 & D)",
     label: "Vitamin Deficiency (esp. Vitamin B12 & D)",
   },
 ];
 
 const healthOptions2 = [
-	{
+  {
     value: "Insomnia / Sleep Disorder/ Snoring",
     label: "Insomnia / Sleep Disorder/ Snoring",
   },
@@ -87,10 +87,9 @@ const healthOptions2 = [
 ];
 
 function RegisterProgram(props) {
- 
   const user = useSelector((state) => state.auth);
   const [isAuthenticated, setAuthenticated] = useState(false);
-   const [isValidAge, setValidAge] = useState(true);
+  const [isValidAge, setValidAge] = useState(true);
   const [courseData, setCourseData] = useState([]);
   const [programData, setProgramData] = useState([]);
   const [program, setProgram] = useState({
@@ -103,7 +102,7 @@ function RegisterProgram(props) {
     age: "",
     gender: "",
     dob: "",
-    nationality:"",
+    nationality: "",
     maritalstatus: "",
     qualification: "",
     occupation: "",
@@ -149,7 +148,7 @@ function RegisterProgram(props) {
     gender: "",
     age: "",
     dob: "",
-    nationality:"",
+    nationality: "",
     maritalstatus: "",
     qualification: "",
     occupation: "",
@@ -194,7 +193,7 @@ function RegisterProgram(props) {
   const [prevExperience, setPrevExperience] = useState(false);
   const [otherSource, setOtherSource] = useState(false);
   const [residentialCourse, setResidentialCourse] = useState(false);
-    const [checkedHealth, setCheckedHealth] = useState([]);
+  const [checkedHealth, setCheckedHealth] = useState([]);
   const [checkedHealth1, setCheckedHealth1] = useState([]);
   const [checkedHealth2, setCheckedHealth2] = useState([]);
   const [termsClicked, setTermsClicked] = useState(false);
@@ -204,12 +203,24 @@ function RegisterProgram(props) {
   const [feesClicked, setFeesClicked] = useState(false);
   const [feesAgreed, setFeesAgreed] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState(user.userData.phone_num);
-  const [calculatedAge,setCalculatedAge]= useState("");
-  const [feeStructure,setFeeStructure] = useState(false);
+  const [calculatedAge, setCalculatedAge] = useState("");
+  const [feeStructure, setFeeStructure] = useState(false);
   const ref = useRef(null);
- let feesCourseNameUrl="/refund?fees="+programData.program_fee+"&course_name="+programData.name;
- let onlineFeesCourseNameUrl="/onlinerefund?fees="+programData.program_fee+"&course_name="+programData.name;
- let paymentsfeesCourseNameUrl="/payments?fees="+programData.program_fee+"&course_name="+programData.name;
+  let feesCourseNameUrl =
+    "/refund?fees=" +
+    programData.program_fee +
+    "&course_name=" +
+    programData.name;
+  let onlineFeesCourseNameUrl =
+    "/onlinerefund?fees=" +
+    programData.program_fee +
+    "&course_name=" +
+    programData.name;
+  let paymentsfeesCourseNameUrl =
+    "/payments?fees=" +
+    programData.program_fee +
+    "&course_name=" +
+    programData.name;
   useEffect(() => {
     // console.log(Country.getAllCountries());
     // console.log(State.getStatesOfCountry("AF"));
@@ -236,7 +247,7 @@ function RegisterProgram(props) {
   const getProgramData = () => {
     axios.get("/programs/" + props.match.params.id).then((res) => {
       if (res.data.status_code === "200") {
-	console.log(res.data.result,"program data");
+        console.log(res.data.result, "program data");
         setProgramData(res.data.result);
         if (res.data.result.program_type == "OFFLINE") {
           setResidentialCourse(true);
@@ -250,12 +261,12 @@ function RegisterProgram(props) {
   };
 
   const onProgramChange = (e) => {
-	console.log(e);
+    console.log(e);
     const { id, value } = e.target;
     console.log(id, value, "test");
-	if(id === "dob"){
-		calculateAge(value);
-	} 
+    if (id === "dob") {
+      calculateAge(value);
+    }
     if (id === "previous_experience" && value === "Yes") {
       setPrevExperience(true);
     } else {
@@ -285,12 +296,16 @@ function RegisterProgram(props) {
   };
 
   const validateProgramData = () => {
-	
-	if(!isValidAge)
-	{
-		 alert("Your Age does not meet event criteria, your age should between "+programData.min_age+" & "+programData.max_age+" age ");
-		 ref.current.focus();
-	}
+    if (!isValidAge) {
+      alert(
+        "Your Age does not meet event criteria, your age should between " +
+          programData.min_age +
+          " & " +
+          programData.max_age +
+          " age "
+      );
+      ref.current.focus();
+    }
     let valid = true;
     const concateArray = checkedHealth1.concat(checkedHealth2);
     setCheckedHealth(concateArray);
@@ -365,7 +380,7 @@ function RegisterProgram(props) {
         experty_level: "Please Select Experty Level",
       }));
     }
-if (program.nationality == "") {
+    if (program.nationality == "") {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
@@ -558,7 +573,7 @@ if (program.nationality == "") {
       submitProgram();
       setErrObj((errObj) => ({
         ...errObj,
-         program_id: props.match.params.id,
+        program_id: props.match.params.id,
         user_id: user.user.id,
         user_name: checkedName,
         user_email: user.userData.email_id,
@@ -573,7 +588,7 @@ if (program.nationality == "") {
         registered_by: user.user.name,
         relationship: relationship,
         age: calculatedAge,
-        nationality:program.nationality,
+        nationality: program.nationality,
         maritalstatus: program.maritalstatus,
         date_of_birth: program.dob,
         gender: program.gender,
@@ -624,7 +639,7 @@ if (program.nationality == "") {
         age: "",
         gender: "",
         dob: "",
-        nationality:"",
+        nationality: "",
         maritalstatus: "",
         qualification: "",
         occupation: "",
@@ -663,7 +678,6 @@ if (program.nationality == "") {
   };
 
   const submitProgram = () => {
-   
     var obj = {};
     if (isChecked) {
       obj = {
@@ -682,7 +696,7 @@ if (program.nationality == "") {
         registered_by: user.user.name,
         relationship: relationship,
         age: calculatedAge,
-        nationality:program.nationality,
+        nationality: program.nationality,
         maritalstatus: program.maritalstatus,
         date_of_birth: program.dob,
         gender: program.gender,
@@ -734,7 +748,7 @@ if (program.nationality == "") {
         city: program.city,
         state: program.state,
         country: program.country,
-        nationality:program.nationality,
+        nationality: program.nationality,
         maritalstatus: program.maritalstatus,
         status: "REGISTERED",
         reject_reason: "",
@@ -785,42 +799,37 @@ if (program.nationality == "") {
       .then((res) => {
         console.log(res);
         if (res.data.status_code === "200") {
-          
-          if(residentialCourse)
-          {
-	      alert(res.data.status_message);
-          setTimeout(function () {
-            window.location.href = "/home";
-          }, 300);
+          if (residentialCourse) {
+            alert(res.data.status_message);
+            setTimeout(function () {
+              window.location.href = "/home";
+            }, 300);
+          } else {
+            if (courseData.course_name === "KausalaM") {
+              alert(
+                "You have successfully registered for Event ,Please Wait for Verification to be done !!!"
+              );
+              setTimeout(function () {
+                window.location.href = "/home";
+              }, 300);
+            } else {
+              alert(
+                "You have successfully registered for Event ,Please proceed for payment!!!"
+              );
+              setTimeout(function () {
+                window.location.href = paymentsfeesCourseNameUrl;
+              }, 300);
+            }
           }
-          else
-          {
-	        if(courseData.course_name === "KausalaM")
-	        {
-		    alert("You have successfully registered for Event ,Please Wait for Verification to be done !!!");
-	        setTimeout(function () {
-		    
-            window.location.href = "/home";
-          }, 300);
-	        }
-	        else
-	        {
-	        alert("You have successfully registered for Event ,Please proceed for payment!!!");
-	        setTimeout(function () {
-		    
-            window.location.href = paymentsfeesCourseNameUrl;
-          }, 300);
-          }
-			}
+        } else {
+          alert(res.data.status_message);
         }
-        else
-        {
-	  alert(res.data.status_message);
-}
       })
       .catch((err) => {
-        console.log("Error in registering please check logs "+err);
-        alert("You have not registered for Event ,Could be you have already Registered!!!");
+        console.log("Error in registering please check logs " + err);
+        alert(
+          "You have not registered for Event ,Could be you have already Registered!!!"
+        );
       });
   };
 
@@ -891,8 +900,8 @@ if (program.nationality == "") {
   const handleMultiSelect1 = (data) => {
     setCheckedHealth1(data);
   };
-  
-    const handleMultiSelect2 = (data) => {
+
+  const handleMultiSelect2 = (data) => {
     setCheckedHealth2(data);
   };
 
@@ -930,8 +939,8 @@ if (program.nationality == "") {
       setRulesAgreed(false);
     }
   };
-  
-    const feeStructureHandler = (event) => {
+
+  const feeStructureHandler = (event) => {
     if (event.target.checked) {
       setFeeStructure(true);
     } else {
@@ -940,35 +949,31 @@ if (program.nationality == "") {
   };
 
   const phoneNumberHandler = (e) => {
-	if(e.target.value.length > 10){
-		alert("Phone Number should be 10 digits");
-	}else{
-		setPhoneNumber(e.target.value);
-	}
+    if (e.target.value.length > 10) {
+      alert("Phone Number should be 10 digits");
+    } else {
+      setPhoneNumber(e.target.value);
+    }
   };
 
-	const calculateAge = (value) => {
-		
-		var today = new Date();
-    	var birthDate = new Date(value);
-    	var age = today.getFullYear() - birthDate.getFullYear();
-    	var m = today.getMonth() - birthDate.getMonth();
-    	if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) 
-    	{
-        	age--;
-    	}
-    	age = age.toString();
-    	
-    	 if(!((age >= programData.min_age) && (age<= programData.max_age))){
-			console.log("block entered for age");
-			setValidAge(false);
-		}else{
-			setCalculatedAge(age);
-			setValidAge(true);
-			
-		}
-		
-	}
+  const calculateAge = (value) => {
+    var today = new Date();
+    var birthDate = new Date(value);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    age = age.toString();
+
+    if (!(age >= programData.min_age && age <= programData.max_age)) {
+      console.log("block entered for age");
+      setValidAge(false);
+    } else {
+      setCalculatedAge(age);
+      setValidAge(true);
+    }
+  };
 
   return (
     <>
@@ -1105,9 +1110,9 @@ if (program.nationality == "") {
                 <input
                   type="number"
                   className="form-control-input notEmpty"
-	                 required
+                  required
                   disabled
-                  value={calculatedAge}              
+                  value={calculatedAge}
                 />
                 <label className="label-control">Age</label>
                 <p style={errStyle}>{errObj.age}</p>
@@ -1137,7 +1142,7 @@ if (program.nationality == "") {
                 />
                 <label className="label-control">Phone Number</label>
               </div>
-              {isChecked && residentialCourse? (
+              {isChecked && residentialCourse ? (
                 <div className="form-group">
                   <select
                     className="form-control-input notEmpty"
@@ -1154,19 +1159,21 @@ if (program.nationality == "") {
                     <option value="Self" key="self" selected>
                       Self
                     </option>
-                     <option value="Child1" key="child1" >
+                    <option value="Child1" key="child1">
                       Child 1
                     </option>
-                     <option value="Child2" key="child2" >
+                    <option value="Child2" key="child2">
                       Child 2
                     </option>
-                    <option value="Relative" key="relative" >
+                    <option value="Relative" key="relative">
                       Relative
                     </option>
                   </select>
                   <label className="label-control">Relationship</label>
                 </div>
-              ) : ""}
+              ) : (
+                ""
+              )}
               <div className="form-group">
                 <input
                   type="text"
@@ -1203,6 +1210,9 @@ if (program.nationality == "") {
                   value={program.country}
                   required
                 >
+                  <option value="" key="c">
+                    Select Option
+                  </option>
                   {country.map((country, index) => {
                     return (
                       <option value={country.isoCode} key={index}>
@@ -1211,8 +1221,7 @@ if (program.nationality == "") {
                     );
                   })}
                 </select>
-               
-                
+
                 <label className="label-control" htmlFor="max_age">
                   Country
                 </label>
@@ -1226,6 +1235,9 @@ if (program.nationality == "") {
                   value={program.state}
                   required
                 >
+                  <option value="" key="s">
+                    Select Option
+                  </option>
                   {states.map((state, index) => {
                     return (
                       <option value={state.isoCode} key={index}>
@@ -1247,6 +1259,9 @@ if (program.nationality == "") {
                   value={program.city}
                   required
                 >
+                  <option value="" key="ci">
+                    Select Option
+                  </option>
                   {city.map((city, index) => {
                     return (
                       <option value={city.name} key={index}>
@@ -1260,7 +1275,7 @@ if (program.nationality == "") {
                 </label>
                 <p style={errStyle}>{errObj.city}</p>
               </div>
-              
+
               <div className="form-group">
                 <select
                   className="form-control-input notEmpty"
@@ -1277,24 +1292,24 @@ if (program.nationality == "") {
                   <option value="NRI" key="nri">
                     NRI
                   </option>
-                 <option value="Rather Not Say" key="rather not say">
+                  <option value="Rather Not Say" key="rather not say">
                     Rather Not Say
                   </option>
                 </select>
                 <label className="label-control">Nationality</label>
                 <p style={errStyle}>{errObj.nationality}</p>
               </div>
-               <div className="form-group mt-5">
-                    <input
-                      type="text"
-                      className="form-control-input notEmpty"
-                      id="languages"
-                      onChange={(e) => onProgramChange(e)}
-                    />
-                    <label className="label-control">Languages</label>
-                    <p style={errStyle}>{errObj.languages}</p>
-                  </div>
-              
+              <div className="form-group mt-5">
+                <input
+                  type="text"
+                  className="form-control-input notEmpty"
+                  id="languages"
+                  onChange={(e) => onProgramChange(e)}
+                />
+                <label className="label-control">Languages</label>
+                <p style={errStyle}>{errObj.languages}</p>
+              </div>
+
               <div className="form-group">
                 <select
                   className="form-control-input notEmpty"
@@ -1411,24 +1426,24 @@ if (program.nationality == "") {
                 Health & Lifestyle
               </h1>
               <div className="row">
-	              <div className="col-md-5">
-		              <div className="form-group">
-		                <Checkbox.Group
-		                  options={healthOptions}
-		                  onChange={handleMultiSelect1}
-		                />
-		              </div>
-	              </div>
-	              <div className="col-md-5">
-		              <div className="form-group">
-		                <Checkbox.Group
-		                  options={healthOptions2}
-		                  onChange={handleMultiSelect2}
-		                />
-		              </div>
-	              </div>
+                <div className="col-md-5">
+                  <div className="form-group">
+                    <Checkbox.Group
+                      options={healthOptions}
+                      onChange={handleMultiSelect1}
+                    />
+                  </div>
+                </div>
+                <div className="col-md-5">
+                  <div className="form-group">
+                    <Checkbox.Group
+                      options={healthOptions2}
+                      onChange={handleMultiSelect2}
+                    />
+                  </div>
+                </div>
               </div>
-              
+
               <div className="form-group">
                 <select
                   className="form-control-input notEmpty"
@@ -1586,7 +1601,7 @@ if (program.nationality == "") {
                   <p style={errStyle}>{errObj.experty_level}</p>
                 </div>
               )}
-              
+
               {prevExperience && residentialCourse && (
                 <>
                   <div className="form-group">
@@ -1803,7 +1818,7 @@ if (program.nationality == "") {
                       {errObj.emergency_contactrelationship}
                     </p>
                   </div>
-                  
+
                   <p>Alternate Emergency Contact Details (optional)</p>
                   <div className="form-group">
                     <input
@@ -1843,10 +1858,9 @@ if (program.nationality == "") {
                       {errObj.emergency_contactrelationship2}
                     </p>
                   </div>
-                  
                 </div>
               )}
-             
+
               <div className="form-group">
                 <select
                   className="form-control-input notEmpty"
@@ -1959,13 +1973,23 @@ if (program.nationality == "") {
                 <span style={{ color: "red" }}>*</span>
               </h3>
               {!residentialCourse && (
-              <a href={onlineFeesCourseNameUrl} target="_blank" onClick={feesHandler}>
-                Click Here to read Fee Cancellation/Refund Policy
-              </a>)}
+                <a
+                  href={onlineFeesCourseNameUrl}
+                  target="_blank"
+                  onClick={feesHandler}
+                >
+                  Click Here to read Fee Cancellation/Refund Policy
+                </a>
+              )}
               {residentialCourse && (
-              <a href={feesCourseNameUrl} target="_blank" onClick={feesHandler}>
-                Click Here to read Fee Cancellation/Refund Policy
-              </a>)}
+                <a
+                  href={feesCourseNameUrl}
+                  target="_blank"
+                  onClick={feesHandler}
+                >
+                  Click Here to read Fee Cancellation/Refund Policy
+                </a>
+              )}
               {feesClicked && (
                 <div className="form-group mt-2">
                   <input
@@ -1973,29 +1997,30 @@ if (program.nationality == "") {
                     id="fees"
                     onClick={feesAgreementHandler}
                   />
-                  <label>Yes- I Agree  all conditions</label>
-
-                  
+                  <label>Yes- I Agree all conditions</label>
                 </div>
               )}
-{residentialCourse && (<>
-              <h3
-                style={{
-                  fontFamily: "Poppins",
-                  color: "darkblue",
-                  fontSize: "20px",
-                }}
-              >
-                Ashram Rules & Regulations
-              </h3>
-              <a
-                href="/rulesregulations"
-                target="_blank"
-                onClick={rulesHandler}
-              >
-                Click Here to read Ashram Rules & Regulations
-                <span style={{ color: "red" }}>*</span>
-              </a></>)}
+              {residentialCourse && (
+                <>
+                  <h3
+                    style={{
+                      fontFamily: "Poppins",
+                      color: "darkblue",
+                      fontSize: "20px",
+                    }}
+                  >
+                    Ashram Rules & Regulations
+                  </h3>
+                  <a
+                    href="/rulesregulations"
+                    target="_blank"
+                    onClick={rulesHandler}
+                  >
+                    Click Here to read Ashram Rules & Regulations
+                    <span style={{ color: "red" }}>*</span>
+                  </a>
+                </>
+              )}
 
               {rulesClicked && (
                 <div className="form-group mt-2">
@@ -2004,9 +2029,7 @@ if (program.nationality == "") {
                     id="rules"
                     onClick={rulesAgreementHandler}
                   />
-                  <label>Yes - I Agree  conditions</label>
-
-                  
+                  <label>Yes - I Agree conditions</label>
                 </div>
               )}
 
@@ -2036,58 +2059,73 @@ if (program.nationality == "") {
                 </div>
               )}
               <div className="form-group">
-              	
-                <p style={{ fontFamily: 'Poppins', textAlign: 'justify', color: 'red', fontSize: '14px', marginTop:'10px' }}><input
-                    type="checkbox"
-                    id=""
-                    onClick={feeStructureHandler}
-                  />
-               		Fee Structure : I Fully Understand that course fee of INR. {programData.program_fee} {'\u20A8'} here for Indian Residents & for Non Indian Residents USD. {programData.program_fee / 80 } {'\u0024'} for course {programData.name}
+                <p
+                  style={{
+                    fontFamily: "Poppins",
+                    textAlign: "justify",
+                    color: "red",
+                    fontSize: "14px",
+                    marginTop: "10px",
+                  }}
+                >
+                  <input type="checkbox" id="" onClick={feeStructureHandler} />
+                  Fee Structure : I Fully Understand that course fee of INR.{" "}
+                  {programData.program_fee} {"\u20A8"} here for Indian Residents
+                  & for Non Indian Residents USD. {programData.program_fee / 80}{" "}
+                  {"\u0024"} for course {programData.name}
                 </p>
-                </div>
+              </div>
 
               <label>
-                     <span style={{ color: "orange" }}>Note: Agreeing to the terms and conditions, fee structures, rules and regulation etc is mandatory to submit the application 
-                   </span>
-                    </label>
-               {residentialCourse && (<>     
-              {termsAgreed && rulesAgreed && feesAgreed && feeStructure ? (
-                <div className="form-group mt-4">
-                  <button
-                    type="submit"
-                    className="form-control-submit-button"
-                    onClick={(e) => validateProgramData(e)}
-                  >
-                    Register
-                  </button>
-                </div>
-              ) : (
-                <div className="form-group mt-4">
-                  <button type="submit" className="form-control" disabled>
-                    Register
-                  </button>
-                </div>
-              )}</>)}
-              
-               {!residentialCourse && (<>     
-              {termsAgreed && feesAgreed && feeStructure ? (
-                <div className="form-group mt-4">
-                  <button
-                    type="submit"
-                    className="form-control-submit-button"
-                    onClick={(e) => validateProgramData(e)}
-                  >
-                    Register
-                  </button>
-                </div>
-              ) : (
-                <div className="form-group mt-4">
-                  <button type="submit" className="form-control" disabled>
-                    Register
-                  </button>
-                </div>
-              )}</>)}
-              
+                <span style={{ color: "orange" }}>
+                  Note: Agreeing to the terms and conditions, fee structures,
+                  rules and regulation etc is mandatory to submit the
+                  application
+                </span>
+              </label>
+              {residentialCourse && (
+                <>
+                  {termsAgreed && rulesAgreed && feesAgreed && feeStructure ? (
+                    <div className="form-group mt-4">
+                      <button
+                        type="submit"
+                        className="form-control-submit-button"
+                        onClick={(e) => validateProgramData(e)}
+                      >
+                        Register
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="form-group mt-4">
+                      <button type="submit" className="form-control" disabled>
+                        Register
+                      </button>
+                    </div>
+                  )}
+                </>
+              )}
+
+              {!residentialCourse && (
+                <>
+                  {termsAgreed && feesAgreed && feeStructure ? (
+                    <div className="form-group mt-4">
+                      <button
+                        type="submit"
+                        className="form-control-submit-button"
+                        onClick={(e) => validateProgramData(e)}
+                      >
+                        Register
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="form-group mt-4">
+                      <button type="submit" className="form-control" disabled>
+                        Register
+                      </button>
+                    </div>
+                  )}
+                </>
+              )}
             </div>
           </div>
         </div>

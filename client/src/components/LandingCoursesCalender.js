@@ -73,6 +73,16 @@ function LandingCoursesCalender() {
     return moment(date).format("DD-MMM");
   };
 
+  const compareDates = (date) => {
+    let today = new Date();
+    let startingDay = new Date(date);
+    let val = false;
+    if (today < startingDay) {
+      val = true;
+    }
+    return val;
+  };
+
   return (
     <>
       <div
@@ -144,7 +154,8 @@ function LandingCoursesCalender() {
                   {isAuthenticated &&
                   data.status !== "INACTIVE" &&
                   data.status !== "STARTED" &&
-                  !data.isUserRegistered ? (
+                  !data.isUserRegistered &&
+                  compareDates(data.program_start_date) ? (
                     <div className="" style={{ marginTop: "0px" }}>
                       <Button
                         type="primary"
