@@ -13,6 +13,7 @@ const mediamanagement = require("./app/routers/media_management.route");
 const usermanagement = require("./app/routers/user_management.route");
 const userdocuments = require("./app/routers/user_documents.route");
 const documentformat = require("./app/routers/document_format.route");
+const payments = require("./app/routers/payments.route");
 const dotenv = require("dotenv");
 
 const auth = require("./app/helpers/authHelper")();
@@ -65,6 +66,7 @@ app.use("/mediamanagement", mediamanagement);
 app.use("/usermanagement", usermanagement);
 app.use("/userdocuments", userdocuments);
 app.use("/documentformat", documentformat);
+app.use("/payments", payments);
 
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to BYVK WebSite application" });
