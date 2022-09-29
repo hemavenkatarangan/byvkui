@@ -795,11 +795,22 @@ if (program.nationality == "") {
           }
           else
           {
+	        if(courseData.course_name === "KausalaM")
+	        {
+		    alert("You have successfully registered for Event ,Please Wait for Verification to be done !!!");
+	        setTimeout(function () {
+		    
+            window.location.href = "/home";
+          }, 300);
+	        }
+	        else
+	        {
 	        alert("You have successfully registered for Event ,Please proceed for payment!!!");
 	        setTimeout(function () {
 		    
             window.location.href = paymentsfeesCourseNameUrl;
           }, 300);
+          }
 			}
         }
         else
