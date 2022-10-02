@@ -1,16 +1,21 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser, getCartItems } from "../actions/authActions";
+import fileUploadUrl from "../constants/constants";
+import axios from "axios";
 
-function Payments() {
+function Payments(props) {
   const user = useSelector((state) => state.auth);
   const [isAuthenticated, setAuthenticated] = useState(false);
+  const [activateButton, setActivateButton] = useState(true);
+  const [url, setUrl] = useState("");
   const dispatch = useDispatch();
   const search = window.location.search; // returns the URL query String
   const params = new URLSearchParams(search);
   const feesFromURL = params.get("fees");
   const courseNameFromURL = params.get("course_name");
   const uname = params.get("user_name");
+  const c_id = params.get("c_id");
   const [errObj, setErrObj] = useState({
     whompayment: "",
   });
@@ -24,13 +29,63 @@ function Payments() {
     console.log(e);
   };
   useEffect(() => {
-    // console.log(user)
+    console.log(user);
     if (user.isAuthenticated) {
       setAuthenticated(true);
     } else {
       setAuthenticated(false);
     }
   });
+
+  const onFileChange = (e) => {
+    // console.log(e.target.files);
+    if (
+      e.target.files[0].type === "application/pdf" ||
+      e.target.files[0].type === "application/x-zip-compressed" ||
+      e.target.files[0].type === "image/png" ||
+      e.target.files[0].type === "image/jpeg"
+    ) {
+      var form = new FormData();
+      form.append("course_name", courseNameFromURL);
+      // for (let i = 0; i < e.target.files.length; i++) {
+      form.append("files", e.target.files[0]);
+      // }
+
+      axios
+        .post(fileUploadUrl, form)
+        .then((res) => {
+          console.log(res);
+          setUrl(res.data.result[0]);
+          setActivateButton(false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      alert(`Sorry the format which you selected is not supported.`);
+    }
+  };
+
+  const submitPaymentData = () => {
+    let obj = {
+      user_id: user.user.id,
+      email_id: user.user.name,
+      payment_path: url,
+      program_id: c_id,
+      user_name: uname,
+    };
+    axios
+      .post("/payments/", obj)
+      .then((res) => {
+        alert(
+          "Thank You will let you know the status Please visit payment dashboard in sometime.!"
+        );
+        setTimeout(() => {
+          window.location.href = "/home";
+        }, 3000);
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div>
@@ -117,6 +172,25 @@ function Payments() {
                   <p style={errStyle}>{errObj.whompayment}</p>
                 </div>
 
+                <div className="form-group mt-5">
+                  <input
+                    type="file"
+                    className=""
+                    id="fileupload"
+                    onChange={(e) => onFileChange(e)}
+                    required
+                  />
+                </div>
+                <div className="form-group mt-4">
+                  <button
+                    type="submit"
+                    className="form-control-submit-button"
+                    onClick={(e) => submitPaymentData(e)}
+                    disabled={activateButton}
+                  >
+                    Submit
+                  </button>
+                </div>
                 <p style={{ fontFamily: "Poppins" }}>
                   To learn more about BYVK please go to our{" "}
                   <a href="/about">[About Us section]</a>

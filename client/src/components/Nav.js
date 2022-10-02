@@ -246,7 +246,7 @@ function Nav() {
                   <a
                     className="nav-link page-scroll"
                     style={{ color: "black", fontSize: "14px" }}
-                    href="/contactus"
+                    href="/mydashboard"
                   >
                     Your Data
                   </a>

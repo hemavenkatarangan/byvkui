@@ -1,10 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
-import { Checkbox, Popover } from "antd";
+// import { Checkbox, Popover } from "antd";
+import { Checkbox, Button, Modal } from "antd";
 import axios from "axios";
 import { Country, State, City } from "country-state-city";
 import fileUploadUrl from "../../constants/constants";
 import Termsconditions from "../Rules/Termsconditions";
+import Refund from "../Rules/Refund";
+import Rulesregulations from "../Rules/Rulesregulations";
 
 const errStyle = {
   color: "red",
@@ -17,12 +20,6 @@ const noteStyle = {
   textAlign: "center",
   fontSize: ".9rem",
 };
-
-const content = (
-  <div style={{ marginTop: "-150px" }}>
-    <Termsconditions />
-  </div>
-);
 
 const healthOptions = [
   {
@@ -211,6 +208,9 @@ function RegisterProgram(props) {
   const [phoneNumber, setPhoneNumber] = useState(user.userData.phone_num);
   const [calculatedAge, setCalculatedAge] = useState("");
   const [feeStructure, setFeeStructure] = useState(false);
+  const [termsDisplay, setTermsDisplay] = useState("none");
+  const [modalData, setModalData] = useState("");
+  const [typeHandler, setTypeHandler] = useState("");
   const ref = useRef(null);
   let feesCourseNameUrl =
     "/refund?fees=" +
@@ -228,7 +228,9 @@ function RegisterProgram(props) {
     "&course_name=" +
     programData.name +
     "&user_name=" +
-    checkedName;
+    checkedName +
+    "&c_id=" +
+    window.location.href.split("/")[window.location.href.split("/").length - 1];
   useEffect(() => {
     // console.log(Country.getAllCountries());
     // console.log(State.getStatesOfCountry("AF"));
@@ -914,14 +916,56 @@ function RegisterProgram(props) {
   };
 
   const rulesHandler = () => {
-    setRulesClicked(true);
+    setTermsDisplay("block");
+    setTypeHandler("RULES");
+    setModalData(<Rulesregulations />);
   };
+
+  const rulesHandlerClose = () => {
+    setRulesClicked(true);
+    setTermsDisplay("none");
+    setModalData("");
+  };
+
   const feesHandler = () => {
+    setTermsDisplay("block");
+    setTypeHandler("FEES");
+    setModalData(
+      <Refund fee={programData.program_fee} name={programData.name} />
+    );
+  };
+
+  const feesHandlerClose = () => {
     setFeesClicked(true);
+    setTermsDisplay("none");
+    setModalData("");
   };
 
   const termsHandler = () => {
+    setTermsDisplay("block");
+    setTypeHandler("TERMS");
+    setModalData(<Termsconditions />);
+  };
+
+  const globalHandler = (e, type) => {
+    console.log(type);
+    switch (type) {
+      case "TERMS":
+        termsHandlerClose();
+        break;
+      case "FEES":
+        feesHandlerClose();
+        break;
+      case "RULES":
+        rulesHandlerClose();
+        break;
+    }
+  };
+
+  const termsHandlerClose = () => {
     setTermsClicked(true);
+    setTermsDisplay("none");
+    setModalData("");
   };
 
   const termsAgreementHandler = (event) => {
@@ -1981,20 +2025,12 @@ function RegisterProgram(props) {
                 <span style={{ color: "red" }}>*</span>
               </h3>
               {!residentialCourse && (
-                <a
-                  href={onlineFeesCourseNameUrl}
-                  target="_blank"
-                  onClick={feesHandler}
-                >
+                <a style={{ color: "#1890ff" }} onClick={feesHandler}>
                   Click Here to read Fee Cancellation/Refund Policy
                 </a>
               )}
               {residentialCourse && (
-                <a
-                  href={feesCourseNameUrl}
-                  target="_blank"
-                  onClick={feesHandler}
-                >
+                <a style={{ color: "#1890ff" }} onClick={feesHandler}>
                   Click Here to read Fee Cancellation/Refund Policy
                 </a>
               )}
@@ -2019,11 +2055,7 @@ function RegisterProgram(props) {
                   >
                     Ashram Rules & Regulations
                   </h3>
-                  <a
-                    href="/rulesregulations"
-                    target="_blank"
-                    onClick={rulesHandler}
-                  >
+                  <a style={{ color: "#1890ff" }} onClick={rulesHandler}>
                     Click Here to read Ashram Rules & Regulations
                     <span style={{ color: "red" }}>*</span>
                   </a>
@@ -2050,11 +2082,9 @@ function RegisterProgram(props) {
               >
                 Terms & Conditions
               </h3>
-              <Popover content={content}>
-                <p style={{ color: "blue" }}>
-                  Click Here to read Terms & Conditions
-                </p>
-              </Popover>
+              <a style={{ color: "#1890ff" }} onClick={termsHandler}>
+                Click Here to read Terms & Conditions
+              </a>
               {termsClicked && (
                 <div className="form-group mt-2">
                   <input
@@ -2137,6 +2167,22 @@ function RegisterProgram(props) {
                 </>
               )}
             </div>
+          </div>
+        </div>
+      </div>
+      <div id="myModal" class="modal center" style={{ display: termsDisplay }}>
+        <div style={{ marginTop: "-271px" }}>
+          {/* <Termsconditions /> */}
+          {modalData}
+          {/* <Refund fee={programData.program_fee} name={programData.name} /> */}
+          <div style={{ textAlign: "center" }}>
+            <button
+              type="submit"
+              className="bt"
+              onClick={(e) => globalHandler(e, typeHandler)}
+            >
+              Okay
+            </button>
           </div>
         </div>
       </div>

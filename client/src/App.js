@@ -47,6 +47,7 @@ import UserRegistertedForProgram from "./components/Admin/RegisterdUsersData";
 import UsersQuery from "./components/Admin/UsersQuery";
 import Termsconditions from "./components/Rules/Termsconditions";
 import Rulesregulations from "./components/Rules/Rulesregulations";
+import UserDashboard from "./components/UserDashboard";
 if (localStorage.jwtToken) {
   const token = localStorage.jwtToken;
   setAuthToken(token);
@@ -100,7 +101,8 @@ function App() {
         <Route exact path="/userquery" component={UsersQuery} />
         <Route exact path="/termsconditions" component={Termsconditions} />
         <Route exact path="/rulesregulations" component={Rulesregulations} />
-         <Route exact path="/onlinerefund" component={OnlineRefund} />
+        <Route exact path="/mydashboard" component={UserDashboard} />
+        <Route exact path="/onlinerefund" component={OnlineRefund} />
         <Route
           exact
           path="/userforprogram/:id"
