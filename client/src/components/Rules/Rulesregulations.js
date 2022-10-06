@@ -6,10 +6,10 @@ const Rulesregulations = () => {
       <div className="ex-basic-1 pt-4">
         <div className="container">
           <div className="row" style={{ marginTop: "100px" }}>
-            <div className="text-container" style={{ marginTop: "45px" }}>
+            <div className="text-container" style={{ marginTop: "45px",marginLeft:"10px" ,marginRight:"10px"}}>
               <h3
                 className="h3-large"
-                style={{ fontFamily: "Poppins", color: "darkblue" }}
+                style={{ fontFamily: "Poppins", color: "darkblue",marginLeft:"10px" }}
               >
                 Ashram Rules and Regulations:
               </h3>
@@ -19,7 +19,7 @@ const Rulesregulations = () => {
                   fontFamily: "Poppins",
                   textAlign: "justify",
                   color: "black",
-                  fontSize: "16px",
+                  fontSize: "12px",
                 }}
               >
                 Use of this site is provided by Bharat Yoga Vidya Kendra subject
@@ -33,7 +33,7 @@ const Rulesregulations = () => {
                       fontFamily: "Poppins",
                       textAlign: "justify",
                       color: "black",
-                      fontSize: "16px",
+                      fontSize: "12px",
                     }}
                   >
                     The Satsang Foundation Campus is dedicated to creating a
@@ -49,7 +49,7 @@ const Rulesregulations = () => {
                       fontFamily: "Poppins",
                       textAlign: "justify",
                       color: "black",
-                      fontSize: "16px",
+                      fontSize: "12px",
                     }}
                   >
                     The student's behaviour and attitude should respect the
@@ -65,7 +65,7 @@ const Rulesregulations = () => {
                       fontFamily: "Poppins",
                       textAlign: "justify",
                       color: "black",
-                      fontSize: "16px",
+                      fontSize: "12px",
                     }}
                   >
                     Students should maintain an atmosphere that encourages
@@ -82,7 +82,7 @@ const Rulesregulations = () => {
                       fontFamily: "Poppins",
                       textAlign: "justify",
                       color: "black",
-                      fontSize: "16px",
+                      fontSize: "12px",
                     }}
                   >
                     Students should use respectful language with each other. Any
@@ -95,7 +95,7 @@ const Rulesregulations = () => {
                       fontFamily: "Poppins",
                       textAlign: "justify",
                       color: "black",
-                      fontSize: "16px",
+                      fontSize: "12px",
                     }}
                   >
                     Use of tobacco, alcohol, non-prescription drugs, meat, fish,
@@ -109,7 +109,7 @@ const Rulesregulations = () => {
                       fontFamily: "Poppins",
                       textAlign: "justify",
                       color: "black",
-                      fontSize: "16px",
+                      fontSize: "12px",
                     }}
                   >
                     Public displays of affection and nudity is forbidden.
@@ -126,7 +126,7 @@ const Rulesregulations = () => {
                       fontFamily: "Poppins",
                       textAlign: "justify",
                       color: "black",
-                      fontSize: "16px",
+                      fontSize: "12px",
                     }}
                   >
                     Students should not leave the Ashram premises without
@@ -140,7 +140,7 @@ const Rulesregulations = () => {
                       fontFamily: "Poppins",
                       textAlign: "justify",
                       color: "black",
-                      fontSize: "16px",
+                      fontSize: "12px",
                     }}
                   >
                     Lights to be switched off and silence to be maintained after
@@ -154,7 +154,7 @@ const Rulesregulations = () => {
                       fontFamily: "Poppins",
                       textAlign: "justify",
                       color: "black",
-                      fontSize: "16px",
+                      fontSize: "12px",
                     }}
                   >
                     Use of electronic gadgets like mobile phones/tablets etc.
@@ -169,7 +169,7 @@ const Rulesregulations = () => {
                       fontFamily: "Poppins",
                       textAlign: "justify",
                       color: "black",
-                      fontSize: "16px",
+                      fontSize: "12px",
                     }}
                   >
                     Participation in all the scheduled classes, karma yoga and
@@ -183,7 +183,7 @@ const Rulesregulations = () => {
                       fontFamily: "Poppins",
                       textAlign: "justify",
                       color: "black",
-                      fontSize: "16px",
+                      fontSize: "12px",
                     }}
                   >
                     Photography, video and audio recording is not allowed during
@@ -198,7 +198,7 @@ const Rulesregulations = () => {
                       fontFamily: "Poppins",
                       textAlign: "justify",
                       color: "black",
-                      fontSize: "16px",
+                      fontSize: "12px",
                     }}
                   >
                     Excessive use of mobile phones, recording or taking pictures
@@ -212,7 +212,7 @@ const Rulesregulations = () => {
                       fontFamily: "Poppins",
                       textAlign: "justify",
                       color: "black",
-                      fontSize: "16px",
+                      fontSize: "12px",
                     }}
                   >
                     Visitors (Relatives, Friends) will not be entertained at the
@@ -226,7 +226,7 @@ const Rulesregulations = () => {
                       fontFamily: "Poppins",
                       textAlign: "justify",
                       color: "black",
-                      fontSize: "16px",
+                      fontSize: "12px",
                     }}
                   >
                     Cooking in your residential area or bringing food from
@@ -240,7 +240,7 @@ const Rulesregulations = () => {
                       fontFamily: "Poppins",
                       textAlign: "justify",
                       color: "black",
-                      fontSize: "16px",
+                      fontSize: "12px",
                     }}
                   >
                     Only vegetarian meals only will be served at the ashram.

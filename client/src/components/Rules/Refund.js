@@ -6,27 +6,14 @@ function Refund(props) {
       <div className="ex-basic-1 pt-4">
         <div className="container">
           <div className="row" style={{ marginTop: "100px" }}>
-            <div className="text-container" style={{ marginTop: "45px" }}>
+            <div className="text-container" style={{ marginTop: "45px" ,marginLeft:"10px",marginRight:"10px",overflow: "auto"}}>
               <h3
                 className="h3-large"
-                style={{ fontFamily: "Poppins", color: "darkblue" }}
+                style={{ fontFamily: "Poppins", color: "darkblue" ,marginLeft:"10px"}}
               >
                 Fees & Cancellation Policy
               </h3>
-              <p
-                className=""
-                style={{
-                  fontFamily: "Poppins",
-                  textAlign: "justify",
-                  color: "red",
-                  fontSize: "16px",
-                }}
-              >
-                Fee Structure : I Fully Understand that course fee of INR.{" "}
-                {feesFromURL} {"\u20A8"} here for Indian Residents & for Non
-                Indian Residents USD.{feesFromURL * 80} {"\u0024"} for course{" "}
-                {courseNameFromURL}
-              </p>
+              
 
               <p
                 className=""
@@ -34,7 +21,7 @@ function Refund(props) {
                   fontFamily: "Poppins",
                   textAlign: "justify",
                   color: "black",
-                  fontSize: "16px",
+                  fontSize: "12px",
                 }}
               >
                 Refund and Cancellation Policy is standard across all of our
@@ -48,7 +35,7 @@ function Refund(props) {
                       fontFamily: "Poppins",
                       textAlign: "justify",
                       color: "black",
-                      fontSize: "16px",
+                      fontSize: "12px",
                     }}
                   >
                     1) 75% refund for cancellations 30 days prior to the start
@@ -62,7 +49,7 @@ function Refund(props) {
                       fontFamily: "Poppins",
                       textAlign: "justify",
                       color: "black",
-                      fontSize: "16px",
+                      fontSize: "12px",
                     }}
                   >
                     2) No refunds for cancellations 15 days before the start
@@ -76,7 +63,7 @@ function Refund(props) {
                       fontFamily: "Poppins",
                       textAlign: "justify",
                       color: "black",
-                      fontSize: "16px",
+                      fontSize: "12px",
                     }}
                   >
                     3) There will be no refunds for a no-show or any withdrawal
@@ -90,7 +77,7 @@ function Refund(props) {
                       fontFamily: "Poppins",
                       textAlign: "justify",
                       color: "black",
-                      fontSize: "16px",
+                      fontSize: "12px",
                     }}
                   >
                     4) In case the course is cancelled by BYVK, the payments
@@ -104,7 +91,7 @@ function Refund(props) {
                   fontFamily: "Poppins",
                   textAlign: "justify",
                   color: "black",
-                  fontSize: "16px",
+                  fontSize: "12px",
                 }}
               >
                 In case of any emergencies, the student may contact the Bharat
@@ -119,7 +106,7 @@ function Refund(props) {
                   fontFamily: "Poppins",
                   textAlign: "justify",
                   color: "black",
-                  fontSize: "16px",
+                  fontSize: "12px",
                 }}
               >
                 We reserve the right to revise the terms and conditions of this

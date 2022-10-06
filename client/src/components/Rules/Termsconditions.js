@@ -6,10 +6,10 @@ const Termsconditions = () => {
       <div className="ex-basic-1 pt-4">
         <div className="container">
           <div className="row" style={{ marginTop: "100px" }}>
-            <div className="text-container" style={{ marginTop: "45px" }}>
+            <div className="text-container" style={{ marginTop: "45px",marginLeft:"10px",marginRight:"10px",overflow: "auto" }}>
               <h3
                 className="h3-large"
-                style={{ fontFamily: "Poppins", color: "darkblue" }}
+                style={{ fontFamily: "Poppins", color: "darkblue" ,marginLeft:"10px"}}
               >
                 Terms and Conditions:
               </h3>
@@ -19,7 +19,7 @@ const Termsconditions = () => {
                   fontFamily: "Poppins",
                   textAlign: "justify",
                   color: "black",
-                  fontSize: "16px",
+                  fontSize: "12px",
                 }}
               >
                 Use of this site is provided by Bharat Yoga Vidya Kendra subject
@@ -33,7 +33,7 @@ const Termsconditions = () => {
                       fontFamily: "Poppins",
                       textAlign: "justify",
                       color: "black",
-                      fontSize: "16px",
+                      fontSize: "12px",
                     }}
                   >
                     Students are responsible for their own medical and health
@@ -49,7 +49,7 @@ const Termsconditions = () => {
                       fontFamily: "Poppins",
                       textAlign: "justify",
                       color: "black",
-                      fontSize: "16px",
+                      fontSize: "12px",
                     }}
                   >
                     Bharat Yoga Vidya Kendra or The Satsang Foundation cannot be
@@ -65,7 +65,7 @@ const Termsconditions = () => {
                       fontFamily: "Poppins",
                       textAlign: "justify",
                       color: "black",
-                      fontSize: "16px",
+                      fontSize: "12px",
                     }}
                   >
                     We have a standard non-refundable fees policy. No part
@@ -79,7 +79,7 @@ const Termsconditions = () => {
                       fontFamily: "Poppins",
                       textAlign: "justify",
                       color: "black",
-                      fontSize: "16px",
+                      fontSize: "12px",
                     }}
                   >
                     In case the course is rescheduled or cancelled due to
@@ -92,7 +92,7 @@ const Termsconditions = () => {
                       fontFamily: "Poppins",
                       textAlign: "justify",
                       color: "black",
-                      fontSize: "16px",
+                      fontSize: "12px",
                     }}
                   >
                     Kendra or The Satsang Foundation is limited to the refund of
@@ -106,7 +106,7 @@ const Termsconditions = () => {
                       fontFamily: "Poppins",
                       textAlign: "justify",
                       color: "black",
-                      fontSize: "16px",
+                      fontSize: "12px",
                     }}
                   >
                     Bharat Yoga Vidya Kendra and The Satsang Foundation reserves
@@ -121,7 +121,7 @@ const Termsconditions = () => {
                       fontFamily: "Poppins",
                       textAlign: "justify",
                       color: "black",
-                      fontSize: "16px",
+                      fontSize: "12px",
                     }}
                   >
                     The training manual is an intellectual property of the
@@ -137,7 +137,7 @@ const Termsconditions = () => {
                       fontFamily: "Poppins",
                       textAlign: "justify",
                       color: "black",
-                      fontSize: "16px",
+                      fontSize: "12px",
                     }}
                   >
                     Certificate will be awarded only after passing the
@@ -151,7 +151,7 @@ const Termsconditions = () => {
                       fontFamily: "Poppins",
                       textAlign: "justify",
                       color: "black",
-                      fontSize: "16px",
+                      fontSize: "12px",
                     }}
                   >
                     Bharat Yoga Vidya Kendra or The Satsang Foundation is not
@@ -167,7 +167,7 @@ const Termsconditions = () => {
                       fontFamily: "Poppins",
                       textAlign: "justify",
                       color: "black",
-                      fontSize: "16px",
+                      fontSize: "12px",
                     }}
                   >
                     If you have any doubts regarding your physical or mental
@@ -184,7 +184,7 @@ const Termsconditions = () => {
                       fontFamily: "Poppins",
                       textAlign: "justify",
                       color: "black",
-                      fontSize: "16px",
+                      fontSize: "12px",
                     }}
                   >
                     All disputes are subject to the Indian Law and will be
@@ -200,7 +200,7 @@ const Termsconditions = () => {
                       fontFamily: "Poppins",
                       textAlign: "justify",
                       color: "black",
-                      fontSize: "16px",
+                      fontSize: "12px",
                     }}
                   >
                     If a student is expelled from the course due to
@@ -215,7 +215,7 @@ const Termsconditions = () => {
                       fontFamily: "Poppins",
                       textAlign: "justify",
                       color: "black",
-                      fontSize: "16px",
+                      fontSize: "12px",
                     }}
                   >
                     No sponsorships or discounts are being offered.

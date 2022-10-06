@@ -1815,11 +1815,10 @@ a:hover.back-to-top {
   padding-top: 100px;
   left: 0;
   top: 0;
-  width: 75%; /* Full width */
-  height: 50%; /* Full height */
+  width: 90%; /* Full width */
+  height: 70%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
   background-color: #ffdb58; /* Fallback color */
-  background-color: #ffdb58;
   border-radius: 25px; /* Black w/ opacity */
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none;
@@ -1830,6 +1829,7 @@ a:hover.back-to-top {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  overflow: auto; /* Enable scroll if needed */
 }
 
 .modal::-webkit-scrollbar {
