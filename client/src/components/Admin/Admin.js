@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import {  useEffect } from 'react'
 
 
 const data = [
@@ -19,14 +18,10 @@ const data = [
 ]
 
 function Admin() {
-    const user = useSelector(state => state.auth)
-    const [isAuthenticated, setAuthenticated] = useState(false)
-
+    
+    
     useEffect(() => {
-        if (user.userData.roles[0] !== 'ADMIN') {
-            window.location.href = '/home'
-            return
-        }
+       
     }, [])
 
     return (
@@ -48,7 +43,7 @@ function Admin() {
                             <a href={d.typeUrl}>
                                 <div className="card">
                                     <div className="card-body" style={{ textAlign: 'center' }}>
-                                        <img src={d.imgUrl} ></img>
+                                        <img alt="" src={d.imgUrl} ></img>
                                         <div className="text">
                                             <div className="testimonial-author" style={{ color: 'darkblue' }}>{d.typeName}</div>
                                         </div>
@@ -58,18 +53,7 @@ function Admin() {
                         </div>
                         })
                     }
-                    {/* <div className="col-lg-4">
-                        <a href="../programdashboard">
-                            <div className="card">
-                                <div className="card-body" style={{ textAlign: 'center' }}>
-                                    <img src="images/courses/ttcthumbnail.png"></img>
-                                    <div className="text">
-                                        <div className="testimonial-author" style={{ color: 'darkblue' }}>Program Dashboard</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div> */}
+                   
                 </div>
             </div>
 

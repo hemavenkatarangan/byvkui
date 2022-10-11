@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Modal, Button, Table, Switch, Tag } from "antd";
+import { Modal, Button, Table,  Tag } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import ReactQuill from "react-quill";
 //import 'react-quill/dist/quill.snow.css';
@@ -43,21 +43,13 @@ function CourseDashboard() {
     carosal_images: "",
     course_contents: "",
   });
-  const [admins, setAdmins] = useState([
-    "jyoti.byvk@gmail.com",
-    "hema.s.kasturi@gmail.com",
-    "divakarvishwamithra@gmail.com",
-  ]);
-  const [adminAuth, setAdminAuth] = useState(false);
+ 
+  
   const [boolVal, setBoolVal] = useState(false);
 
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
+  
 
-  const handleOk = () => {
-    setIsModalVisible(false);
-  };
+  
 
   const handleCancel = () => {
     setIsModalVisible(false);

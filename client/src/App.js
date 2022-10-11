@@ -2,7 +2,7 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  Redirect,
+  
 } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
@@ -15,7 +15,6 @@ import OnlineRefund from "./components/OnlineRefund";
 import Payments from "./components/Payments";
 import Login from "./components/Login";
 import Landing from "./components/Landing";
-import NotFound from "./components/NotFound";
 import Nav from "./components/Nav";
 import Register from "./components/Register";
 import Footer from "./components/Footer";

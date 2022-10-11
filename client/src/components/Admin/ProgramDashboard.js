@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Modal, Button, Table, Switch, Tag } from "antd";
+import { Button, Table } from "antd";
 import {
   EditOutlined,
   DeleteOutlined,

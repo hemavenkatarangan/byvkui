@@ -21,7 +21,7 @@ export const registerUser = (userData, history) => (dispatch) => {
       // console.log("==post register message==");
       // console.log(res);
 
-      if (res.data.status_code != "200") {
+      if (res.data.status_code !== "200") {
         alert(res.data.result[0].message);
         return;
       } else {
@@ -54,7 +54,7 @@ export const registerUser = (userData, history) => (dispatch) => {
       }
     })
     .catch((err) => {
-      if (err.response.data.status_code == "400") {
+      if (err.response.data.status_code === "400") {
         alert(err.response.data.result[0].message);
         return;
       }
@@ -70,7 +70,7 @@ export const loginUser = (userData) => (dispatch) => {
     .post("/users/login", userData)
     .then((res) => {
       //const { token } = res.data.token;
-      if (res.data.status_code != "200") {
+      if (res.data.status_code !== "200") {
         alert("Sorry! Invalid credential. Please try again..");
         return;
       } else {

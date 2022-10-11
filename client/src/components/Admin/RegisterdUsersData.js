@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Modal, Button, Table, Switch, Tag, Tooltip, Image } from "antd";
+import { Modal, Button, Table,  Tag, Tooltip, Image } from "antd";
 import {
   CheckOutlined,
   StopOutlined,
@@ -10,7 +10,7 @@ import {
 import { openNotificationWithIcon } from "../Notifications";
 import { Country, State, City } from "country-state-city";
 import moment from "moment";
-import { Link } from "react-router-dom";
+
 import axios from "axios";
 
 function UserRegistertedForProgram(props) {
@@ -24,13 +24,7 @@ function UserRegistertedForProgram(props) {
   const [getUserInfo, setUserInfo] = useState(String);
   const [userData, setUserData] = useState({});
   useEffect(() => {
-    if (user.userData.roles[0] !== "ADMIN") {
-      window.location.href = "/home";
-      return;
-    }
-
-    // console.log(user);
-
+   
     if (user.isAuthenticated) {
       setAuthenticated(true);
     } else {

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 // import { Checkbox, Popover } from "antd";
-import { Checkbox, Button, Modal } from "antd";
+import { Checkbox} from "antd";
 import axios from "axios";
 import { Country, State, City } from "country-state-city";
 import fileUploadUrl from "../../constants/constants";

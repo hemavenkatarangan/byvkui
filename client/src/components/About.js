@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react'
-import { HeartFilled, BookFilled } from '@ant-design/icons'
-import { Card } from 'antd';
-import { Link } from 'react-router-dom';
 
-const { Meta } = Card;
+
+
 
 const content = [{
 	name: 'Education',
@@ -208,7 +206,7 @@ function About() {
 
 
 
-										<img src="images/highlights/Picture1-PresidentwithTTC1.png"></img>
+										<img alt="" src="images/highlights/Picture1-PresidentwithTTC1.png"></img>
 
 
 
@@ -222,7 +220,7 @@ function About() {
 
 
 
-										<img src="images/highlights/Picture2-CJIwithTTC2.png"></img>
+										<img alt=""src="images/highlights/Picture2-CJIwithTTC2.png"></img>
 
 
 
@@ -236,7 +234,7 @@ function About() {
 
 
 
-										<img src="images/highlights/Picture4-AbhayaMstudents.png"></img>
+										<img alt="" src="images/highlights/Picture4-AbhayaMstudents.png"></img>
 
 
 
@@ -250,7 +248,7 @@ function About() {
 
 
 
-										<img src="images/highlights/Picture5-SriMPadmaBhushan.png"></img>
+										<img alt="" src="images/highlights/Picture5-SriMPadmaBhushan.png"></img>
 
 
 
@@ -280,7 +278,7 @@ function About() {
 
 
 
-										<img src="images/upcomingcourses/Picture1-Avistaran.png"></img>
+										<img alt="" src="images/upcomingcourses/Picture1-Avistaran.png"></img>
 
 
 
@@ -295,7 +293,7 @@ function About() {
 									<div className="row">
 									<div className="col-lg-12" style={{ textAlign:'center'}}>
 
-										<img src="images/upcomingcourses/Picture2-SakhyaM.png"></img>
+										<img alt="" src="images/upcomingcourses/Picture2-SakhyaM.png"></img>
 
 									</div>
 									
