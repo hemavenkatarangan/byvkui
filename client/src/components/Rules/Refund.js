@@ -1,6 +1,7 @@
 function Refund(props) {
   const feesFromURL = props.fee;
   const courseNameFromURL = props.name;
+   const residential = props.residential;
   return (
     <>
       <div className="ex-basic-1 pt-4">
@@ -27,6 +28,7 @@ function Refund(props) {
                 Refund and Cancellation Policy is standard across all of our
                 programs and is as follows:
               </p>
+              {residential? (
               <ol>
                 <li>
                   <p
@@ -38,7 +40,7 @@ function Refund(props) {
                       fontSize: "12px",
                     }}
                   >
-                    1) 75% refund for cancellations 30 days prior to the start
+                     75% refund for cancellations 30 days prior to the start
                     date of the program.
                   </p>
                 </li>
@@ -52,7 +54,7 @@ function Refund(props) {
                       fontSize: "12px",
                     }}
                   >
-                    2) No refunds for cancellations 15 days before the start
+                     No refunds for cancellations 15 days before the start
                     date of the course.
                   </p>
                 </li>
@@ -66,7 +68,7 @@ function Refund(props) {
                       fontSize: "12px",
                     }}
                   >
-                    3) There will be no refunds for a no-show or any withdrawal
+                     There will be no refunds for a no-show or any withdrawal
                     from the course once it has started.
                   </p>
                 </li>
@@ -80,12 +82,12 @@ function Refund(props) {
                       fontSize: "12px",
                     }}
                   >
-                    4) In case the course is cancelled by BYVK, the payments
+                     In case the course is cancelled by BYVK, the payments
                     will be refunded.
                   </p>
                 </li>
-              </ol>
-              <p
+                <li>
+                <p
                 className=""
                 style={{
                   fontFamily: "Poppins",
@@ -100,7 +102,9 @@ function Refund(props) {
                 entirely be up to Bharat Yoga Vidya Kendra discretion. Please
                 allow up to 4 weeks for us to process any refund.
               </p>
-              <p
+                </li>
+                <li>
+                <p
                 className=""
                 style={{
                   fontFamily: "Poppins",
@@ -112,6 +116,32 @@ function Refund(props) {
                 We reserve the right to revise the terms and conditions of this
                 policy at any time, and at our sole discretion
               </p>
+              </li>
+              </ol>
+              
+              ):( <ol>
+                                <li>
+                                    <p className="" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: 'black', fontSize: '16px' }}>
+                                  No refunds for cancellations. 
+
+ 
+                                    </p>
+                                </li>
+                                <li>
+                                    <p className="" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: 'black', fontSize: '16px' }}>
+                                    In case the course is rescheduled or canceled due to unforeseen circumstances, the liability of Bharat Yoga Vidya Kendra or The Satsang Foundation is limited to the refund of deposited fees only.
+
+                                    </p>
+                                </li>
+                                <li>
+                                    <p className="" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: 'black', fontSize: '16px' }}>
+                                    No refunds for a no-show or any withdrawal from the course once it has started. In case of emergencies, participants will remain eligible to attend the same course in future without making new payment , upto one financial year.
+                                    </p>
+                                </li>
+                               
+                            </ol>)}
+              
+              
             </div>
           </div>
         </div>

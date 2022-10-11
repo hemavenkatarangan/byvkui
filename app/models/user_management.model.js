@@ -56,7 +56,8 @@ var UserManagementSchema = new Schema(
     health_ailments: { type: Array },
     lifestyle: {
       type: String,
-      enum: ["Sedentary", "Moderately active", "Highly active"],
+      enum: ["Sedentary", "Moderately active", "Highly active","None"],
+      default: "None"
     },
     previous_experience: { type: String, enum: ["Yes", "No"], default: "No" },
     experty_level: { type: String },

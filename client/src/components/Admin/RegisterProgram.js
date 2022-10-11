@@ -6,6 +6,7 @@ import axios from "axios";
 import { Country, State, City } from "country-state-city";
 import fileUploadUrl from "../../constants/constants";
 import Termsconditions from "../Rules/Termsconditions";
+import Terms from "../Rules/Terms";
 import Refund from "../Rules/Refund";
 import Rulesregulations from "../Rules/Rulesregulations";
 
@@ -243,7 +244,7 @@ function RegisterProgram(props) {
     // if (props.match.params.id) {
     //   getProgramDataBasedOnId(props.match.params.id);
     // }
-    console.log(user.userData.email_id);
+    console.log(user.userData);
     getProgramData();
     updateStateCityCounty();
     // getDataForUploadDocs();
@@ -271,7 +272,7 @@ function RegisterProgram(props) {
   };
 
   const onProgramChange = (e) => {
-    console.log(e);
+    
     const { id, value } = e.target;
     console.log(id, value, "test");
     if (id === "dob") {
@@ -289,9 +290,10 @@ function RegisterProgram(props) {
     }
     if (id === "country" || id === "state") {
       getDataBasedOnSelection(id, value);
-    } else {
+    } 
+      
       setProgram((program) => ({ ...program, [id]: value }));
-    }
+    
   };
 
   const getDataBasedOnSelection = (id, value) => {
@@ -319,13 +321,21 @@ function RegisterProgram(props) {
     let valid = true;
     const concateArray = checkedHealth1.concat(checkedHealth2);
     setCheckedHealth(concateArray);
-    if (program.address_1.length <= 3) {
+    if (program.address_1.length < 3) {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
         address_1: "address_1 should be minimum 3 letters",
       }));
     }
+     else
+    {
+	
+      setErrObj((errObj) => ({
+        ...errObj,
+        address_1: "",
+      }));
+	}
 
     if (program.gender == "") {
       valid = false;
@@ -333,7 +343,16 @@ function RegisterProgram(props) {
         ...errObj,
         gender: "Please Select The Gender",
       }));
+      console.log("Gender selection failed , please select ");
     }
+    else
+    {
+	
+      setErrObj((errObj) => ({
+        ...errObj,
+        gender: "",
+      }));
+	}
 
     if (calculatedAge == "") {
       valid = false;
@@ -341,15 +360,32 @@ function RegisterProgram(props) {
         ...errObj,
         age: "Please Select The Date of Birth in the above field Properly",
       }));
+      console.log("Please Select The Date of Birth in the above field Properly ");
     }
-
+ else
+    {
+	
+      setErrObj((errObj) => ({
+        ...errObj,
+        age: "",
+      }));
+	}
     if (program.dob == "") {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
         dob: "Please Select The Date of Birth",
       }));
+      console.log("Please select the date of birth");
     }
+    else
+    {
+	
+      setErrObj((errObj) => ({
+        ...errObj,
+        dob: "",
+      }));
+	}
 
     if (program.maritalstatus == "") {
       valid = false;
@@ -357,7 +393,16 @@ function RegisterProgram(props) {
         ...errObj,
         maritalstatus: "Please Select The Marital Status",
       }));
+      console.log("Please select marital status ");
     }
+     else
+    {
+	
+      setErrObj((errObj) => ({
+        ...errObj,
+        maritalstatus: "",
+      }));
+	}
 
     if (program.qualification == "") {
       valid = false;
@@ -365,7 +410,16 @@ function RegisterProgram(props) {
         ...errObj,
         qualification: "Please Select The Qualification",
       }));
+      console.log("Please select qualification")
     }
+     else
+    {
+	
+      setErrObj((errObj) => ({
+        ...errObj,
+        qualification: "",
+      }));
+	}
 
     if (program.occupation == "") {
       valid = false;
@@ -374,14 +428,46 @@ function RegisterProgram(props) {
         occupation: "Please Select The Occupation",
       }));
     }
-
-    if (program.lifestyle == "") {
+     else
+    {
+	
+      setErrObj((errObj) => ({
+        ...errObj,
+        occupation: "",
+      }));
+	}
+	console.log("Nationality "+program.nationality);
+if (program.nationality == "") {
+      valid = false;
+      setErrObj((errObj) => ({
+        ...errObj,
+        nationality: "Please Select Nationality",
+      }));
+    }
+     else
+    {
+	
+      setErrObj((errObj) => ({
+        ...errObj,
+        nationality: "",
+      }));
+	}
+    if (residentialCourse && program.lifestyle == "") {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
         lifestyle: "Please Select The Lifestyle",
       }));
     }
+        
+     else
+    {
+	
+      setErrObj((errObj) => ({
+        ...errObj,
+        lifestyle: "",
+      }));
+	}
 
     if (prevExperience && program.experty_level == "") {
       valid = false;
@@ -390,13 +476,15 @@ function RegisterProgram(props) {
         experty_level: "Please Select Experty Level",
       }));
     }
-    if (program.nationality == "") {
-      valid = false;
+     else
+    {
+	
       setErrObj((errObj) => ({
         ...errObj,
-        experty_level: "Please Select Nationality",
+        experty_level: "",
       }));
-    }
+	}
+    
     if (program.about_byuk == "") {
       valid = false;
       setErrObj((errObj) => ({
@@ -404,22 +492,46 @@ function RegisterProgram(props) {
         about_byuk: "Please Select The Option",
       }));
     }
+     else
+    {
+	
+      setErrObj((errObj) => ({
+        ...errObj,
+        about_byvk: "",
+      }));
+	}
 
-    if (program.address_2.length <= 3) {
+    if (program.address_2.length < 3) {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
         address_2: "address_2 should be minimum 3 letters",
       }));
     }
+     else
+    {
+	
+      setErrObj((errObj) => ({
+        ...errObj,
+        address_2: "",
+      }));
+	}
 
     if (program.city.length <= 1) {
-      valid = false;
+     
       setErrObj((errObj) => ({
         ...errObj,
         city: "city should be mandatory",
       }));
     }
+     else
+    {
+	
+      setErrObj((errObj) => ({
+        ...errObj,
+        city: "",
+      }));
+	}
 
     if (program.state.length <= 1) {
       valid = false;
@@ -428,6 +540,14 @@ function RegisterProgram(props) {
         state: "state should be Selected",
       }));
     }
+     else
+    {
+	
+      setErrObj((errObj) => ({
+        ...errObj,
+        state: "",
+      }));
+	}
 
     if (program.country.length <= 1) {
       valid = false;
@@ -436,6 +556,14 @@ function RegisterProgram(props) {
         country: "country type should be Selected",
       }));
     }
+     else
+    {
+	
+      setErrObj((errObj) => ({
+        ...errObj,
+        country: "",
+      }));
+	}
     console.log("Validation till here" + valid);
     if (residentialCourse && program.emergency_contactname.length <= 3) {
       valid = false;
@@ -588,55 +716,49 @@ function RegisterProgram(props) {
         user_name: checkedName,
         user_email: user.userData.email_id,
         phoneNum: phoneNumber,
-        address_1: program.address_1,
-        address_2: program.address_2,
-        city: program.city,
-        state: program.state,
-        country: program.country,
+        address_1: "",
+        address_2: "",
+        city: "",
+        state: "",
+        country: "",
         status: "APPLICATION_SUBMITTED",
-        reject_reason: "",
-        registered_by: user.user.name,
-        relationship: relationship,
-        age: calculatedAge,
-        nationality: program.nationality,
-        maritalstatus: program.maritalstatus,
-        date_of_birth: program.dob,
-        gender: program.gender,
-        qualification: program.qualification,
-        occupation: program.occupation,
-        occupation_details: program.occupation_details,
-        health_ailments: checkedHealth,
-        lifestyle: program.lifestyle,
-        previous_experience: program.previous_experience,
-        experty_level: program.experty_level,
-        about_byuk: program.about_byuk,
-        alternate_phone_number: program.alternate_phone_number,
-        emergency_contactname: program.emergency_contactname,
-        emergency_contactnumber: program.emergency_contactnumber,
-        emergency_contactrelationship: program.emergency_contactrelationship,
-        emergency_contactname2: program.emergency_contactname2,
-        emergency_contactnumber2: program.emergency_contactnumber2,
-        emergency_contactrelationship2: program.emergency_contactrelationship2,
-        languages: program.languages,
-        learning_yoga: program.learning_yoga,
-        kind_of_yoga: program.kind_of_yoga,
-        health_conditions: program.health_conditions,
-        medicines_details: program.medicines_details,
-        covid_vaccine_dose: program.covid_vaccine_dose,
-        tobbaco_consumption: program.tobbaco_consumption,
-        frequency_details_of_tobaaco_use:
-          program.frequency_details_of_tobaaco_use,
-        role_of_yoga_teacher: program.role_of_yoga_teacher,
-        planning_to_teach: program.planning_to_teach,
-        why_teach_yoga: program.why_teach_yoga,
-        teaching_experience: program.teaching_experience,
-        teaching_experience_description:
-          program.teaching_experience_description,
-        attraction_to_yoga_path: program.attraction_to_yoga_path,
-        meditation_practices: program.meditation_practices,
-        terms_agreed: termsAgreed ? "Yes" : "No",
-        rules_agreed: rulesAgreed ? "Yes" : "No",
-        fees_agreed: feesAgreed ? "Yes" : "No",
+        age: "",
+        gender: "",
+        dob: "",
+        nationality: "",
+        maritalstatus: "",
+        qualification: "",
+        occupation: "",
+        occupation_details: "",
+        health_ailments: "",
+        lifestyle: "None",
+        previous_experience: "No",
+        experty_level: "",
+        about_byuk: "",
+        alternate_phone_number: "",
+        emergency_contactname: "",
+        emergency_contactnumber: "",
+        emergency_contactrelationship: "",
+        emergency_contactname2: "",
+        emergency_contactnumber2: "",
+        emergency_contactrelationship2: "",
+        languages: "",
+        kind_of_yoga: "",
+        health_conditions: "",
+        medicines_details: "",
+        covid_vaccine_dose: "No",
+        tobbaco_consumption: "No",
+        frequency_details_of_tobaaco_use: "",
+        role_of_yoga_teacher: "",
+        planning_to_teach: "",
+        why_teach_yoga: "",
+        teaching_experience: "No",
+        teaching_experience_description: "",
+        attraction_to_yoga_path: "",
+        meditation_practices: "",
+        terms_agreed: "No",
+        rules_agreed: "No",
+        fees_agreed: "No",
       }));
       setProgram((errObj) => ({
         ...errObj,
@@ -655,7 +777,7 @@ function RegisterProgram(props) {
         occupation: "",
         occupation_details: "",
         health_ailments: "",
-        lifestyle: "",
+        lifestyle: "None",
         previous_experience: "No",
         experty_level: "",
         about_byuk: "",
@@ -689,7 +811,16 @@ function RegisterProgram(props) {
 
   const submitProgram = () => {
     var obj = {};
+    var lstyle = "None";
     if (isChecked) {
+	if(!residentialCourse)
+	{
+		lstyle="None";
+	}
+	else
+	{
+		lstyle=program.lifestyle;
+	}
       obj = {
         program_id: props.match.params.id,
         user_id: user.user.id,
@@ -714,7 +845,7 @@ function RegisterProgram(props) {
         occupation: program.occupation,
         occupation_details: program.occupation_details,
         health_ailments: checkedHealth,
-        lifestyle: program.lifestyle,
+        lifestyle: lstyle,
         previous_experience: program.previous_experience,
         experty_level: program.experty_level,
         about_byuk: program.about_byuk,
@@ -770,7 +901,7 @@ function RegisterProgram(props) {
         qualification: program.qualification,
         occupation: program.occupation,
         health_ailments: checkedHealth,
-        lifestyle: program.lifestyle,
+        lifestyle: lstyle,
         previous_experience: program.previous_experience,
         experty_level: program.experty_level,
         about_byuk: program.about_byuk,
@@ -931,7 +1062,7 @@ function RegisterProgram(props) {
     setTermsDisplay("block");
     setTypeHandler("FEES");
     setModalData(
-      <Refund fee={programData.program_fee} name={programData.name} />
+      <Refund fee={programData.program_fee} name={programData.name} residential={residentialCourse}/>
     );
   };
 
@@ -944,7 +1075,10 @@ function RegisterProgram(props) {
   const termsHandler = () => {
     setTermsDisplay("block");
     setTypeHandler("TERMS");
+    if(residentialCourse)
     setModalData(<Termsconditions />);
+    else
+    setModalData(<Terms/>);
   };
 
   const globalHandler = (e, type) => {
@@ -1113,7 +1247,7 @@ function RegisterProgram(props) {
                   <input
                     type="text"
                     className="form-control-input notEmpty"
-                    value={user.userData.first_name}
+                    value={user.userData.first_name+" "+user.userData.last_name} 
                     id="userName"
                     required
                     disabled
@@ -1142,8 +1276,8 @@ function RegisterProgram(props) {
                   <option value="Rather Not Say" key="rather not say">
                     Rather Not Say
                   </option>
-                </select>
-                <label className="label-control">Gender</label>
+                </select>  
+                <label className="label-control">Gender<span style={{ color: "red" }}>*</span> </label>
                 <p style={errStyle}>{errObj.gender}</p>
               </div>
               <div className="form-group">
@@ -1155,7 +1289,7 @@ function RegisterProgram(props) {
                   onInput={(e) => onProgramChange(e)}
                   required
                 />
-                <label className="label-control">Date of Birth</label>
+                <label className="label-control">Date of Birth<span style={{ color: "red" }}>*</span></label>
                 <p style={errStyle}>{errObj.dob}</p>
               </div>
               <div className="form-group">
@@ -1236,7 +1370,7 @@ function RegisterProgram(props) {
                   required
                 />
                 <label className="label-control" htmlFor="name">
-                  Address 1
+                  Address 1 <span style={{ color: "red" }}>*</span>
                 </label>
                 <p style={errStyle}>{errObj.address_1}</p>
               </div>
@@ -1250,7 +1384,7 @@ function RegisterProgram(props) {
                   required
                 />
                 <label className="label-control" htmlFor="description">
-                  Address 2
+                  Address 2 <span style={{ color: "red" }}>*</span>
                 </label>
                 <p style={errStyle}>{errObj.address_2}</p>
               </div>
@@ -1275,7 +1409,7 @@ function RegisterProgram(props) {
                 </select>
 
                 <label className="label-control" htmlFor="max_age">
-                  Country
+                  Country <span style={{ color: "red" }}>*</span>
                 </label>
                 <p style={errStyle}>{errObj.country}</p>
               </div>
@@ -1299,7 +1433,7 @@ function RegisterProgram(props) {
                   })}
                 </select>
                 <label className="label-control" htmlFor="min_age">
-                  State
+                  State <span style={{ color: "red" }}>*</span>
                 </label>
                 <p style={errStyle}>{errObj.state}</p>
               </div>
@@ -1323,7 +1457,7 @@ function RegisterProgram(props) {
                   })}
                 </select>
                 <label className="label-control" htmlFor="program_fee">
-                  City
+                  City <span style={{ color: "red" }}>*</span>
                 </label>
                 <p style={errStyle}>{errObj.city}</p>
               </div>
@@ -1348,7 +1482,7 @@ function RegisterProgram(props) {
                     Rather Not Say
                   </option>
                 </select>
-                <label className="label-control">Nationality</label>
+                <label className="label-control">Nationality <span style={{ color: "red" }}>*</span></label>
                 <p style={errStyle}>{errObj.nationality}</p>
               </div>
               <div className="form-group mt-5">
@@ -1385,7 +1519,7 @@ function RegisterProgram(props) {
                     Rather Not Say
                   </option>
                 </select>
-                <label className="label-control">Marital Status</label>
+                <label className="label-control">Marital Status <span style={{ color: "red" }}>*</span></label>
                 <p style={errStyle}>{errObj.maritalstatus}</p>
               </div>
               <div className="form-group">
@@ -1420,7 +1554,7 @@ function RegisterProgram(props) {
                     Rather Not Say
                   </option>
                 </select>
-                <label className="label-control">Qualification</label>
+                <label className="label-control">Qualification <span style={{ color: "red" }}>*</span></label>
                 <p style={errStyle}>{errObj.qualification}</p>
               </div>
               <div className="form-group">
@@ -1455,7 +1589,7 @@ function RegisterProgram(props) {
                     Other (Please Specify)
                   </option>
                 </select>
-                <label className="label-control">Occupation</label>
+                <label className="label-control">Occupation <span style={{ color: "red" }}>*</span></label>
                 <p style={errStyle}>{errObj.occupation}</p>
               </div>
               <div className="form-group">
@@ -1468,7 +1602,11 @@ function RegisterProgram(props) {
                 <label className="label-control">Occupation Details</label>
                 <p style={errStyle}>{errObj.occupation_details}</p>
               </div>
-              <h1
+              
+              
+               {residentialCourse && (
+                <>
+                <h1
                 style={{
                   fontFamily: "Poppins",
                   color: "darkblue",
@@ -1519,8 +1657,7 @@ function RegisterProgram(props) {
                 <label className="label-control">Lifestyle</label>
                 <p style={errStyle}>{errObj.lifestyle}</p>
               </div>
-              {residentialCourse && (
-                <>
+             
                   <div className="form-group">
                     <textarea
                       className="form-control-input notEmpty"
@@ -1824,7 +1961,7 @@ function RegisterProgram(props) {
                       required
                     />
                     <label className="label-control">
-                      Alternate Phone Number
+                      Alternate Phone Number <span style={{ color: "red" }}>*</span>
                     </label>
                     <p style={errStyle}>{errObj.alternate_phone_number}</p>
                   </div>
@@ -1838,7 +1975,7 @@ function RegisterProgram(props) {
                       required
                     />
                     <label className="label-control">
-                      Emergency Contact Name
+                      Emergency Contact Name <span style={{ color: "red" }}>*</span>
                     </label>
                     <p style={errStyle}>{errObj.emergency_contactname}</p>
                   </div>
@@ -1851,7 +1988,7 @@ function RegisterProgram(props) {
                       required
                     />
                     <label className="label-control">
-                      Emergency Contact Number
+                      Emergency Contact Number <span style={{ color: "red" }}>*</span>
                     </label>
                     <p style={errStyle}>{errObj.emergency_contactnumber}</p>
                   </div>
@@ -1864,7 +2001,7 @@ function RegisterProgram(props) {
                       required
                     />
                     <label className="label-control">
-                      Emergency Contact Relationship
+                      Emergency Contact Relationship <span style={{ color: "red" }}>*</span>
                     </label>
                     <p style={errStyle}>
                       {errObj.emergency_contactrelationship}

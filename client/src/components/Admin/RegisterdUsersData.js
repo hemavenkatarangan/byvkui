@@ -51,34 +51,9 @@ function UserRegistertedForProgram(props) {
       });
   };
 
-  const getCountryAndStateValue = (type, val) => {
-    if (type === "country") {
-      let name = City.getCountryByCode(val.country);
-      // console.log(name);
-    } else {
-      let name = State.getStateByCodeAndCountry(val.country, val.state);
-      // console.log(name);
-    }
-  };
+ 
 
-  const getUserDetails = (type, data) => {
-    var name;
-
-    for (let i = 0; i < usersData.length; i++) {
-      //console.log(usersData[i]);
-      if (data.user_id === usersData[i]._id) {
-        if (type === "NAME") {
-          name = usersData[i].first_name + " " + usersData[i].last_name;
-          setUserInfo(name);
-        } else if (type === "EMAIL") {
-          name = usersData[i].email_id;
-          setUserInfo(name);
-        }
-        console.log("Found " + name);
-        return getUserInfo;
-      }
-    }
-  };
+ 
   const columns = [
     {
       title: "Name",
@@ -109,17 +84,13 @@ function UserRegistertedForProgram(props) {
       title: "State",
       dataIndex: "state",
       key: "state",
-      // render: (id, data) => {
-      //   getCountryAndStateValue("state", data);
-      // },
+      
     },
     {
       title: "Country",
       dataIndex: "country",
       key: "country",
-      // render: (id, data) => {
-      //   getCountryAndStateValue("country", data);
-      // },
+     
     },
     {
       title: "Status",
@@ -143,7 +114,7 @@ function UserRegistertedForProgram(props) {
           {console.log("Data of user ", data)}
           {
             <>
-              {data.status === "REGISTERED" ? (
+              {data.status === "REGISTERED"  ? (
                 <>
                   <Tooltip title="Approve">
                     <Button
