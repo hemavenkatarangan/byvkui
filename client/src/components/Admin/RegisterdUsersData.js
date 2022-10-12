@@ -6,6 +6,7 @@ import {
   StopOutlined,
   EyeOutlined,
   ReadOutlined,
+  MoneyCollectOutlined,
 } from "@ant-design/icons";
 import { openNotificationWithIcon } from "../Notifications";
 
@@ -161,7 +162,7 @@ function UserRegistertedForProgram(props) {
               <Tooltip title="Payment Details">
                 <Button
                   shape="circle"
-                  icon={<EyeOutlined />}
+                  icon={<MoneyCollectOutlined  />}
                   onClick={(e) => openPaymentData(data)}
                 />
               </Tooltip>

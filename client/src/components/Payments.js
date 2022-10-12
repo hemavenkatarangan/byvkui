@@ -201,8 +201,9 @@ function Payments(props) {
                   </label>
                   <p style={errStyle}>{errObj.whompayment}</p>
                 </div>
-
+                
                 <div className="form-group mt-5">
+                 <label for="fileupload" class="btn" style={{ fontFamily: "Poppins", fontSize: "12px",color:"blue" }}>Upload Payment Screenshot/Image</label>
                   <input
                     type="file"
                     className=""
@@ -210,6 +211,7 @@ function Payments(props) {
                     onChange={(e) => onFileChange(e)}
                     required
                   />
+                  
                 </div>
                 <div className="form-group mt-4">
                   <button
