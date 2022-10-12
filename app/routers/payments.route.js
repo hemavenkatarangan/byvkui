@@ -8,6 +8,7 @@ router.route('/')
     .post(paymentsController.createPayments);
 router.route('/program/:program_id/user_id/:user_id')
      .get(paymentsController.getPaymentsForUserForEvent)
-   
+router.route('/program/:program_id/user_name/:user_name')
+     .get(paymentsController.getPaymentsForUserNameForEvent)
 
 module.exports = router;

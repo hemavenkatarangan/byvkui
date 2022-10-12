@@ -213,28 +213,14 @@ function RegisterProgram(props) {
   const [modalData, setModalData] = useState("");
   const [typeHandler, setTypeHandler] = useState("");
   const ref = useRef(null);
-  let feesCourseNameUrl =
-    "/refund?fees=" +
-    programData.program_fee +
-    "&course_name=" +
-    programData.name;
-  let onlineFeesCourseNameUrl =
-    "/onlinerefund?fees=" +
-    programData.program_fee +
-    "&course_name=" +
-    programData.name;
-  let paymentsfeesCourseNameUrl =
-    "/payments?fees=" +
-    programData.program_fee +
-    "&course_name=" +
-    programData.name +
-    "&user_name=" +
-    checkedName +
-    "&c_id=" +
-    window.location.href.split("/")[window.location.href.split("/").length - 1];
+  
+ 
+    
+  
   useEffect(() => {
     // console.log(Country.getAllCountries());
     // console.log(State.getStatesOfCountry("AF"));
+     setCheckedName(user.userData.first_name);
     if (user.isAuthenticated) {
       setAuthenticated(true);
     } else {
@@ -958,6 +944,16 @@ if (program.nationality == "") {
                 "You have successfully registered for Event ,Please proceed for payment!!!"
               );
               setTimeout(function () {
+	let paymentsfeesCourseNameUrl =
+    "/payments?fees=" +
+    programData.program_fee +
+    "&course_name=" +
+    programData.name +
+    "&user_name=" +
+    checkedName +
+    "&c_id=" +
+    window.location.href.split("/")[window.location.href.split("/").length - 1]+
+    "&userManagementId="+res.data.result._id;
                 window.location.href = paymentsfeesCourseNameUrl;
               }, 300);
             }

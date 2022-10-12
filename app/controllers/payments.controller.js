@@ -40,7 +40,24 @@ module.exports = {
        
     }, 
 
-    
+   getPaymentsForUserNameForEvent: async (req, res) => {
+      var program_id = req.params.program_id;
+    var user_name = req.params.user_name;
+    // console.log("Program id :" + program_id);
+    const payments = await Payments.find({ program_id: program_id ,user_name:user_name});
+    if (!payments) {
+      response.status_code = "404";
+      response.status_message = "Payments for Users Data not found";
+      response.result = null;
+      return res.status(200).json(response);
+    } else {
+      response.status_code = "200";
+      response.status_message = "Payments for users data found";
+      response.result = payments;
+      res.status(200).json(response);
+    }
+       
+    },   
 
     createPayments: async (req, res) => {
 try {

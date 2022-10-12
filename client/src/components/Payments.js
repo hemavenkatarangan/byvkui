@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { logoutUser, getCartItems } from "../actions/authActions";
+import { useSelector } from "react-redux";
+import { openNotificationWithIcon } from "./Notifications";
 import fileUploadUrl from "../constants/constants";
 import axios from "axios";
 
@@ -9,14 +9,17 @@ function Payments(props) {
   const [isAuthenticated, setAuthenticated] = useState(false);
   const [activateButton, setActivateButton] = useState(true);
   const [url, setUrl] = useState("");
-  const dispatch = useDispatch();
+  
   const search = window.location.search; // returns the URL query String
   const params = new URLSearchParams(search);
   const feesFromURL = params.get("fees");
   const courseNameFromURL = params.get("course_name");
   const uname = params.get("user_name");
+  console.log("Uname "+uname);
   const c_id = params.get("c_id");
-  const [errObj, setErrObj] = useState({
+  const um_id = params.get("userManagementId");
+  console.log("Umid"+um_id);
+  const [errObj] = useState({
     whompayment: "",
   });
   const errStyle = {
@@ -77,12 +80,39 @@ function Payments(props) {
     axios
       .post("/payments/", obj)
       .then((res) => {
+	    //
+	     let obj = {
+      status: "REGISTERED",
+    };
+	  axios
+      .patch("/usermanagement/status/" + um_id, obj)
+      .then((res) => {
+        if (res.data.status_code === "200") {
+          openNotificationWithIcon({
+            type: "success",
+            msg: "User Status",
+            description: res.data.status_message,
+          });
+         //
         alert(
           "Thank You will let you know the status Please visit payment dashboard in sometime.!"
         );
         setTimeout(() => {
           window.location.href = "/home";
         }, 3000);
+        }
+        else
+        {
+	 alert(
+          "Failed Registering, Check with Administrator!!!"
+        );
+}
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+	    
+	   
       })
       .catch((err) => console.log(err));
   };

@@ -8,7 +8,7 @@ import {
   ReadOutlined,
 } from "@ant-design/icons";
 import { openNotificationWithIcon } from "../Notifications";
-import { Country, State, City } from "country-state-city";
+
 import moment from "moment";
 
 import axios from "axios";
@@ -20,8 +20,10 @@ function UserRegistertedForProgram(props) {
   const [usersData, setUsersData] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isDocumentModalVisible, setIsDocumentModalVisible] = useState(false);
+  const [isPaymentModalVisible, setIsPaymentModalVisible] = useState(false);
   const [userImageData, setUserImageData] = useState([]);
-  const [getUserInfo, setUserInfo] = useState(String);
+   const [paymentImageData, setPaymentImageData] = useState([]);
+  
   const [userData, setUserData] = useState({});
   useEffect(() => {
    
@@ -212,7 +214,7 @@ function UserRegistertedForProgram(props) {
     axios
       .get(`/userdocuments/program/${data.program_id}/user/${data.user_id}`)
       .then((res) => {
-        // console.log(res);
+        
         setUserImageData(res.data.result);
       })
       .catch((err) => {
@@ -235,7 +237,13 @@ function UserRegistertedForProgram(props) {
   const handleDocumentModalCancel = () => {
     setIsDocumentModalVisible(false);
   };
+ const handlePaymentModalOk = () => {
+    setIsPaymentModalVisible(false);
+  };
 
+  const handlePaymentModalCancel = () => {
+    setIsPaymentModalVisible(false);
+  };
   const openUserData = (data) => {
     setIsModalVisible(true);
     console.log(data);
@@ -243,8 +251,17 @@ function UserRegistertedForProgram(props) {
   };
 
   const openPaymentData = (data) => {
-    setIsModalVisible(true);
-    console.log(data);
+    setIsPaymentModalVisible(true);
+   
+    axios
+      .get(`/payments/program/${data.program_id}/user_name/${data.user_name}`)
+      .then((res) => {
+        
+        setPaymentImageData(res.data.result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -305,6 +322,35 @@ function UserRegistertedForProgram(props) {
                   </a>
                 ) : (
                   <Image width={150} height={150} src={data.document_path} />
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </Modal>
+       <Modal
+        title="Payment Documents"
+        visible={isPaymentModalVisible}
+        onOk={handlePaymentModalOk}
+        onCancel={handlePaymentModalCancel}
+      >
+        {paymentImageData.map((data, index) => {
+          console.log("File extension " + data.payment_path.split(".")[1]);
+          return (
+            <div
+              className="row"
+              style={{ marginBottom: "20px", border: "1px solid black" }}
+              key={index}
+            >
+              
+              <div className="col">
+                {data.payment_path.includes(".pdf") ||
+                data.payment_path.includes(".zip") ? (
+                  <a href={data.payment_path} target="_blank">
+                    click here to download
+                  </a>
+                ) : (
+                  <Image width={150} height={150} src={data.payment_path} />
                 )}
               </div>
             </div>
