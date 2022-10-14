@@ -7,6 +7,7 @@ var ProgramSchema = new Schema(
         name: { type: String },
         description:{type: String},
         program_fee: { type: Number },
+        program_fee_in_usd:{type:Number},
         course: { type: Schema.Types.ObjectId, ref: 'Course' },
         program_type : { type: String, enum: ['ONLINE', 'OFFLINE', 'HYBRID']},
         status: { type: String, enum: ['NOT_STARTED', 'STARTED', 'COMPLETED'], default: 'NOT_STARTED' },

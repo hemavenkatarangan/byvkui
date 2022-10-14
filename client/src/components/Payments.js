@@ -13,6 +13,7 @@ function Payments(props) {
   const search = window.location.search; // returns the URL query String
   const params = new URLSearchParams(search);
   const feesFromURL = params.get("fees");
+  const feesUSDFromURL = params.get("usdfees");
   const courseNameFromURL = params.get("course_name");
   const uname = params.get("user_name");
   console.log("Uname "+uname);
@@ -147,7 +148,7 @@ function Payments(props) {
                 </p>
                 <p className="" style={{ fontFamily: "Poppins" }}>
                   Please transfer amount {feesFromURL} {"\u20A8"} for Indian
-                  Residents & for Non Indian Residents USD.{feesFromURL / 80}{" "}
+                  Residents & for Non Indian Residents USD. {feesUSDFromURL}{" "}
                   {"\u0024"} for course {courseNameFromURL} to below account.
                   Please enter the participant's name in the remarks section (in
                   the Bank's NEFT transfer page)

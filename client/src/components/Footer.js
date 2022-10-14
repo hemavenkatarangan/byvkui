@@ -65,13 +65,13 @@ function Footer() {
                                 <a style={{margin:'10px'}} href="https://www.facebook.com/TheSatsangFoundationOfficial/">
                                     <img className="img-fluid mt-5 mb-3" src="../images/face.png" style={{height:'30px', width:'30px'}} alt="byvk" />
                                 </a>
-                                <a style={{margin:'10px'}} href="https://www.facebook.com/TheSatsangFoundationOfficial/">
+                                <a style={{margin:'10px'}} href="https://chat.whatsapp.com/FCzpnBkFdk52MsGxaFaKYb">
                                     <img className="img-fluid mt-5 mb-3" src="../images/whatsapp.png" style={{height:'30px', width:'30px'}} alt="byvk" />
                                 </a>
                                 <a style={{margin:'10px'}} href="https://www.instagram.com/thesatsangfoundationofficial/">
                                     <img className="img-fluid mt-5 mb-3" src="../images/instagram.png" style={{height:'30px', width:'30px'}} alt="byvk" />
                                 </a>
-                                <a style={{margin:'10px'}} href="https://www.instagram.com/thesatsangfoundationofficial/">
+                                <a style={{margin:'10px'}} href="https://www.youtube.com/channel/UCdsLlRfFIv9k36vWwWt9f1Q">
                                     <img className="img-fluid mt-5 mb-3" src="../images/youtube.png" style={{height:'30px', width:'30px'}} alt="byvk" />
                                 </a>
                                 </div>

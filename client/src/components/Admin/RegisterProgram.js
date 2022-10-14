@@ -947,6 +947,7 @@ if (program.nationality == "") {
 	let paymentsfeesCourseNameUrl =
     "/payments?fees=" +
     programData.program_fee +
+    "&usdfees="+programData.program_fee_in_usd+
     "&course_name=" +
     programData.name +
     "&user_name=" +
@@ -1072,7 +1073,7 @@ if (program.nationality == "") {
     setTermsDisplay("block");
     setTypeHandler("TERMS");
     if(residentialCourse)
-    setModalData(<Termsconditions />);
+    setModalData(<Termsconditions course_name={courseData.course_name}/>);
     else
     setModalData(<Terms/>);
   };
@@ -1452,7 +1453,7 @@ if (program.nationality == "") {
                     );
                   })}
                 </select>
-                <label className="label-control" htmlFor="program_fee">
+                <label className="label-control" htmlFor="city">
                   City <span style={{ color: "red" }}>*</span>
                 </label>
                 <p style={errStyle}>{errObj.city}</p>
@@ -2244,7 +2245,7 @@ if (program.nationality == "") {
                   <input type="checkbox" id="" onClick={feeStructureHandler} />
                   Fee Structure : I Fully Understand that course fee of INR.{" "}
                   {programData.program_fee} {"\u20A8"} here for Indian Residents
-                  & for Non Indian Residents USD. {programData.program_fee / 80}{" "}
+                  & for Non Indian Residents USD. {programData.program_fee_in_usd}{" "}
                   {"\u0024"} for course {programData.name}
                 </p>
               </div>

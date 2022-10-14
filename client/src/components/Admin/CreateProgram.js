@@ -39,20 +39,7 @@ const programType = [
   },
 ];
 
-const programStatus = [
-  {
-    pName: "Not Started",
-    pValue: "NOT_STARTED",
-  },
-  {
-    pName: "Started",
-    pValue: "STARTED",
-  },
-  {
-    pName: "Completed",
-    pValue: "COMPLETED",
-  },
-];
+
 
 function CreateProgram(props) {
   const user = useSelector((state) => state.auth);
@@ -63,6 +50,7 @@ function CreateProgram(props) {
     name: "",
     description: "",
     program_fee: "",
+    program_fee_in_usd:"",
     course: "",
     program_type: "",
     status: "NOT_STARTED",
@@ -80,6 +68,7 @@ function CreateProgram(props) {
     name: "",
     description: "",
     program_fee: "",
+    program_fee_in_usd:"",
     course: "",
     program_type: "",
     status: "",
@@ -124,6 +113,7 @@ function CreateProgram(props) {
           name: res.data.result.name,
           description: res.data.result.description,
           program_fee: res.data.result.program_fee,
+          program_fee_in_usd: res.data.result.program_fee_in_usd,
           course: res.data.result.course,
           program_type: res.data.result.program_type,
           status: res.data.result.status,
@@ -190,7 +180,13 @@ function CreateProgram(props) {
         program_fee: "Program fee should be mandatory",
       }));
     }
-
+ if (program.program_fee_in_usd.length <= 0) {
+      valid = false;
+      setErrObj((errObj) => ({
+        ...errObj,
+        program_fee_in_usd: "Program fee in USD should be mandatory",
+      }));
+    }
     if (program.course.length <= 0) {
       valid = false;
       setErrObj((errObj) => ({
@@ -273,6 +269,7 @@ function CreateProgram(props) {
         name: "",
         description: "",
         program_fee: "",
+         program_fee_in_usd: "",
         course: "",
         program_type: "",
         status: "",
@@ -419,6 +416,20 @@ function CreateProgram(props) {
                 />
                 <label className="label-control" htmlFor="program_fee">
                   Program Fee (In Rupees)
+                </label>
+                <p style={errStyle}>{errObj.program_fee}</p>
+              </div>
+              <div className="form-group">
+                <input
+                  type="number"
+                  className="form-control-input notEmpty"
+                  value={program.program_fee_in_usd}
+                  id="program_fee_in_usd"
+                  onChange={(e) => onProgramChange(e)}
+                  required
+                />
+                <label className="label-control" htmlFor="program_fee_in_usd">
+                  Program Fee (USD)
                 </label>
                 <p style={errStyle}>{errObj.program_fee}</p>
               </div>
