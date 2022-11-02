@@ -38,12 +38,12 @@ function Terms() {
                                 </li>
                             
                                 <li>
-                                    <p className="" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: 'black', fontSize: '16px' }}>
+                                    <p className="" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: 'black', fontSize: '12px' }}>
                                         I confirm that I have read and agreed with the Fee Structure and Cancellation Policy, and Terms & Conditions,  of BYVK and The Satsang Foundation.
                                     </p>
                                 </li>
                                 <li>
-                                    <p className="" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: 'black', fontSize: '16px' }}>
+                                    <p className="" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: 'black', fontSize: '12px' }}>
                                         PLEASE NOTE: Filling a registration form and course fee payment is compulsory to be admitted to the course. Kindly register along with the payment transaction details to complete your registration process.
 
                                     </p>

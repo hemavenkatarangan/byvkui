@@ -10,6 +10,7 @@ import Terms from "../Rules/Terms";
 import Refund from "../Rules/Refund";
 import Rulesregulations from "../Rules/Rulesregulations";
 
+
 const errStyle = {
   color: "red",
   textAlign: "center",
@@ -91,6 +92,7 @@ const healthOptions2 = [
 ];
 
 function RegisterProgram(props) {
+ 
   const user = useSelector((state) => state.auth);
   const [isAuthenticated, setAuthenticated] = useState(false);
   const [isValidAge, setValidAge] = useState(true);
@@ -732,13 +734,13 @@ if (program.nationality == "") {
         kind_of_yoga: "",
         health_conditions: "",
         medicines_details: "",
-        covid_vaccine_dose: "No",
-        tobbaco_consumption: "No",
+        covid_vaccine_dose: "",
+        tobbaco_consumption: "",
         frequency_details_of_tobaaco_use: "",
         role_of_yoga_teacher: "",
         planning_to_teach: "",
         why_teach_yoga: "",
-        teaching_experience: "No",
+        teaching_experience: "",
         teaching_experience_description: "",
         attraction_to_yoga_path: "",
         meditation_practices: "",
@@ -778,13 +780,13 @@ if (program.nationality == "") {
         kind_of_yoga: "",
         health_conditions: "",
         medicines_details: "",
-        covid_vaccine_dose: "No",
-        tobbaco_consumption: "No",
+        covid_vaccine_dose: "",
+        tobbaco_consumption: "",
         frequency_details_of_tobaaco_use: "",
         role_of_yoga_teacher: "",
         planning_to_teach: "",
         why_teach_yoga: "",
-        teaching_experience: "No",
+        teaching_experience: "",
         teaching_experience_description: "",
         attraction_to_yoga_path: "",
         meditation_practices: "",
@@ -1323,6 +1325,7 @@ if (program.nationality == "") {
                   onChange={phoneNumberHandler}
                   required
                 />
+                
                 <label className="label-control">Phone Number</label>
               </div>
               {isChecked && residentialCourse ? (
@@ -1474,6 +1477,9 @@ if (program.nationality == "") {
                   </option>
                   <option value="NRI" key="nri">
                     NRI
+                  </option>
+                  <option value="Other Countries" key="other countries">
+                    Other Countries
                   </option>
                   <option value="Rather Not Say" key="rather not say">
                     Rather Not Say
@@ -1773,8 +1779,8 @@ if (program.nationality == "") {
                     required
                   >
                     <option value="" selected></option>
-                    <option value="Begginer" key="begginer">
-                      Begginer
+                    <option value="Beginner" key="beginner">
+                      Beginner
                     </option>
                     <option value="Intermediate" key="intermediate">
                       Intermediate
