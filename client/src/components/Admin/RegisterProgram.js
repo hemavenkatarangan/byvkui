@@ -130,13 +130,13 @@ function RegisterProgram(props) {
     kind_of_yoga: "",
     health_conditions: "",
     medicines_details: "",
-    covid_vaccine_dose: "No",
-    tobbaco_consumption: "No",
+    covid_vaccine_dose: "",
+    tobbaco_consumption: "",
     frequency_details_of_tobaaco_use: "",
     role_of_yoga_teacher: "",
     planning_to_teach: "",
     why_teach_yoga: "",
-    teaching_experience: "No",
+    teaching_experience: "",
     teaching_experience_description: "",
     attraction_to_yoga_path: "",
     meditation_practices: "",
@@ -175,13 +175,13 @@ function RegisterProgram(props) {
     kind_of_yoga: "",
     health_conditions: "",
     medicines_details: "",
-    covid_vaccine_dose: "No",
-    tobbaco_consumption: "No",
+    covid_vaccine_dose: "",
+    tobbaco_consumption: "",
     frequency_details_of_tobaaco_use: "",
     role_of_yoga_teacher: "",
     planning_to_teach: "",
     why_teach_yoga: "",
-    teaching_experience: "No",
+    teaching_experience: "",
     teaching_experience_description: "",
     attraction_to_yoga_path: "",
     meditation_practices: "",
@@ -2239,6 +2239,7 @@ if (program.nationality == "") {
                 </div>
               )}
               <div className="form-group">
+                { program.nationality === 'Indian' && (
                 <p
                   style={{
                     fontFamily: "Poppins",
@@ -2248,14 +2249,37 @@ if (program.nationality == "") {
                     marginTop: "10px",
                   }}
                 >
+                
+	
+				
                   <input type="checkbox" id="" onClick={feeStructureHandler} />
                   Fee Structure : I Fully Understand that course fee of INR.{" "}
                   {programData.program_fee} {"\u20A8"} here for Indian Residents
-                  & for Non Indian Residents USD. {programData.program_fee_in_usd}{" "}
+                  for course {programData.name}
+                </p>
+                )}
+                 { !(program.nationality === 'Indian') && (
+                <p
+                  style={{
+                    fontFamily: "Poppins",
+                    textAlign: "justify",
+                    color: "red",
+                    fontSize: "14px",
+                    marginTop: "10px",
+                  }}
+                >
+                
+	
+				
+                  <input type="checkbox" id="" onClick={feeStructureHandler} />
+                  Fee Structure : I Fully Understand that course fee for Non Indian Residents/International Residents is USD. {programData.program_fee_in_usd}{" "}
                   {"\u0024"} for course {programData.name}
                 </p>
+                )}
               </div>
 
+ 
+                  
               <label>
                 <span style={{ color: "orange" }}>
                   Note: Agreeing to the terms and conditions, fee structures,
