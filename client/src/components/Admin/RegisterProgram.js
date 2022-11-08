@@ -1478,12 +1478,10 @@ if (program.nationality == "") {
                   <option value="NRI" key="nri">
                     NRI
                   </option>
-                  <option value="Other Countries" key="other countries">
-                    Other Countries
+                  <option value="International" key="International">
+                   International
                   </option>
-                  <option value="Rather Not Say" key="rather not say">
-                    Rather Not Say
-                  </option>
+                 
                 </select>
                 <label className="label-control">Nationality <span style={{ color: "red" }}>*</span></label>
                 <p style={errStyle}>{errObj.nationality}</p>

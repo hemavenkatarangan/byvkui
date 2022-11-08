@@ -94,7 +94,7 @@ module.exports = {
 
             confirm_password: Joi.ref('password'),
             dob: Joi.date(),
-            phone_num: Joi.string().length(10).pattern(/^[0-9]+$/).allow(""),
+            phone_num: Joi.string().length(13).pattern(/^[+][0-9]+$/).allow(""),
             email_id: Joi.string()
                 .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).required()
         }).with('password', 'confirm_password'),

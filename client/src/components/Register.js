@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../actions/authActions";
 import StrengthMeter from "./StrengthMeter";
+import PhoneInput from 'react-phone-number-input';
+import 'react-phone-number-input/style.css';
 const errStyle = {
   color: "red",
   textAlign: "center",
@@ -9,6 +11,7 @@ const errStyle = {
 };
 
 function Register(props) {
+	const [phone , setPhone] = useState("");
   const [user, setUser] = useState({
     email_id: "",
     first_name: "",
@@ -36,6 +39,7 @@ function Register(props) {
     const weakPassword= weakRegExp.test(passwordValue);
     const strongPassword= strongRegExp.test(passwordValue);
     const whiteSpace= whitespaceRegExp.test(passwordValue);
+
    
     if(passwordValue===''){
         setPasswordErr("Password is Empty");
@@ -77,6 +81,10 @@ function Register(props) {
   const submitForm = () => {
     dispatch(registerUser(user, props.history));
   };
+  
+  const phoneHandler = (e) =>{
+	setUser((user)=>({...user,"phone_num":e}));
+}
 
   return (
     <div>
@@ -180,17 +188,17 @@ function Register(props) {
                   </label>
                   <p style={errStyle}>{errors.confirm_password}</p>
                 </div>
-                <div className="form-group">
-                  <input
-                    type="number"
-                    className="form-control-input notEmpty"
-                    id="phone_num"
-                    onChange={(e) => handleChage(e)}
-                  />
-                  <label className="label-control" htmlFor="phone_num">
-                    Mobile
-                  </label>
-                  <p style={errStyle}>{errors.phone_num}</p>
+                <div>
+                  <p style={{fontSize:"15px",fontWeight:"700"}} className="mx-4">
+                    Phone Number <span style={{ color: "red" }}>*</span>
+                  </p>
+                </div>
+                <div className="form-group mx-4">
+                  <PhoneInput
+                      international
+					  value={phone}
+					  onChange={phoneHandler}
+					  placeholder="Phone Number"/>
                 </div>
                 <div
                   className="form-group checkbox"
