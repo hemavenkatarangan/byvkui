@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 // import { Checkbox, Popover } from "antd";
-import { Checkbox} from "antd";
+import { Checkbox } from "antd";
 import axios from "axios";
 import { Country, State, City } from "country-state-city";
 import fileUploadUrl from "../../constants/constants";
@@ -9,6 +9,7 @@ import Termsconditions from "../Rules/Termsconditions";
 import Terms from "../Rules/Terms";
 import Refund from "../Rules/Refund";
 import Rulesregulations from "../Rules/Rulesregulations";
+import PhoneInput from 'react-phone-number-input';
 
 
 const errStyle = {
@@ -92,7 +93,7 @@ const healthOptions2 = [
 ];
 
 function RegisterProgram(props) {
- 
+
   const user = useSelector((state) => state.auth);
   const [isAuthenticated, setAuthenticated] = useState(false);
   const [isValidAge, setValidAge] = useState(true);
@@ -130,13 +131,13 @@ function RegisterProgram(props) {
     kind_of_yoga: "",
     health_conditions: "",
     medicines_details: "",
-    covid_vaccine_dose: "",
-    tobbaco_consumption: "",
+    covid_vaccine_dose: "No",
+    tobbaco_consumption: "No",
     frequency_details_of_tobaaco_use: "",
     role_of_yoga_teacher: "",
     planning_to_teach: "",
     why_teach_yoga: "",
-    teaching_experience: "",
+    teaching_experience: "No",
     teaching_experience_description: "",
     attraction_to_yoga_path: "",
     meditation_practices: "",
@@ -215,14 +216,14 @@ function RegisterProgram(props) {
   const [modalData, setModalData] = useState("");
   const [typeHandler, setTypeHandler] = useState("");
   const ref = useRef(null);
-  
- 
-    
-  
+
+
+
+
   useEffect(() => {
     // console.log(Country.getAllCountries());
     // console.log(State.getStatesOfCountry("AF"));
-     setCheckedName(user.userData.first_name);
+    setCheckedName(user.userData.first_name);
     if (user.isAuthenticated) {
       setAuthenticated(true);
     } else {
@@ -260,7 +261,7 @@ function RegisterProgram(props) {
   };
 
   const onProgramChange = (e) => {
-    
+
     const { id, value } = e.target;
     console.log(id, value, "test");
     if (id === "dob") {
@@ -278,10 +279,10 @@ function RegisterProgram(props) {
     }
     if (id === "country" || id === "state") {
       getDataBasedOnSelection(id, value);
-    } 
-      
-      setProgram((program) => ({ ...program, [id]: value }));
-    
+    }
+
+    setProgram((program) => ({ ...program, [id]: value }));
+
   };
 
   const getDataBasedOnSelection = (id, value) => {
@@ -299,10 +300,10 @@ function RegisterProgram(props) {
     if (!isValidAge) {
       alert(
         "Your Age does not meet event criteria, your age should between " +
-          programData.min_age +
-          " & " +
-          programData.max_age +
-          " age "
+        programData.min_age +
+        " & " +
+        programData.max_age +
+        " age "
       );
       ref.current.focus();
     }
@@ -316,14 +317,13 @@ function RegisterProgram(props) {
         address_1: "address_1 should be minimum 3 letters",
       }));
     }
-     else
-    {
-	
+    else {
+
       setErrObj((errObj) => ({
         ...errObj,
         address_1: "",
       }));
-	}
+    }
 
     if (program.gender == "") {
       valid = false;
@@ -333,14 +333,13 @@ function RegisterProgram(props) {
       }));
       console.log("Gender selection failed , please select ");
     }
-    else
-    {
-	
+    else {
+
       setErrObj((errObj) => ({
         ...errObj,
         gender: "",
       }));
-	}
+    }
 
     if (calculatedAge == "") {
       valid = false;
@@ -350,14 +349,13 @@ function RegisterProgram(props) {
       }));
       console.log("Please Select The Date of Birth in the above field Properly ");
     }
- else
-    {
-	
+    else {
+
       setErrObj((errObj) => ({
         ...errObj,
         age: "",
       }));
-	}
+    }
     if (program.dob == "") {
       valid = false;
       setErrObj((errObj) => ({
@@ -366,14 +364,13 @@ function RegisterProgram(props) {
       }));
       console.log("Please select the date of birth");
     }
-    else
-    {
-	
+    else {
+
       setErrObj((errObj) => ({
         ...errObj,
         dob: "",
       }));
-	}
+    }
 
     if (program.maritalstatus == "") {
       valid = false;
@@ -383,14 +380,13 @@ function RegisterProgram(props) {
       }));
       console.log("Please select marital status ");
     }
-     else
-    {
-	
+    else {
+
       setErrObj((errObj) => ({
         ...errObj,
         maritalstatus: "",
       }));
-	}
+    }
 
     if (program.qualification == "") {
       valid = false;
@@ -400,14 +396,13 @@ function RegisterProgram(props) {
       }));
       console.log("Please select qualification")
     }
-     else
-    {
-	
+    else {
+
       setErrObj((errObj) => ({
         ...errObj,
         qualification: "",
       }));
-	}
+    }
 
     if (program.occupation == "") {
       valid = false;
@@ -416,30 +411,28 @@ function RegisterProgram(props) {
         occupation: "Please Select The Occupation",
       }));
     }
-     else
-    {
-	
+    else {
+
       setErrObj((errObj) => ({
         ...errObj,
         occupation: "",
       }));
-	}
-	console.log("Nationality "+program.nationality);
-if (program.nationality == "") {
+    }
+    console.log("Nationality " + program.nationality);
+    if (program.nationality == "") {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
         nationality: "Please Select Nationality",
       }));
     }
-     else
-    {
-	
+    else {
+
       setErrObj((errObj) => ({
         ...errObj,
         nationality: "",
       }));
-	}
+    }
     if (residentialCourse && program.lifestyle == "") {
       valid = false;
       setErrObj((errObj) => ({
@@ -447,15 +440,14 @@ if (program.nationality == "") {
         lifestyle: "Please Select The Lifestyle",
       }));
     }
-        
-     else
-    {
-	
+
+    else {
+
       setErrObj((errObj) => ({
         ...errObj,
         lifestyle: "",
       }));
-	}
+    }
 
     if (prevExperience && program.experty_level == "") {
       valid = false;
@@ -464,15 +456,14 @@ if (program.nationality == "") {
         experty_level: "Please Select Experty Level",
       }));
     }
-     else
-    {
-	
+    else {
+
       setErrObj((errObj) => ({
         ...errObj,
         experty_level: "",
       }));
-	}
-    
+    }
+
     if (program.about_byuk == "") {
       valid = false;
       setErrObj((errObj) => ({
@@ -480,14 +471,13 @@ if (program.nationality == "") {
         about_byuk: "Please Select The Option",
       }));
     }
-     else
-    {
-	
+    else {
+
       setErrObj((errObj) => ({
         ...errObj,
         about_byvk: "",
       }));
-	}
+    }
 
     if (program.address_2.length < 3) {
       valid = false;
@@ -496,30 +486,28 @@ if (program.nationality == "") {
         address_2: "address_2 should be minimum 3 letters",
       }));
     }
-     else
-    {
-	
+    else {
+
       setErrObj((errObj) => ({
         ...errObj,
         address_2: "",
       }));
-	}
+    }
 
     if (program.city.length <= 1) {
-     
+
       setErrObj((errObj) => ({
         ...errObj,
         city: "city should be mandatory",
       }));
     }
-     else
-    {
-	
+    else {
+
       setErrObj((errObj) => ({
         ...errObj,
         city: "",
       }));
-	}
+    }
 
     if (program.state.length <= 1) {
       valid = false;
@@ -528,14 +516,13 @@ if (program.nationality == "") {
         state: "state should be Selected",
       }));
     }
-     else
-    {
-	
+    else {
+
       setErrObj((errObj) => ({
         ...errObj,
         state: "",
       }));
-	}
+    }
 
     if (program.country.length <= 1) {
       valid = false;
@@ -544,14 +531,13 @@ if (program.nationality == "") {
         country: "country type should be Selected",
       }));
     }
-     else
-    {
-	
+    else {
+
       setErrObj((errObj) => ({
         ...errObj,
         country: "",
       }));
-	}
+    }
     console.log("Validation till here" + valid);
     if (residentialCourse && program.emergency_contactname.length <= 3) {
       valid = false;
@@ -570,11 +556,11 @@ if (program.nationality == "") {
     }
     console.log(
       "Validation till here 2" +
-        valid +
-        " program type " +
-        residentialCourse +
-        " course name " +
-        courseData.course_name
+      valid +
+      " program type " +
+      residentialCourse +
+      " course name " +
+      courseData.course_name
     );
     if (residentialCourse && program.emergency_contactnumber.length < 10) {
       valid = false;
@@ -604,9 +590,9 @@ if (program.nationality == "") {
     }
     console.log(
       "Validation till here 3" +
-        valid +
-        " program type " +
-        programData.program_type
+      valid +
+      " program type " +
+      programData.program_type
     );
     if (residentialCourse && program.medicines_details == "") {
       valid = false;
@@ -697,118 +683,68 @@ if (program.nationality == "") {
     console.log("Validation till here 8" + valid);
     if (valid) {
       submitProgram();
-      setErrObj((errObj) => ({
-        ...errObj,
-        program_id: props.match.params.id,
-        user_id: user.user.id,
-        user_name: checkedName,
-        user_email: user.userData.email_id,
-        phoneNum: phoneNumber,
-        address_1: "",
-        address_2: "",
-        city: "",
-        state: "",
-        country: "",
-        status: "APPLICATION_SUBMITTED",
-        age: "",
-        gender: "",
-        dob: "",
-        nationality: "",
-        maritalstatus: "",
-        qualification: "",
-        occupation: "",
-        occupation_details: "",
-        health_ailments: "",
-        lifestyle: "None",
-        previous_experience: "No",
-        experty_level: "",
-        about_byuk: "",
-        alternate_phone_number: "",
-        emergency_contactname: "",
-        emergency_contactnumber: "",
-        emergency_contactrelationship: "",
-        emergency_contactname2: "",
-        emergency_contactnumber2: "",
-        emergency_contactrelationship2: "",
-        languages: "",
-        kind_of_yoga: "",
-        health_conditions: "",
-        medicines_details: "",
-        covid_vaccine_dose: "",
-        tobbaco_consumption: "",
-        frequency_details_of_tobaaco_use: "",
-        role_of_yoga_teacher: "",
-        planning_to_teach: "",
-        why_teach_yoga: "",
-        teaching_experience: "",
-        teaching_experience_description: "",
-        attraction_to_yoga_path: "",
-        meditation_practices: "",
-        terms_agreed: "No",
-        rules_agreed: "No",
-        fees_agreed: "No",
-      }));
-      setProgram((errObj) => ({
-        ...errObj,
-        address_1: "",
-        address_2: "",
-        city: "",
-        state: "",
-        country: "",
-        status: "APPLICATION_SUBMITTED",
-        age: "",
-        gender: "",
-        dob: "",
-        nationality: "",
-        maritalstatus: "",
-        qualification: "",
-        occupation: "",
-        occupation_details: "",
-        health_ailments: "",
-        lifestyle: "None",
-        previous_experience: "No",
-        experty_level: "",
-        about_byuk: "",
-        alternate_phone_number: "",
-        emergency_contactname: "",
-        emergency_contactnumber: "",
-        emergency_contactrelationship: "",
-        emergency_contactname2: "",
-        emergency_contactnumber2: "",
-        emergency_contactrelationship2: "",
-        languages: "",
-        kind_of_yoga: "",
-        health_conditions: "",
-        medicines_details: "",
-        covid_vaccine_dose: "",
-        tobbaco_consumption: "",
-        frequency_details_of_tobaaco_use: "",
-        role_of_yoga_teacher: "",
-        planning_to_teach: "",
-        why_teach_yoga: "",
-        teaching_experience: "",
-        teaching_experience_description: "",
-        attraction_to_yoga_path: "",
-        meditation_practices: "",
-        terms_agreed: "No",
-        rules_agreed: "No",
-        fees_agreed: "No",
-      }));
     }
   };
+
+  const clearAllData = () => {
+    setProgram((errObj) => ({
+      ...errObj,
+      address_1: "",
+      address_2: "",
+      city: "S_O",
+      state: "S_O",
+      country: "S_O",
+      status: "APPLICATION_SUBMITTED",
+      age: "dd-mm-yyyy",
+      gender: "S_O",
+      dob: "",
+      nationality: "S_O",
+      maritalstatus: "S_O",
+      qualification: "S_O",
+      occupation: "S_O",
+      occupation_details: "",
+      health_ailments: "",
+      lifestyle: "None",
+      previous_experience: "No",
+      experty_level: "",
+      about_byuk: "S_O",
+      alternate_phone_number: "",
+      emergency_contactname: "",
+      emergency_contactnumber: "",
+      emergency_contactrelationship: "",
+      emergency_contactname2: "",
+      emergency_contactnumber2: "",
+      emergency_contactrelationship2: "",
+      languages: "",
+      kind_of_yoga: "",
+      health_conditions: "",
+      medicines_details: "",
+      covid_vaccine_dose: "",
+      tobbaco_consumption: "",
+      frequency_details_of_tobaaco_use: "",
+      role_of_yoga_teacher: "",
+      planning_to_teach: "",
+      why_teach_yoga: "",
+      teaching_experience: "",
+      teaching_experience_description: "",
+      attraction_to_yoga_path: "",
+      meditation_practices: "",
+      terms_agreed: "No",
+      rules_agreed: "No",
+      fees_agreed: "No",
+    }));
+  }
 
   const submitProgram = () => {
     var obj = {};
     var lstyle = "None";
     if (isChecked) {
-	if(!residentialCourse)
-	{
-		lstyle="None";
-	}
-	else
-	{
-		lstyle=program.lifestyle;
-	}
+      if (!residentialCourse) {
+        lstyle = "None";
+      }
+      else {
+        lstyle = program.lifestyle;
+      }
       obj = {
         program_id: props.match.params.id,
         user_id: user.user.id,
@@ -946,17 +882,17 @@ if (program.nationality == "") {
                 "You have successfully registered for Event ,Please proceed for payment!!!"
               );
               setTimeout(function () {
-	let paymentsfeesCourseNameUrl =
-    "/payments?fees=" +
-    programData.program_fee +
-    "&usdfees="+programData.program_fee_in_usd+
-    "&course_name=" +
-    programData.name +
-    "&user_name=" +
-    checkedName +
-    "&c_id=" +
-    window.location.href.split("/")[window.location.href.split("/").length - 1]+
-    "&userManagementId="+res.data.result._id;
+                let paymentsfeesCourseNameUrl =
+                  "/payments?fees=" +
+                  programData.program_fee +
+                  "&usdfees=" + programData.program_fee_in_usd +
+                  "&course_name=" +
+                  programData.name +
+                  "&user_name=" +
+                  checkedName +
+                  "&c_id=" +
+                  window.location.href.split("/")[window.location.href.split("/").length - 1] +
+                  "&userManagementId=" + res.data.result._id;
                 window.location.href = paymentsfeesCourseNameUrl;
               }, 300);
             }
@@ -964,6 +900,103 @@ if (program.nationality == "") {
         } else {
           alert(res.data.status_message);
         }
+        setErrObj((errObj) => ({
+          ...errObj,
+          program_id: props.match.params.id,
+          user_id: user.user.id,
+          user_name: checkedName,
+          user_email: user.userData.email_id,
+          phoneNum: phoneNumber,
+          address_1: "",
+          address_2: "",
+          city: "",
+          state: "",
+          country: "",
+          status: "APPLICATION_SUBMITTED",
+          age: "",
+          gender: "",
+          dob: "",
+          nationality: "",
+          maritalstatus: "",
+          qualification: "",
+          occupation: "",
+          occupation_details: "",
+          health_ailments: "",
+          lifestyle: "None",
+          previous_experience: "No",
+          experty_level: "",
+          about_byuk: "",
+          alternate_phone_number: "",
+          emergency_contactname: "",
+          emergency_contactnumber: "",
+          emergency_contactrelationship: "",
+          emergency_contactname2: "",
+          emergency_contactnumber2: "",
+          emergency_contactrelationship2: "",
+          languages: "",
+          kind_of_yoga: "",
+          health_conditions: "",
+          medicines_details: "",
+          covid_vaccine_dose: "",
+          tobbaco_consumption: "",
+          frequency_details_of_tobaaco_use: "",
+          role_of_yoga_teacher: "",
+          planning_to_teach: "",
+          why_teach_yoga: "",
+          teaching_experience: "",
+          teaching_experience_description: "",
+          attraction_to_yoga_path: "",
+          meditation_practices: "",
+          terms_agreed: "No",
+          rules_agreed: "No",
+          fees_agreed: "No",
+        }));
+        setProgram((errObj) => ({
+          ...errObj,
+          address_1: "",
+          address_2: "",
+          city: "",
+          state: "",
+          country: "",
+          status: "APPLICATION_SUBMITTED",
+          age: "",
+          gender: "",
+          dob: "",
+          nationality: "",
+          maritalstatus: "",
+          qualification: "",
+          occupation: "",
+          occupation_details: "",
+          health_ailments: "",
+          lifestyle: "None",
+          previous_experience: "No",
+          experty_level: "",
+          about_byuk: "",
+          alternate_phone_number: "",
+          emergency_contactname: "",
+          emergency_contactnumber: "",
+          emergency_contactrelationship: "",
+          emergency_contactname2: "",
+          emergency_contactnumber2: "",
+          emergency_contactrelationship2: "",
+          languages: "",
+          kind_of_yoga: "",
+          health_conditions: "",
+          medicines_details: "",
+          covid_vaccine_dose: "",
+          tobbaco_consumption: "",
+          frequency_details_of_tobaaco_use: "",
+          role_of_yoga_teacher: "",
+          planning_to_teach: "",
+          why_teach_yoga: "",
+          teaching_experience: "",
+          teaching_experience_description: "",
+          attraction_to_yoga_path: "",
+          meditation_practices: "",
+          terms_agreed: "No",
+          rules_agreed: "No",
+          fees_agreed: "No",
+        }));
       })
       .catch((err) => {
         console.log("Error in registering please check logs " + err);
@@ -1061,7 +1094,7 @@ if (program.nationality == "") {
     setTermsDisplay("block");
     setTypeHandler("FEES");
     setModalData(
-      <Refund fee={programData.program_fee} name={programData.name} residential={residentialCourse}/>
+      <Refund fee={programData.program_fee} name={programData.name} residential={residentialCourse} />
     );
   };
 
@@ -1074,10 +1107,10 @@ if (program.nationality == "") {
   const termsHandler = () => {
     setTermsDisplay("block");
     setTypeHandler("TERMS");
-    if(residentialCourse)
-    setModalData(<Termsconditions course_name={courseData.course_name}/>);
+    if (residentialCourse)
+      setModalData(<Termsconditions course_name={courseData.course_name} />);
     else
-    setModalData(<Terms/>);
+      setModalData(<Terms />);
   };
 
   const globalHandler = (e, type) => {
@@ -1134,11 +1167,11 @@ if (program.nationality == "") {
   };
 
   const phoneNumberHandler = (e) => {
-    if (e.target.value.length > 10) {
-      alert("Phone Number should be 10 digits");
-    } else {
-      setPhoneNumber(e.target.value);
-    }
+    // if (e.target.value.length > 10) {
+    //   alert("Phone Number should be 10 digits");
+    // } else {
+    setPhoneNumber(e);
+    // }
   };
 
   const calculateAge = (value) => {
@@ -1246,7 +1279,7 @@ if (program.nationality == "") {
                   <input
                     type="text"
                     className="form-control-input notEmpty"
-                    value={user.userData.first_name+" "+user.userData.last_name} 
+                    value={user.userData.first_name + " " + user.userData.last_name}
                     id="userName"
                     required
                     disabled
@@ -1263,7 +1296,7 @@ if (program.nationality == "") {
                   onChange={(e) => onProgramChange(e)}
                   required
                 >
-                  <option value="" key="" selected>
+                  <option value="S_O" key="" selected>
                     Select Option
                   </option>
                   <option value="Male" key="male">
@@ -1275,7 +1308,7 @@ if (program.nationality == "") {
                   <option value="Rather Not Say" key="rather not say">
                     Rather Not Say
                   </option>
-                </select>  
+                </select>
                 <label className="label-control">Gender<span style={{ color: "red" }}>*</span> </label>
                 <p style={errStyle}>{errObj.gender}</p>
               </div>
@@ -1317,15 +1350,23 @@ if (program.nationality == "") {
                 </label>
               </div>
               <div className="form-group">
-                <input
+                {/* <input
                   type="number"
                   className="form-control-input notEmpty"
                   value={phoneNumber}
                   id="phoneNum"
                   onChange={phoneNumberHandler}
                   required
+                /> */}
+                <PhoneInput
+                  international
+                  className="form-control-input notEmpty"
+                  value={phoneNumber + ''}
+                  id="phoneNum"
+                  onChange={phoneNumberHandler}
+                // placeholder="Phone Number" 
                 />
-                
+
                 <label className="label-control">Phone Number</label>
               </div>
               {isChecked && residentialCourse ? (
@@ -1336,6 +1377,9 @@ if (program.nationality == "") {
                     required
                     onChange={relationshipChangeHandler}
                   >
+                    <option value="S_O" key="" selected>
+                      Select Option
+                    </option>
                     <option value="Parent" key="parent">
                       Parent
                     </option>
@@ -1396,7 +1440,7 @@ if (program.nationality == "") {
                   value={program.country}
                   required
                 >
-                  <option value="" key="c">
+                  <option value="S_O" key="c" selected>
                     Select Option
                   </option>
                   {country.map((country, index) => {
@@ -1421,7 +1465,7 @@ if (program.nationality == "") {
                   value={program.state}
                   required
                 >
-                  <option value="" key="s">
+                  <option value="S_O" key="s" selected>
                     Select Option
                   </option>
                   {states.map((state, index) => {
@@ -1445,7 +1489,7 @@ if (program.nationality == "") {
                   value={program.city}
                   required
                 >
-                  <option value="" key="ci">
+                  <option value="S_O" key="ci" selected>
                     Select Option
                   </option>
                   {city.map((city, index) => {
@@ -1469,7 +1513,7 @@ if (program.nationality == "") {
                   id="nationality"
                   required
                 >
-                  <option value="" selected>
+                  <option value="S_O" key="" selected>
                     Select Option
                   </option>
                   <option value="Indian" key="indian">
@@ -1479,9 +1523,9 @@ if (program.nationality == "") {
                     NRI
                   </option>
                   <option value="International" key="International">
-                   International
+                    International
                   </option>
-                 
+
                 </select>
                 <label className="label-control">Nationality <span style={{ color: "red" }}>*</span></label>
                 <p style={errStyle}>{errObj.nationality}</p>
@@ -1504,7 +1548,7 @@ if (program.nationality == "") {
                   id="maritalstatus"
                   required
                 >
-                  <option value="" selected>
+                  <option value="S_O" key="" selected>
                     Select Option
                   </option>
                   <option value="Single" key="single">
@@ -1530,7 +1574,7 @@ if (program.nationality == "") {
                   onChange={(e) => onProgramChange(e)}
                   required
                 >
-                  <option value="" selected>
+                  <option value="S_O" key="" selected>
                     Select Option
                   </option>
                   <option value="School" key="school">
@@ -1565,7 +1609,7 @@ if (program.nationality == "") {
                   onChange={(e) => onProgramChange(e)}
                   required
                 >
-                  <option value="" selected>
+                  <option value="S_O" key="" selected>
                     Select Option
                   </option>
                   <option value="Student" key="student">
@@ -1603,62 +1647,62 @@ if (program.nationality == "") {
                 <label className="label-control">Occupation Details</label>
                 <p style={errStyle}>{errObj.occupation_details}</p>
               </div>
-              
-              
-               {residentialCourse && (
-                <>
-                <h1
-                style={{
-                  fontFamily: "Poppins",
-                  color: "darkblue",
-                  fontSize: "20px",
-                }}
-              >
-                Health & Lifestyle
-              </h1>
-              <div className="row">
-                <div className="col-md-5">
-                  <div className="form-group">
-                    <Checkbox.Group
-                      options={healthOptions}
-                      onChange={handleMultiSelect1}
-                    />
-                  </div>
-                </div>
-                <div className="col-md-5">
-                  <div className="form-group">
-                    <Checkbox.Group
-                      options={healthOptions2}
-                      onChange={handleMultiSelect2}
-                    />
-                  </div>
-                </div>
-              </div>
 
-              <div className="form-group">
-                <select
-                  className="form-control-input notEmpty"
-                  id="lifestyle"
-                  onChange={(e) => onProgramChange(e)}
-                  required
-                >
-                  <option value="" selected>
-                    Select Option
-                  </option>
-                  <option value="Sedentary" key="sedentary">
-                    Sedentary
-                  </option>
-                  <option value="Moderately active" key="moderately active">
-                    Moderately Active
-                  </option>
-                  <option value="Highly active" key="highly active">
-                    Highly Active
-                  </option>
-                </select>
-                <label className="label-control">Lifestyle</label>
-                <p style={errStyle}>{errObj.lifestyle}</p>
-              </div>
-             
+
+              {residentialCourse && (
+                <>
+                  <h1
+                    style={{
+                      fontFamily: "Poppins",
+                      color: "darkblue",
+                      fontSize: "20px",
+                    }}
+                  >
+                    Health & Lifestyle
+                  </h1>
+                  <div className="row">
+                    <div className="col-md-5">
+                      <div className="form-group">
+                        <Checkbox.Group
+                          options={healthOptions}
+                          onChange={handleMultiSelect1}
+                        />
+                      </div>
+                    </div>
+                    <div className="col-md-5">
+                      <div className="form-group">
+                        <Checkbox.Group
+                          options={healthOptions2}
+                          onChange={handleMultiSelect2}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="form-group">
+                    <select
+                      className="form-control-input notEmpty"
+                      id="lifestyle"
+                      onChange={(e) => onProgramChange(e)}
+                      required
+                    >
+                      <option value="S_O" key="" selected>
+                        Select Option
+                      </option>
+                      <option value="Sedentary" key="sedentary">
+                        Sedentary
+                      </option>
+                      <option value="Moderately active" key="moderately active">
+                        Moderately Active
+                      </option>
+                      <option value="Highly active" key="highly active">
+                        Highly Active
+                      </option>
+                    </select>
+                    <label className="label-control">Lifestyle</label>
+                    <p style={errStyle}>{errObj.lifestyle}</p>
+                  </div>
+
                   <div className="form-group">
                     <textarea
                       className="form-control-input notEmpty"
@@ -1690,7 +1734,7 @@ if (program.nationality == "") {
                       onChange={(e) => onProgramChange(e)}
                       required
                     >
-                      <option value="" selected>
+                      <option value="S_O" key="" selected>
                         Select Option
                       </option>
                       <option value="Yes Single Dose" key="single dose">
@@ -1715,6 +1759,9 @@ if (program.nationality == "") {
                       onChange={(e) => onProgramChange(e)}
                       required
                     >
+                      <option value="S_O" key="" selected>
+                        Select Option
+                      </option>
                       <option value="Yes" key="yes">
                         Yes
                       </option>
@@ -1757,6 +1804,9 @@ if (program.nationality == "") {
                   onChange={(e) => onProgramChange(e)}
                   required
                 >
+                  <option value="S_O" key="" selected>
+                    Select Option
+                  </option>
                   <option value="Yes" key="yes">
                     Yes
                   </option>
@@ -1776,7 +1826,9 @@ if (program.nationality == "") {
                     onChange={(e) => onProgramChange(e)}
                     required
                   >
-                    <option value="" selected></option>
+                    <option value="S_O" key="" selected>
+                      Select Option
+                    </option>
                     <option value="Beginner" key="beginner">
                       Beginner
                     </option>
@@ -1801,6 +1853,9 @@ if (program.nationality == "") {
                       onChange={(e) => onProgramChange(e)}
                       required
                     >
+                      <option value="S_O" key="" selected>
+                        Select Option
+                      </option>
                       <option value="No Experience" key="no" selected>
                         No Experience
                       </option>
@@ -1849,7 +1904,7 @@ if (program.nationality == "") {
                       id="planning_to_teach"
                       onChange={(e) => onProgramChange(e)}
                     >
-                      <option value="" selected>
+                      <option value="S_O" key="" selected>
                         Select Option
                       </option>
                       <option value="No" key="no">
@@ -1886,7 +1941,9 @@ if (program.nationality == "") {
                       className="form-control-input notEmpty"
                       id="teaching_experience"
                       onChange={(e) => onProgramChange(e)}
-                    >
+                    ><option value="S_O" key="" selected>
+                        Select Option
+                      </option>
                       <option value="No" key="no" selected>
                         No
                       </option>
@@ -2058,7 +2115,7 @@ if (program.nationality == "") {
                   onChange={(e) => onProgramChange(e)}
                   required
                 >
-                  <option value="" selected>
+                  <option value="S_O" key="" selected>
                     Select Option
                   </option>
                   <option value="Email by BYVK" key="Email by BYVK">
@@ -2237,47 +2294,47 @@ if (program.nationality == "") {
                 </div>
               )}
               <div className="form-group">
-                { program.nationality === 'Indian' && (
-                <p
-                  style={{
-                    fontFamily: "Poppins",
-                    textAlign: "justify",
-                    color: "red",
-                    fontSize: "14px",
-                    marginTop: "10px",
-                  }}
-                >
-                
-	
-				
-                  <input type="checkbox" id="" onClick={feeStructureHandler} />
-                  Fee Structure : I Fully Understand that course fee of INR.{" "}
-                  {programData.program_fee} {"\u20A8"} here for Indian Residents
-                  for course {programData.name}
-                </p>
+                {program.nationality === 'Indian' && (
+                  <p
+                    style={{
+                      fontFamily: "Poppins",
+                      textAlign: "justify",
+                      color: "red",
+                      fontSize: "14px",
+                      marginTop: "10px",
+                    }}
+                  >
+
+
+
+                    <input type="checkbox" id="" onClick={feeStructureHandler} />
+                    Fee Structure : I Fully Understand that course fee of INR.{" "}
+                    {programData.program_fee} {"\u20A8"} here for Indian Residents
+                    for course {programData.name}
+                  </p>
                 )}
-                 { !(program.nationality === 'Indian') && (
-                <p
-                  style={{
-                    fontFamily: "Poppins",
-                    textAlign: "justify",
-                    color: "red",
-                    fontSize: "14px",
-                    marginTop: "10px",
-                  }}
-                >
-                
-	
-				
-                  <input type="checkbox" id="" onClick={feeStructureHandler} />
-                  Fee Structure : I Fully Understand that course fee for Non Indian Residents/International Residents is USD. {programData.program_fee_in_usd}{" "}
-                  {"\u0024"} for course {programData.name}
-                </p>
+                {!(program.nationality === 'Indian') && (
+                  <p
+                    style={{
+                      fontFamily: "Poppins",
+                      textAlign: "justify",
+                      color: "red",
+                      fontSize: "14px",
+                      marginTop: "10px",
+                    }}
+                  >
+
+
+
+                    <input type="checkbox" id="" onClick={feeStructureHandler} />
+                    Fee Structure : I Fully Understand that course fee for Non Indian Residents/International Residents is USD. {programData.program_fee_in_usd}{" "}
+                    {"\u0024"} for course {programData.name}
+                  </p>
                 )}
               </div>
 
- 
-                  
+
+
               <label>
                 <span style={{ color: "orange" }}>
                   Note: Agreeing to the terms and conditions, fee structures,

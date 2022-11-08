@@ -9,16 +9,16 @@ var UserManagementSchema = new Schema(
     user_id: { type: String },
     user_name: { type: String },
     user_email: { type: String },
-    phoneNum:{type: String},
+    phoneNum: { type: String },
     address_1: { type: String },
     address_2: { type: String },
     city: { type: String },
     state: { type: String },
     country: { type: String },
-    date_of_birth:{type:String},
+    date_of_birth: { type: String },
     status: {
       type: String,
-      enum: ["APPLICATION_SUBMITTED","REGISTERED", "APPROVED", "REJECTED"],
+      enum: ["APPLICATION_SUBMITTED", "REGISTERED", "APPROVED", "REJECTED"],
       default: "APPLICATION_SUBMITTED",
     },
     reject_reason: { type: String },
@@ -26,12 +26,12 @@ var UserManagementSchema = new Schema(
     medical_reason: { type: String },
     relationship: {
       type: String,
-      enum: ["Self", "Parent", "Spouse", "Others","Child1","Child2","Relative"],
+      enum: ["Self", "Parent", "Spouse", "Others", "Child1", "Child2", "Relative"],
       default: "Self",
     },
     age: { type: String },
     gender: { type: String, enum: ["Male", "Female", "Rather Not Say"] },
-     nationality: {
+    nationality: {
       type: String,
       enum: ["Indian", "NRI", "Rather Not Say"],
     },
@@ -56,8 +56,9 @@ var UserManagementSchema = new Schema(
     health_ailments: { type: Array },
     lifestyle: {
       type: String,
-      enum: ["Sedentary", "Moderately active", "Highly active","None"],
-      default: "None"
+      enum: ["Sedentary", "Moderately active", "Highly active", "None"],
+      default: "None",
+      required: false
     },
     previous_experience: { type: String, enum: ["Yes", "No"], default: "No" },
     experty_level: { type: String },
@@ -81,17 +82,19 @@ var UserManagementSchema = new Schema(
     covid_vaccine_dose: {
       type: String,
       enum: ["Yes Single Dose", "Yes Both Dose", "No"],
+      required: false
     },
     tobbaco_consumption: {
       type: String,
       enum: ["Yes", "No"],
       default: "No",
+      required: false
     },
     frequency_details_of_tobaaco_use: { type: String },
     role_of_yoga_teacher: { type: String },
     planning_to_teach: { type: String },
     why_teach_yoga: { type: String },
-    teaching_experience: { type: String, enum: ["Yes", "No"], default: "No" },
+    teaching_experience: { type: String, enum: ["Yes", "No"], default: "No", required: false },
     teaching_experience_description: { type: String },
     attraction_to_yoga_path: { type: String },
     meditation_practices: { type: String },
