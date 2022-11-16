@@ -169,7 +169,7 @@ function GenericCourses() {
                               {isAuthenticated &&
                               data.status !== "INACTIVE" &&
                               data.status !== "STARTED" &&
-                              !data.isUserRegistered ? (
+                              !data.isUserRegistered && data.name.includes('YogaM') ? (
                                 <div className="" style={{ marginTop: "0px" }}>
                                   <Button
                                     type="primary"
