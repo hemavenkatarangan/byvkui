@@ -41,7 +41,18 @@ function LandingCoursesCalender() {
         console.log(err);
       });
   };
-
+const getCourse = (courseId) => {
+	console.log("Getting course name for "+courseId);
+    axios
+      .get("/courses?courseId="+courseId)
+      .then((res) => {
+       console.log("Course name "+res.data.result.course_name);
+      return res.data.result.course_name;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const isUserAlreadyRegistered = (programId) => {
     console.log("Checking user registration");
     var usl =
@@ -111,6 +122,7 @@ function LandingCoursesCalender() {
         </div>
 
         {cData.map((data, index) => {
+	
           return (
             <>
               <div key={index} className="row">
@@ -154,8 +166,8 @@ function LandingCoursesCalender() {
                   {isAuthenticated &&
                   data.status !== "INACTIVE" &&
                   data.status !== "STARTED" &&
-                  !data.isUserRegistered &&
-                  compareDates(data.program_start_date) ? (
+                  !data.isUserRegistered && 
+                  compareDates(data.program_start_date) && data.name.includes('YogaM') ? (
                     <div className="" style={{ marginTop: "0px" }}>
                       <Button
                         type="primary"

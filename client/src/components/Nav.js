@@ -240,7 +240,7 @@ function Nav() {
                   <div className="dropdown-divider"></div>
                 </div>
               </li>
-            ) : isAuthenticated ? (
+            ) /*: isAuthenticated ? (
               <>
                 <li className="nav-item">
                   <a
@@ -252,7 +252,9 @@ function Nav() {
                   </a>
                 </li>
               </>
-            ) : (
+            ) */
+            : 
+            (
               <></>
             )}
             {/* </li> */}
