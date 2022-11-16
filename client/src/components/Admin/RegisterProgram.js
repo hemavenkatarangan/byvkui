@@ -865,7 +865,10 @@ function RegisterProgram(props) {
         console.log(res);
         if (res.data.status_code === "200") {
           if (residentialCourse) {
-            alert(res.data.status_message);
+                         alert(
+                "You have successfully registered for Event ,Please Wait for Verification to be done !!!"
+              );
+
             setTimeout(function () {
               window.location.href = "/home";
             }, 300);
@@ -897,6 +900,22 @@ function RegisterProgram(props) {
               }, 300);
             }
           }
+          
+          //SEnding mail
+    var mailObject = {
+	to_address:user.userData.email_id,
+	subject:"Received the Application for the Event "+courseData.course_name,
+	email_body:"",
+	name:checkedName,
+	course:courseData.course_name
+}
+          axios
+      .post("/mailservice/sendmailforregistration", mailObject)
+      .then((res) => {
+	
+	console.log(res);
+	});
+          //Sending mail
         } else {
           alert(res.data.status_message);
         }
@@ -1367,7 +1386,8 @@ function RegisterProgram(props) {
                 // placeholder="Phone Number" 
                 />
 
-                <label className="label-control">Phone Number</label>
+                <label className="label-control">Phone Number<span style={{ color: "red" }}>*</span></label>
+                
               </div>
               {isChecked && residentialCourse ? (
                 <div className="form-group">
@@ -2276,9 +2296,11 @@ function RegisterProgram(props) {
                 }}
               >
                 Terms & Conditions
+                  <span style={{ color: "red" }}>*</span>
               </h3>
               <a style={{ color: "#1890ff" }} onClick={termsHandler}>
                 Click Here to read Terms & Conditions
+               
               </a>
               {termsClicked && (
                 <div className="form-group mt-2">
@@ -2329,7 +2351,9 @@ function RegisterProgram(props) {
                     <input type="checkbox" id="" onClick={feeStructureHandler} />
                     Fee Structure : I Fully Understand that course fee for Non Indian Residents/International Residents is USD. {programData.program_fee_in_usd}{" "}
                     {"\u0024"} for course {programData.name}
+                     <span style={{ color: "red" }}>*</span>
                   </p>
+                  
                 )}
               </div>
 

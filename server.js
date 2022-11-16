@@ -15,6 +15,7 @@ const userdocuments = require("./app/routers/user_documents.route");
 const documentformat = require("./app/routers/document_format.route");
 const payments = require("./app/routers/payments.route");
 const dotenv = require("dotenv");
+const mailservice = require("./app/routers/mail_service.route");
 
 const auth = require("./app/helpers/authHelper")();
 const passport = require("passport");
@@ -67,6 +68,7 @@ app.use("/usermanagement", usermanagement);
 app.use("/userdocuments", userdocuments);
 app.use("/documentformat", documentformat);
 app.use("/payments", payments);
+app.use("/mailservice", mailservice);
 
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to BYVK WebSite application" });

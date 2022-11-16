@@ -96,11 +96,27 @@ function Payments(props) {
           });
          //
         alert(
-          "Thank You will let you know the status Please visit payment dashboard in sometime.!"
+          "Thank You !! will let you know the status Please visit payment dashboard in sometime.!"
         );
         setTimeout(() => {
           window.location.href = "/home";
-        }, 3000);
+        }, 300);
+        
+         //SEnding mail
+    var mailObject = {
+	to_address:user.userData.email_id,
+	subject:"Received the Payment for the Event "+courseNameFromURL,
+	email_body:"",
+	name:uname,
+	course:courseNameFromURL
+}
+          axios
+      .post("/mailservice/sendmailforpayments", mailObject)
+      .then((res) => {
+	
+	console.log(res);
+	});
+          //Sending mail
         }
         else
         {
