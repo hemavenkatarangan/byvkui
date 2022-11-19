@@ -6,7 +6,7 @@ module.exports = {
 
     allPrograms: async (req, res, next) => {
         try {
-            const programs = await Program.find({});
+            const programs = await Program.find({ }).sort({program_start_date:-1});
             response.status_code = "200";
             response.status_message = "All Programs";
             response.result = programs;
@@ -15,7 +15,25 @@ module.exports = {
         catch (err) {
             response.status_code = "404";
             response.status_message = "No Programs found";
-            response.result = null;
+            response.result = [{}];
+            response.error = errorDetail.getErrorDetail(err.name, err.code + "-->" + err.message);
+
+            res.status(200).json(response);
+        }
+
+    },
+      allActivePrograms: async (req, res, next) => {
+        try {
+            const programs = await Program.find({status: { $ne: "INACTIVE" } });
+            response.status_code = "200";
+            response.status_message = "All Programs";
+            response.result = programs;
+            res.status(200).json(response);
+        }
+        catch (err) {
+            response.status_code = "404";
+            response.status_message = "No Programs found";
+            response.result = [{}];
             response.error = errorDetail.getErrorDetail(err.name, err.code + "-->" + err.message);
 
             res.status(200).json(response);
@@ -62,12 +80,12 @@ module.exports = {
         
         if(programType === "ALL")
         {
-         const program = await Program.find({ course: courseId});
+         const program = await Program.find({ course: courseId,status: { $ne: "INACTIVE" }});
           if (!program) {
 
             response.status_code = "404";
             response.status_message = "Event not found for course and program type";
-            response.result = null;
+            response.result = [{}];
             return res.status(404).send(response);
         }
          response.status_code = "200";
@@ -77,12 +95,12 @@ module.exports = {
          }
         else
         {
-         const program = await Program.find({ course: courseId,program_type : programType});
+         const program = await Program.find({ course: courseId,program_type : programType,status: { $ne: "INACTIVE" },status:{$ne:"NOT_STARTED"}});
           if (!program) {
 
             response.status_code = "404";
             response.status_message = "Event not found for course and program type";
-            response.result = null;
+            response.result = [{}];
             return res.status(404).send(response);
         }
          response.status_code = "200";
@@ -100,7 +118,7 @@ module.exports = {
         if (!program) {
             response.status_code = "404";
             response.status_message = "Event not found";
-            response.result = null;
+            response.result = [{}];
             return res.status(404).send(response);
         }
         response.status_code = "200";
@@ -113,7 +131,7 @@ module.exports = {
     createProgram: async (req, res) => {
 
         try {
-
+            
             const newProgram = new Program(req.body);
             console.log(JSON.stringify(req.body))
             
@@ -179,7 +197,7 @@ module.exports = {
             response.status_code = "403";
             response.error = error_msg;
             response.status_message = "Event could not be created";
-            response.result = null;
+            response.result = [{}];
             console.log("Error in "+ JSON.stringify(response));
             res.status(403).json(response);
 

@@ -27,8 +27,10 @@ function LandingCoursesCalender() {
 
   const getProgramsData = () => {
     axios
-      .get("/programs/")
+      .get("/programs/activeprograms")
       .then((res) => {
+	console.log("Data in landing courses ");
+	console.log(res.data.result);
         setcData(res.data.result);
 
         cData.map((data, index) => {
@@ -81,7 +83,7 @@ const getCourse = (courseId) => {
 
   const getFormatedDate = (date) => {
     // console.log("formatting......")
-    return moment(date).format("DD-MMM");
+    return moment(date).format("DD-MMM-YYYY");
   };
 
   const compareDates = (date) => {
@@ -120,7 +122,7 @@ const getCourse = (courseId) => {
             {/* <p className="p-heading"></p> */}
           </div>
         </div>
-
+       
         {cData.map((data, index) => {
 	
           return (
@@ -193,6 +195,7 @@ const getCourse = (courseId) => {
             </>
           );
         })}
+       
       </div>
     </>
   );

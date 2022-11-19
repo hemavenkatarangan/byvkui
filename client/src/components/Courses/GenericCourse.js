@@ -75,7 +75,7 @@ function GenericCourses() {
 
   const getFormatedDate = (date) => {
     // console.log("formatting......")
-    return moment(date).format("DD-MMM");
+    return moment(date).format("DD-MMM-YYYY");
   };
 
   return (
@@ -187,7 +187,7 @@ function GenericCourses() {
                                   </Button>
                                 </div>
                               ) : (
-                                ""
+                                "Course Registrations will start soon !!!"
                               )}
                             </div>
                           </div>

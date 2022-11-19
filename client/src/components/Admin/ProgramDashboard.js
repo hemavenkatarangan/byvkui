@@ -48,6 +48,12 @@ function ProgramDashboard() {
       render: (data) => getFormatedDate(data),
     },
     {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+     
+    },
+    {
       title: "Action",
       key: "action",
       render: (id, data) => (
@@ -77,7 +83,7 @@ function ProgramDashboard() {
           {data.status === "NOT_STARTED" ? (
             <>
               <FastForwardOutlined
-                title="Start the Event"
+                title="Start the Registrations for Event"
                 onClick={(e) => startProgram(data)}
               />{" "}
             </>

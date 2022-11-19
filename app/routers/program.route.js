@@ -6,6 +6,9 @@ const { validateParam, validateBody, schemas } = require('../helpers/routeHelper
 router.route('/')
     .get(programController.allPrograms)
     .post(programController.createProgram);
+    
+router.route('/activeprograms')
+    .get(programController.allActivePrograms);
 
 router.route('/course/:courseId/programtype/:programType')
     .get(programController.getProgramByCourseProgramType);

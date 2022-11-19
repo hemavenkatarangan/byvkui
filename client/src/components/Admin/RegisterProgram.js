@@ -221,8 +221,7 @@ function RegisterProgram(props) {
 
 
   useEffect(() => {
-    // console.log(Country.getAllCountries());
-    // console.log(State.getStatesOfCountry("AF"));
+   
     setCheckedName(user.userData.first_name);
     if (user.isAuthenticated) {
       setAuthenticated(true);
@@ -230,18 +229,16 @@ function RegisterProgram(props) {
       setAuthenticated(false);
     }
 
-    // if (props.match.params.id) {
-    //   getProgramDataBasedOnId(props.match.params.id);
-    // }
+    
     console.log(user.userData);
     getProgramData();
     updateStateCityCounty();
-    // getDataForUploadDocs();
+   
   }, []);
 
   const updateStateCityCounty = () => {
     setCountry(Country.getAllCountries());
-    // console.log(country);
+   
   };
 
   const getProgramData = () => {
@@ -453,7 +450,7 @@ function RegisterProgram(props) {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
-        experty_level: "Please Select Experty Level",
+        experty_level: "Please Select Experience Level",
       }));
     }
     else {
@@ -862,7 +859,7 @@ function RegisterProgram(props) {
     axios
       .post("/usermanagement/", obj)
       .then((res) => {
-        console.log(res);
+       console.log(program.nationality);
         if (res.data.status_code === "200") {
           if (residentialCourse) {
                          alert(
@@ -885,10 +882,13 @@ function RegisterProgram(props) {
                 "You have successfully registered for Event ,Please proceed for payment!!!"
               );
               setTimeout(function () {
-                let paymentsfeesCourseNameUrl =
+	 let paymentsfeesCourseNameUrl ="";
+	            if(program.nationality==="Indian")
+	            {
+                 paymentsfeesCourseNameUrl =
                   "/payments?fees=" +
                   programData.program_fee +
-                  "&usdfees=" + programData.program_fee_in_usd +
+                  "&usdfees=0"  +
                   "&course_name=" +
                   programData.name +
                   "&user_name=" +
@@ -896,6 +896,21 @@ function RegisterProgram(props) {
                   "&c_id=" +
                   window.location.href.split("/")[window.location.href.split("/").length - 1] +
                   "&userManagementId=" + res.data.result._id;
+                  }
+                  else
+                  {
+	paymentsfeesCourseNameUrl =
+                  "/payments?fees=0"  +
+                  "&usdfees="  +programData.program_fee_in_usd+
+                  "&course_name=" +
+                  programData.name +
+                  "&user_name=" +
+                  checkedName +
+                  "&c_id=" +
+                  window.location.href.split("/")[window.location.href.split("/").length - 1] +
+                  "&userManagementId=" + res.data.result._id;
+	
+				  }
                 window.location.href = paymentsfeesCourseNameUrl;
               }, 300);
             }
@@ -1511,6 +1526,9 @@ function RegisterProgram(props) {
                 >
                   <option value="S_O" key="ci" selected>
                     Select Option
+                  </option>
+                  <option value="other" key="other" >
+                    Others
                   </option>
                   {city.map((city, index) => {
                     return (

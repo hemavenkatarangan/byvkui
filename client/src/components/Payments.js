@@ -152,6 +152,8 @@ function Payments(props) {
                 >
                   Payments Section
                 </h1>
+                 {feesFromURL != 0 && (
+	<>
                 <p
                   className=""
                   style={{
@@ -160,14 +162,12 @@ function Payments(props) {
                     color: "orange",
                   }}
                 >
-                  India & Non Indian Residents Fund Transfer
+                  Indian Residents Fund Transfer
                 </p>
                 <p className="" style={{ fontFamily: "Poppins" }}>
-                  Please transfer amount {feesFromURL} {"\u20A8"} for Indian
-                  Residents & for Non Indian Residents USD. {feesUSDFromURL}{" "}
-                  {"\u0024"} for course {courseNameFromURL} to below account.
-                  Please enter the participant's name in the remarks section (in
-                  the Bank's NEFT transfer page)
+                Please transfer  {"\u20A8"} {feesFromURL} to the below account. Please enter the participant's name in the remarks section (in the Bank's NEFT transfer page). 
+ 
+              
                 </p>
                 <p className="" style={{ fontFamily: "Poppins" }}>
                   NOTE: Please make sure to save a screenshot of your
@@ -204,7 +204,52 @@ function Payments(props) {
                 >
                   SWIFT CODE: AXISINBBA17
                 </p>
+                </>
+      )}
+       {feesUSDFromURL != 0 && (
+	<>
+                <p
+                  className=""
+                  style={{
+                    fontFamily: "Poppins",
+                    fontSize: "20px",
+                    color: "orange",
+                  }}
+                >
+                  International Fund Transfer
+                </p>
+                <p className="" style={{ fontFamily: "Poppins" }}>
+                Please transfer USD {feesUSDFromURL} using the link below.  
+ 
+              
+                </p>
+                <p className="" style={{ fontFamily: "Poppins" }}>
+                  NOTE: Please select 'Course Fee' option for the payment type, enter the participant's name in the remarks section (in the Bank's transaction page) and make sure to save a screenshot of your transaction.
+                </p>
 
+                <p
+                  className=""
+                  style={{ fontFamily: "Poppins", fontSize: "12px" }}
+                >
+                 It takes seven working days for an international payment to reflect at our end.
+
+
+                </p>
+                <p
+                  className=""
+                  style={{ fontFamily: "Poppins", fontSize: "12px" }}
+                >
+                 Kindly be patient. 
+                </p>
+                <p
+                  className=""
+                  style={{ fontFamily: "Poppins", fontSize: "12px" }}
+                >
+                 <a href="https://ind01.safelinks.protection.outlook.com/?url=https%3A%2F%2Feasypay.axisbank.co.in%2FeasyPay%2FmakePayment%3Fmid%3DNTY0MjY%253D&data=04%7C01%7CNarella.Padmaja%40axisbank.com%7Ce12312bb02414e87576208d97aa2c8cf%7C2d538e6436c741bc8b7d4d804956e957%7C0%7C0%7C637675661863167467%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&sdata=YmLx79oU%2BVvIykobJJQFfpiso4%2BQ4A2TnFUoHlfBcFE%3D&reserved=0">https://ind01.safelinks.protection.outlook.com/?url=https%3A%2F%2Feasypay.axisbank.co.in%2FeasyPay%2FmakePayment%3Fmid%3DNTY0MjY%253D&data=04%7C01%7CNarella.Padmaja%40axisbank.com%7Ce12312bb02414e87576208d97aa2c8cf%7C2d538e6436c741bc8b7d4d804956e957%7C0%7C0%7C637675661863167467%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&sdata=YmLx79oU%2BVvIykobJJQFfpiso4%2BQ4A2TnFUoHlfBcFE%3D&reserved=0</a>
+                </p>
+               
+                </>
+      )}
                 <div className="form-group mt-5">
                   <input
                     type="text"
