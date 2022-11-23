@@ -18,36 +18,32 @@ function Terms() {
                                 </li>
                                 <li>
                                     <p className="" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: 'black', fontSize: '12px' }}>
-                                        I have no health issues which may stop me from participating in the course. I am participating in the course willingly with full awareness of my current health conditions.
-                                    </p>
+                                     I am participating in the course willingly with full awareness of my current health conditions.</p>
                                 </li>
                                 <li>
                                     <p className="" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: 'black', fontSize: '12px' }}>
-                                        I understand my physical limitations and I am sufficiently self-aware to stop or modify my participation in any activity before I become injured or aggravate a pre-existing injury.
-                                    </p>
+                                   I understand my physical limitations and I take responsibility to practice with utmost care to prevent any possible injury or aggravate a pre-existing condition. </p>
                                 </li>
                                 <li>
                                     <p className="" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: 'black', fontSize: '12px' }}>
-                                         I would not be holding Bharat Yoga Vidya Kendra (BYVK) and The Satsang Foundation (TSF) responsible for any health-related issues that may occur during or after the course.
-                                    </p>
+                                   I would not be holding Bharat Yoga Vidya Kendra (BYVK) and The Satsang Foundation (TSF) responsible for any health-related issues that may occur during or after the course.
+                                     </p>
                                 </li>
                                 <li>
                                     <p className="" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: 'black', fontSize: '12px' }}>
-                                        I understand that BYVK from time to time may photograph, video, or otherwise record classes or events occurring at BYVK and place such photographs and videos on its website or social media platform. I hereby consent to the use of my image that may appear in any such photograph or video.
+                                  I understand that BYVK from time to time may photograph, video, or otherwise record classes or events occurring at BYVK and use this content on its website or social media platform. I hereby consent to the use of my image that may appear in any such photograph or video. 
                                     </p>
                                 </li>
                             
                                 <li>
                                     <p className="" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: 'black', fontSize: '12px' }}>
-                                        I confirm that I have read and agreed with the Fee Structure and Cancellation Policy, and Terms & Conditions,  of BYVK and The Satsang Foundation.
-                                    </p>
+                                  <b>Eligibility Criteria:</b>
+<ul><li>The participant should be 16 years or older.</li>
+<li>The participant should not have undergone a major surgery in the last 6 months.</li>
+<li>The participant should not be pregnant.</li></ul>
+   </p>
                                 </li>
-                                <li>
-                                    <p className="" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: 'black', fontSize: '12px' }}>
-                                        PLEASE NOTE: Filling a registration form and course fee payment is compulsory to be admitted to the course. Kindly register along with the payment transaction details to complete your registration process.
-
-                                    </p>
-                                </li>
+                                
                                 
                             </ul>
                         </div>

@@ -258,22 +258,42 @@ function Nav() {
               <></>
             )}
             {/* </li> */}
-            <li>
               {isAuthenticated ? (
                 <>
-                  {" "}
-                  <div>
-                    <span className="nav-item">
-                      <a
-                        className="btn-solid-sm page-scroll"
-                        onClick={(e) => logOutUserFromPanel(e)}
-                      >
-                        Logout
-                      </a>
-                    </span>
-                  </div>{" "}
+              <li className="nav-item dropdown">
+                <a
+                  className="nav-link"
+                  href="#"
+                  id="dropdown01"
+                  style={{ color: "black", fontSize: "14px",backgroundColor:"rgb(255,219,88)",borderRadius:"20px" }}
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Profile
+                </a>
+                <div className="dropdown-menu" aria-labelledby="dropdown01">
+                  <a
+                    className="dropdown-item page-scroll"
+                    style={{ color: "black", fontSize: "14px" }}
+                    href="/completeprofile"
+                  >
+                    Comple your profile
+                  </a>
+                  <div className="dropdown-divider"></div>
+                  <a
+                    className="dropdown-item page-scroll"
+                    style={{ color: "black", fontSize: "14px" }}
+                    onClick={(e) => logOutUserFromPanel(e)}
+                  >
+                    Logout
+                  </a>
+       
+                </div>
+              </li>
                 </>
               ) : (
+				<li>
                 <div>
                   <span className="nav-item">
                     <a className="btn-solid-sm page-scroll" href="/register">
@@ -281,8 +301,8 @@ function Nav() {
                     </a>
                   </span>
                 </div>
+                </li>
               )}
-            </li>
             <li>
               <img
                 style={{ height: "32px" }}

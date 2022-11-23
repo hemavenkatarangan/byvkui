@@ -72,7 +72,7 @@ module.exports = {
             email: Joi.string().email().required(),
             dob: Joi.date().required()
         }),
-
+    
         userOptionalSchema: Joi.object().keys({
             name: Joi.string(),
             email: Joi.string().email()
@@ -89,6 +89,9 @@ module.exports = {
                 .min(1)
                 .max(30)
                 .required(),
+   			gender: Joi.string().required(),
+            age: Joi.string().required(),
+               
             password: Joi.string().min(8).max(30)
                 .required(),
 
@@ -103,7 +106,7 @@ module.exports = {
             email_id: Joi.string()
                 .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).required(),
             password: Joi.string()
-                .pattern(new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')).required()
+               .required()
         }),
 
         eventSchema: Joi.object().keys({

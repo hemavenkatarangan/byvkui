@@ -18,9 +18,9 @@ var UserSchema = new Schema(    {
                 type: String, enum: ["ADMIN", "USER", "SUPERADMIN"]
             }]
         ,
-       
-        isAgreedTerms: { type: Boolean, default: false }
-
+        gender: { type: String, enum: ["Male", "Female", "Rather Not Say"] },
+        isAgreedTerms: { type: Boolean, default: false },
+        age: { type: String },
     },
     {
         timestamps: true
@@ -29,14 +29,7 @@ var UserSchema = new Schema(    {
 
 
 
-UserSchema.virtual('age').get(function () {
-    if (this.dob) {
-        return Math.floor((Date.now() - this.dob.getTime()) / (1000 * 3600 * 24 * 365));
-    }
-    else
-        return 0;
 
-});;
 
 UserSchema.pre('save', async function (next) {
     try {

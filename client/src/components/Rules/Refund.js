@@ -121,21 +121,20 @@ function Refund(props) {
               
               ):( <ol>
                                 <li>
-                                    <p className="" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: 'black', fontSize: '16px' }}>
-                                  No refunds for cancellations. 
+                                    <p className="" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: 'black', fontSize: '12px' }}>
+                                 We have a no refund policy for the fees paid/no-show/any withdrawal from the course at any time
 
  
                                     </p>
                                 </li>
                                 <li>
-                                    <p className="" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: 'black', fontSize: '16px' }}>
-                                    In case the course is rescheduled or canceled due to unforeseen circumstances, the liability of Bharat Yoga Vidya Kendra or The Satsang Foundation is limited to the refund of deposited fees only.
-
+                                    <p className="" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: 'black', fontSize: '12px' }}>
+                                   The course fees will remain as a deposit with Bharat Yoga Vidya Kendra (BYVK). The participants will be eligible to attend the same course for upto 6 months within the same financial year.
                                     </p>
                                 </li>
                                 <li>
-                                    <p className="" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: 'black', fontSize: '16px' }}>
-                                    No refunds for a no-show or any withdrawal from the course once it has started. In case of emergencies, participants will remain eligible to attend the same course in future without making new payment , upto one financial year.
+                                    <p className="" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: 'black', fontSize: '12px' }}>
+                                    If the course is rescheduled or canceled by BYVK due to unforeseen circumstances, then the liability of BYVK and The Satsang Foundation (TSF) is limited to the refund of deposited fees only
                                     </p>
                                 </li>
                                

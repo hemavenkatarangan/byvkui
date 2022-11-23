@@ -4,6 +4,9 @@ import { registerUser } from "../actions/authActions";
 import StrengthMeter from "./StrengthMeter";
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
+import { Country, State, City } from "country-state-city";
+import { Checkbox } from "antd";
+
 const errStyle = {
   color: "red",
   textAlign: "center",
@@ -11,23 +14,25 @@ const errStyle = {
 };
 
 function Register(props) {
+
 	const [phone , setPhone] = useState("");
-  const [user, setUser] = useState({
-    email_id: "",
-    first_name: "",
-    last_name: "",
-    password: "",
-    confirm_password: "",
-    phone_num: "",
-    // userRole:'CUSTOMER'
-  });
+	const [prevExperience, setPrevExperience] = useState(false);
+ 	const [user, setUser] = useState({
+	    email_id: "",
+	    first_name: "",
+	    last_name: "",
+	    password: "",
+	    confirm_password: "",
+	    phone_num: "",
+	    // userRole:'CUSTOMER'
+	  });
   const errors = useSelector((state) => state.errors);
   const dispatch = useDispatch();
    const [poorPassword, setPoorPassword] = useState(false);
     const [weakPassword, setWeakPassword] = useState(false);
     const [strongPassword, setStrongPassword] = useState(false);
     const [passwordError, setPasswordErr] = useState("");
-    
+  const [calculatedAge, setCalculatedAge] = useState("");
      const passwordStrength=(evnt)=>{
     const passwordValue= evnt.target.value;
     const passwordLength= passwordValue.length;
@@ -75,6 +80,9 @@ function Register(props) {
 }
   const handleChage = (e) => {
     const { id, value } = e.target;
+    if (id === "dob") {
+      calculateAge(value);
+    }
     setUser((user) => ({ ...user, [id]: value }));
   };
 
@@ -85,6 +93,19 @@ function Register(props) {
   const phoneHandler = (e) =>{
 	setUser((user)=>({...user,"phone_num":e}));
 }
+
+  const calculateAge = (value) => {
+    var today = new Date();
+    var birthDate = new Date(value);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    age = age.toString();
+    setCalculatedAge(age);
+    setUser((user)=>({...user,"age":age}));
+  };
 
   return (
     <div>
@@ -141,7 +162,7 @@ function Register(props) {
                     Last Name <span style={{ color: "red" }}>*</span>
                   </label>
                   <p style={errStyle}>{errors.last_name}</p>
-                </div>
+                </div>                
                 <div className="form-group">
                   <input
                     type="email"
@@ -155,6 +176,55 @@ function Register(props) {
                   </label>
                   <p style={errStyle}>{errors.email_id}</p>
                 </div>
+                <div className="form-group">
+                  <input
+                    type="date"
+                    className="form-control-input notEmpty"
+                    id="dob"
+                    onChange={(e) => handleChage(e)}
+                    required
+                  />
+                  <label className="label-control" htmlFor="dob">
+                    DOB <span style={{ color: "red" }}>*</span>
+                  </label>
+                  <p style={errStyle}>{errors.dob}</p>
+                </div>
+              <div className="form-group">
+                <select
+                  className="form-control-input notEmpty"
+                  id="gender"
+                  onChange={(e) => handleChage(e)}
+                  required
+                >
+                  <option value="S_O" key="" selected>
+                    Select Option
+                  </option>
+                  <option value="Male" key="male">
+                    Male
+                  </option>
+                  <option value="Female" key="female">
+                    Female
+                  </option>
+                  <option value="Rather Not Say" key="rather not say">
+                    Rather Not Say
+                  </option>
+                </select>
+                <label className="label-control">Gender<span style={{ color: "red" }}>*</span> </label>
+                <p style={errStyle}>{errors.gender}</p>
+              </div>
+              <div className="form-group">
+                <input
+                  type="number"
+                  id="age"
+                  value={calculatedAge}
+                  className="form-control-input notEmpty"
+                  required
+                  disabled
+                />
+                <label className="label-control">Age</label>
+                <p style={errStyle}>{errors.age}</p>
+              </div>
+              
                 <div className="form-group">
                   <input
                     type="password"

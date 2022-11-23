@@ -90,7 +90,6 @@ module.exports = {
         try {
             console.log(`inside user creation `);
 
-
             const newUser = new User({
                 first_name: req.body.first_name,
                 last_name: req.body.last_name,
@@ -99,7 +98,9 @@ module.exports = {
                 password: req.body.password,
                 dob: req.body.dob,
                 is_agreed_terms:req.body.is_agreed_terms,
-                roles:['USER']
+                roles:['USER'],        
+	   			gender: req.body.gender,
+	            age: req.body.age,   
             });
 
             console.log("user creation completed");

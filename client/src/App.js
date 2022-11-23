@@ -47,6 +47,7 @@ import UsersQuery from "./components/Admin/UsersQuery";
 import Termsconditions from "./components/Rules/Termsconditions";
 import Rulesregulations from "./components/Rules/Rulesregulations";
 import UserDashboard from "./components/UserDashboard";
+import CompleteProfile from "./components/Admin/CompleteProfile";
 if (localStorage.jwtToken) {
   const token = localStorage.jwtToken;
   setAuthToken(token);
@@ -102,6 +103,7 @@ function App() {
         <Route exact path="/rulesregulations" component={Rulesregulations} />
         <Route exact path="/mydashboard" component={UserDashboard} />
         <Route exact path="/onlinerefund" component={OnlineRefund} />
+        <Route exact path="/completeprofile" component={CompleteProfile} />
         <Route
           exact
           path="/userforprogram/:id"

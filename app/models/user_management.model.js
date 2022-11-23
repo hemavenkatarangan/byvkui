@@ -37,7 +37,7 @@ var UserManagementSchema = new Schema(
     },
     maritalstatus: {
       type: String,
-      enum: ["Single", "Married", "Rather Not Say"],
+      enum: ["Single", "Married", "Rather Not Say",""],
     },
     qualification: {
       type: String,
@@ -49,6 +49,7 @@ var UserManagementSchema = new Schema(
         "Post Graduate",
         "PhD",
         "Rather Not Say",
+        ""
       ],
     },
     occupation: { type: String },
