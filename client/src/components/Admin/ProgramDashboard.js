@@ -80,7 +80,7 @@ function ProgramDashboard() {
             </>
           }
 
-          {data.status === "NOT_STARTED" ? (
+          {(data.status === "NOT_STARTED" || data.status === "INACTIVE" )? (
             <>
               <FastForwardOutlined
                 title="Start the Registrations for Event"

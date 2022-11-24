@@ -2144,7 +2144,7 @@ function RegisterProgram(props) {
 								</div>
 							)}
 							<div className="form-group">
-								{ (currentProfileData.nationality === 'Indian' || program.nationality === "Indian")&& (
+								{ (program.nationality === "Indian")&& (
 									<p
 										style={{
 											fontFamily: "Poppins",
@@ -2163,7 +2163,7 @@ function RegisterProgram(props) {
 										for course {programData.name}
 									</p>
 								)}
-								{ !(currentProfileData.nationality === 'Indian') || !(program.nationality === "Indian") && (
+								{ !(program.nationality === "Indian") && (
 									<p
 										style={{
 											fontFamily: "Poppins",
