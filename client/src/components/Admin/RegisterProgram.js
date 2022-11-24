@@ -2163,7 +2163,7 @@ function RegisterProgram(props) {
 										for course {programData.name}
 									</p>
 								)}
-								{ !(currentProfileData.nationality === 'Indian' || !(program.nationality === "Indian") && (
+								{ !(currentProfileData.nationality === 'Indian') || !(program.nationality === "Indian") && (
 									<p
 										style={{
 											fontFamily: "Poppins",
