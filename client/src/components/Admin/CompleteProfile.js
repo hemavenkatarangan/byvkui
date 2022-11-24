@@ -533,6 +533,17 @@ axios
                   Phone Number <span style={{ color: "red" }}>*</span>
                 </label>
               </div>
+               <div className="form-group">
+                <input
+                  type="date"
+                  className="form-control-input notEmpty"
+                  id="dob"
+                 onInput={(e) => onProgramChange(e)}
+                 value={getFormatedDate(profile.dob)}
+                  
+                />
+                <label className="label-control">Date of Birth <span style={{ color: "red" }}>*</span></label>
+              </div>
               <div className="form-group">
                   <input
                     type="text"
@@ -546,17 +557,7 @@ axios
                   Age <span style={{ color: "red" }}>*</span>
                 </label>
               </div>
-              <div className="form-group">
-                <input
-                  type="date"
-                  className="form-control-input notEmpty"
-                  id="dob"
-                 onInput={(e) => onProgramChange(e)}
-                 value={getFormatedDate(profile.dob)}
-                  
-                />
-                <label className="label-control">Date of Birth <span style={{ color: "red" }}>*</span></label>
-              </div>
+             
               <div className="form-group">
                 <input
                   type="text"

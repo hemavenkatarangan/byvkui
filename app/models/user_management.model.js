@@ -33,7 +33,7 @@ var UserManagementSchema = new Schema(
     gender: { type: String, enum: ["Male", "Female", "Rather Not Say"] },
     nationality: {
       type: String,
-      enum: ["Indian", "NRI", "Rather Not Say"],
+      enum: ["Indian", "NRI", "Rather Not Say",""],default:"Indian"
     },
     maritalstatus: {
       type: String,

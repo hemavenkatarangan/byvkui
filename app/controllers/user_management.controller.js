@@ -89,7 +89,7 @@ module.exports = {
     try {
 	 
 	  const users = await UserManagement.find({ program_id: req.body.program_id ,user_name:req.body.user_name});
-	  console.log(users);
+	  
 	  if(users && users.length === 0 )
 	  {
       const newUser = new UserManagement(req.body);
@@ -112,6 +112,7 @@ module.exports = {
       response.status_code = "404";
       response.status_message = "User not registered for Event";
       response.result = null;
+      console.log(response);
       return res.status(404).json(response);
     }
   },

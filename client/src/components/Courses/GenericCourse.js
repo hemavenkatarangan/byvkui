@@ -166,7 +166,7 @@ function GenericCourses() {
                               className="col-lg-4"
                               style={{ textAlign: "center" }}
                             >
-                              {isAuthenticated &&
+                              {
                               data.status !== "INACTIVE" &&
                               data.status !== "STARTED" &&
                               !data.isUserRegistered && data.name.includes('YogaM') ? (

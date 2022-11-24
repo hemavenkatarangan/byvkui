@@ -296,8 +296,8 @@ function Nav() {
 				<li>
                 <div>
                   <span className="nav-item">
-                    <a className="btn-solid-sm page-scroll" href="/register">
-                      Sign Up
+                    <a className="btn-solid-sm page-scroll" href="/login">
+                      Sign In
                     </a>
                   </span>
                 </div>
@@ -310,28 +310,9 @@ function Nav() {
                 alt="byvk"
               ></img>
             </li>
-            {/* <li className="nav-item">
-                            <a className="nav-link page-scroll" style={{ color: 'black' }} href="/register">Sign Up</a>
-                    </li> */}
+           
           </ul>
-          {/* {isAuthenticated ? <div>
-                        <span className="nav-item">
-                            <a className="btn-solid-sm page-scroll" onClick={(e) => logOutUserFromPanel(e)}>Logout</a>
-                        </span>
-                    </div> : <div>
-                        <span className="nav-item">
-                            <a className="btn-solid-sm page-scroll" href="/register">Sign Up</a>
-                        </span>
-                    </div>} */}
-
-          {/* {isAuthenticated ? <div>
-                        <span className="nav-item">
-                            <a className="btn-solid-sm page-scroll" onClick={(e) => logOutUserFromPanel(e)}>Logout</a>
-                        </span>
-                    </div> : ''} */}
-          {/* <div>
-
-                    </div> */}
+          
         </div>
       </div>
     </nav>

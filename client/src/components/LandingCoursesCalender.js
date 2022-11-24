@@ -165,7 +165,7 @@ const getCourse = (courseId) => {
                     </Button>
                   </div>
 
-                  {isAuthenticated &&
+                  {
                   data.status !== "INACTIVE" &&
                   data.status !== "STARTED" &&
                   !data.isUserRegistered && 

@@ -60,8 +60,9 @@ function Login(props) {
             <div className="row">
                 <div className="col-xl-6 offset-xl-3">
                     <div className="text-box mt-5 mb-5">
-                        {/* <p className="mb-4" style={{ fontFamily: 'Poppins'}}>You don't have a user id/password? Then please <a className="blue" href="/register">Sign Up</a></p> */}
+                        { <p className="mb-4" style={{ fontFamily: 'Poppins'}}>You don't have a user id/password? Then please <a className="blue" href="/register">Sign Up</a></p> }
                             <div className="form-group">
+                         
                                 <input type="email" onChange={(e) => handleChage(e)} className="form-control-input notEmpty" id="userName" />
                                 <label className="label-control" htmlFor="email">Email</label>
                                 <p style={errStyle}>{errors.email}</p>

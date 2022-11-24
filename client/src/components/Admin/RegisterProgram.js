@@ -96,12 +96,14 @@ function RegisterProgram(props) {
 
 	const user = useSelector((state) => state.auth);
 	const [isAuthenticated, setAuthenticated] = useState(false);
+	const [isLogged, setLogged] = useState(true);
 	const [isValidAge, setValidAge] = useState(true);
 	const [courseData, setCourseData] = useState([]);
 	const [programData, setProgramData] = useState([]);
 	const [program, setProgram] = useState({
 		address_1: "",
 		address_2: "",
+		user_email:"",
 		city: "",
 		state: "",
 		country: "",
@@ -149,6 +151,7 @@ function RegisterProgram(props) {
 		address_1: "",
 		address_2: "",
 		city: "",
+		user_email:"",
 		state: "",
 		country: "",
 		status: "APPLICATION_SUBMITTED",
@@ -209,7 +212,7 @@ function RegisterProgram(props) {
 	const [rulesAgreed, setRulesAgreed] = useState(false);
 	const [feesClicked, setFeesClicked] = useState(false);
 	const [feesAgreed, setFeesAgreed] = useState(false);
-	const [phoneNumber, setPhoneNumber] = useState(user.userData.phone_num);
+	const [phoneNumber, setPhoneNumber] = useState("");
 	const [calculatedAge, setCalculatedAge] = useState("");
 	const [feeStructure, setFeeStructure] = useState(false);
 	const [termsDisplay, setTermsDisplay] = useState("none");
@@ -244,17 +247,32 @@ function RegisterProgram(props) {
 
 	useEffect(() => {
 
+         
+		
+		
+
+
+		console.log(user.userData);
+		if(!user || !user.userData)
+		{
+			
+		setLogged(false);
+	
+		}
+		else
+		{
+				setPhoneNumber(user.userData.phone_num);
 		setCheckedName(user.userData.first_name);
+		program.user_email=user.userData.email_id;
+		getProfileInfor(user.userData.email_id);
 		if (user.isAuthenticated) {
 			setAuthenticated(true);
 		} else {
 			setAuthenticated(false);
 		}
-
-
-		console.log(user.userData);
+		}
 		getProgramData();
-		getProfileInfor(user.userData.email_id);
+		
 		updateStateCityCounty();
 
 	}, []);
@@ -308,6 +326,7 @@ function RegisterProgram(props) {
 	const onProgramChange = (e) => {
 
 		const { id, value } = e.target;
+		console.log(value)
 		if (id === "dob") {
 			calculateAge(value);
 		}
@@ -605,6 +624,7 @@ function RegisterProgram(props) {
 			address_1: "",
 			address_2: "",
 			city: "S_O",
+			user_email:"",
 			state: "S_O",
 			country: "S_O",
 			status: "APPLICATION_SUBMITTED",
@@ -658,11 +678,17 @@ function RegisterProgram(props) {
 			else {
 				lstyle = program.lifestyle;
 			}
+			var email="";
+			if(isLogged)
+			{
+				email=user.userData.email_id;
+			}
+			
 			obj = {
 				program_id: props.match.params.id,
 				user_id: user.user.id,
 				user_name: checkedName,
-				user_email: user.userData.email_id,
+				user_email: email,
 				phoneNum: phoneNumber,
 				address_1: program.address_1,
 				address_2: program.address_2,
@@ -715,11 +741,23 @@ function RegisterProgram(props) {
 				fees_agreed: feesAgreed ? "Yes" : "No",
 			};
 		} else {
+			var user_id="";
+			var user_email=program.user_email;
+			var user_name=checkedName;
+			console.log("PRogram email "+program.user_email);
+			if(user)
+			{
+				user_id=user.user.id;
+				user_name=user.user.userName;
+				if(user.userData)
+				user_email=user.userData.email_id;
+			}
 			obj = {
+				
 				program_id: props.match.params.id,
-				user_id: user.user.id,
-				user_name: user.user.username,
-				user_email: user.userData.email_id,
+				user_id: user_id,
+				user_name:user_name,
+				user_email:user_email,
 				phoneNum: phoneNumber,
 				address_1: program.address_1,
 				address_2: program.address_2,
@@ -832,8 +870,8 @@ function RegisterProgram(props) {
 
 					//SEnding mail
 					var mailObject = {
-						to_address: user.userData.email_id,
-						subject: "Received the Application for the Event " + courseData.course_name,
+						to_address: program.user_email,
+						subject: "Received the Application for the Event " + courseData.course_name+" Starting "+programData.program_start_date,
 						email_body: "",
 						name: checkedName,
 						course: courseData.course_name
@@ -970,16 +1008,25 @@ function RegisterProgram(props) {
 			// for (let i = 0; i < e.target.files.length; i++) {
 			form.append("files", e.target.files[0]);
 			// }
-
+			var user_id="";
+			
+			if(user.userData)
+			{
+				user_id=user.userData._id;
+			}
+			else
+			{
+				user_id="Nologged_id";
+			}
 			axios
 				.post(fileUploadUrl, form)
 				.then((res) => {
 					let obj = {
 						document_path: res.data.result[0],
 						document_type: e.target.id,
-						user_id: user.userData._id,
+						user_id: user_id,
 						program_id: props.match.params.id,
-						email_id: user.userData.email_id,
+						email_id: program.user_email,
 						document_format: "doc",
 					};
 					arr.push(obj);
@@ -990,7 +1037,7 @@ function RegisterProgram(props) {
 				});
 		} else {
 			alert(
-				`Sorry ${user.userData.first_name} the format which you selected ${e.target.files[0].type} is not supported.`
+				`Sorry ${program.first_name} the format which you selected ${e.target.files[0].type} is not supported.`
 			);
 		}
 	};
@@ -1205,7 +1252,7 @@ function RegisterProgram(props) {
 							<div className="row">
 								<div className="col-md-5">
 									<div className="form-group">
-										{!isChecked ? (
+										{!isChecked && isLogged? (
 											<>
 												<label><b>Name: </b>{currentProfileData.first_name + " " + currentProfileData.last_name} </label>
 
@@ -1231,7 +1278,7 @@ function RegisterProgram(props) {
 
 									<div className="form-group">
 
-										{!isChecked ? (
+										{!isChecked && isLogged ? (
 											<>
 												<label><b>Gender: </b>{currentProfileData.gender} </label>
 											</>
@@ -1271,7 +1318,7 @@ function RegisterProgram(props) {
 								<div className="col-md-5">
 							
 							<div className="form-group">
-								{!isChecked ? (
+								{!isChecked && isLogged ? (
 									
 									
 									<>
@@ -1308,18 +1355,26 @@ function RegisterProgram(props) {
 							
 							
 							<div className="form-group">
+							{!isChecked && isLogged ? (
+								<>
+								
+								<label ><b>Email:</b>{user.userData?user.userData.email_id:""}</label>
+								</>
+								):(
+									<>
 								<input
 									type="text"
 									className="form-control-input notEmpty"
-									value={user.userData.email_id}
-									id="email"
+									id="user_email"
 									onChange={(e) => onProgramChange(e)}
 									required
-									disabled
+									
 								/>
 								<label className="label-control" htmlFor="email">
 									Email
-								</label>
+								</label>	
+								</>
+								)}
 							</div>
 							<div className="form-group">
                                 
@@ -1457,7 +1512,7 @@ function RegisterProgram(props) {
 							
 
 							<div className="form-group">
-							{isChecked?(
+							{isChecked || !isLogged ?(
 								<>
 								<select
 									className="form-control-input notEmpty"
