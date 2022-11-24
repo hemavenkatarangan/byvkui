@@ -89,7 +89,7 @@ module.exports = {
     try {
 	 
 	  const users = await UserManagement.find({ program_id: req.body.program_id ,user_name:req.body.user_name});
-	  
+	  console.log("User with "+req.body.user_name +" "+users);
 	  if(users && users.length === 0 )
 	  {
       const newUser = new UserManagement(req.body);

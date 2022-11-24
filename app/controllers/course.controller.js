@@ -30,7 +30,7 @@ module.exports = {
 	console.log("Getting course detail sfor id ")
         const { courseId } = req.params;
         const course = await Course.findById(courseId);
-        console.log(course);
+       
         if (!course) {
 
             response.status_code = "404";

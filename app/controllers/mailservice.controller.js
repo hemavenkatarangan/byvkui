@@ -60,11 +60,16 @@ mailTransport.use('compile', hbs(handlebarOptions))
 		
 		mailTransport.sendMail(mailData, function(error, response){
 		  if(error) {
-			console.log(error)
-		     throw new Error("Error in sending email");
+			
+		     console.log("Error sending mail please check "+error);
+		     
+		      res.send(JSON.stringify({"status_code":"403","status_message":"Error sending mail"}));
 		  }
+		  else
+		  {
 		  console.log("Message sent: " + JSON.stringify(response));
 		  res.send(JSON.stringify(response));
+		  }
 		});
     }
 

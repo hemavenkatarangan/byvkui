@@ -104,6 +104,7 @@ function RegisterProgram(props) {
 		address_1: "",
 		address_2: "",
 		user_email:"",
+		user_name:"",
 		city: "",
 		state: "",
 		country: "",
@@ -152,6 +153,7 @@ function RegisterProgram(props) {
 		address_2: "",
 		city: "",
 		user_email:"",
+		user_name:"",
 		state: "",
 		country: "",
 		status: "APPLICATION_SUBMITTED",
@@ -426,7 +428,7 @@ function RegisterProgram(props) {
 		}
 
 		
-		if (isChecked && program.nationality == "") {
+		if ((isChecked || !isLogged )&& program.nationality == "") {
 			valid = false;
 			setErrObj((errObj) => ({
 				...errObj,
@@ -613,6 +615,7 @@ function RegisterProgram(props) {
 			);
 		}
 		console.log("Validation till here 8" + valid);
+		program.user_name=checkedName;
 		if (valid) {
 			submitProgram();
 		}
@@ -678,7 +681,7 @@ function RegisterProgram(props) {
 			else {
 				lstyle = program.lifestyle;
 			}
-			var email="";
+			var email=program.user_email;
 			if(isLogged)
 			{
 				email=user.userData.email_id;
@@ -744,14 +747,8 @@ function RegisterProgram(props) {
 			var user_id="";
 			var user_email=program.user_email;
 			var user_name=checkedName;
-			console.log("PRogram email "+program.user_email);
-			if(user)
-			{
-				user_id=user.user.id;
-				user_name=user.user.userName;
-				if(user.userData)
-				user_email=user.userData.email_id;
-			}
+			console.log("PRogram email "+program.user_email+" checked name "+checkedName);
+			
 			obj = {
 				
 				program_id: props.match.params.id,
@@ -808,6 +805,7 @@ function RegisterProgram(props) {
 				rules_agreed: rulesAgreed ? "Yes" : "No",
 				fees_agreed: feesAgreed ? "Yes" : "No",
 			};
+			console.log(obj);
 		}
 
 		axios
@@ -986,6 +984,7 @@ function RegisterProgram(props) {
 			})
 			.catch((err) => {
 				console.log("Error in registering please check logs " );
+				console.log(err);
 				
 				alert(
 					"You have not registered for Event ,Could be you have already Registered!!!"
