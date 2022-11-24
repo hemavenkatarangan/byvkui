@@ -266,6 +266,7 @@ function RegisterProgram(props) {
 				setPhoneNumber(user.userData.phone_num);
 		setCheckedName(user.userData.first_name);
 		program.user_email=user.userData.email_id;
+		
 		getProfileInfor(user.userData.email_id);
 		if (user.isAuthenticated) {
 			setAuthenticated(true);
@@ -889,7 +890,7 @@ function RegisterProgram(props) {
 					program_id: props.match.params.id,
 					user_id: user.user.id,
 					user_name: checkedName,
-					user_email: user.userData.email_id,
+					user_email: program.user_mail,
 					phoneNum: phoneNumber,
 					address_1: "",
 					address_2: "",
