@@ -24,7 +24,7 @@ module.exports = {
     },
       allActivePrograms: async (req, res, next) => {
         try {
-            const programs = await Program.find({status: { $ne: "INACTIVE" } });
+            const programs = await Program.find({status: { $ne: "INACTIVE" } }).sort({program_start_date:-1});
             response.status_code = "200";
             response.status_message = "All Programs";
             response.result = programs;
