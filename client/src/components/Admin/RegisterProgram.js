@@ -293,7 +293,7 @@ function RegisterProgram(props) {
 				for (var i = 0; i < res.data.result.length; i++) {
 					if ((res.data.result[i].first_name === user.userData.first_name) && (res.data.result[i].last_name === user.userData.last_name)) {
 						setCurrentProfileData(res.data.result[i]);
-						
+						calculatedAge=res.data.result[i].age
 						console.log("Profile data");
 						console.log(res.data.result[i]);
 
@@ -308,9 +308,11 @@ function RegisterProgram(props) {
  const getFormatedDate = (date) => {
     // console.log("formatting......")
     if(date)
-    return moment(date).format("YYYY-MM-DD");
+    return moment(date).format("DD-MMM-YYYY");
   };
 	const getProgramData = () => {
+		console.log(props.match.params.id);
+		console.log("Getting program info");
 		axios.get("/programs/" + props.match.params.id).then((res) => {
 			if (res.data.status_code === "200") {
 				console.log(res.data.result, "program data");
@@ -396,8 +398,16 @@ function RegisterProgram(props) {
 				gender: "",
 			}));
 		}
+		console.log(
+			"Validation till here 2" +
+			valid +
+			" program type " +
+			residentialCourse +
+			" course name " +
+			courseData.course_name
+		);
 
-		if (isChecked && calculatedAge == "") {
+		if (calculatedAge == "") {
 			valid = false;
 			setErrObj((errObj) => ({
 				...errObj,
@@ -412,6 +422,14 @@ function RegisterProgram(props) {
 				age: "",
 			}));
 		}
+		console.log(
+			"Validation till here afe" +
+			valid +
+			" program type " +
+			residentialCourse +
+			" age " +
+			calculatedAge
+		);
 		if (isChecked && program.dob == "") {
 			valid = false;
 			setErrObj((errObj) => ({
@@ -429,18 +447,18 @@ function RegisterProgram(props) {
 		}
 
 		
-		if ((isChecked || !isLogged )&& program.nationality == "") {
+		if ((isChecked )&& program.country == "") {
 			valid = false;
 			setErrObj((errObj) => ({
 				...errObj,
-				nationality: "Please Select Nationality",
+				country: "Please Select country",
 			}));
 		}
 		else {
 
 			setErrObj((errObj) => ({
 				...errObj,
-				nationality: "",
+				country: "",
 			}));
 		}
 		if (program.health_conditions == "") {
@@ -489,14 +507,7 @@ function RegisterProgram(props) {
 				emergency_contactnumber: "Please enter the contact person's number",
 			}));
 		}
-		console.log(
-			"Validation till here 2" +
-			valid +
-			" program type " +
-			residentialCourse +
-			" course name " +
-			courseData.course_name
-		);
+		
 		if (residentialCourse && program.emergency_contactnumber.length < 10) {
 			valid = false;
 			setErrObj((errObj) => ({
@@ -812,7 +823,7 @@ function RegisterProgram(props) {
 		axios
 			.post("/usermanagement/", obj)
 			.then((res) => {
-				console.log(program.nationality);
+				
 				if (res.data.status_code === "200") {
 					if (residentialCourse) {
 						alert(
@@ -832,11 +843,14 @@ function RegisterProgram(props) {
 							}, 300);
 						} else {
 							alert(
-								"You have successfully registered for Event ,Please proceed for payment!!!"
+								"You have successfully registered for the event.Please proceed to the payment section"
 							);
 							setTimeout(function() {
 								let paymentsfeesCourseNameUrl = "";
-								if (program.nationality === "Indian") {
+								console.log(program.nationality);
+								console.log(program.country);
+								
+								if (program.nationality === "Indian" || program.country === "IN") {
 									paymentsfeesCourseNameUrl =
 										"/payments?fees=" +
 										programData.program_fee +
@@ -862,6 +876,7 @@ function RegisterProgram(props) {
 										"&userManagementId=" + res.data.result._id;
 
 								}
+								console.log(paymentsfeesCourseNameUrl)
 								window.location.href = paymentsfeesCourseNameUrl;
 							}, 300);
 						}
@@ -870,10 +885,11 @@ function RegisterProgram(props) {
 					//SEnding mail
 					var mailObject = {
 						to_address: program.user_email,
-						subject: "Received the Application for the Event " + courseData.course_name+" Starting "+programData.program_start_date,
+						subject: programData.name + " application received",
 						email_body: "",
 						name: checkedName,
-						course: courseData.course_name
+						course: courseData.course_name,
+						event_start_date:getFormatedDate(programData.program_start_date)
 					}
 					axios
 						.post("/mailservice/sendmailforregistration", mailObject)
@@ -988,7 +1004,7 @@ function RegisterProgram(props) {
 				console.log(err);
 				
 				alert(
-					"You have not registered for Event ,Could be you have already Registered!!!"
+					"Your email id is already registered for the event"
 				);
 			});
 	};
@@ -1191,8 +1207,8 @@ function RegisterProgram(props) {
 
 	return (
 		<>
-			<div className="ex-basic-1 pt-5 pb-5" style={{ marginTop: "30px" }}>
-				<div className="container">
+			<div className="ex-basic-1 pt-5 pb-5" >
+				
 					<div className="row">
 						<div className="col-xl-10 offset-xl-1">
 							<h1
@@ -1206,24 +1222,35 @@ function RegisterProgram(props) {
 							>
 								Register Event
 							</h1>
+							<p className="" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: 'red', fontSize: '12px' }}>
+                                  <b>Eligibility Criteria:</b>
+The participant should be 16 years or older.
+The participant should not have undergone a major surgery in the last 6 months.
+The participant should not be pregnant.
+   </p>
 						</div>
 					</div>
-				</div>
+				
 			</div>
-			<div className="container">
-				<div className="row">
-					<div className="col-xl-6 offset-xl-3">
-						<div className="text-box mt-5 mb-5">
-							<div className="form-check ml-3 mb-3">
+			
+				<div className="row" style={{ marginTop: "0px" }} >
+					<div className="col-xl-10 offset-xl-1" >
+						
+							
 								<h1
 									style={{
 										fontFamily: "Poppins",
 										color: "darkblue",
 										fontSize: "20px",
+										textAlign:"center",
+										
 									}}
 								>
 									Personal Details
 								</h1>
+								<div>
+								</div>
+								<div className="row">
 								<input
 									className="form-check-input"
 									type="checkbox"
@@ -1234,8 +1261,8 @@ function RegisterProgram(props) {
 								<label className="form-check-label">
 									Register Event for other person
 								</label>
-							</div>
-
+								</div>
+							
 							<div className="row">
 								<div className="col-md-5">
 									<div className="form-group">
@@ -1346,7 +1373,7 @@ function RegisterProgram(props) {
 							<div className="col-md-5">
 							<div className="form-group">
 								
-								<label ><b>Age : </b>{ isChecked ? calculatedAge:currentProfileData.age}</label>
+								<label ><b>Age : </b>{calculatedAge}</label>
 								<p style={errStyle}>{errObj.age}</p>
 							</div>
 							</div>
@@ -1515,27 +1542,27 @@ function RegisterProgram(props) {
 							{isChecked || !isLogged ?(
 								<>
 								<select
-									className="form-control-input notEmpty"
-									onChange={(e) => onProgramChange(e)}
-									id="nationality"
-									required
-								>
-									<option value="S_O" key="" selected>
-										Select Option
-									</option>
-									<option value="Indian" key="indian">
-										Indian
-									</option>
-									<option value="NRI" key="nri">
-										NRI
-									</option>
-									<option value="International" key="International">
-										International
-									</option>
-
-								</select>
-								<label className="label-control">Nationality <span style={{ color: "red" }}>*</span></label>
-								<p style={errStyle}>{errObj.nationality}</p>
+										className="form-control-input notEmpty"
+										id="country"
+										onChange={(e) => onProgramChange(e)}
+										value={program.country}
+										required
+									>
+										<option value="S_O" key="c" selected>
+											Select Option
+										</option>
+										{country.map((country, index) => {
+											return (
+												<option value={country.isoCode} key={index}>
+													{country.name}
+												</option>
+											);
+										})}
+									</select>
+									<label className="label-control" htmlFor="max_age">
+									Country <span style={{ color: "red" }}>*</span>
+								</label>
+								<p style={errStyle}>{errObj.country}</p>
 								</> 
 								):
 								(
@@ -2144,7 +2171,9 @@ function RegisterProgram(props) {
 								</div>
 							)}
 							<div className="form-group">
-								{ (program.nationality === "Indian")&& (
+							{!isChecked && isLogged?(
+								<>
+								{ currentProfileData.nationality ==="Indian" && (
 									<p
 										style={{
 											fontFamily: "Poppins",
@@ -2159,11 +2188,11 @@ function RegisterProgram(props) {
 
 										<input type="checkbox" id="" onClick={feeStructureHandler} />
 										Fee Structure : I Fully Understand that course fee of INR.{" "}
-										{programData.program_fee} {"\u20A8"} here for Indian Residents
+										{programData.program_fee}  here for Indian Residents
 										for course {programData.name}
 									</p>
 								)}
-								{ (program.nationality === "International" || program.nationality === "NRI") && (
+								{ currentProfileData.nationality != "Indian" && (
 									<p
 										style={{
 											fontFamily: "Poppins",
@@ -2178,11 +2207,61 @@ function RegisterProgram(props) {
 
 										<input type="checkbox" id="" onClick={feeStructureHandler} />
 										Fee Structure : I Fully Understand that course fee for Non Indian Residents/International Residents is USD. {programData.program_fee_in_usd}{" "}
-										{"\u0024"} for course {programData.name}
+									    for course {programData.name}
 										<span style={{ color: "red" }}>*</span>
 									</p>
 
 								)}
+								
+								</>
+								):( 
+									<>
+									{ program.country ==="IN" && (
+									<p
+										style={{
+											fontFamily: "Poppins",
+											textAlign: "justify",
+											color: "red",
+											fontSize: "14px",
+											marginTop: "10px",
+										}}
+									>
+
+
+
+										<input type="checkbox" id="" onClick={feeStructureHandler} />
+										Fee Structure : I Fully Understand that course fee of INR.{" "}
+										{programData.program_fee}  here for Indian Residents
+										for course {programData.name}
+									</p>
+								)}
+								{ ( program.country != "IN") && (
+									<p
+										style={{
+											fontFamily: "Poppins",
+											textAlign: "justify",
+											color: "red",
+											fontSize: "14px",
+											marginTop: "10px",
+										}}
+									>
+
+
+
+										<input type="checkbox" id="" onClick={feeStructureHandler} />
+										Fee Structure : I Fully Understand that course fee for Non Indian Residents/International Residents is USD. {programData.program_fee_in_usd}{" "}
+									    for course {programData.name}
+										<span style={{ color: "red" }}>*</span>
+									</p>
+
+								)}
+								
+								</>
+								)}
+							
+							
+							
+								
 							</div>
 
 
@@ -2237,10 +2316,10 @@ function RegisterProgram(props) {
 									)}
 								</>
 							)}
-						</div>
+						
 					</div>
 				</div>
-			</div>
+			
 			<div id="myModal" class="modal center" style={{ display: termsDisplay }}>
 				<div style={{ marginTop: "-271px" }}>
 					{/* <Termsconditions /> */}

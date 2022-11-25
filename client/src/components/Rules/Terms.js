@@ -35,14 +35,7 @@ function Terms() {
                                     </p>
                                 </li>
                             
-                                <li>
-                                    <p className="" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: 'black', fontSize: '12px' }}>
-                                  <b>Eligibility Criteria:</b>
-<ul><li>The participant should be 16 years or older.</li>
-<li>The participant should not have undergone a major surgery in the last 6 months.</li>
-<li>The participant should not be pregnant.</li></ul>
-   </p>
-                                </li>
+                               
                                 
                                 
                             </ul>

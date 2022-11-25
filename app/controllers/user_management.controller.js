@@ -88,8 +88,8 @@ module.exports = {
   registerForProgram: async (req, res) => {
     try {
 	 
-	  const users = await UserManagement.find({ program_id: req.body.program_id ,user_name:req.body.user_name});
-	  console.log("User with "+req.body.user_name +" "+users);
+	  const users = await UserManagement.find({ program_id: req.body.program_id ,user_name:req.body.user_name,user_mail:req.body.user_email});
+	  
 	  if(users && users.length === 0 )
 	  {
       const newUser = new UserManagement(req.body);

@@ -7,8 +7,8 @@ import moment from "moment";
 
 const { Meta } = Card;
 const { Panel } = Collapse;
-//const courseType = ["OFFLINE", "ONLINE", "HYBRID"];
-const courseType = ["ALL"];
+const courseType = ["ALL","OFFLINE", "ONLINE", "HYBRID"];
+//const courseType = ["ALL"];
 
 const errStyle = {
   color: "red",
@@ -22,6 +22,7 @@ function GenericCourses() {
   const [data, setData] = useState({});
   const [courseId, setCourseId] = useState("");
   const [courseRelatedData, setCourseRelatedData] = useState([]);
+  const [courseOfflineRelatedData, setCourseOfflineRelatedData] = useState([]);
   const [onlineCourseData, setOnlineCourseData] = useState([]);
   const [hybridCourseData, setHybridCourseData] = useState([]);
   const mySafeHTML = "";
@@ -38,11 +39,10 @@ function GenericCourses() {
     axios
       .get("/courses/" + id)
       .then((res) => {
-        console.log(res.data.result);
+       
         setData(res.data.result);
 
-        console.log("Data" + mySafeHTML);
-        getEventsRelatedToThisCourse(id, 1);
+        getEventsRelatedToThisCourse(id, 3);
       })
       .catch((err) => console.error(err));
   }, []);
@@ -52,19 +52,35 @@ function GenericCourses() {
     console.log(key);
     getEventsRelatedToThisCourse(courseId, key[key.length - 1]);
   };
-
+const compareDates = (date) => {
+    let today = new Date();
+    let startingDay = new Date(date);
+    let val = false;
+    if (today < startingDay) {
+      val = true;
+    }
+    return val;
+  };
   const getEventsRelatedToThisCourse = (cId, index) => {
     var type = courseType[index - 1];
+    console.log(type);
     axios
-      .get(`/programs/course/${cId}/programtype/ALL`)
+      .get(`/programs/course/${cId}/programtype/ONLINE`)
       .then((res) => {
         if (res.data.status_code === "200") {
           if (type === courseType[0]) {
             setCourseRelatedData(res.data.result);
-          } else if (type === courseType[1]) {
+            console.log("Got ALL")
+          }
+          if (type === courseType[1]) {
+            setCourseOfflineRelatedData(res.data.result);
+            console.log("Got offline")
+          } else if (type === courseType[2]) {
             setOnlineCourseData(res.data.result);
+            console.log("Got online");
           } else {
             setHybridCourseData(res.data.result);
+            console.log("Got hybrid");
           }
         }
       })
@@ -127,12 +143,15 @@ function GenericCourses() {
           </div>
           <br />
           <div dangerouslySetInnerHTML={{ __html: data.contents }} />
+          
+          
           <div>
-            <Collapse defaultActiveKey={["1"]} onChange={onChange} > 
-              <Panel header="UpComing Courses" key="1">
+           {onlineCourseData.length > 0 ? (
+            <Collapse defaultActiveKey={["3"]} onChange={onChange} > 
+              <Panel header="UpComing Courses" key="3">
                 <div className="container">
-                  {courseRelatedData.length > 0 ? (
-                    courseRelatedData.map((data, index) => {
+                 {
+                    onlineCourseData.map((data, index) => {
                       return (
                         <>
                           <div key={index} className="row">
@@ -169,7 +188,8 @@ function GenericCourses() {
                               {
                               data.status !== "INACTIVE" &&
                               data.status == "STARTED" &&
-                              !data.isUserRegistered && data.name.includes('YogaM') ? (
+                              !data.isUserRegistered &&  
+                  compareDates(data.program_start_date) && (data.name.includes('YogaM') || data.name.includes('MonthlyM'))? (
                                 <div className="" style={{ marginTop: "0px" }}>
                                   <Button
                                     type="primary"
@@ -195,13 +215,14 @@ function GenericCourses() {
                         </>
                       );
                     })
-                  ) : (
-                    <p style={errStyle}>No Course Found</p>
-                  )}
+                 }
                 </div>
               </Panel>
               
             </Collapse>
+             ) : (
+                   ""
+                  )}
           </div>
         </div>
       </div>

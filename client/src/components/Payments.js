@@ -96,7 +96,7 @@ function Payments(props) {
           });
          //
         alert(
-          "Thank You !! will let you know the status Please visit payment dashboard in sometime.!"
+          "Congratulations! You are successfully registered for the event. We will get in touch with you within 5 working days"
         );
         setTimeout(() => {
           window.location.href = "/home";
@@ -176,34 +176,29 @@ function Payments(props) {
 
                 <p
                   className=""
-                  style={{ fontFamily: "Poppins", fontSize: "12px" }}
+                  style={{ fontFamily: "Poppins", fontSize: "14px" }}
                 >
-                  Account Name: BHARAT YOGA VIDYA KENDRA
+                 <b> Account Name: BHARAT YOGA VIDYA KENDRA</b>
                 </p>
                 <p
                   className=""
-                  style={{ fontFamily: "Poppins", fontSize: "12px" }}
+                  style={{ fontFamily: "Poppins", fontSize: "14px" }}
                 >
-                  Bank Name: Axis Bank
+                 <b> Bank Name: Axis Bank </b>
                 </p>
                 <p
                   className=""
-                  style={{ fontFamily: "Poppins", fontSize: "12px" }}
+                  style={{ fontFamily: "Poppins", fontSize: "14px" }}
                 >
-                  Account Number 921010029132727
+                 <b> Account Number 921010029132727</b>
                 </p>
                 <p
                   className=""
-                  style={{ fontFamily: "Poppins", fontSize: "12px" }}
+                  style={{ fontFamily: "Poppins", fontSize: "14px" }}
                 >
-                  IFSC: UTIB0001854
+                 <b> IFSC: UTIB0001854</b>
                 </p>
-                <p
-                  className=""
-                  style={{ fontFamily: "Poppins", fontSize: "12px" }}
-                >
-                  SWIFT CODE: AXISINBBA17
-                </p>
+               
                 </>
       )}
        {feesUSDFromURL != 0 && (
