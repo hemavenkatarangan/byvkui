@@ -159,7 +159,6 @@ const compareDates = (date) => {
                               data.status == "STARTED" &&
                                 
                   compareDates(data.program_start_date) && (data.name.includes('YogaM') || data.name.includes('MonthlyM'))? (
-	<>
                           <div key={index} className="row">
                             <div
                               className="col-lg-4"
@@ -208,11 +207,13 @@ const compareDates = (date) => {
                                     </a>
                                   </Button>
                                 </div>
-                              ) : (
-                                ""
-                              )}
+                            
                             </div>
                           </div>
+                          //
+                            ) : (
+                                ""
+                              )}
                           <hr style={{ marginTop: "4px" }} />{" "}
                         </>
                       );
