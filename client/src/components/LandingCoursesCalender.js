@@ -169,7 +169,7 @@ const getCourse = (courseId) => {
                   data.status !== "INACTIVE" &&
                   data.status == "STARTED" &&
                   !data.isUserRegistered && 
-                  compareDates(data.program_start_date) && data.name.includes('YogaM') ? (
+                  compareDates(data.program_start_date) && (data.name.includes('YogaM') || data.name.includes('MonthlyM')) ? (
                     <div className="" style={{ marginTop: "0px" }}>
                       <Button
                         type="primary"
