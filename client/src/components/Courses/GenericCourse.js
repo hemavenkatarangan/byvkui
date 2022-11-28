@@ -154,6 +154,12 @@ const compareDates = (date) => {
                     onlineCourseData.map((data, index) => {
                       return (
                         <>
+                        {
+                              data.status !== "INACTIVE" &&
+                              data.status == "STARTED" &&
+                                
+                  compareDates(data.program_start_date) && (data.name.includes('YogaM') || data.name.includes('MonthlyM'))? (
+	<>
                           <div key={index} className="row">
                             <div
                               className="col-lg-4"
@@ -185,11 +191,7 @@ const compareDates = (date) => {
                               className="col-lg-4"
                               style={{ textAlign: "center" }}
                             >
-                              {
-                              data.status !== "INACTIVE" &&
-                              data.status == "STARTED" &&
-                                
-                  compareDates(data.program_start_date) && (data.name.includes('YogaM') || data.name.includes('MonthlyM'))? (
+                              
                                 <div className="" style={{ marginTop: "0px" }}>
                                   <Button
                                     type="primary"
