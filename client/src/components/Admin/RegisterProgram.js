@@ -293,7 +293,7 @@ function RegisterProgram(props) {
 				for (var i = 0; i < res.data.result.length; i++) {
 					if ((res.data.result[i].first_name === user.userData.first_name) && (res.data.result[i].last_name === user.userData.last_name)) {
 						setCurrentProfileData(res.data.result[i]);
-						calculatedAge=res.data.result[i].age
+						setCalculatedAge(res.data.result[i].age)
 						console.log("Profile data");
 						console.log(res.data.result[i]);
 
