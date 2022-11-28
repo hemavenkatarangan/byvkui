@@ -188,7 +188,7 @@ const compareDates = (date) => {
                               {
                               data.status !== "INACTIVE" &&
                               data.status == "STARTED" &&
-                              !data.isUserRegistered &&  
+                                
                   compareDates(data.program_start_date) && (data.name.includes('YogaM') || data.name.includes('MonthlyM'))? (
                                 <div className="" style={{ marginTop: "0px" }}>
                                   <Button
@@ -207,7 +207,7 @@ const compareDates = (date) => {
                                   </Button>
                                 </div>
                               ) : (
-                                "Course Registrations will start soon !!!"
+                                ""
                               )}
                             </div>
                           </div>
