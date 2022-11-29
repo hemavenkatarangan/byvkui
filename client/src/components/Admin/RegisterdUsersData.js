@@ -186,6 +186,24 @@ function UserRegistertedForProgram(props) {
             msg: "User Status",
             description: res.data.status_message,
           });
+          
+          //SEnding mail
+					var mailObject = {
+						to_address: program.user_email,
+						subject: "Congratulation Your Application for "+programsData.name + " application Approved",
+						email_body: "",
+						name: checkedName,
+						course: programsData.name,
+						event_start_date:getFormatedDate(programsData.program_start_date)
+					}
+					axios
+						.post("/mailservice/sendmailforapproval", mailObject)
+						.then((res) => {
+
+							console.log(res);
+						});
+					//Sending mail
+          
           getUserRegisteredData();
         }
       })
