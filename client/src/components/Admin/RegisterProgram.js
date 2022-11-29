@@ -105,6 +105,7 @@ function RegisterProgram(props) {
 		address_2: "",
 		user_email:"",
 		user_name:"",
+		phoneNum:"",
 		city: "",
 		state: "",
 		country: "",
@@ -154,6 +155,7 @@ function RegisterProgram(props) {
 		city: "",
 		user_email:"",
 		user_name:"",
+		phoneNum:"",
 		state: "",
 		country: "",
 		status: "APPLICATION_SUBMITTED",
@@ -445,14 +447,45 @@ function RegisterProgram(props) {
 				dob: "",
 			}));
 		}
+       if (program.user_email == "") {
+			valid = false;
+			setErrObj((errObj) => ({
+				...errObj,
+				user_email: "Please Enter Email Id",
+			}));
+			console.log("Please Enter Email Id");
+		}
+		else {
 
+			setErrObj((errObj) => ({
+				...errObj,
+				user_email: "",
+			}));
+		}
 		
-		if ((isChecked )&& program.country == "") {
+		 	if (phoneNumber == "") {
+			valid = false;
+			setErrObj((errObj) => ({
+				...errObj,
+				phoneNum: "Please Enter Phone number",
+			}));
+			console.log("Please Enter Phone number");
+		}
+		else {
+
+			setErrObj((errObj) => ({
+				...errObj,
+				phoneNum: "",
+			}));
+		}	
+		console.log("Country "+program.country);
+		if ((isChecked || !isLogged )&& (program.country === ""||program.country === "S_O")) {
 			valid = false;
 			setErrObj((errObj) => ({
 				...errObj,
 				country: "Please Select country",
 			}));
+			console.log("Please Select country")
 		}
 		else {
 
@@ -633,55 +666,7 @@ function RegisterProgram(props) {
 		}
 	};
 
-	const clearAllData = () => {
-		setProgram((errObj) => ({
-			...errObj,
-			address_1: "",
-			address_2: "",
-			city: "S_O",
-			user_email:"",
-			state: "S_O",
-			country: "S_O",
-			status: "APPLICATION_SUBMITTED",
-			age: "dd-mm-yyyy",
-			gender: "S_O",
-			dob: "",
-			nationality: "S_O",
-			maritalstatus: "S_O",
-			qualification: "S_O",
-			occupation: "S_O",
-			occupation_details: "",
-			health_ailments: "",
-			lifestyle: "None",
-			previous_experience: "No",
-			experty_level: "",
-			about_byuk: "S_O",
-			alternate_phone_number: "",
-			emergency_contactname: "",
-			emergency_contactnumber: "",
-			emergency_contactrelationship: "",
-			emergency_contactname2: "",
-			emergency_contactnumber2: "",
-			emergency_contactrelationship2: "",
-			languages: "",
-			kind_of_yoga: "",
-			health_conditions: "",
-			medicines_details: "",
-			covid_vaccine_dose: "",
-			tobbaco_consumption: "",
-			frequency_details_of_tobaaco_use: "",
-			role_of_yoga_teacher: "",
-			planning_to_teach: "",
-			why_teach_yoga: "",
-			teaching_experience: "",
-			teaching_experience_description: "",
-			attraction_to_yoga_path: "",
-			meditation_practices: "",
-			terms_agreed: "No",
-			rules_agreed: "No",
-			fees_agreed: "No",
-		}));
-	}
+	
 
 	const submitProgram = () => {
 		var obj = {};
@@ -906,7 +891,7 @@ function RegisterProgram(props) {
 					program_id: props.match.params.id,
 					user_id: user.user.id,
 					user_name: checkedName,
-					user_email: program.user_mail,
+					user_email: program.user_email,
 					phoneNum: phoneNumber,
 					address_1: "",
 					address_2: "",
@@ -954,6 +939,10 @@ function RegisterProgram(props) {
 				}));
 				setProgram((errObj) => ({
 					...errObj,
+					user_id: user.user.id,
+					user_name: "",
+					user_email: "",
+					phoneNum: "",
 					address_1: "",
 					address_2: "",
 					city: "",
@@ -1183,6 +1172,7 @@ function RegisterProgram(props) {
 		//   alert("Phone Number should be 10 digits");
 		// } else {
 		setPhoneNumber(e);
+		
 		// }
 	};
 
@@ -1294,7 +1284,7 @@ The participant should not be pregnant.
 													required
 												/>
 												<label className="label-control" htmlFor="userName">
-													Name
+													Name <span style={{ color: "red" }}>*</span>
 												</label>
 											</>
 										)}
@@ -1398,8 +1388,9 @@ The participant should not be pregnant.
 									
 								/>
 								<label className="label-control" htmlFor="email">
-									Email
+									Email <span style={{ color: "red" }}>*</span>
 								</label>	
+								<p style={errStyle}>{errObj.user_email}</p>
 								</>
 								)}
 							</div>
@@ -1415,6 +1406,7 @@ The participant should not be pregnant.
 								/>
 
 								<label className="label-control">Phone Number<span style={{ color: "red" }}>*</span></label>
+								<p style={errStyle}>{errObj.phoneNum}</p>
 
 							</div>
 							{isChecked && residentialCourse ? (
