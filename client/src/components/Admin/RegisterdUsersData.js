@@ -189,10 +189,10 @@ function UserRegistertedForProgram(props) {
           
           //SEnding mail
 					var mailObject = {
-						to_address: program.user_email,
+						to_address: data.user_email,
 						subject: "Congratulation Your Application for "+programsData.name + " application Approved",
 						email_body: "",
-						name: checkedName,
+						name: data.user_name,
 						course: programsData.name,
 						event_start_date:getFormatedDate(programsData.program_start_date)
 					}

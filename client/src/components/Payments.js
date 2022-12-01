@@ -7,7 +7,7 @@ import axios from "axios";
 function Payments(props) {
   const user = useSelector((state) => state.auth);
   const [isAuthenticated, setAuthenticated] = useState(false);
-  const [activateButton, setActivateButton] = useState(true);
+  const [activateButton, setActivateButton] = useState(false);
   const [url, setUrl] = useState("");
   
   const search = window.location.search; // returns the URL query String
@@ -60,7 +60,7 @@ function Payments(props) {
         .then((res) => {
           console.log(res);
           setUrl(res.data.result[0]);
-          setActivateButton(false);
+          setActivateButton(true);
         })
         .catch((err) => {
           console.log(err);
@@ -269,7 +269,8 @@ function Payments(props) {
                     required
                   />
                   
-                </div>
+                </div>	
+                {activateButton ? (
                 <div className="form-group mt-4">
                   <button
                     type="submit"
@@ -280,6 +281,12 @@ function Payments(props) {
                     Submit
                   </button>
                 </div>
+                ):(
+				<div className="form-group mt-4">
+					<button type="submit" className="form-control" disabled>
+						Submit
+					</button>
+				</div>)}
                 <p style={{ fontFamily: "Poppins" }}>
                   To learn more about BYVK please go to our{" "}
                   <a href="/about">[About Us section]</a>
