@@ -15,6 +15,8 @@ router.route('/status/:userManagementId')
      
 router.route('/program/:program_id/user_id/:user_id')
      .get(user_management_Controller.getRegisteredUserByUserForProgram)
+router.route('/user/:user_id')
+     .get(user_management_Controller.getRegisteredUserPrograms)
     
 
 module.exports = router;

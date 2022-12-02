@@ -284,6 +284,14 @@ function Nav() {
                   <a
                     className="dropdown-item page-scroll"
                     style={{ color: "black", fontSize: "14px" }}
+                    href="/yourregistrations"
+                  >
+                    Your Registrations
+                  </a>
+                  <div className="dropdown-divider"></div>
+                  <a
+                    className="dropdown-item page-scroll"
+                    style={{ color: "black", fontSize: "14px" }}
                     onClick={(e) => logOutUserFromPanel(e)}
                   >
                     Logout

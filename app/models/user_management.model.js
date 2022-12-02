@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 
 var UserManagementSchema = new Schema(
   {
-    program_id: { type: String },
+    program_id: { type: mongoose.Schema.ObjectId },
     course_name: { type: String },
     user_id: { type: String },
     user_name: { type: String },

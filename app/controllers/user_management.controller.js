@@ -1,4 +1,5 @@
 const UserManagement = require("../models/user_management.model");
+const Program = require("../models/program.model");
 let response = {};
 
 module.exports = {
@@ -48,6 +49,52 @@ module.exports = {
       response.result = users;
       res.status(200).json(response);
     }
+  },
+   getRegisteredUserPrograms: async (req, res) => {
+    var user_id = req.params.user_id;
+    // console.log("Program id :" + program_id);
+    
+   UserManagement.aggregate([{	$lookup: {
+        from: 'programs',
+        localField: 'program_id',
+        foreignField: '_id',
+        as: 'programs'
+      }},
+      { $match: 
+        { 'registered_by': 
+                  { '$eq': user_id 
+                  } 
+          
+         } 
+}],function (error, data) {
+       if (!data) {
+      response.status_code = "403";
+      response.status_message = "Program Users Data not found";
+      response.result = [];
+      return res.status(403).json(response);
+    } else {
+	
+      response.status_code = "200";
+      response.status_message = "Program users data found";
+      response.result = data;
+      res.status(200).json(response);
+    }
+});
+	
+   
+   /* const users = await UserManagement.find({ registered_by:user_id});
+    if (!users) {
+      response.status_code = "404";
+      response.status_message = "Program Users Data not found";
+      response.result = null;
+      return res.status(200).json(response);
+    } else {
+	
+      response.status_code = "200";
+      response.status_message = "Program users data found";
+      response.result = users;
+      res.status(200).json(response);
+    }*/
   },
   getUserManagement: async (req, res) => {
     const { userManagementId } = req.params;
