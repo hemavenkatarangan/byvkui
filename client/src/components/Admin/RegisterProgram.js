@@ -1575,7 +1575,7 @@ The participant should not be pregnant.
 											onChange={(e) => onProgramChange(e)}
 										/>
 										<label className="label-control">
-											Write about your health conditions in detail
+											Write about your health conditions in detail<span style={{ color: "red" }}>*</span>
 										</label>
 										<p style={errStyle}>{errObj.health_conditions}</p>
 									</div>
