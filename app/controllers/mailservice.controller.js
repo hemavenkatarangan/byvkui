@@ -176,7 +176,7 @@ mailTransport.use('compile', hbs(handlebarOptions))
 		  res.send(JSON.stringify(response));
 		});
     },
-    mailCustomService: async (req, res) => {
+mailCustomService: async (req, res) => {
 	console.log(req.body)
 	var toAddress = req.body.to_address;
 	var email_body = req.body.email_body;
