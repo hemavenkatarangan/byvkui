@@ -292,6 +292,7 @@ function UserRegistertedForProgram(props) {
 	if(!userData.registered_by)
 	userData.registered_by=userData.user_email;
 	//SEnding mail
+	
 					var mailObject = {
 						to_address: userData.registered_by,
 						subject: "Request for more Information ",
