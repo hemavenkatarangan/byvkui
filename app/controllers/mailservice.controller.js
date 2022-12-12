@@ -2,6 +2,7 @@ const hbs = require('nodemailer-express-handlebars')
 const nodemailer = require('nodemailer')
 const path = require('path')
 
+
 const handlebarOptions = {
     viewEngine: {
         partialsDir: path.resolve('./views/'),
@@ -206,14 +207,18 @@ mailCustomService: async (req, res) => {
     }
 });
 
+email_body = "<h2> Namaste "+name+"</h2></br></br>"+email_body+"</br></br>Thank you For your Co-operation , </br>Bharat Yoga Vidya Kendra ";
 mailTransport.use('compile', hbs(handlebarOptions))
-		
+
+
 		
 		let mailData={
 		   from : 'admin@bharatyogavidyakendra.in',
 		   to : toAddress,
 		   subject : subject,
 		   template : 'customemail',
+		   html: email_body,
+		  
 		    context:{
         name: name, 
         course: course,
