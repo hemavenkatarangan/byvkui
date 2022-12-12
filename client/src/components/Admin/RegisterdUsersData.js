@@ -289,6 +289,8 @@ function UserRegistertedForProgram(props) {
     const requestHandleOk = () => {
 	console.log(moreInfo);
 	console.log(userData);
+	if(!userData.registered_by)
+	userData.registered_by=userData.user_email;
 	//SEnding mail
 					var mailObject = {
 						to_address: userData.registered_by,
