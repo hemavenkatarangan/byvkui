@@ -39,7 +39,7 @@ module.exports = {
     debug: true,
     auth: {
         user: "admin@bharatyogavidyakendra.in",
-        pass: "Bharat#1974" 
+        pass: "Bharatyoga#1974" 
     }
 });
 
@@ -100,7 +100,7 @@ mailPaymentService: async (req, res) => {
     debug: true,
     auth: {
         user: "admin@bharatyogavidyakendra.in",
-        pass: "Bharat#1974" 
+        pass: "Bharatyoga#1974" 
     }
 });
 
@@ -149,7 +149,7 @@ mailApprovalService: async (req, res) => {
     debug: true,
     auth: {
         user: "admin@bharatyogavidyakendra.in",
-        pass: "Bharat#1974" 
+        pass: "Bharatyoga#1974" 
     }
 });
 
@@ -202,7 +202,7 @@ mailTransport.use('compile', hbs(handlebarOptions))
     debug: true,
     auth: {
         user: "admin@bharatyogavidyakendra.in",
-        pass: "Bharat#1974" 
+        pass: "Bharatyoga#1974" 
     }
 });
 

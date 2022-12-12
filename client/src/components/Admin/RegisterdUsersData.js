@@ -1,18 +1,25 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Modal, Button, Table,  Tag, Tooltip, Image } from "antd";
+import { Modal, Button, Table,  Tag, Tooltip, Image  } from "antd";
 import {
   CheckOutlined,
   StopOutlined,
   EyeOutlined,
   ReadOutlined,
   MoneyCollectOutlined,
+  DiffOutlined
 } from "@ant-design/icons";
 import { openNotificationWithIcon } from "../Notifications";
 
 import moment from "moment";
+import "../Quill.css";
+import ReactQuill from "react-quill";
 
 import axios from "axios";
+const Quill = ReactQuill.Quill;
+var Font = Quill.import("formats/font");
+Font.whitelist = ["Roboto", "Poppins"];
+Quill.register(Font, true);
 
 function UserRegistertedForProgram(props) {
   const user = useSelector((state) => state.auth);
@@ -22,8 +29,10 @@ function UserRegistertedForProgram(props) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isDocumentModalVisible, setIsDocumentModalVisible] = useState(false);
   const [isPaymentModalVisible, setIsPaymentModalVisible] = useState(false);
+    const [isRequestModalVisible, setIsRequestModalVisible] = useState(false);
   const [userImageData, setUserImageData] = useState([]);
    const [paymentImageData, setPaymentImageData] = useState([]);
+   const [moreInfo,setMoreInfo] = useState("");
   
   const [userData, setUserData] = useState({});
   useEffect(() => {
@@ -35,6 +44,7 @@ function UserRegistertedForProgram(props) {
     }
     getAllUsersData();
   }, []);
+ 
 
   const getAllUsersData = () => {
     axios
@@ -166,6 +176,13 @@ function UserRegistertedForProgram(props) {
                   onClick={(e) => openPaymentData(data)}
                 />
               </Tooltip>
+              <Tooltip title="Request More Info">
+                <Button
+                  shape="circle"
+                  icon={<DiffOutlined  />}
+                  onClick={(e) => requestMoreInfoModal(data)}
+                />
+              </Tooltip>
             </>
           }
         </>
@@ -268,6 +285,39 @@ function UserRegistertedForProgram(props) {
     console.log(data);
     setUserData(data);
   };
+  
+    const requestHandleOk = () => {
+	console.log(moreInfo);
+	console.log(userData);
+	//SEnding mail
+					var mailObject = {
+						to_address: userData.registered_by,
+						subject: "Request for more Information ",
+						email_body: moreInfo,
+						name: userData.user_name,
+						course: "",
+						event_start_date:""
+					}
+					axios
+						.post("/mailservice/sendcustommail", mailObject)
+						.then((res) => {
+
+							console.log(res);
+						});
+					//Sending mail
+	
+	
+    setIsRequestModalVisible(false);
+  };
+
+  const requestHandleCancel = () => {
+    setIsRequestModalVisible(false);
+  };
+  
+  const requestMoreInfoModal = (data) => {
+	setUserData(data);
+	setIsRequestModalVisible(true);
+}
 
   const openPaymentData = (data) => {
     setIsPaymentModalVisible(true);
@@ -282,7 +332,26 @@ function UserRegistertedForProgram(props) {
         console.log(err);
       });
   };
+  
+  const requestMoreInfoHandler = (e) => {
+	//console.log(e);
+	setMoreInfo(e);
+}
 
+  const modules = {
+    toolbar: [
+      [{ font: Font.whitelist }],
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      ["bold", "italic", "underline", "strike"],
+      [{ color: [] }, { background: [] }],
+      [{ script: "sub" }, { script: "super" }],
+      ["blockquote", "code-block"],
+      [{ list: "ordered" }, { list: "bullet" }],
+      [{ indent: "-1" }, { indent: "+1" }, { align: [] }],
+      ["link", "image", "video"],
+      ["clean"],
+    ],
+  };
   return (
     <>
       <div className="ex-basic-1 pt-5 pb-5" style={{ marginTop: "30px" }}>
@@ -682,6 +751,21 @@ function UserRegistertedForProgram(props) {
               </div>
             </div>
           </div>
+        </div>
+      </Modal>
+      <Modal
+        title="Request More Info"
+        visible={isRequestModalVisible}
+        onOk={requestHandleOk}
+        onCancel={requestHandleCancel}
+      >
+        <div className="form-group" style={{ marginBottom: "50px" }}>
+          <ReactQuill
+            modules={modules}
+            style={{ maxHeight: "300px", height: "300px" }}
+            theme="snow"
+            onChange={requestMoreInfoHandler}
+          />
         </div>
       </Modal>
     </>
