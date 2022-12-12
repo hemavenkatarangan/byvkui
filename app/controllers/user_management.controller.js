@@ -19,8 +19,9 @@ module.exports = {
   },
   getUsersForProgram: async (req, res) => {
     var program_id = req.params.program_id;
-    // console.log("Program id :" + program_id);
+    console.log("Getting all users for Program id :" + program_id);
     const users = await UserManagement.find({ program_id: program_id });
+    console.log(users);
     if (!users) {
       response.status_code = "404";
       response.status_message = "Program Users Data not found";
