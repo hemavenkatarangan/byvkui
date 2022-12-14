@@ -9,6 +9,9 @@ router.route('/sendmailforpayments')
     
 router.route('/sendmailforapproval')
     .post(mail_serviceController.mailApprovalService)
+    
+router.route('/sendmailforreject')
+    .post(mail_serviceController.mailRejectService)
 router.route('/sendcustommail')
     .post(mail_serviceController.mailCustomService)
 module.exports = router;

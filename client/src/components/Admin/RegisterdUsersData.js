@@ -25,6 +25,7 @@ function UserRegistertedForProgram(props) {
   const user = useSelector((state) => state.auth);
   const [isAuthenticated, setAuthenticated] = useState(false);
   const [programsData, setProgramsData] = useState([]);
+  const [programInfo, setProgramInfo] = useState([]);
   const [usersData, setUsersData] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isDocumentModalVisible, setIsDocumentModalVisible] = useState(false);
@@ -43,6 +44,7 @@ function UserRegistertedForProgram(props) {
       setAuthenticated(false);
     }
     getAllUsersData();
+    getProgramInfo();
   }, []);
  
 
@@ -59,6 +61,17 @@ function UserRegistertedForProgram(props) {
   };
 
  
+  const getProgramInfo = () => {
+    axios
+      .get("/programs/" + props.match.params.id)
+      .then((res) => {
+        console.log(res.data.result, "Program info");
+        setProgramInfo(res.data.result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
  
   const columns = [
@@ -191,6 +204,7 @@ function UserRegistertedForProgram(props) {
   ];
 
   const approveORrejectUser = (data, status) => {
+	
     let obj = {
       status: status,
     };
@@ -204,14 +218,17 @@ function UserRegistertedForProgram(props) {
             description: res.data.status_message,
           });
           
+          if(status === "APPROVED")
+          {
+          
           //SEnding mail
 					var mailObject = {
 						to_address: data.user_email,
-						subject: "Congratulation Your Application for "+programsData.name + " application Approved",
+						subject: "Congratulation Your Application for "+programInfo.name + " is Approved",
 						email_body: "",
 						name: data.user_name,
-						course: programsData.name,
-						event_start_date:getFormatedDate(programsData.program_start_date)
+						course: programInfo.name,
+						event_start_date:getFormatedDate(programInfo.program_start_date)
 					}
 					axios
 						.post("/mailservice/sendmailforapproval", mailObject)
@@ -220,7 +237,26 @@ function UserRegistertedForProgram(props) {
 							console.log(res);
 						});
 					//Sending mail
-          
+          }
+          else
+          {
+			//SEnding mail
+					var mailObject = {
+						to_address: data.user_email,
+						subject: "Your Application for "+programInfo.name + " is Rejected ",
+						email_body: "",
+						name: data.user_name,
+						course: programInfo.name,
+						event_start_date:getFormatedDate(programInfo.program_start_date)
+					}
+					axios
+						.post("/mailservice/sendmailforreject", mailObject)
+						.then((res) => {
+
+							console.log(res);
+						});
+					//Sending mail
+		  }
           getUserRegisteredData();
         }
       })

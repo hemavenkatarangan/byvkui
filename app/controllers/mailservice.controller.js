@@ -177,6 +177,53 @@ mailTransport.use('compile', hbs(handlebarOptions))
 		  res.send(JSON.stringify(response));
 		});
     },
+    mailRejectService: async (req, res) => {
+	console.log(req.body)
+	var toAddress = req.body.to_address;
+	var subject = req.body.subject;
+	var name = req.body.name;
+	var course = req.body.course;
+    	
+	
+		const mailTransport = nodemailer.createTransport({    
+    host: "smtpout.secureserver.net",  
+    secure: true,
+    secureConnection: false, // TLS requires secureConnection to be false
+    tls: {
+        ciphers:'SSLv3'
+    },
+    requireTLS:true,
+    port: 465,
+    debug: true,
+    auth: {
+        user: "admin@bharatyogavidyakendra.in",
+        pass: "Bharatyoga#1974" 
+    }
+});
+
+mailTransport.use('compile', hbs(handlebarOptions))
+		
+		
+		let mailData={
+		   from : 'admin@bharatyogavidyakendra.in',
+		   to : toAddress,
+		   subject : subject,
+		   template : 'rejectemail',
+		    context:{
+        name: name, 
+        course: course 
+    }
+		};
+		
+		mailTransport.sendMail(mailData, function(error, response){
+		  if(error) {
+			console.log(error)
+		     throw new Error("Error in sending email");
+		  }
+		 
+		  res.send(JSON.stringify(response));
+		});
+    },
 mailCustomService: async (req, res) => {
 	console.log(req.body)
 	var toAddress = req.body.to_address;
