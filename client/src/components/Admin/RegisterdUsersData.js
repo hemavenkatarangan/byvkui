@@ -31,9 +31,11 @@ function UserRegistertedForProgram(props) {
   const [isDocumentModalVisible, setIsDocumentModalVisible] = useState(false);
   const [isPaymentModalVisible, setIsPaymentModalVisible] = useState(false);
     const [isRequestModalVisible, setIsRequestModalVisible] = useState(false);
+      const [isRejectReasonModalVisible, setIsRejectReasonModalVisible] = useState(false);
   const [userImageData, setUserImageData] = useState([]);
    const [paymentImageData, setPaymentImageData] = useState([]);
    const [moreInfo,setMoreInfo] = useState("");
+  const [rejectReason,setRejectReason] = useState("");
   
   const [userData, setUserData] = useState({});
   useEffect(() => {
@@ -164,7 +166,7 @@ function UserRegistertedForProgram(props) {
                   <Button
                     shape="circle"
                     icon={<StopOutlined />}
-                    onClick={(e) => approveORrejectUser(data, "REJECTED")}
+                    onClick={(e) => rejectReasonModal(data, "REJECTED")}
                   />
                 </Tooltip>
               )}{" "}
@@ -238,25 +240,7 @@ function UserRegistertedForProgram(props) {
 						});
 					//Sending mail
           }
-          else
-          {
-			//SEnding mail
-					var mailObject = {
-						to_address: data.user_email,
-						subject: "Your Application for "+programInfo.name + " is Rejected ",
-						email_body: "",
-						name: data.user_name,
-						course: programInfo.name,
-						event_start_date:getFormatedDate(programInfo.program_start_date)
-					}
-					axios
-						.post("/mailservice/sendmailforreject", mailObject)
-						.then((res) => {
-
-							console.log(res);
-						});
-					//Sending mail
-		  }
+         
           getUserRegisteredData();
         }
       })
@@ -348,16 +332,64 @@ function UserRegistertedForProgram(props) {
 	
     setIsRequestModalVisible(false);
   };
+  
+    const rejectHandleOk = () => {
+	console.log(rejectReason);
+	console.log(userData);
+	
+	 let obj = {
+      status: "REJECTED",
+    };
+    axios
+      .patch("/usermanagement/status/" + userData._id, obj)
+      .then((res) => {
+        if (res.data.status_code === "200") {
+          openNotificationWithIcon({
+            type: "success",
+            msg: "User Status",
+            description: res.data.status_message,
+          });
+          }});
+          
+	if(!userData.registered_by)
+	userData.registered_by=userData.user_email;
+	//SEnding mail
+	
+	//SEnding mail
+					var mailObject = {
+						to_address: userData.user_email,
+						subject: "Your Application for "+programInfo.name + " is Rejected ",
+						email_body: rejectReason,
+						name: userData.user_name,
+						course: programInfo.name,
+						event_start_date:getFormatedDate(programInfo.program_start_date)
+					}
+					axios
+						.post("/mailservice/sendmailforreject", mailObject)
+						.then((res) => {
+
+							console.log(res);
+						});
+					
+	
+	
+    setIsRejectReasonModalVisible(false);
+  };
 
   const requestHandleCancel = () => {
     setIsRequestModalVisible(false);
   };
-  
+   const rejectHandleCancel = () => {
+    setIsRejectReasonModalVisible(false);
+  };
   const requestMoreInfoModal = (data) => {
 	setUserData(data);
 	setIsRequestModalVisible(true);
 }
-
+ const rejectReasonModal = (data,status) => {
+	setUserData(data);
+	setIsRejectReasonModalVisible(true);
+}
   const openPaymentData = (data) => {
     setIsPaymentModalVisible(true);
    
@@ -376,7 +408,10 @@ function UserRegistertedForProgram(props) {
 	//console.log(e);
 	setMoreInfo(e);
 }
-
+const rejectHandler = (e) => {
+	//console.log(e);
+	setRejectReason(e);
+}
   const modules = {
     toolbar: [
       [{ font: Font.whitelist }],
@@ -804,6 +839,22 @@ function UserRegistertedForProgram(props) {
             style={{ maxHeight: "300px", height: "300px" }}
             theme="snow"
             onChange={requestMoreInfoHandler}
+          />
+        </div>
+      </Modal>
+      
+       <Modal
+        title="Reject Reason"
+        visible={isRejectReasonModalVisible}
+        onOk={rejectHandleOk}
+        onCancel={rejectHandleCancel}
+      >
+        <div className="form-group" style={{ marginBottom: "50px" }}>
+          <ReactQuill
+            modules={modules}
+            style={{ maxHeight: "300px", height: "300px" }}
+            theme="snow"
+            onChange={rejectHandler}
           />
         </div>
       </Modal>

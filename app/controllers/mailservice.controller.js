@@ -183,7 +183,9 @@ mailTransport.use('compile', hbs(handlebarOptions))
 	var subject = req.body.subject;
 	var name = req.body.name;
 	var course = req.body.course;
-    	
+	var email_body = req.body.email_body;
+    email_body = email_body.replace("<p>", "");	
+    email_body = email_body.replace("</p>", "");	
 	
 		const mailTransport = nodemailer.createTransport({    
     host: "smtpout.secureserver.net",  
@@ -211,7 +213,8 @@ mailTransport.use('compile', hbs(handlebarOptions))
 		   template : 'rejectemail',
 		    context:{
         name: name, 
-        course: course 
+        course: course, 
+        email_body:email_body
     }
 		};
 		
