@@ -123,7 +123,7 @@ mailTransport.use('compile', hbs(handlebarOptions))
 		mailTransport.sendMail(mailData, function(error, response){
 		  if(error) {
 			console.log(error)
-		     throw new Error("Error in sending email");
+		    
 		  }
 		  console.log("Message sent: " + JSON.stringify(response));
 		  res.send(JSON.stringify(response));
@@ -136,6 +136,7 @@ mailApprovalService: async (req, res) => {
 	var subject = req.body.subject;
 	var name = req.body.name;
 	var course = req.body.course;
+	var event_start_date = req.body.event_start_date;
     	
 	
 		const mailTransport = nodemailer.createTransport({    
@@ -164,14 +165,15 @@ mailTransport.use('compile', hbs(handlebarOptions))
 		   template : 'approvalemail',
 		    context:{
         name: name, 
-        course: course 
+        course: course ,
+        event_start_date : event_start_date
     }
 		};
 		
 		mailTransport.sendMail(mailData, function(error, response){
 		  if(error) {
 			console.log(error)
-		     throw new Error("Error in sending email");
+		     
 		  }
 		 
 		  res.send(JSON.stringify(response));
@@ -221,7 +223,7 @@ mailTransport.use('compile', hbs(handlebarOptions))
 		mailTransport.sendMail(mailData, function(error, response){
 		  if(error) {
 			console.log(error)
-		     throw new Error("Error in sending email");
+		    
 		  }
 		 
 		  res.send(JSON.stringify(response));
@@ -280,7 +282,7 @@ mailTransport.use('compile', hbs(handlebarOptions))
 		mailTransport.sendMail(mailData, function(error, response){
 		  if(error) {
 			console.log(error)
-		     throw new Error("Error in sending email");
+		    
 		  }
 		  console.log("Message sent: " + JSON.stringify(response));
 		  res.send(JSON.stringify(response));
