@@ -324,6 +324,7 @@ function RegisterProgram(props) {
 				}
 				axios.get("/courses/" + res.data.result.course).then((res) => {
 					setCourseData(res.data.result);
+					console.log("Course data ",res.data.result)
 				});
 				setDocs(res.data.result.required_documents);
 			}
@@ -508,6 +509,45 @@ function RegisterProgram(props) {
 				health_conditions: "",
 			}));
 		}
+		
+		console.log("Course name "+courseData.course_name +" Tobacco "+program.tobbaco_consumption)
+		if (
+			courseData.course_name === "SakhyaM" &&
+			program.tobbaco_consumption == "S_O"
+		) {
+			valid = false;
+			setErrObj((errObj) => ({
+				...errObj,
+				tobbaco_consumption: "Please Select the Field ",
+			}));
+		}
+		else {
+
+			setErrObj((errObj) => ({
+				...errObj,
+				tobbaco_consumption: "",
+			}));
+		}
+		
+		if (
+			courseData.course_name === "SakhyaM" &&
+			program.tobbaco_consumption == "Yes"
+		) {
+			valid = false;
+			setErrObj((errObj) => ({
+				...errObj,
+				frequency_details_of_tobaaco_use: "You have chosen the tobacco consumption as Yes, So please enter details ",
+			}));
+		}
+		else {
+
+			setErrObj((errObj) => ({
+				...errObj,
+				frequency_details_of_tobaaco_use: "",
+			}));
+		} 
+		
+		
 		if (residentialCourse && program.lifestyle == "") {
 			valid = false;
 			setErrObj((errObj) => ({
@@ -1580,7 +1620,45 @@ The participant should not be pregnant.
 										<p style={errStyle}>{errObj.health_conditions}</p>
 									</div>
 							)}
-							
+							{courseData.course_name === 'SakhyaM' && (
+								<>
+							<div className="form-group">
+										<select
+											className="form-control-input notEmpty"
+											id="tobbaco_consumption"
+											onChange={(e) => onProgramChange(e)}
+											required
+										>
+											<option value="S_O" key="" selected>
+												Select Option
+											</option>
+											<option value="Yes" key="yes">
+												Yes
+											</option>
+											<option value="No" key="no" selected>
+												No
+											</option>
+										</select>
+										<label className="label-control mb-4">
+											Do you currently consume alcohol, tobacco or any other recreational substance? <span style={{ color: "red" }}>*</span>
+										</label>
+										<p style={errStyle}>{errObj.tobbaco_consumption}</p>
+									</div>
+									<div className="form-group">
+										<textarea
+											className="form-control-input notEmpty"
+											id="frequency_details_of_tobaaco_use"
+											rows="3"
+											onChange={(e) => onProgramChange(e)}
+										/>
+										<label className="label-control">
+											Do you currently continue to use any of these substances?
+											If yes, please list substance and frequency of use <span style={{ color: "red" }}>*</span>: 
+										</label>
+										<p style={errStyle}>{errObj.frequency_details_of_tobaaco_use}</p>
+									</div>
+									</>
+							)}
 							{residentialCourse && (
 								<>
 									<h1

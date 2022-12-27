@@ -3,14 +3,20 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 function LandingCoursesCalender() {
+
   const user = useSelector((state) => state.auth);
   const [isAuthenticated, setAuthenticated] = useState(false);
   const [isUserHasRegistered, setUserAlreadyRegistered] = useState(false);
 
   const [cData, setcData] = useState([]);
+  
+  const [profileData,setProfileData] = useState([]);
 
+const history = useHistory();
+	
   useEffect(() => {
     // console.log("Logged user ");
     // console.log(user);
@@ -23,7 +29,20 @@ function LandingCoursesCalender() {
 
   useEffect(() => {
     getProgramsData();
+    getProfileData();
   }, []);
+  
+  const getProfileData = () => {
+	axios
+	.get("/profile/"+user.userData.email_id)
+	.then((res) => {
+		console.log(res.data.result,"profile data");
+		setProfileData(res.data.result);
+	})
+		.catch((err)=>{
+		console.log(err);
+		});
+};
 
   const getProgramsData = () => {
     axios
@@ -95,6 +114,22 @@ const getCourse = (courseId) => {
     }
     return val;
   };
+  
+  const SakhyamHandler = (data_id) =>{
+	
+
+	
+}
+
+const validateSakhyam = () => {
+	if(isAuthenticated){
+		if (profileData.about_byuk == "" || profileData.address_1 == "" || profileData.address_2 == "" || profileData.age == "" || profileData.city == "" || profileData.country == "" || profileData.dob== "" || profileData.email_id == "" || profileData.expert_level == "" || profileData.first_name== "" || profileData.gender == "" || profileData.languages == "" || profileData.last_name == "" || profileData.maritalstatus == "" || profileData.nationality == "" || profileData.occupation == "" || profileData.previous_experience == "" || profileData.qualification == "" || profileData.state == "" || profileData.phone_num == ""){
+			return false;
+		}else{
+			return true;
+		}
+	}
+}
 
   return (
     <>
@@ -182,6 +217,37 @@ const getCourse = (courseId) => {
                         }}
                       >
                         <a href={"../registercourse/" + data._id}>
+                          Register Course
+                        </a>
+                      </Button>
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                  {
+                  data.status !== "INACTIVE" &&
+                  data.status == "STARTED" &&
+                  !data.isUserRegistered && 
+                  compareDates(data.program_start_date) && (data.name.includes('SakhyaM')) ? (
+                    <div className="" style={{ marginTop: "0px" }}>
+                      <Button
+                        type="primary"
+                        style={{
+                          fontFamily: "Poppins",
+                          width: "50%",
+                          background: "#f3cd74",
+                          color: "black",
+                          borderRadius: "18px",
+                        }}
+                      >
+                        <a href={"../registercourse/" + data._id} onClick={(e)=>{
+							let validSakhyam = validateSakhyam();
+							if (!validSakhyam) {
+								e.preventDefault();
+								alert("Please Complete Your Profile Before Registering To This Event");
+								return false;
+							}
+						}}>
                           Register Course
                         </a>
                       </Button>
