@@ -13,7 +13,7 @@ function LandingCoursesCalender() {
 
   const [cData, setcData] = useState([]);
   
-  const [profileData,setProfileData] = useState([]);
+  const [profileData,setProfileData] = useState({});
 
 const history = useHistory();
 	
@@ -37,8 +37,11 @@ const history = useHistory();
 	axios
 	.get("/profile/"+user.userData.email_id)
 	.then((res) => {
+		if(res.data.status_code === "200")
+		{
 		console.log(res.data.result,"profile data");
-		setProfileData(res.data.result);
+		setProfileData(res.data.result[0]);
+		}
 	})
 		.catch((err)=>{
 		console.log(err);
