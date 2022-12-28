@@ -33,6 +33,7 @@ const history = useHistory();
   }, []);
   
   const getProfileData = () => {
+	console.log("Calling the profile data api"+user.userData.email_id);
 	axios
 	.get("/profile/"+user.userData.email_id)
 	.then((res) => {
