@@ -242,6 +242,7 @@ const validateSakhyam = () => {
                       >
                         <a href={"../registercourse/" + data._id} onClick={(e)=>{
 							let validSakhyam = validateSakhyam();
+							console.log("Complete profile is validated "+validSakhyam);
 							if (!validSakhyam) {
 								e.preventDefault();
 								alert("Please Complete Your Profile Before Registering To This Event");
