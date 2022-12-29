@@ -333,7 +333,7 @@ const viewProfile = () => {
 		          <label className="label-control" htmlFor="name">
 		            Course Name
 		          </label>
-		          <p style={errStyle}>{errObj.course_name}</p>
+		         
 		        </div>
       			</Modal>
                 </>
