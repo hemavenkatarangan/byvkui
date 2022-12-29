@@ -18,8 +18,7 @@ function LandingCoursesCalender() {
 const history = useHistory();
 	
   useEffect(() => {
-    // console.log("Logged user ");
-    // console.log(user);
+   
     if (user.isAuthenticated) {
       setAuthenticated(true);
     } else {
