@@ -291,12 +291,7 @@ const viewProfile = () => {
                     Comple your profile
                   </a>
                   <div className="dropdown-divider"></div>
-                  <a className="dropdown-item page-scroll"
-                    style={{ color: "black", fontSize: "14px" }}
-                    onClick={viewProfile}>
-                    View Profile
-                  </a>
-                  <div className="dropdown-divider"></div>
+                 
                   <a
                     className="dropdown-item page-scroll"
                     style={{ color: "black", fontSize: "14px" }}
