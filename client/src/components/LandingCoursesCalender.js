@@ -33,7 +33,8 @@ const history = useHistory();
   }, []);
   
   const getProfileData = () => {
-	console.log("Calling the profile data api"+user.userData.email_id);
+	if(user.userData)
+	{
 	axios
 	.get("/profile/"+user.userData.email_id)
 	.then((res) => {
@@ -46,6 +47,8 @@ const history = useHistory();
 		.catch((err)=>{
 		console.log(err);
 		});
+		}
+		
 };
 
   const getProgramsData = () => {

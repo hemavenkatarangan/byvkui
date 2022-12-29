@@ -3,10 +3,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../actions/authActions";
 import axios from "axios";
 import $ from "jquery";
+import { Modal, Button, Table,  Tag } from "antd";
 
 function Nav() {
   const user = useSelector((state) => state.auth);
   const [isAuthenticated, setAuthenticated] = useState(false);
+    const [isModalVisible, setIsModalVisible] = useState(false);
   const [admins, setAdmins] = useState([
     "jyoti.byvk@gmail.com",
     "hema.s.kasturi@gmail.com",
@@ -46,6 +48,14 @@ function Nav() {
 
   const toggler = () => {
     $(".offcanvas-collapse").toggleClass("open");
+  };
+
+const viewProfile = () => {
+	setIsModalVisible(true);
+}
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
   };
 
   return (
@@ -281,6 +291,12 @@ function Nav() {
                     Comple your profile
                   </a>
                   <div className="dropdown-divider"></div>
+                  <a className="dropdown-item page-scroll"
+                    style={{ color: "black", fontSize: "14px" }}
+                    onClick={viewProfile}>
+                    View Profile
+                  </a>
+                  <div className="dropdown-divider"></div>
                   <a
                     className="dropdown-item page-scroll"
                     style={{ color: "black", fontSize: "14px" }}
@@ -299,6 +315,27 @@ function Nav() {
        
                 </div>
               </li>
+              <Modal
+		        title="Profile Details"
+		        width="75%"
+		        visible={isModalVisible}
+		        onCancel={handleCancel}
+		        onOk={handleCancel}
+		      >
+                <div className="form-group">
+		          <input
+		            type="text"
+		            className="form-control-input notEmpty"
+		            value=""
+		            id="course_name"
+		            required
+		          />
+		          <label className="label-control" htmlFor="name">
+		            Course Name
+		          </label>
+		          <p style={errStyle}>{errObj.course_name}</p>
+		        </div>
+      			</Modal>
                 </>
               ) : (
 				<li>
@@ -310,6 +347,7 @@ function Nav() {
                   </span>
                 </div>
                 </li>
+                
               )}
             <li>
               <img

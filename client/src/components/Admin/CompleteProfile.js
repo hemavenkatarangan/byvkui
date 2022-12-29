@@ -23,6 +23,7 @@ const noteStyle = {
 function CompleteProfile(props) {
 
   const user = useSelector((state) => state.auth);
+    const [profileData,setProfileData] = useState({});
    const [profile, setProfile] = useState({
 	first_name : "",
 	last_name : "",
@@ -84,8 +85,7 @@ function CompleteProfile(props) {
     return moment(date).format("YYYY-MM-DD");
   };
   useEffect(() => {
-	
-	
+	getProfileData();
 	document.getElementById('gender').value =user.userData.gender;
 	document.getElementById('dob').value =getFormatedDate(user.userData.dob);
 	profile.first_name=user.userData.first_name;
@@ -107,10 +107,26 @@ function CompleteProfile(props) {
     updateStateCityCounty();
    
   }, []);
+  
+
+  const getProfileData = () => {
+	console.log("Calling the profile data api"+user.userData.email_id);
+	axios
+	.get("/profile/"+user.userData.email_id)
+	.then((res) => {
+		if(res.data.status_code === "200")
+		{
+		console.log(res.data.result,"profile data");
+		setProfileData(res.data.result[0]);
+		}
+	})
+		.catch((err)=>{
+		console.log(err);
+		});
+};
 
   const updateStateCityCounty = () => {
-    setCountry(Country.getAllCountries());
-   
+    setCountry(Country.getAllCountries());  
   };
 
  
@@ -502,6 +518,7 @@ axios
                   className="form-control-input notEmpty"
                   id="gender"
                   onChange={(e) => onProgramChange(e)}
+                  value={profileData.gender}
                   required
                 >
                   <option value="S_O" key="" selected>
@@ -548,7 +565,7 @@ axios
                   <input
                     type="text"
                     className="form-control-input notEmpty"
-                    value={profile.age}
+                    value={profileData.age}
                     id="age"
                     required
                     onInput={(e) => onProgramChange(e)}
@@ -564,6 +581,7 @@ axios
                   className="form-control-input notEmpty"
                   value={profile.address_1}
                   id="address_1"
+                 value={profileData.address_1}
                   onChange={(e) => onProgramChange(e)}
                   required
                 />
@@ -578,6 +596,7 @@ axios
                   className="form-control-input notEmpty"
                   value={profile.address_2}
                   id="address_2"
+                  value={profileData.address_2}
                   onChange={(e) => onProgramChange(e)}
                   required
                 />
@@ -591,7 +610,7 @@ axios
                   className="form-control-input notEmpty"
                   id="country"
                   onChange={(e) => onProgramChange(e)}
-                  value={profile.country}
+                  value={profileData.country}
                   required
                 >
                   <option value="S_O" key="c" selected>
@@ -616,7 +635,7 @@ axios
                   className="form-control-input notEmpty"
                   id="state"
                   onChange={(e) => onProgramChange(e)}
-                  value={profile.state}
+                  value={profileData.state}
                   required
                 >
                   <option value="S_O" key="s" selected>
@@ -640,7 +659,7 @@ axios
                   className="form-control-input notEmpty"
                   id="city"
                   onChange={(e) => onProgramChange(e)}
-                  value={profile.city}
+                  value={profileData.city}
                   required
               >
                   <option value="S_O" key="ci" selected>
@@ -667,6 +686,7 @@ axios
                   className="form-control-input notEmpty"
                   onChange={(e) => onProgramChange(e)}
                   id="nationality"
+                  value={profileData.nationality}
                   required
                 >
                   <option value="S_O" key="" selected>
@@ -691,6 +711,7 @@ axios
                   className="form-control-input notEmpty"
                   onChange={(e) => onProgramChange(e)}
                   id="maritalstatus"
+                  value={profileData.maritalstatus}
                   required
                 >
                   <option value="S_O" key="" selected>
@@ -712,10 +733,11 @@ axios
                 <label className="label-control">Marital Status <span style={{ color: "red" }}>*</span></label>
                 <p style={errStyle}>{errObj.maritalstatus}</p>
               </div>
-                            <div className="form-group">
+              <div className="form-group">
                 <select
                   className="form-control-input notEmpty"
                   id="qualification"
+                  value={profileData.qualification}
                   onChange={(e) => onProgramChange(e)}
                   required
                 >
@@ -751,6 +773,7 @@ axios
                 <select
                   className="form-control-input notEmpty"
                   id="occupation"
+                  value={profileData.occupation}
                   onChange={(e) => onProgramChange(e)}
                   required
                 >
@@ -787,6 +810,7 @@ axios
                   type="text"
                   className="form-control-input notEmpty"
                   id="languages"
+                  value={profileData.languages}
                   onChange={(e) => onProgramChange(e)}
                   required
                 />
@@ -807,6 +831,7 @@ axios
                 <select
                   className="form-control-input notEmpty"
                   id="previous_experience"
+                  value={profileData.previous_experience}
                   onChange={(e) => onProgramChange(e)}
                   required
                 >
@@ -829,6 +854,7 @@ axios
                   <select
                     className="form-control-input notEmpty"
                     id="experty_level"
+                    value={profileData.experty_level}
                     onChange={(e) => onProgramChange(e)}
                     required
                   >
@@ -853,6 +879,7 @@ axios
                 <select
                   className="form-control-input notEmpty"
                   id="about_byuk"
+                 value={profileData.about_byuk}
                   onChange={(e) => onProgramChange(e)}
                   required
                 >

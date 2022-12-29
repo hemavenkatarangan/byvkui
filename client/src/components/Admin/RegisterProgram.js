@@ -250,18 +250,10 @@ function RegisterProgram(props) {
 
 
 	useEffect(() => {
-
-         
-		
-		
-
-
 		console.log(user.userData);
 		if(!user || !user.userData)
 		{
-			
 		setLogged(false);
-	
 		}
 		else
 		{
