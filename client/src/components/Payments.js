@@ -71,6 +71,7 @@ function Payments(props) {
   };
 
   const submitPaymentData = () => {
+	console.log("Sending payments")
     let obj = {
       user_id: user.user.id,
       email_id: user.user.name,
@@ -276,7 +277,7 @@ function Payments(props) {
                     type="submit"
                     className="form-control-submit-button"
                     onClick={(e) => submitPaymentData(e)}
-                    disabled={activateButton}
+                    
                   >
                     Submit
                   </button>
