@@ -158,7 +158,7 @@ const compareDates = (date) => {
                               data.status !== "INACTIVE" &&
                               data.status == "STARTED" &&
                                 
-                  compareDates(data.program_start_date) && (data.name.includes('YogaM') || data.name.includes('MonthlyM'))? (
+                  compareDates(data.program_start_date) && (data.name.includes('YogaM') || data.name.toLowerCase().includes('monthly')|| data.name.toLowerCase().includes('sakhyam'))? (
                           <div key={index} className="row">
                             <div
                               className="col-lg-4"

@@ -18,6 +18,7 @@ function Nav() {
   const [adminAuth, setAdminAuth] = useState(false);
   const [courses, setCourses] = useState([]);
   const dispatch = useDispatch();
+  const [profileData,setProfileData] = useState({});
 
   useEffect(() => {
     if (user.isAuthenticated) {
@@ -28,8 +29,27 @@ function Nav() {
   });
 
   useEffect(() => {
-    getCoursesData();
+    getCoursesData();	
   }, []);
+
+  const getProfileData = () => {
+	console.log("Nav Calling the profile data api"+user.userData.email_id);
+	axios
+	.get("/profile/"+user.userData.email_id)
+	.then((res) => {
+		if(res.data.status_code === "200")
+		{
+		console.log(res.data.result,"profile data");
+		setProfileData(res.data.result[0]);
+		
+		}
+	})
+		.catch((err)=>{
+		console.log(err);
+		});
+};
+
+	
 
   const getCoursesData = () => {
     axios
@@ -52,6 +72,7 @@ function Nav() {
 
 const viewProfile = () => {
 	setIsModalVisible(true);
+	getProfileData();
 }
 
   const handleCancel = () => {
@@ -291,7 +312,12 @@ const viewProfile = () => {
                     Comple your profile
                   </a>
                   <div className="dropdown-divider"></div>
-                 
+                 <a className="dropdown-item page-scroll"
+                    style={{ color: "black", fontSize: "14px" }}
+                    onClick={viewProfile}>
+                    View Profile
+                  </a>
+                  <div className="dropdown-divider"></div>
                   <a
                     className="dropdown-item page-scroll"
                     style={{ color: "black", fontSize: "14px" }}
@@ -317,19 +343,123 @@ const viewProfile = () => {
 		        onCancel={handleCancel}
 		        onOk={handleCancel}
 		      >
-                <div className="form-group">
-		          <input
-		            type="text"
-		            className="form-control-input notEmpty"
-		            value=""
-		            id="course_name"
-		            required
-		          />
-		          <label className="label-control" htmlFor="name">
-		            Course Name
-		          </label>
-		         
-		        </div>
+                <div className="container">
+          <div className="row">
+            <div className="col-md-6">
+              <div className="row">
+                <h5 style={{ color: "darkblue" }}>Personal Details </h5>
+              </div>
+              <div className="row">
+                <p>
+                  <span style={{ color: "orange" }}>First Name  : </span>
+                  {profileData.first_name}
+                </p>
+              </div>
+              <div className="row">
+                <p>
+                  <span style={{ color: "orange" }}>Last Name : </span>
+            		{profileData.last_name}
+                </p>
+              </div>
+              <div className="row">
+                <p>
+                  <span style={{ color: "orange" }}>Phone Number : </span>
+                  {profileData.phone_num} 
+                </p>
+              </div>
+              <div className="row">
+                <p>
+                  <span style={{ color: "orange" }}>Marital Status : </span>
+                  {profileData.maritalstatus}
+                </p>
+              </div>
+              <div className="row">
+                <p>
+                  <span style={{ color: "orange" }}>Address : </span>
+                  {profileData.address_1}
+                </p>
+              </div>
+              <div className="row">
+                <p>
+                  <span style={{ color: "orange" }}>Address 2 : </span>
+                  {profileData.address_2}
+                </p>
+              </div>
+              <div className="row">
+                <p>
+                  <span style={{ color: "orange" }}>Age : </span>
+                  {profileData.age}
+                </p>
+              </div>
+              <div className="row">
+                <p>
+                  <span style={{ color: "orange" }}>City : </span>
+                  {profileData.city}
+                </p>
+              </div>
+              <div className="row">
+                <p>
+                  <span style={{ color: "orange" }}>State : </span>
+                  {profileData.state}
+                </p>
+              </div>
+              <div className="row">
+                <p>
+                  <span style={{ color: "orange" }}>Country : </span>
+                  {profileData.country}
+                </p>
+              </div>
+              <div className="row">
+                <p>
+                  <span style={{ color: "orange" }}>Date of Birth : </span>
+                  {profileData.dob}
+                </p>
+              </div>
+              <div className="row">
+                <p>
+                  <span style={{ color: "orange" }}>Email ID : </span>
+                  {profileData.email_id}
+                </p>
+              </div>
+              <div className="row">
+                <p>
+                  <span style={{ color: "orange" }}>Experty Level : </span>
+                  {profileData.experty_level}
+                </p>
+              </div>
+              <div className="row">
+                <p>
+                  <span style={{ color: "orange" }}>Languages : </span>
+                  {profileData.languages}
+                </p>
+              </div>
+              <div className="row">
+                <p>
+                  <span style={{ color: "orange" }}>Nationality : </span>
+                  {profileData.nationality}
+                </p>
+              </div>
+              <div className="row">
+                <p>
+                  <span style={{ color: "orange" }}>Occupation Details : </span>
+                  {profileData.occupation_details}
+                </p>
+              </div>
+              <div className="row">
+                <p>
+                  <span style={{ color: "orange" }}>Previous Yoga Experience : </span>
+                  {profileData.previous_experience}
+                </p>
+              </div>
+              <div className="row">
+                <p>
+                  <span style={{ color: "orange" }}>Qualifictaion : </span>
+                  {profileData.qualification}
+                </p>
+              </div>
+            </div>  
+          </div>
+        </div>
       			</Modal>
                 </>
               ) : (

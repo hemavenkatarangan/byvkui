@@ -213,7 +213,7 @@ const validateSakhyam = () => {
                   data.status !== "INACTIVE" &&
                   data.status == "STARTED" &&
                   !data.isUserRegistered && 
-                  compareDates(data.program_start_date) && (data.name.includes('YogaM') || data.name.includes('MonthlyM')) ? (
+                  compareDates(data.program_start_date) && (data.name.toLowerCase().includes('yogam') || data.name.toLowerCase().includes('monthly')) ? (
                     <div className="" style={{ marginTop: "0px" }}>
                       <Button
                         type="primary"
@@ -237,7 +237,7 @@ const validateSakhyam = () => {
                   data.status !== "INACTIVE" &&
                   data.status == "STARTED" &&
                   !data.isUserRegistered && 
-                  compareDates(data.program_start_date) && (data.name.includes('SakhyaM')) ? (
+                  compareDates(data.program_start_date) && (data.name.toLowerCase().includes('sakhyam')) ? (
                     <div className="" style={{ marginTop: "0px" }}>
                       <Button
                         type="primary"
