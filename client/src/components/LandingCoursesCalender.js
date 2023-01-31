@@ -213,7 +213,7 @@ const validateSakhyam = () => {
                   data.status !== "INACTIVE" &&
                   data.status == "STARTED" &&
                   !data.isUserRegistered && 
-                  compareDates(data.program_start_date) && (data.name.toLowerCase().includes('yogam') || data.name.toLowerCase().includes('monthly')) ? (
+                  compareDates(data.program_start_date) && (data.name.toLowerCase().includes('yogam') || data.name.toLowerCase().includes('monthly') || data.name.toLowerCase().includes('atha yoga')) ? (
                     <div className="" style={{ marginTop: "0px" }}>
                       <Button
                         type="primary"
