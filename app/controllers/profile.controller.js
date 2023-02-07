@@ -53,13 +53,15 @@ module.exports = {
     },
 
     updateProfile: async (req, res) => {
-        const user = await Profile.findByIdAndUpdate(req.value.params.emailId, req.body, { new: true });
+		console.log(req.body,"body 123");
+        const user = await Profile.findByIdAndUpdate({_id:req.body.id},req.body,{new: true});
         if (!user) {
             return res.status(404).send({
                 message: "Profile not found with id " + req.params.emailId
             });
         }
-        res.status(200).json({ profile: user });
+        var response ={status_code:"200",status_message:"Successfully Updated profile ",result:user};
+        res.status(200).json(response);
     },
 
    

@@ -773,9 +773,13 @@ function RegisterProgram(props) {
 				fees_agreed: feesAgreed ? "Yes" : "No",
 			};
 		} else {
+			console.log(user);
 			var user_id="";
 			var user_email=program.user_email;
 			var user_name=checkedName;
+			var gender = user.userData.gender;
+			
+			
 			console.log("PRogram email "+program.user_email+" checked name "+checkedName);
 			
 			obj = {
@@ -798,7 +802,7 @@ function RegisterProgram(props) {
 				relationship: relationship,
 				age: calculatedAge,
 				date_of_birth: program.dob,
-				gender: program.gender,
+				gender: gender,
 				qualification: program.qualification,
 				occupation: program.occupation,
 				health_ailments: checkedHealth,

@@ -309,7 +309,7 @@ const viewProfile = () => {
                     style={{ color: "black", fontSize: "14px" }}
                     href="/completeprofile"
                   >
-                    Comple your profile
+                    Complete your profile
                   </a>
                   <div className="dropdown-divider"></div>
                  <a className="dropdown-item page-scroll"

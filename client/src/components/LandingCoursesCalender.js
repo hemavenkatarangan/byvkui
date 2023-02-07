@@ -237,7 +237,7 @@ const validateSakhyam = () => {
                   data.status !== "INACTIVE" &&
                   data.status == "STARTED" &&
                   !data.isUserRegistered && 
-                  compareDates(data.program_start_date) && (data.name.toLowerCase().includes('sakhyam')) ? (
+                  compareDates(data.program_start_date) && (data.name.toLowerCase().includes('sakhyam')||data.name.toLowerCase().includes('kausalam')) ? (
                     <div className="" style={{ marginTop: "0px" }}>
                       <Button
                         type="primary"

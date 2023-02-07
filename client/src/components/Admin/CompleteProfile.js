@@ -79,15 +79,17 @@ function CompleteProfile(props) {
   const [otherSource, setOtherSource] = useState(false);
   const [checkedName, setCheckedName] = useState("");
   const [isAuthenticated, setAuthenticated] = useState(false);
-  const getFormatedDate = (date) => {
+  //const getFormatedDate = (date) => {
     // console.log("formatting......")
-    if(date)
-    return moment(date).format("YYYY-MM-DD");
-  };
+    //if(date)
+    //console.log(date);
+    //return moment(date).format("YYYY-MM-DD");
+  //};
+  const [getFormatedDate,setGetFormatedDate] = useState("");
   useEffect(() => {
 	getProfileData();
 	document.getElementById('gender').value =user.userData.gender;
-	document.getElementById('dob').value =getFormatedDate(user.userData.dob);
+	//document.getElementById('dob').value =getFormatedDate(user.userData.dob);
 	profile.first_name=user.userData.first_name;
 	profile.last_name=user.userData.last_name;
 	profile.email_id=user.userData.email_id;
@@ -118,6 +120,13 @@ function CompleteProfile(props) {
 		{
 		console.log(res.data.result,"profile data");
 		setProfileData(res.data.result[0]);
+		setGetFormatedDate(res.data.result[0].dob.slice(0,10));
+		if (res.data.result[0].country != ""){
+		      setStates(State.getStatesOfCountry(res.data.result[0].country));	    	    
+			}
+		if (res.data.result[0].state != ""){    	
+		      setCity(City.getCitiesOfState(res.data.result[0].country, res.data.result[0].state));		    
+			}
 		}
 	})
 		.catch((err)=>{
@@ -132,8 +141,9 @@ function CompleteProfile(props) {
  
 
   const onProgramChange = (e) => {
-
+	console.log(e.target.value);
     const { id, value } = e.target;
+    console.log(id,value,"val");
         if (id === "country" || id === "state") {
       getDataBasedOnSelection(id, value);
     }
@@ -149,7 +159,10 @@ function CompleteProfile(props) {
       setOtherSource(false);
     }
 
-    setProfile((profile) => ({ ...profile, [id]: value }));
+    setProfileData((profile) => ({ ...profile, [id]: value }));
+    if (id === 'dob'){
+		setGetFormatedDate(value);
+	}
 
   };
 
@@ -169,7 +182,7 @@ function CompleteProfile(props) {
 	
     let valid = true;
     
-    if (profile.address_1.length < 3) {
+    if (profileData.address_1.length < 3) {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
@@ -183,7 +196,7 @@ function CompleteProfile(props) {
         address_1: "",
       }));
     }
-     if (profile.address_2.length < 3) {
+     if (profileData.address_2.length < 3) {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
@@ -199,7 +212,7 @@ function CompleteProfile(props) {
     }
     
     
-     if (profile.gender == "") {
+     if (profileData.gender == "") {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
@@ -215,7 +228,7 @@ function CompleteProfile(props) {
       }));
     }
 
-     if (profile.dob == "") {
+     if (profileData.dob == "") {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
@@ -231,7 +244,7 @@ function CompleteProfile(props) {
       }));
     }
 
-    if (profile.maritalstatus == "") {
+    if (profileData.maritalstatus == "") {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
@@ -246,7 +259,7 @@ function CompleteProfile(props) {
         maritalstatus: "",
       }));
     }
-if (profile.city.length <= 1) {
+if (profileData.city.length <= 1) {
 
       setErrObj((errObj) => ({
         ...errObj,
@@ -261,7 +274,7 @@ if (profile.city.length <= 1) {
       }));
     }
     
-    if (profile.languages == "") {
+    if (profileData.languages == "") {
 
       setErrObj((errObj) => ({
         ...errObj,
@@ -276,7 +289,7 @@ if (profile.city.length <= 1) {
       }));
     }
 
-    if (profile.state.length <= 1) {
+    if (profileData.state.length <= 1) {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
@@ -291,7 +304,7 @@ if (profile.city.length <= 1) {
       }));
     }
 
-    if (profile.country.length <= 1) {
+    if (profileData.country.length <= 1) {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
@@ -305,7 +318,7 @@ if (profile.city.length <= 1) {
         country: "",
       }));
     }
-    if (profile.qualification == "") {
+    if (profileData.qualification == "") {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
@@ -321,7 +334,7 @@ if (profile.city.length <= 1) {
       }));
     }
 
-    if (profile.occupation == "") {
+    if (profileData.occupation == "") {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
@@ -336,7 +349,7 @@ if (profile.city.length <= 1) {
       }));
     }
     console.log("Nationality " + profile.nationality);
-    if (profile.nationality == "") {
+    if (profileData.nationality == "") {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
@@ -351,7 +364,7 @@ if (profile.city.length <= 1) {
       }));
     }
     
-     if (prevExperience && profile.experty_level == "") {
+     if (prevExperience && profileData.experty_level == "") {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
@@ -366,7 +379,7 @@ if (profile.city.length <= 1) {
       }));
     }
 
-    if (profile.about_byuk == "") {
+    if (profileData.about_byuk == "") {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
@@ -382,13 +395,13 @@ if (profile.city.length <= 1) {
     }
 
 
-if (profile.experty_level == "") {
-     profile.experty_level="Beginner"
+if (profileData.experty_level == "") {
+     profileData.experty_level="Beginner"
     }
     if (valid) {
      	submitProfile();
     }
-    	console.log(profile);
+    	console.log(profileData);
     console.log("End of validation");
   };
 
@@ -419,32 +432,32 @@ if (profile.experty_level == "") {
   }
 
   const submitProfile = () => {
-	console.log("Submitting form ...");
+	console.log(profileData,"Submitting form ...");
     var obj = {};
     
       obj = {
-	
-	first_name : profile.first_name,
-	last_name : profile.last_name,
-	email_id : profile.email_id,
-	phone_num : profile.phone_num,
-	gender : profile.gender,
-	dob : profile.dob,
-	age : profile.age,
-    address_1 : profile.address_1,
-    address_2 : profile.address_2,
-    city: profile.city,
-    state: profile.state,
-    country: profile.country,
-    nationality: profile.nationality,
-    qualification: profile.qualification,
-   	maritalstatus: profile.maritalstatus,
-   	occupation: profile.occupation,
-   	occupation_details: profile.occupation_details,
-   	languages: profile.languages,
-   	experty_level: profile.experty_level,
-   	previous_experience: profile.previous_experience,
-   	about_byuk: profile.about_byuk,
+	id : profileData._id,
+	first_name : profileData.first_name,
+	last_name : profileData.last_name,
+	email_id : profileData.email_id,
+	phone_num : profileData.phone_num,
+	gender : profileData.gender,
+	dob : profileData.dob,
+	age : profileData.age,
+    address_1 : profileData.address_1,
+    address_2 : profileData.address_2,
+    city: profileData.city,
+    state: profileData.state,
+    country: profileData.country,
+    nationality: profileData.nationality,
+    qualification: profileData.qualification,
+   	maritalstatus: profileData.maritalstatus,
+   	occupation: profileData.occupation,
+   	occupation_details: profileData.occupation_details,
+   	languages: profileData.languages,
+   	experty_level: profileData.experty_level,
+   	previous_experience: profileData.previous_experience,
+   	about_byuk: profileData.about_byuk,
       };
 
 console.log(obj,"obj");
@@ -452,15 +465,17 @@ console.log(obj,"obj");
 //Saving to db
 
 axios
-      .post("/profile/", obj)
+      .patch("/profile/"+obj.email_id, obj)
       .then((res) => {
-      console.log(res);
-       
+		if(res.status == 200){
+			alert(res.data.status_message);
+		}else{
+			alert("Profile did not get updated");
+		}     
 	});
 //saving to db
   
   };
-
 
  
 
@@ -556,8 +571,7 @@ axios
                   className="form-control-input notEmpty"
                   id="dob"
                  onInput={(e) => onProgramChange(e)}
-                 value={getFormatedDate(profile.dob)}
-                  
+                  value={getFormatedDate}
                 />
                 <label className="label-control">Date of Birth <span style={{ color: "red" }}>*</span></label>
               </div>

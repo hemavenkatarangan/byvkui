@@ -87,27 +87,7 @@ function UserRegistertedForProgram(props) {
       dataIndex: "user_email",
       key: "user_email",
     },
-    {
-      title: "Relationship",
-      dataIndex: "relationship",
-      key: "relationship",
-    },
-    {
-      title: "Address",
-      dataIndex: "address_1",
-      key: "address_1",
-    },
-    {
-      title: "City",
-      dataIndex: "city",
-      key: "city",
-    },
-    {
-      title: "State",
-      dataIndex: "state",
-      key: "state",
-      
-    },
+   
     {
       title: "Country",
       dataIndex: "country",
