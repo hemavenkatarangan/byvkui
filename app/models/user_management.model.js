@@ -95,7 +95,7 @@ var UserManagementSchema = new Schema(
     role_of_yoga_teacher: { type: String },
     planning_to_teach: { type: String },
     why_teach_yoga: { type: String },
-    teaching_experience: { type: String, enum: ["Yes", "No"], default: "No", required: false },
+    teaching_experience: { type: String, enum: ["Yes - 6 months","Yes- more than 1 year", "No"], default: "No", required: false },
     teaching_experience_description: { type: String },
     attraction_to_yoga_path: { type: String },
     meditation_practices: { type: String },

@@ -85,19 +85,7 @@ module.exports = {
 });
 	
    
-   /* const users = await UserManagement.find({ registered_by:user_id});
-    if (!users) {
-      response.status_code = "404";
-      response.status_message = "Program Users Data not found";
-      response.result = null;
-      return res.status(200).json(response);
-    } else {
-	
-      response.status_code = "200";
-      response.status_message = "Program users data found";
-      response.result = users;
-      res.status(200).json(response);
-    }*/
+  
   },
   getUserManagement: async (req, res) => {
     const { userManagementId } = req.params;
@@ -138,8 +126,9 @@ module.exports = {
   registerForProgram: async (req, res) => {
     try {
 	 
-	  const users = await UserManagement.find({ program_id: req.body.program_id ,user_name:req.body.user_name,user_mail:req.body.user_email});
-	  
+	  const users = await UserManagement.find({'$and':[{"program_id": ObjectId(req.body.program_id)} ,{"user_name":req.body.user_name},{"user_email":req.body.user_email}]});
+	  console.log("Users already for program ");
+	  console.log(users);
 	  if(users && users.length === 0 )
 	  {
       const newUser = new UserManagement(req.body);

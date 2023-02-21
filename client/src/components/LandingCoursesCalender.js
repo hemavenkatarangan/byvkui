@@ -39,7 +39,7 @@ const history = useHistory();
 	.then((res) => {
 		if(res.data.status_code === "200")
 		{
-		console.log(res.data.result,"profile data");
+		
 		setProfileData(res.data.result[0]);
 		}
 	})
@@ -56,13 +56,9 @@ const history = useHistory();
       .then((res) => {
 	console.log("Data in landing courses ");
 	console.log(res.data.result);
+	var landingEvents=res.data.result;
         setcData(res.data.result);
 
-        cData.map((data, index) => {
-          var isUserRegistered = isUserAlreadyRegistered(data._id);
-          console.log("Set user registered");
-          data.isUserRegistered = isUserRegistered;
-        });
       })
       .catch((err) => {
         console.log(err);
@@ -80,31 +76,7 @@ const getCourse = (courseId) => {
         console.log(err);
       });
   };
-  const isUserAlreadyRegistered = (programId) => {
-    console.log("Checking user registration");
-    var usl =
-      "/usermanagement/program/" + programId + "/user_id/" + user.userData._id;
-
-    axios
-      .get(
-        "/usermanagement/program/" + programId + "/user_id/" + user.userData._id
-      )
-      .then((res) => {
-        if (res.data.result.length == 0) {
-          setUserAlreadyRegistered(false);
-          return false;
-        } else {
-          console.log("Returning true");
-          setUserAlreadyRegistered(true);
-          return true;
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    console.log(isUserHasRegistered);
-    return isUserHasRegistered;
-  };
+ 
 
   const getFormatedDate = (date) => {
     // console.log("formatting......")
@@ -121,13 +93,8 @@ const getCourse = (courseId) => {
     return val;
   };
   
-  const SakhyamHandler = (data_id) =>{
-	
 
-	
-}
-
-const validateSakhyam = () => {
+const validateForCourse = () => {
 	console.log("Profile Data to validate ");
 	console.log(profileData);
 	if(isAuthenticated){
@@ -209,10 +176,11 @@ const validateSakhyam = () => {
                     </Button>
                   </div>
 
+                  
                   {
                   data.status !== "INACTIVE" &&
                   data.status == "STARTED" &&
-                  !data.isUserRegistered && 
+                  
                   compareDates(data.program_start_date) && (data.name.toLowerCase().includes('yogam') || data.name.toLowerCase().includes('monthly') || data.name.toLowerCase().includes('atha yoga')) ? (
                     <div className="" style={{ marginTop: "0px" }}>
                       <Button
@@ -236,8 +204,8 @@ const validateSakhyam = () => {
                   {
                   data.status !== "INACTIVE" &&
                   data.status == "STARTED" &&
-                  !data.isUserRegistered && 
-                  compareDates(data.program_start_date) && (data.name.toLowerCase().includes('sakhyam')||data.name.toLowerCase().includes('kausalam')) ? (
+                  
+                  compareDates(data.program_start_date) && (data.name.toLowerCase().includes('sakhyam')|| (data.name.toLowerCase().includes('t t c')) ||data.name.toLowerCase().includes('kausalam')) ? (
                     <div className="" style={{ marginTop: "0px" }}>
                       <Button
                         type="primary"
@@ -250,7 +218,7 @@ const validateSakhyam = () => {
                         }}
                       >
                         <a href={"../registercourse/" + data._id} onClick={(e)=>{
-							let validSakhyam = validateSakhyam();
+							let validSakhyam = validateForCourse();
 							console.log("Complete profile is validated "+validSakhyam);
 							if (!validSakhyam) {
 								e.preventDefault();
@@ -265,6 +233,7 @@ const validateSakhyam = () => {
                   ) : (
                     ""
                   )}
+                  
                 </div>
               </div>
               <hr style={{ marginTop: "4px" }} />
