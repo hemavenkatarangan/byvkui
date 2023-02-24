@@ -594,7 +594,7 @@ function RegisterProgram(props) {
 		}
 		
 		
-		if (program.alternate_phone_number == "") {
+		if (courseData.course_name === "T T C" && program.alternate_phone_number == "") {
 			valid = false;
 			setErrObj((errObj) => ({
 				...errObj,
@@ -664,7 +664,7 @@ function RegisterProgram(props) {
 		}
 
 
-		if (residentialCourse && program.emergency_contactname.length <= 3) {
+		if (courseData.course_name === "T T C" && program.emergency_contactname.length <= 3) {
 			valid = false;
 			setErrObj((errObj) => ({
 				...errObj,
@@ -672,7 +672,7 @@ function RegisterProgram(props) {
 			}));
 		}
 
-		if (residentialCourse && program.emergency_contactnumber.length == 0) {
+		if (courseData.course_name === "T T C" && program.emergency_contactnumber.length == 0) {
 			valid = false;
 			setErrObj((errObj) => ({
 				...errObj,
@@ -680,7 +680,7 @@ function RegisterProgram(props) {
 			}));
 		}
 
-		if (residentialCourse && program.emergency_contactnumber.length < 10) {
+		if (courseData.course_name === "T T C" && program.emergency_contactnumber.length < 10) {
 			valid = false;
 			setErrObj((errObj) => ({
 				...errObj,
@@ -689,7 +689,7 @@ function RegisterProgram(props) {
 		}
 
 		if (
-			residentialCourse &&
+			courseData.course_name === "T T C" &&
 			program.emergency_contactrelationship.length == 0
 		) {
 			valid = false;
@@ -700,7 +700,7 @@ function RegisterProgram(props) {
 		}
 console.log("Validated till contactrelationship "+valid);
 		
-		if (residentialCourse && program.medicines_details == "") {
+		if (courseData.course_name === "T T C" && program.medicines_details == "") {
 			valid = false;
 			setErrObj((errObj) => ({
 				...errObj,
@@ -708,7 +708,7 @@ console.log("Validated till contactrelationship "+valid);
 			}));
 		}
 console.log("Validated till medicine details "+valid);
-		if (residentialCourse && program.covid_vaccine_dose == "") {
+		if (courseData.course_name === "T T C" && program.covid_vaccine_dose == "") {
 			valid = false;
 			setErrObj((errObj) => ({
 				...errObj,
