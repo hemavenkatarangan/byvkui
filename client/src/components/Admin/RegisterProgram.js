@@ -780,6 +780,7 @@ console.log("Validated till medicine details "+valid);
 
 
 	const submitProgram = () => {
+	    var mailObject = {};
 		var obj = {};
 		var lstyle = "None";
 		if (isChecked) {
@@ -921,7 +922,7 @@ console.log("Validated till medicine details "+valid);
 		axios
 			.post("/usermanagement/", obj)
 			.then((res) => {
-
+               var paymentsfeesCourseNameUrl = "";
 				if (res.data.status_code === "200") {
 					if (residentialCourse) {
 						alert(
@@ -944,7 +945,7 @@ console.log("Validated till medicine details "+valid);
 								"You have successfully registered for the event.Please proceed to the payment section"
 							);
 							setTimeout(function() {
-								let paymentsfeesCourseNameUrl = "";
+								
 								console.log(program.nationality);
 								console.log(program.country);
 
@@ -975,20 +976,24 @@ console.log("Validated till medicine details "+valid);
 
 								}
 								console.log(paymentsfeesCourseNameUrl)
-								window.location.href = paymentsfeesCourseNameUrl;
-							}, 300);
-						}
-					}
-
-					//SEnding mail
-					var mailObject = {
+								 mailObject = {
 						to_address: program.user_email,
 						subject: programData.name + " application received",
 						email_body: "",
 						name: checkedName,
 						course: courseData.course_name,
-						event_start_date: getFormatedDate(programData.program_start_date)
+						event_start_date: getFormatedDate(programData.program_start_date),
+						payments_url:paymentsfeesCourseNameUrl
 					}
+					console.log(mailObject)
+								window.location.href = paymentsfeesCourseNameUrl;
+							}, 200);
+						}
+					}
+
+					//SEnding mail
+					
+					
 					axios
 						.post("/mailservice/sendmailforregistration", mailObject)
 						.then((res) => {
