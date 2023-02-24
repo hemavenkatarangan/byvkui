@@ -2604,7 +2604,7 @@ console.log("Validated till medicine details "+valid);
 
 					{!residentialCourse && (
 						<>
-							{termsAgreed && feesAgreed && feeStructure && decAgreed ? (
+							{termsAgreed && feesAgreed && feeStructure  ? (
 								<div className="form-group mt-4">
 									<button
 										type="submit"
