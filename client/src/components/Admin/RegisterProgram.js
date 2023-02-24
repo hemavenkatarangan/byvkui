@@ -401,11 +401,14 @@ function RegisterProgram(props) {
 	};
 
 	const validateProgramData = () => {
+		     if(isLogged)
+		     {
 		     program.address_1 = currentProfileData.address_1;
 			 program.address_2 = currentProfileData.address_2;
 			 program.dob=currentProfileData.dob;
 			 program.city=currentProfileData.city;
 			 program.state = currentProfileData.state;
+			
 			 program.country=currentProfileData.country;
 			 program.occupation=currentProfileData.occupation;
 			 program.occupation_details=currentProfileData.occupation_details;
@@ -416,6 +419,7 @@ function RegisterProgram(props) {
 			 program.languages = currentProfileData.languages;
 			 
 			 console.log(program.covid_vaccine_dose,"dose log");
+			 }
 		
 		if (!isValidAge) {
 			alert(
@@ -528,8 +532,11 @@ function RegisterProgram(props) {
 		}
 		else {
 			console.log("Gender checking ")
+			if(isLogged)
+			{
             program.gender = currentProfileData.gender;
    		    setProgram({ ...program });
+   		    }
 			setErrObj((errObj) => ({
 				...errObj,
 				gender: "",
@@ -629,7 +636,7 @@ function RegisterProgram(props) {
 			}));
 		}
 		
-		if ((isChecked || !isLogged) && (program.country === "" || program.country === "S_O") && currentProfileData.country == "") {
+		if ((isChecked || !isLogged) && (program.country === "" || program.country === "S_O") ) {
 			valid = false;
 			setErrObj((errObj) => ({
 				...errObj,
@@ -846,7 +853,7 @@ console.log("Validated till medicine details "+valid);
 			var user_id = "";
 			var user_email = program.user_email;
 			var user_name = checkedName;
-			var gender = user.userData.gender;
+			var gender = program.gender;
 
 
 			console.log("PRogram email " + program.user_email + " checked name " + checkedName);
