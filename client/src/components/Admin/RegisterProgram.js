@@ -139,9 +139,10 @@ function RegisterProgram(props) {
 		languages: "",
 		learning_yoga: "No Experience",
 		kind_of_yoga: "",
+		health_array:"",
 		health_conditions: "",
 		medicines_details: "",
-		covid_vaccine_dose: "No",
+		covid_vaccine_dose: "",
 		tobbaco_consumption: "No",
 		frequency_details_of_tobaaco_use: "",
 		role_of_yoga_teacher: "",
@@ -187,6 +188,7 @@ function RegisterProgram(props) {
 		emergency_contactrelationship2: "",
 		languages: "",
 		kind_of_yoga: "",
+		health_array:"",
 		health_conditions: "",
 		medicines_details: "",
 		covid_vaccine_dose: "",
@@ -218,6 +220,8 @@ function RegisterProgram(props) {
 	const [checkedHealth2, setCheckedHealth2] = useState([]);
 	const [termsClicked, setTermsClicked] = useState(false);
 	const [termsAgreed, setTermsAgreed] = useState(false);
+	const [decClicked, setDecClicked] = useState(false);
+	const [decAgreed, setDecAgreed] = useState(false);
 	const [rulesClicked, setRulesClicked] = useState(false);
 	const [rulesAgreed, setRulesAgreed] = useState(false);
 	const [feesClicked, setFeesClicked] = useState(false);
@@ -407,6 +411,11 @@ function RegisterProgram(props) {
 			 program.occupation_details=currentProfileData.occupation_details;
 			 program.maritalstatus=currentProfileData.maritalstatus;
 			 program.previous_experience=currentProfileData.previous_experience;
+			 program.gender = currentProfileData.gender;
+			 program.qualification = currentProfileData.qualification;
+			 program.languages = currentProfileData.languages;
+			 
+			 console.log(program.covid_vaccine_dose,"dose log");
 		
 		if (!isValidAge) {
 			alert(
@@ -420,11 +429,91 @@ function RegisterProgram(props) {
 		}
 		let valid = true;
 		const concateArray = checkedHealth1.concat(checkedHealth2);
-		setCheckedHealth(concateArray);
-		program.health_ailments=concateArray;
+		
+		if (courseData.course_name === "T T C" && (concateArray.length === 0)) {
+			valid = false;
+			setErrObj((errObj) => ({
+				...errObj,
+				health_array: "Please Select atleast one box",
+			}));
+		}else{
+			program.health_ailments=concateArray;
+			setCheckedHealth(concateArray);
+			setErrObj((errObj) => ({
+				...errObj,
+				health_array: "",
+			}));	
+		}
+		
 		setProgram({ ...program });
          
-        
+         		if (
+			courseData.course_name === "SakhyaM" &&
+			program.tobbaco_consumption == "Yes"
+		) {
+			valid = false;
+			setErrObj((errObj) => ({
+				...errObj,
+				frequency_details_of_tobaaco_use: "You have chosen the tobacco consumption as Yes, So please enter details ",
+			}));
+		}
+		else {
+
+			setErrObj((errObj) => ({
+				...errObj,
+				frequency_details_of_tobaaco_use: "",
+			}));
+		}
+		
+         
+        		if (courseData.course_name === "T T C" && noneClicked && program.health_conditions == "") {
+			console.log("entered health");
+			valid = false;
+			setErrObj((errObj) => ({
+				...errObj,
+				health_conditions: "Please Enter your Health Conditions",
+			}));
+		}
+		else {
+            
+			setErrObj((errObj) => ({
+				...errObj,
+				health_conditions: "",
+			}));
+		}
+		
+		if (courseData.course_name === "T T C" && program.covid_vaccine_dose == "") {
+			console.log("dose entered");
+			valid = false;
+			setErrObj((errObj) => ({
+				...errObj,
+				covid_vaccine_dose: "Please select the option",
+			}));
+		}else {
+
+			setErrObj((errObj) => ({
+				...errObj,
+				covid_vaccine_dose: "",
+			}));
+		}
+		
+		if (
+			courseData.course_name === "T T C" && frequencyUse && program.frequency_details_of_tobaaco_use == ""
+		) {
+			console.log("alc entered",frequencyUse);
+			valid = false;
+			setErrObj((errObj) => ({
+				...errObj,
+				frequency_details_of_tobaaco_use: "Please enter details ",
+			}));
+		}
+		else {
+
+			setErrObj((errObj) => ({
+				...errObj,
+				frequency_details_of_tobaaco_use: "",
+			}));
+		}
 
 		if (isChecked && program.gender == "" && currentProfileData.gender == "") {
 			valid = false;
@@ -503,6 +592,23 @@ function RegisterProgram(props) {
 				user_email: "",
 			}));
 		}
+		
+		
+		if (program.alternate_phone_number == "") {
+			valid = false;
+			setErrObj((errObj) => ({
+				...errObj,
+				alternate_phone_number: "Please Enter Alternate Phone Number",
+			}));
+			console.log("alt ph number validation false");
+		}
+		else {
+
+			setErrObj((errObj) => ({
+				...errObj,
+				alternate_phone_number: "",
+			}));
+		}
 
 		if (phoneNumber == "") {
 			valid = false;
@@ -539,23 +645,6 @@ function RegisterProgram(props) {
 			}));
 		}
 		
-		console.log("Validated till country "+valid);
-		if (!residentialCourse && program.health_conditions == "") {
-			valid = false;
-			setErrObj((errObj) => ({
-				...errObj,
-				health_conditions: "Please Enter your Health Conditions",
-			}));
-		}
-		else {
-            
-			setErrObj((errObj) => ({
-				...errObj,
-				health_conditions: "",
-			}));
-		}
-		console.log("Validated till health conditions "+valid);
-
 		if (
 			courseData.course_name === "SakhyaM" &&
 			program.tobbaco_consumption == "S_O"
@@ -571,24 +660,6 @@ function RegisterProgram(props) {
 			setErrObj((errObj) => ({
 				...errObj,
 				tobbaco_consumption: "",
-			}));
-		}
-
-		if (
-			courseData.course_name === "SakhyaM" &&
-			program.tobbaco_consumption == "Yes"
-		) {
-			valid = false;
-			setErrObj((errObj) => ({
-				...errObj,
-				frequency_details_of_tobaaco_use: "You have chosen the tobacco consumption as Yes, So please enter details ",
-			}));
-		}
-		else {
-
-			setErrObj((errObj) => ({
-				...errObj,
-				frequency_details_of_tobaaco_use: "",
 			}));
 		}
 
@@ -645,7 +716,6 @@ console.log("Validated till medicine details "+valid);
 			}));
 		}
 		console.log("Validation till here covid vaccine dose" + valid);
-		
 		
 		if (courseData.course_name === "T T C" && (program.planning_to_teach == "" || program.planning_to_teach == "S_O")) {
 			valid = false;
@@ -939,6 +1009,7 @@ console.log("Validated till medicine details "+valid);
 					qualification: "",
 					occupation: "",
 					occupation_details: "",
+					health_array:"",
 					health_ailments: "",
 					lifestyle: "None",
 					previous_experience: "No",
@@ -1003,6 +1074,7 @@ console.log("Validated till medicine details "+valid);
 					emergency_contactrelationship2: "",
 					languages: "",
 					kind_of_yoga: "",
+					health_array:"",
 					health_conditions: "",
 					medicines_details: "",
 					covid_vaccine_dose: "",
@@ -1160,6 +1232,7 @@ console.log("Validated till medicine details "+valid);
 
 	const declarationsHandlerClose = () => {
 		setTermsDisplay("none");
+		setDecClicked(true);
 		setModalData("");
 	};
 
@@ -1170,21 +1243,21 @@ console.log("Validated till medicine details "+valid);
 				<div className="container">
 					<div className="row" style={{ marginTop: '100px' }}>
 						<div className="text-container" style={{ marginTop: '45px' }}>
-							<h3 className="h3-large" style={{ fontFamily: 'Poppins', color: 'darkblue' }}>Terms and Conditions/Declarations:</h3>
+							<h3 className="h3-large" style={{ fontFamily: 'Poppins', color: 'darkblue' }}>Declarations:</h3>
 							<p className="" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: 'black', fontSize: '12px' }}>
 								By submitting this application, I affirm the statements below:-
 							</p>
 							<ul>
 								<li>
 									<p className="" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: 'black', fontSize: '12px' }}>
-										1. Bharat Yoga Vidya Kendra (BYVK) and The Satsang Foundation (TSF) would not be held
+										Bharat Yoga Vidya Kendra (BYVK) and The Satsang Foundation (TSF) would not be held
 										responsible for any injuries, damages or health issues that may occur during or after the Yoga Teacher Training Course (TTC).
 
 									</p>
 								</li>
 								<li>
 									<p className="" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: 'black', fontSize: '12px' }}>
-										2. All participants are expected to abstain from the consumption of alcohol, tobacco, cigarettes or any other form of recreational substances during the entire length of the course. This applies to the online as well as the residential part of the course.Failure in doing so would result in the cancellation of the participant's registration and they would not be entitled to a refund.</p>
+										All participants are expected to abstain from the consumption of alcohol, tobacco, cigarettes or any other form of recreational substances during the entire length of the course. This applies to the online as well as the residential part of the course.Failure in doing so would result in the cancellation of the participant's registration and they would not be entitled to a refund.</p>
 								</li>
 								<li>
 									<p className="" style={{ fontFamily: 'Poppins', textAlign: 'justify', color: 'black', fontSize: '12px' }}>
@@ -1200,6 +1273,90 @@ console.log("Validated till medicine details "+valid);
 										Participants should have a minimum of 95% attendance ( a maximum of 10 missed sessions) during the course to appear for the Ayush ministry exam.
 									</p>
 								</li>
+								
+								
+								<li>
+									<p
+										className=""
+										style={{
+											fontFamily: "Poppins",
+											textAlign: "justify",
+											color: "black",
+											fontSize: "12px",
+										}}
+									>
+										The information provided in this application form is true and complete to the best of my knowledge. False, incomplete, or misleading information is grounds for rejection of this application, expulsion from the program, or revocation of certification after completion of the program with no refund.
+									</p>
+								</li>
+								<li>
+									<p
+										className=""
+										style={{
+											fontFamily: "Poppins",
+											textAlign: "justify",
+											color: "black",
+											fontSize: "12px",
+										}}
+									>
+										I understand that BYVK from time to time may photograph, video, or otherwise record classes or events occurring at BYVK and place such photographs and videos on its website or social media platform. I hereby consent to the use of my image that may appear in any such photograph or video.
+									</p>
+								</li>
+
+								<li>
+									<p
+										className=""
+										style={{
+											fontFamily: "Poppins",
+											textAlign: "justify",
+											color: "black",
+											fontSize: "12px",
+										}}
+									>
+										I understand my physical limitations and I am sufficiently self-aware to stop or modify my participation in any activity before I become injured or aggravate a pre-existing injury.
+									</p>
+								</li>
+
+
+								<li>
+									<p
+										className=""
+										style={{
+											fontFamily: "Poppins",
+											textAlign: "justify",
+											color: "black",
+											fontSize: "12px",
+										}}
+									>
+										In consideration of being permitted to participate in the activities, I agree to assume full responsibility for any risks, injuries or damages, known or unknown, which I might incur as a result of participating in the yoga course at BYVK.
+									</p>
+								</li>
+								<li>
+									<p
+										className=""
+										style={{
+											fontFamily: "Poppins",
+											textAlign: "justify",
+											color: "black",
+											fontSize: "12px",
+										}}
+									>
+										I take full responsibility for my health and I will not hold BYVK responsible for any injuries or health problems that may incur during or after the course.
+									</p>
+								</li>
+								<li>
+									<p
+										className=""
+										style={{
+											fontFamily: "Poppins",
+											textAlign: "justify",
+											color: "black",
+											fontSize: "12px",
+										}}
+									>
+										I confirm that I have read and agreed with the Fee Structure and Cancellation Policy, Ashram Rules & Regulations, and Terms & Conditions,  of BYVK and The Satsang Foundation.  </p>
+								</li>
+
+							
 
 
 
@@ -1247,9 +1404,9 @@ console.log("Validated till medicine details "+valid);
 
 	const declarationsAgreementHandler = (event) => {
 		if (event.target.checked) {
-			setTermsAgreed(true);
+			setDecAgreed(true);
 		} else {
-			setTermsAgreed(false);
+			setDecAgreed(false);
 		}
 	};
 
@@ -1963,6 +2120,7 @@ console.log("Validated till medicine details "+valid);
 									</div>
 								</div>
 							</div>
+							<p style={errStyle}>{errObj.health_array}</p>
 
 							
 
@@ -2048,6 +2206,7 @@ console.log("Validated till medicine details "+valid);
 									<label className="label-control">
 										Please give details and frequency of use:
 									</label>
+									<p style={errStyle}>{errObj.frequency_details_of_tobaaco_use}</p>
 								</div>)}
 						</>
 					)}
@@ -2239,10 +2398,11 @@ console.log("Validated till medicine details "+valid);
 								}}
 							>
 								Ashram Rules & Regulations
+								<span style={{ color: "red" }}>*</span>
 							</h3>
 							<a style={{ color: "#1890ff" }} onClick={rulesHandler}>
 								Click Here to read Ashram Rules & Regulations
-								<span style={{ color: "red" }}>*</span>
+								
 							</a>
 						</>
 					)}
@@ -2301,11 +2461,11 @@ console.log("Validated till medicine details "+valid);
 							<a style={{ color: "#1890ff" }} onClick={declarationsHandler}>
 								Click Here to read Declarations
 							</a>
-							{termsClicked && (
+							{decClicked && (
 								<div className="form-group mt-2">
 									<input
 										type="checkbox"
-										id="t&c"
+										id="dec"
 										onClick={declarationsAgreementHandler}
 									/>
 									<label>
@@ -2422,7 +2582,7 @@ console.log("Validated till medicine details "+valid);
 					</label>
 					{residentialCourse && (
 						<>
-							{termsAgreed && rulesAgreed && feesAgreed && feeStructure ? (
+							{termsAgreed && rulesAgreed && feesAgreed && feeStructure && decAgreed ? (
 								<div className="form-group mt-4">
 									<button
 										type="submit"
@@ -2444,7 +2604,7 @@ console.log("Validated till medicine details "+valid);
 
 					{!residentialCourse && (
 						<>
-							{termsAgreed && feesAgreed && feeStructure ? (
+							{termsAgreed && feesAgreed && feeStructure && decAgreed ? (
 								<div className="form-group mt-4">
 									<button
 										type="submit"

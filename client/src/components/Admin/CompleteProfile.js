@@ -179,6 +179,7 @@ function CompleteProfile(props) {
 
   const validateProfileData = () => {
 	console.log("Validating form ");
+	console.log(profileData);
 	
     let valid = true;
     
@@ -212,7 +213,7 @@ function CompleteProfile(props) {
     }
     
     
-     if (profileData.gender == "") {
+     if (profileData.gender == "" || profileData.gender == "S_O") {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
@@ -244,7 +245,7 @@ function CompleteProfile(props) {
       }));
     }
 
-    if (profileData.maritalstatus == "") {
+    if (profileData.maritalstatus == "" || profileData.maritalstatus == "S_O") {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
@@ -260,7 +261,7 @@ function CompleteProfile(props) {
       }));
     }
 if (profileData.city.length <= 1) {
-
+valid=false;
       setErrObj((errObj) => ({
         ...errObj,
         city: "City is mandatory, Please select",
@@ -275,7 +276,7 @@ if (profileData.city.length <= 1) {
     }
     
     if (profileData.languages == "") {
-
+      valid=false;
       setErrObj((errObj) => ({
         ...errObj,
         languages: "Language is mandatory,Please specify languages",
@@ -318,7 +319,7 @@ if (profileData.city.length <= 1) {
         country: "",
       }));
     }
-    if (profileData.qualification == "") {
+    if (profileData.qualification == "" || profileData.qualification == "S_O") {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
@@ -334,7 +335,7 @@ if (profileData.city.length <= 1) {
       }));
     }
 
-    if (profileData.occupation == "") {
+    if (profileData.occupation == "" || profileData.occupation == "S_O") {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
@@ -364,7 +365,7 @@ if (profileData.city.length <= 1) {
       }));
     }
     
-     if (prevExperience && profileData.experty_level == "") {
+     if (prevExperience && profileData.experty_level == "" || profileData.experty_level == "S_O") {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
@@ -379,7 +380,7 @@ if (profileData.city.length <= 1) {
       }));
     }
 
-    if (profileData.about_byuk == "") {
+    if (profileData.about_byuk == "" || profileData.about_byvk == "S_O") {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
@@ -395,7 +396,7 @@ if (profileData.city.length <= 1) {
     }
 
 
-if (profileData.experty_level == "") {
+if (profileData.experty_level == "" || profileData.experty_level == "S_O") {
      profileData.experty_level="Beginner"
     }
     if (valid) {

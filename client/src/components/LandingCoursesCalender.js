@@ -95,8 +95,7 @@ const getCourse = (courseId) => {
   
 
 const validateForCourse = () => {
-	console.log("Profile Data to validate ");
-	console.log(profileData);
+
 	if(isAuthenticated){
 		console.log(profileData,"Profile data to validate");
 		if (profileData.about_byuk == "" || profileData.address_1 == "" || profileData.address_2 == "" || profileData.age == "" || profileData.city == "" || profileData.country == "" || profileData.dob== "" || profileData.email_id == "" || profileData.expert_level == "" || profileData.first_name== "" || profileData.gender == "" || profileData.languages == "" || profileData.last_name == "" || profileData.maritalstatus == "" || profileData.nationality == "" || profileData.occupation == "" || profileData.previous_experience == "" || profileData.qualification == "" || profileData.state == "" || profileData.phone_num == ""){
@@ -205,7 +204,7 @@ const validateForCourse = () => {
                   data.status !== "INACTIVE" &&
                   data.status == "STARTED" &&
                   
-                  compareDates(data.program_start_date) && (data.name.toLowerCase().includes('sakhyam')|| (data.name.toLowerCase().includes('t t c')) ||data.name.toLowerCase().includes('kausalam')) ? (
+                  compareDates(data.program_start_date) && (data.name.toLowerCase().includes('sakhyam')||data.name.toLowerCase().includes('kausalam')) ? (
                     <div className="" style={{ marginTop: "0px" }}>
                       <Button
                         type="primary"
@@ -217,17 +216,18 @@ const validateForCourse = () => {
                           borderRadius: "18px",
                         }}
                       >
-                        <a href={"../registercourse/" + data._id} onClick={(e)=>{
-							let validSakhyam = validateForCourse();
-							console.log("Complete profile is validated "+validSakhyam);
-							if (!validSakhyam) {
+                        {(data.name.toLowerCase().includes('yogam')) || (data.name.toLowerCase().includes('monthlym')) ? (<a href={"../registercourse/" + data._id}>
+                          Register Course
+                        </a>):(<a href={"../registercourse/" + data._id} onClick={(e)=>{
+							let valid = validateForCourse();
+							if (!valid) {
 								e.preventDefault();
 								alert("Please Complete Your Profile Before Registering To This Event");
 								return false;
 							}
 						}}>
                           Register Course
-                        </a>
+                        </a>)}
                       </Button>
                     </div>
                   ) : (
