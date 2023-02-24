@@ -444,6 +444,8 @@ function RegisterProgram(props) {
 				health_array: "",
 			}));	
 		}
+		if(program.covid_vaccine_dose == "")
+		program.covid_vaccine_dose="No";
 		
 		setProgram({ ...program });
          
