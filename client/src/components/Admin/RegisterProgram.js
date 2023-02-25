@@ -977,6 +977,7 @@ console.log("Validated till medicine details "+valid);
 						event_start_date: getFormatedDate(programData.program_start_date),
 						payments_url:paymentsfeesCourseNameUrl
 					}
+					
 					console.log(mailObject)
 								window.location.href = paymentsfeesCourseNameUrl;
 							}, 200);
