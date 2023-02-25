@@ -932,15 +932,7 @@ console.log("Validated till medicine details "+valid);
 						setTimeout(function() {
 							window.location.href = "/home";
 						}, 300);
-					} else {
-						if (courseData.course_name === "KausalaM") {
-							alert(
-								"You have successfully registered for Event ,Please Wait for Verification to be done !!!"
-							);
-							setTimeout(function() {
-								window.location.href = "/home";
-							}, 300);
-						} else {
+					}  else {
 							alert(
 								"You have successfully registered for the event.Please proceed to the payment section"
 							);
@@ -988,7 +980,7 @@ console.log("Validated till medicine details "+valid);
 					console.log(mailObject)
 								window.location.href = paymentsfeesCourseNameUrl;
 							}, 200);
-						}
+						
 					}
 
 					//SEnding mail
