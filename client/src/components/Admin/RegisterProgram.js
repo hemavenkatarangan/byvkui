@@ -978,7 +978,7 @@ console.log("Validated till medicine details "+valid);
 						payments_url:paymentsfeesCourseNameUrl
 					}
 					
-					console.log(mailObject)
+					
 								window.location.href = paymentsfeesCourseNameUrl;
 							}, 200);
 						
