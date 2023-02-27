@@ -645,11 +645,13 @@ function RegisterProgram(props) {
 			console.log("Please Select country")
 		}
 		else {
-            if(isLogged)
+			
+            if(isLogged && !isChecked)
             {
             program.country = currentProfileData.country;
             setProgram({ ...program });
             }
+           
 			setErrObj((errObj) => ({
 				...errObj,
 				country: "",
