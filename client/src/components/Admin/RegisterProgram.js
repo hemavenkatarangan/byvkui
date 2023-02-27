@@ -972,7 +972,7 @@ console.log("Validated till medicine details "+valid);
 					            
 					
 								window.location.href = paymentsfeesCourseNameUrl;
-							}, 200);
+							}, 300);
 						
 					}
 
@@ -1059,7 +1059,7 @@ console.log("Validated till medicine details "+valid);
 					address_2: "",
 					city: "",
 					state: "",
-					country: "",
+					country: program.country,
 					status: "APPLICATION_SUBMITTED",
 					age: "",
 					gender: "",
