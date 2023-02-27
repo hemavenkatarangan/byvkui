@@ -770,7 +770,7 @@ console.log("Validated till medicine details "+valid);
 		console.log("Validation till here rules agreed" + valid);
 		program.user_name = checkedName;
 		console.log(program, "submit program values");
-		if (!isChecked)
+		
 			if (valid) {
 
 				submitProgram();
@@ -968,7 +968,16 @@ console.log("Validated till medicine details "+valid);
 
 								}
 								console.log(paymentsfeesCourseNameUrl)
-								 mailObject = {
+								
+					            
+					
+								window.location.href = paymentsfeesCourseNameUrl;
+							}, 200);
+						
+					}
+
+					//SEnding mail
+					 mailObject = {
 						to_address: program.user_email,
 						subject: programData.name + " application received",
 						email_body: "",
@@ -977,15 +986,6 @@ console.log("Validated till medicine details "+valid);
 						event_start_date: getFormatedDate(programData.program_start_date),
 						payments_url:paymentsfeesCourseNameUrl
 					}
-					
-					
-								window.location.href = paymentsfeesCourseNameUrl;
-							}, 200);
-						
-					}
-
-					//SEnding mail
-					
 					
 					axios
 						.post("/mailservice/sendmailforregistration", mailObject)
