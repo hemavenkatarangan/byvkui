@@ -401,7 +401,7 @@ function RegisterProgram(props) {
 	};
 
 	const validateProgramData = () => {
-		     if(isLogged)
+		     if(isLogged && !isChecked)
 		     {
 		     program.address_1 = currentProfileData.address_1;
 			 program.address_2 = currentProfileData.address_2;
@@ -602,23 +602,6 @@ function RegisterProgram(props) {
 			}));
 		}
 		
-		
-		if (courseData.course_name === "T T C" && program.alternate_phone_number == "") {
-			valid = false;
-			setErrObj((errObj) => ({
-				...errObj,
-				alternate_phone_number: "Please Enter Alternate Phone Number",
-			}));
-			console.log("alt ph number validation false");
-		}
-		else {
-
-			setErrObj((errObj) => ({
-				...errObj,
-				alternate_phone_number: "",
-			}));
-		}
-
 		if (phoneNumber == "") {
 			valid = false;
 			setErrObj((errObj) => ({
@@ -657,6 +640,24 @@ function RegisterProgram(props) {
 				country: "",
 			}));
 		}
+		
+		if (courseData.course_name === "T T C" && program.alternate_phone_number == "") {
+			valid = false;
+			setErrObj((errObj) => ({
+				...errObj,
+				alternate_phone_number: "Please Enter Alternate Phone Number",
+			}));
+			console.log("alt ph number validation false");
+		}
+		else {
+
+			setErrObj((errObj) => ({
+				...errObj,
+				alternate_phone_number: "",
+			}));
+		}
+
+		
 		
 		if (
 			courseData.course_name === "SakhyaM" &&
