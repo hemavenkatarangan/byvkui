@@ -32,12 +32,14 @@ import AbhayaM from "./components/Courses/AbhayaM";
 import Avistaran from "./components/Courses/Avistaran";
 import SakhyaM from "./components/Courses/SakhyaM";
 import ContactUs from "./components/ContactUs";
+import RaiseProblem from "./components/RaiseProblem";
 import Terms from "./components/Rules/Terms";
 import Privacy from "./components/Rules/Privacy";
 import Refund from "./components/Rules/Refund";
 import GenericCourses from "./components/Courses/GenericCourse";
 import CourseDashboard from "./components/Admin/CourseDashboard";
 import ProgramDashboard from "./components/Admin/ProgramDashboard";
+import ProblemDashboard from "./components/Admin/ProblemDashboard";
 import CreateProgram from "./components/Admin/CreateProgram";
 import MediaDashboard from "./components/Admin/ImagesDashboard";
 import Careers from "./components/Careers";
@@ -88,10 +90,12 @@ function App() {
         <Route exact path="/createprogram" component={CreateProgram} />
         <Route exact path="/createprogram/:id" component={CreateProgram} />
         <Route exact path="/mediadashboard" component={MediaDashboard} />
+        <Route exact path="/problemdashboard" component={ProblemDashboard} />
         <Route exact path="/course/:id" component={GenericCourses} />
         <Route exact path="/ttc" component={TTC} />
         <Route exact path="/kaushalam" component={KaushalaM} />
         <Route exact path="/contactus" component={ContactUs} />
+        <Route exact path="/raiseproblem" component={RaiseProblem} />
         <Route exact path="/abhayam" component={AbhayaM} />
         <Route exact path="/avistaran" component={Avistaran} />
         <Route exact path="/sakhyam" component={SakhyaM} />
@@ -114,10 +118,9 @@ function App() {
         />
         <Switch>
           <PrivateRoute exact path="/home" component={Home} />
-          {/* <Route path="/404" component={NotFound} /> */}
-          {/* <Route component={NotFound} /> */}
+          
         </Switch>
-        {/* <Route component={NotFound} /> */}
+       
       </Router>
       <Footer />
     </Provider>

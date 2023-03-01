@@ -213,16 +213,40 @@ const viewProfile = () => {
                 Careers
               </a>
             </li>
-            <li className="nav-item">
+            
+            
+            <li className="nav-item dropdown">
               <a
+                className="nav-link"
+                href="#"
+                id="dropdown01"
+                style={{ color: "black", fontSize: "14px" }}
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Contact Us
+              </a>
+              <div className="dropdown-menu" aria-labelledby="dropdown01">
+                <a
                 className="nav-link page-scroll"
                 style={{ color: "black", fontSize: "14px" }}
                 href="/contactus"
               >
-                Contact Us
+                Write to Us
               </a>
+               <div className="dropdown-divider"></div>
+               <a
+                className="nav-link page-scroll"
+                style={{ color: "black", fontSize: "14px" }}
+                href="/raiseproblem"
+              >
+                Raise a Problem
+              </a>
+              </div>
             </li>
-            {/* <li  className="nav-item dropdown"> */}
+        
+           
             {isAuthenticated && user.userData.roles[0] === "ADMIN" ? (
               <li className="nav-item dropdown">
                 <a
@@ -266,29 +290,24 @@ const viewProfile = () => {
                     style={{ color: "black", fontSize: "14px" }}
                     href="/userquery"
                   >
-                    Query Data
+                    Queries
                   </a>
                   <div className="dropdown-divider"></div>
+                  <a
+                    className="dropdown-item page-scroll"
+                    style={{ color: "black", fontSize: "14px" }}
+                    href="/problemdashboard"
+                  >
+                    Problem Dashboard
+                  </a>
                 </div>
               </li>
-            ) /*: isAuthenticated ? (
-              <>
-                <li className="nav-item">
-                  <a
-                    className="nav-link page-scroll"
-                    style={{ color: "black", fontSize: "14px" }}
-                    href="/mydashboard"
-                  >
-                    Your Data
-                  </a>
-                </li>
-              </>
-            ) */
+            ) 
             : 
             (
               <></>
             )}
-            {/* </li> */}
+           
               {isAuthenticated ? (
                 <>
               <li className="nav-item dropdown">

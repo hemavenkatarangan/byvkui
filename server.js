@@ -1,9 +1,11 @@
 const express = require("express");
+var bodyParser = require('body-parser');
 const config = require("./config/config");
 const mongoose = require("mongoose");
 const event = require("./app/routers/event.route");
 const user = require("./app/routers/user.route");
 const contact = require("./app/routers/contact.route");
+const problem = require("./app/routers/problem.route");
 const course = require("./app/routers/course.route");
 const program = require("./app/routers/program.route");
 const role = require("./app/routers/role.route");
@@ -20,14 +22,15 @@ const profile = require("./app/routers/profile.route");
 
 const auth = require("./app/helpers/authHelper")();
 const passport = require("passport");
-//const fileupload = require('./app/routers/fileupload.route');
+
 
 // create express app
 const app = express();
 dotenv.config();
 
 const port = process.env.PORT || 3000;
-
+app.use(bodyParser.json({limit: '2000mb', extended: true}))
+app.use(bodyParser.urlencoded({limit: '2000mb', extended: true}))
 //app.use(express.static(path.join(__dirname, "client/build")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -71,6 +74,10 @@ app.use("/documentformat", documentformat);
 app.use("/payments", payments);
 app.use("/mailservice", mailservice);
 app.use("/profile", profile);
+app.use("/problem", problem);
+
+
+
 
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to BYVK WebSite application" });

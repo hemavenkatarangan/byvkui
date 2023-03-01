@@ -401,6 +401,8 @@ function RegisterProgram(props) {
 	};
 
 	const validateProgramData = () => {
+		console.log("Logged "+isLogged)
+		console.log("IsChecked "+isChecked);
 		     if(isLogged && !isChecked)
 		     {
 		     program.address_1 = currentProfileData.address_1;
