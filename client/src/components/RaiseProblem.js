@@ -170,7 +170,11 @@ else
                   fontSize: "32px",
                 }}
               >
-                Raise Problem
+                   &nbsp;&nbsp;Report an IT Problem <span style={{
+                  fontFamily: "Poppins",
+                  color: "darkblue",
+                  fontSize: "16px",
+                }}>(This portal is only for raising IT related issues)</span>
               </h3>
              
               <p
@@ -225,7 +229,21 @@ else
                         </label>
                         <p style={errStyle}>{errObj.problemstatement}</p>
                       </div>
+                      <div className="form-group">
+                      <label
+                          type="textarea"
+                          className="form-control-input notEmpty"
+                          id="prob"
+                          disabled
+                          
+                        />
+                       <label className="label-control" htmlFor="problemdescription">
+                          Problem Description (Describe the issue in detailed steps)
+                          
+                        </label>
+                      </div>
                      <div className="form-group" style={{ marginBottom: "50px" }}>
+                    
 	         		 <ReactQuill
 	           		 modules={modules}
 	           		 style={{ maxHeight: "300px", height: "300px" }}

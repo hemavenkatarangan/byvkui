@@ -19,7 +19,7 @@ const errStyle = {
 };
 
 const noteStyle = {
-	color: "#e5b212",
+	color: "blue",
 	textAlign: "center",
 	fontSize: ".9rem",
 };
@@ -56,11 +56,14 @@ const healthOptions = [
 	},
 ];
 
+
+
 const healthOptions2 = [
 	{
 		value: "Insomnia / Sleep Disorder/ Snoring",
 		label: "Insomnia / Sleep Disorder/ Snoring",
 	},
+	
 	{ value: "Anemia", label: "Anemia" },
 	{
 		value: "Spinal conditions/ Slip Disc/ Chronic back pain",
@@ -2117,15 +2120,15 @@ console.log("Validated till medicine details "+valid);
 								Health & Lifestyle
 							</h1>
 							<div className="row">
-								<div className="col-md-5">
-									<div className="form-group">
+								<div className="col-md-3">
+									<div className="form-group" >
 										<Checkbox.Group
 											options={healthOptions}
 											onChange={handleMultiSelect1}
 										/>
 									</div>
 								</div>
-								<div className="col-md-5">
+								<div className="col-md-3">
 									<div className="form-group">
 										<Checkbox.Group
 											options={healthOptions2}
@@ -2338,41 +2341,50 @@ console.log("Validated till medicine details "+valid);
 							</div>)}
 						</>
 					)}
-					
+					<h1
+								style={{
+									fontFamily: "Poppins",
+									color: "darkblue",
+									fontSize: "20px",
+								}}
+							>
+								Upload Documents
+							</h1>
 
-
+                    <p style={noteStyle}>
+									Please upload documents carefully, once you uploaded its
+									not able to replace. use (Jpeg/png/pdf)
+								</p>
 
 					{docs.map((data, index) => {
 						return (
 							<>
-								<p style={noteStyle}>
-									Please upload documents carefully, once you uploaded its
-									not able to replace. use (Jpeg/png/pdf/zip)
-								</p>
+								
 								<div
 									className="row"
 									style={{ padding: "10px" }}
 									key={index}
 								>
-									<div className="col-xl-8">Please upload {data}</div>
-									<div className="col-xl-4">
-										<input
+									<div className="col-xl-8">Please upload {data} <input
 											type="file"
 											className=""
 											id={data}
 											onChange={(e) => onFileChange(e)}
 											required
-										/>
-									</div>
-									{/* <label className="label-control" htmlFor="max_age">
-                      {data} Upload
-                    </label> */}
-									{/* <p style={errStyle}>{errObj.country}</p> */}
+										/></div>
+									
+									
 								</div>
 							</>
 						);
 					})}
-					<h3
+					<div
+									className="row"
+									style={{ padding: "10px" }}
+									
+								>
+					
+						<h3
 						style={{
 							fontFamily: "Poppins",
 							color: "darkblue",
@@ -2382,16 +2394,37 @@ console.log("Validated till medicine details "+valid);
 						Fee Structure and Cancellation Policy{" "}
 						<span style={{ color: "red" }}>*</span>
 					</h3>
-					{!residentialCourse && (
-						<a style={{ color: "#1890ff" }} onClick={feesHandler}>
-							Click Here to read Fee Cancellation/Refund Policy
-						</a>
+						
+					
+						{!residentialCourse && (
+						<>
+						
+						<a
+                  className="nav-link"
+                  id="refund01"
+                  style={{ color: "black", fontSize: "14px",backgroundColor:"rgb(255,219,88)",borderRadius:"20px", width:"40%" }}
+                  onClick={feesHandler}
+                 
+                >
+                Click Here to read Fee Cancellation/Refund Policy
+                </a>
+                </>
 					)}
 					{residentialCourse && (
-						<a style={{ color: "#1890ff" }} onClick={feesHandler}>
-							Click Here to read Fee Cancellation/Refund Policy
-						</a>
+						<>
+						
+						<a
+                  className="nav-link"
+                  id="refund01"
+                  style={{ color: "black", fontSize: "14px",backgroundColor:"rgb(255,219,88)",borderRadius:"20px", width:"40%" }}
+                  onClick={feesHandler}
+                 
+                >
+                Click Here to read Fee Cancellation/Refund Policy
+                </a>
+                </>
 					)}
+					
 					{feesClicked && (
 						<div className="form-group mt-2">
 							<input
@@ -2402,8 +2435,17 @@ console.log("Validated till medicine details "+valid);
 							<label>Yes- I Agree all conditions</label>
 						</div>
 					)}
+					</div>
+					
+					
+					
 					{residentialCourse && (
 						<>
+						<div
+									className="row"
+									style={{ padding: "10px" }}
+									
+								>
 							<h3
 								style={{
 									fontFamily: "Poppins",
@@ -2414,10 +2456,13 @@ console.log("Validated till medicine details "+valid);
 								Ashram Rules & Regulations
 								<span style={{ color: "red" }}>*</span>
 							</h3>
-							<a style={{ color: "#1890ff" }} onClick={rulesHandler}>
+							<a className="nav-link"
+                  id="rules01"
+                  style={{ color: "black", fontSize: "14px",backgroundColor:"rgb(255,219,88)",borderRadius:"20px", width:"40%" }} onClick={rulesHandler}>
 								Click Here to read Ashram Rules & Regulations
 								
 							</a>
+							</div>
 						</>
 					)}
 
@@ -2431,7 +2476,11 @@ console.log("Validated till medicine details "+valid);
 							<label>Yes - I Agree conditions</label>
 						</div>
 					)}
-
+                    <div
+									className="row"
+									style={{ padding: "10px" }}
+									
+								>
 					<h3
 						style={{
 							fontFamily: "Poppins",
@@ -2439,13 +2488,16 @@ console.log("Validated till medicine details "+valid);
 							fontSize: "20px",
 						}}
 					>
-						Terms & Conditions
+					Terms & Conditions
 						<span style={{ color: "red" }}>*</span>
 					</h3>
-					<a style={{ color: "#1890ff" }} onClick={termsHandler}>
+					<a className="nav-link"
+                  id="terms01"
+                  style={{ color: "black", fontSize: "14px",backgroundColor:"rgb(255,219,88)",borderRadius:"20px", width:"30%" }} onClick={termsHandler}>
 						Click Here to read Terms & Conditions
 
 					</a>
+					</div>
 					{termsClicked && (
 						<div className="form-group mt-2">
 							<input
@@ -2462,6 +2514,11 @@ console.log("Validated till medicine details "+valid);
 
 					{courseData.course_name == "T T C" ? (
 						<>
+						<div
+									className="row"
+									style={{ padding: "10px" }}
+									
+								>
 							<h3
 								style={{
 									fontFamily: "Poppins",
@@ -2472,7 +2529,9 @@ console.log("Validated till medicine details "+valid);
 								Declarations
 								<span style={{ color: "red" }}>*</span>
 							</h3>
-							<a style={{ color: "#1890ff" }} onClick={declarationsHandler}>
+							<a className="nav-link"
+                  id="declare01"
+                  style={{ color: "black", fontSize: "14px",backgroundColor:"rgb(255,219,88)",borderRadius:"20px", width:"30%" }} onClick={declarationsHandler}>
 								Click Here to read Declarations
 							</a>
 							{decClicked && (
@@ -2488,6 +2547,7 @@ console.log("Validated till medicine details "+valid);
 									</label>
 								</div>
 							)}
+							</div>
 						</>
 					) : ("")}
 

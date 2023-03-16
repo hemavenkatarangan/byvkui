@@ -3,7 +3,7 @@ const Contact = require("../models/contact.model.js");
 module.exports = {
   allContactUs: async (req, res, next) => {
     try {
-      const events = await Contact.find({});
+      const events = await Contact.find({}).sort({createdAt:-1});
       res.status(200).json(events);
     } catch (err) {
       next(err);

@@ -16,10 +16,7 @@ function ProgramDashboard() {
   const [isAuthenticated, setAuthenticated] = useState(false);
   const [programsData, setProgramsData] = useState([]);
   useEffect(() => {
-    if (user.userData.roles[0] !== "ADMIN") {
-      window.location.href = "/home";
-      return;
-    }
+    
     if (user.isAuthenticated) {
       setAuthenticated(true);
     } else {

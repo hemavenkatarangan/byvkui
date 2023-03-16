@@ -7,15 +7,16 @@ import {
   EyeOutlined,
   ReadOutlined,
   MoneyCollectOutlined,
-  DiffOutlined
+  DiffOutlined,
+  ArrowUpOutlined
 } from "@ant-design/icons";
 import { openNotificationWithIcon } from "../Notifications";
-
+import axios from "axios";
 import moment from "moment";
 import "../Quill.css";
 import ReactQuill from "react-quill";
 
-import axios from "axios";
+
 const Quill = ReactQuill.Quill;
 var Font = Quill.import("formats/font");
 Font.whitelist = ["Roboto", "Poppins"];
@@ -95,6 +96,13 @@ function UserRegistertedForProgram(props) {
      
     },
     {
+      title: "Date of Submission",
+      dataIndex: "createdAt",
+      key: "createdAt",
+      render: (data) => getFormatedDate(data),
+     
+    },
+    {
       title: "Status",
       dataIndex: "status",
       key: "status",
@@ -114,22 +122,34 @@ function UserRegistertedForProgram(props) {
       render: (id, data) => (
         <>
           {console.log("Data of user ", data)}
+           {console.log("user info ", user)}
           {
             <>
-              {data.status === "REGISTERED"  ? (
+              {data.status === "REGISTERED"  || programInfo.name.toLowerCase().includes('t t c')? (
                 <>
+                {user.userData.roles[0] === "ADMIN" ? (
                   <Tooltip title="Approve">
                     <Button
                       shape="circle"
                       icon={<CheckOutlined />}
-                      onClick={(e) => approveORrejectUser(data, "APPROVED")}
+                      onClick={(e) => changeStatus(data, "APPROVED")}
                     />
-                  </Tooltip>{" "}
+                  </Tooltip>
+                  ):""}
+                   {user.userData.roles[0] === "SUPER_ADMIN" ? (
+                  <Tooltip title="Approve as Medically Fit">
+                    <Button
+                      shape="circle"
+                      icon={<CheckOutlined />}
+                      onClick={(e) => changeStatus(data, "MEDICALLY_FIT")}
+                    />
+                  </Tooltip>
+                  ):""}
                   <Tooltip title="Reject">
                     <Button
                       shape="circle"
                       icon={<StopOutlined />}
-                      onClick={(e) => approveORrejectUser(data, "REJECTED")}
+                      onClick={(e) => changeStatus(data, "REJECTED")}
                     />
                   </Tooltip>{" "}
                 </>
@@ -138,7 +158,7 @@ function UserRegistertedForProgram(props) {
                   <Button
                     shape="circle"
                     icon={<CheckOutlined />}
-                    onClick={(e) => approveORrejectUser(data, "APPROVED")}
+                    onClick={(e) => changeStatus(data, "APPROVED")}
                   />
                 </Tooltip>
               ) : (
@@ -170,14 +190,23 @@ function UserRegistertedForProgram(props) {
                   icon={<MoneyCollectOutlined  />}
                   onClick={(e) => openPaymentData(data)}
                 />
-              </Tooltip>
+              </Tooltip>{" "}
               <Tooltip title="Request More Info">
                 <Button
                   shape="circle"
                   icon={<DiffOutlined  />}
                   onClick={(e) => requestMoreInfoModal(data)}
                 />
+              </Tooltip>{" "}
+             {user.userData.roles[0] === "ADMIN" ? ( 
+              <Tooltip title="Refer to Super Admin">
+                <Button
+                  shape="circle"
+                  icon={<ArrowUpOutlined  />}
+                 onClick={(e) => changeStatus(data, "REFER_TO_SUPERADMIN")}
+                />
               </Tooltip>
+              ):""}
             </>
           }
         </>
@@ -185,7 +214,7 @@ function UserRegistertedForProgram(props) {
     },
   ];
 
-  const approveORrejectUser = (data, status) => {
+  const changeStatus = (data, status) => {
 	
     let obj = {
       status: status,
@@ -230,7 +259,7 @@ function UserRegistertedForProgram(props) {
   };
 
   const getFormatedDate = (date) => {
-    return moment(date).format("DD-MMM-YYYY");
+    return moment(date).format("DD-MMM-YYYY HH:mm");
   };
 
   const getUserRegisteredData = () => {

@@ -21,12 +21,9 @@ module.exports = {
 	var subject = req.body.subject;
 	var name = req.body.name;
 	var course = req.body.course;
+	var payments_url=req.body.payments_url;
     	
-	/*	var smtpTransport = nodemailer.createTransport(mandrillTransport({
-		    auth: {
-		      apiKey : 'WfHaBeLBBL0LO9POyRHmSg'
-		    }
-		}));*/
+	
 		
 		const mailTransport = nodemailer.createTransport({    
     host: "smtpout.secureserver.net",  
@@ -54,7 +51,8 @@ mailTransport.use('compile', hbs(handlebarOptions))
 		   template : 'email',
 		    context:{
         name: name, 
-        course: course 
+        course: course ,
+        payments_url:payments_url
     }
 		};
 		console.log(mailData);

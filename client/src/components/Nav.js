@@ -241,13 +241,13 @@ const viewProfile = () => {
                 style={{ color: "black", fontSize: "14px" }}
                 href="/raiseproblem"
               >
-                Raise a Problem
+                Report an IT Issue
               </a>
               </div>
             </li>
         
            
-            {isAuthenticated && user.userData.roles[0] === "ADMIN" ? (
+            {isAuthenticated && (user.userData.roles[0] === "ADMIN"||user.userData.roles[0] === "SUPER_ADMIN") ? (
               <li className="nav-item dropdown">
                 <a
                   className="nav-link"
@@ -336,6 +336,13 @@ const viewProfile = () => {
                     onClick={viewProfile}>
                     View Profile
                   </a>
+                  <div className="dropdown-divider"></div>
+                  <a className="dropdown-item page-scroll"
+                    style={{ color: "black", fontSize: "14px" }}
+                href="/raiseproblem"
+                   >
+                   Report an IT Issue
+              </a>
                   <div className="dropdown-divider"></div>
                   <a
                     className="dropdown-item page-scroll"

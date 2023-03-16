@@ -204,7 +204,7 @@ const validateForCourse = () => {
                   data.status !== "INACTIVE" &&
                   data.status == "STARTED" &&
                   
-                  compareDates(data.program_start_date) && (data.name.toLowerCase().includes('sakhyam')||data.name.toLowerCase().includes('kausalam')) ? (
+                  compareDates(data.program_start_date) && (data.name.toLowerCase().includes('sakhyam')||data.name.toLowerCase().includes('kausalam')||data.name.toLowerCase().includes('t t c')) ? (
                     <div className="" style={{ marginTop: "0px" }}>
                       <Button
                         type="primary"

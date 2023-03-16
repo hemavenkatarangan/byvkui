@@ -59,7 +59,7 @@ module.exports = {
 
     getProgramByCourse: async (req, res) => {
         const { courseId } = req.params;
-        const program = await Program.find({ course: courseId });
+        const program = await Program.find({ course: courseId }).sort({program_start_date:-1});
         if (!program) {
 
             response.status_code = "404";
@@ -80,7 +80,7 @@ module.exports = {
         
         if(programType === "ALL")
         {
-         const program = await Program.find({ course: courseId,status: { $ne: "INACTIVE" }});
+         const program = await Program.find({ course: courseId,status: { $ne: "INACTIVE" }}).sort({program_start_date:-1});
           if (!program) {
 
             response.status_code = "404";
