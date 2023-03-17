@@ -2348,7 +2348,8 @@ console.log("Validated till medicine details "+valid);
 									fontSize: "20px",
 								}}
 							>
-								Upload Documents
+								Upload Documents (Please upload documents carefully, once you uploaded its
+									not able to replace. use (Jpeg/png/pdf))
 							</h1>
 
                     <p style={noteStyle}>
@@ -2402,11 +2403,11 @@ console.log("Validated till medicine details "+valid);
 						<a
                   className="nav-link"
                   id="refund01"
-                  style={{ color: "black", fontSize: "14px",backgroundColor:"rgb(255,219,88)",borderRadius:"20px", width:"40%" }}
+                  style={{ color: "black", fontSize: "14px",backgroundColor:"rgb(255,219,88)",borderRadius:"20px", width:"33%" }}
                   onClick={feesHandler}
                  
                 >
-                Click Here to read Fee Cancellation/Refund Policy
+               <b> Read/Accept Fee Cancellation/Refund Policy</b>
                 </a>
                 </>
 					)}
@@ -2416,11 +2417,11 @@ console.log("Validated till medicine details "+valid);
 						<a
                   className="nav-link"
                   id="refund01"
-                  style={{ color: "black", fontSize: "14px",backgroundColor:"rgb(255,219,88)",borderRadius:"20px", width:"40%" }}
+                  style={{ color: "black", fontSize: "14px",backgroundColor:"rgb(255,219,88)",borderRadius:"20px", width:"33%" }}
                   onClick={feesHandler}
                  
                 >
-                Click Here to read Fee Cancellation/Refund Policy
+               <b> Read/Accept Fee Cancellation/Refund Policy </b>
                 </a>
                 </>
 					)}
@@ -2437,45 +2438,7 @@ console.log("Validated till medicine details "+valid);
 					)}
 					</div>
 					
-					
-					
-					{residentialCourse && (
-						<>
-						<div
-									className="row"
-									style={{ padding: "10px" }}
-									
-								>
-							<h3
-								style={{
-									fontFamily: "Poppins",
-									color: "darkblue",
-									fontSize: "20px",
-								}}
-							>
-								Ashram Rules & Regulations
-								<span style={{ color: "red" }}>*</span>
-							</h3>
-							<a className="nav-link"
-                  id="rules01"
-                  style={{ color: "black", fontSize: "14px",backgroundColor:"rgb(255,219,88)",borderRadius:"20px", width:"40%" }} onClick={rulesHandler}>
-								Click Here to read Ashram Rules & Regulations
-								
-							</a>
-							</div>
-						</>
-					)}
-
-					{rulesClicked && (
-						<div className="form-group mt-2">
-							<input
-								type="checkbox"
-								id="rules"
-								onClick={rulesAgreementHandler}
-							/>
-							<label>Yes - I Agree conditions</label>
-						</div>
-					)}
+										
                     <div
 									className="row"
 									style={{ padding: "10px" }}
@@ -2493,8 +2456,8 @@ console.log("Validated till medicine details "+valid);
 					</h3>
 					<a className="nav-link"
                   id="terms01"
-                  style={{ color: "black", fontSize: "14px",backgroundColor:"rgb(255,219,88)",borderRadius:"20px", width:"30%" }} onClick={termsHandler}>
-						Click Here to read Terms & Conditions
+                  style={{ color: "black", fontSize: "14px",backgroundColor:"rgb(255,219,88)",borderRadius:"20px", width:"25%" }} onClick={termsHandler}>
+						<b>Read/Accept Terms & Conditions</b>
 
 					</a>
 					</div>
@@ -2531,8 +2494,8 @@ console.log("Validated till medicine details "+valid);
 							</h3>
 							<a className="nav-link"
                   id="declare01"
-                  style={{ color: "black", fontSize: "14px",backgroundColor:"rgb(255,219,88)",borderRadius:"20px", width:"30%" }} onClick={declarationsHandler}>
-								Click Here to read Declarations
+                  style={{ color: "black", fontSize: "14px",backgroundColor:"rgb(255,219,88)",borderRadius:"20px", width:"20%" }} onClick={declarationsHandler}>
+								<b>Read/Accept Declarations</b>
 							</a>
 							{decClicked && (
 								<div className="form-group mt-2">
@@ -2656,7 +2619,7 @@ console.log("Validated till medicine details "+valid);
 					</label>
 					{residentialCourse && (
 						<>
-							{termsAgreed && rulesAgreed && feesAgreed && feeStructure && decAgreed ? (
+							{termsAgreed && feesAgreed && feeStructure && decAgreed ? (
 								<div className="form-group mt-4">
 									<button
 										type="submit"

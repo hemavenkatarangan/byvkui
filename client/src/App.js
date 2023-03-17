@@ -64,7 +64,7 @@ if (localStorage.jwtToken) {
   const currentTime = Date.now() / 1000; // to get in milliseconds
   if (decoded.exp < currentTime) {
     store.dispatch(logoutUser());
-    window.location.href = "./login";
+    window.location.href = "/login";
   }
 }
 
