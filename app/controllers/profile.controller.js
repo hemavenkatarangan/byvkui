@@ -26,7 +26,7 @@ module.exports = {
 	
         var profileId  = req.query.profileId;
         console.log("Getting profile for profile id "+profileId)
-        const user = await Profile.findById(profileId);
+        const user = await Profile.find({email_id:req.params.emailId});
 
         if (!user) {
             res.status(403).json({status_code:"403",status_message:"Error reading profile " });
