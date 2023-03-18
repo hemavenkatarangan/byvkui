@@ -70,9 +70,10 @@ module.exports = {
 		}
 		else
 		{
-         const user = await Profile.updateOne({emailId:req.params.emailId},{$set:req.body},{new: true});
-        if (!user) {
-            return res.status(404).send({
+         const newProfile = new Profile(req.body);
+         const profile = await newProfile.save();
+        if (!profile) {
+            return res.status(403).send({
                 message: "Profile not found with id " + req.params.emailId
             });
         }
