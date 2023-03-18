@@ -56,7 +56,7 @@ module.exports = {
 
     updateProfile: async (req, res) => {
 		console.log(req.body,"body 123");
-		const user;
+		const user = {};
 		if(req.body.id)
 		{
 			user = await Profile.findByIdAndUpdate({_id:req.body.id},req.body,{new: true});
