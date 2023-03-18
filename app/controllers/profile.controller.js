@@ -56,11 +56,19 @@ module.exports = {
 
     updateProfile: async (req, res) => {
 		console.log(req.body,"body 123");
-        const user = await Profile.findOneAndUpdate({emailId:req.params.emailId},{$set:req.body},{new: true});
+		const user;
+		if(req.body.id)
+		{
+			user = await Profile.findByIdAndUpdate({_id:req.body.id},req.body,{new: true});
+		}
+		else
+		{
+         user = await Profile.updateOne({emailId:req.params.emailId},{$set:req.body},{new: true});
         if (!user) {
             return res.status(404).send({
                 message: "Profile not found with id " + req.params.emailId
             });
+        }
         }
         var response ={status_code:"200",status_message:"Successfully Updated profile ",result:user};
         res.status(200).json(response);
