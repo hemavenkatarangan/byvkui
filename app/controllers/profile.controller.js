@@ -23,9 +23,9 @@ module.exports = {
     
 
     getProfile: async (req, res) => {
-	console.log(req)
+	
         var profileId  = req.query.profileId;
-        console.log(profileId);
+        console.log("Getting profile for profile id "+profileId)
         const user = await Profile.findById(profileId);
 
         if (!user) {

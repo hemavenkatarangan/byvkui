@@ -116,9 +116,10 @@ function CompleteProfile(props) {
 	axios
 	.get("/profile/"+user.userData.email_id)
 	.then((res) => {
+		console.log(res," Response of profile");
 		if(res.data.status_code === "200")
 		{
-		console.log(res.data.result,"profile data");
+		console.log(res.data.result," profile data");
 		setProfileData(res.data.result[0]);
 		setGetFormatedDate(res.data.result[0].dob.slice(0,10));
 		if (res.data.result[0].country != ""){
