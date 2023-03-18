@@ -77,7 +77,7 @@ module.exports = {
                 message: "Profile not found with id " + req.params.emailId
             });
         }
-        var response ={status_code:"200",status_message:"Successfully Updated profile ",result:user};
+        var response ={status_code:"200",status_message:"Successfully Updated profile ",result:profile};
         res.status(200).json(response);
         }
         
