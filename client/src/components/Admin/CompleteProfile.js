@@ -79,17 +79,12 @@ function CompleteProfile(props) {
   const [otherSource, setOtherSource] = useState(false);
   const [checkedName, setCheckedName] = useState("");
   const [isAuthenticated, setAuthenticated] = useState(false);
-  //const getFormatedDate = (date) => {
-    // console.log("formatting......")
-    //if(date)
-    //console.log(date);
-    //return moment(date).format("YYYY-MM-DD");
-  //};
+  
   const [getFormatedDate,setGetFormatedDate] = useState("");
   useEffect(() => {
 	getProfileData();
 	document.getElementById('gender').value =user.userData.gender;
-	//document.getElementById('dob').value =getFormatedDate(user.userData.dob);
+	
 	profile.first_name=user.userData.first_name;
 	profile.last_name=user.userData.last_name;
 	profile.email_id=user.userData.email_id;
@@ -97,6 +92,12 @@ function CompleteProfile(props) {
 	profile.age=user.userData.age;
 	profile.gender=user.userData.gender;
 	profile.phone_num=user.userData.phone_num;
+	
+    if(Object.keys(profileData).length == 0)
+    {
+	console.log("Empty profile data ");
+	profileData = profile;
+    }
 	
 	console.log("DAte of birth "+user.userData.dob)
     setCheckedName(user.userData.first_name);
