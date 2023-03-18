@@ -117,9 +117,12 @@ function CompleteProfile(props) {
 	axios
 	.get("/profile/"+user.userData.email_id)
 	.then((res) => {
-		console.log(res," Response of profile");
+		
 		if(res.data.status_code === "200")
 		{
+	    var profData= res.data.result;
+	    if(profData.length != 0)
+	    {	
 		console.log(res.data.result," profile data");
 		setProfileData(res.data.result[0]);
 		setGetFormatedDate(res.data.result[0].dob.slice(0,10));
@@ -129,6 +132,8 @@ function CompleteProfile(props) {
 		if (res.data.result[0].state != ""){    	
 		      setCity(City.getCitiesOfState(res.data.result[0].country, res.data.result[0].state));		    
 			}
+		
+		}
 		}
 	})
 		.catch((err)=>{
