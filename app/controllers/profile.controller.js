@@ -8,6 +8,8 @@ module.exports = {
     allProfilesForLoggedUser: async (req, res, next) => {
         try {
             const users = await Profile.find({email_id:req.params.emailId});
+            console.log("Profile data");
+            console.log(users);
             if(users)
            res.status(200).json( { status_code:"200",status_message:"Successful reading profile ",result: users });
             else
@@ -25,8 +27,8 @@ module.exports = {
     getProfile: async (req, res) => {
 	
         var profileId  = req.query.profileId;
-        console.log("Getting profile for profile id "+profileId)
-        const user = await Profile.find({email_id:req.params.emailId});
+        console.log(profileId);
+        const user = await Profile.findById(profileId);
 
         if (!user) {
             res.status(403).json({status_code:"403",status_message:"Error reading profile " });
