@@ -23,7 +23,7 @@ const noteStyle = {
 function CompleteProfile(props) {
 
   const user = useSelector((state) => state.auth);
-    const [profileData,setProfileData] = useState({});
+   const  [profileData,setProfileData] = useState({});
    const [profile, setProfile] = useState({
 	first_name : "",
 	last_name : "",
@@ -96,7 +96,7 @@ function CompleteProfile(props) {
     if(Object.keys(profileData).length == 0)
     {
 	console.log("Empty profile data ");
-	profileData = profile;
+	setProfileData(profile);
     }
 	
 	console.log("DAte of birth "+user.userData.dob)
@@ -106,7 +106,7 @@ function CompleteProfile(props) {
     } else {
       setAuthenticated(false);
     }
-   console.log(profile,"program");
+   console.log(profile,"profile set");
     updateStateCityCounty();
    
   }, []);
