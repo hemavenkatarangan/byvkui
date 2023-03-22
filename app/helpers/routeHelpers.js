@@ -99,12 +99,12 @@ module.exports = {
             dob: Joi.date(),
             phone_num: Joi.string().length(13).pattern(/^[+][0-9]+$/).allow(""),
             email_id: Joi.string()
-                .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).required()
+                .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net','org'] } }).required()
         }).with('password', 'confirm_password'),
 
         loginUserSchema: Joi.object({
             email_id: Joi.string()
-                .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).required(),
+                .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net','org'] } }).required(),
             password: Joi.string()
                .required()
         }),
