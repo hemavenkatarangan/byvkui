@@ -11,6 +11,7 @@ import moment from "moment";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
+
 function ProgramDashboard() {
   const user = useSelector((state) => state.auth);
   const [isAuthenticated, setAuthenticated] = useState(false);
@@ -55,6 +56,7 @@ function ProgramDashboard() {
       key: "action",
       render: (id, data) => (
         <>
+         
           {data.status === "STARTED" ? null : (
             <>
               <Link to={{ pathname: "/createprogram/" + data._id, data: data }}>
@@ -73,7 +75,9 @@ function ProgramDashboard() {
                 to={{ pathname: "/userforprogram/" + data._id, data: data }}
               >
                 <EyeOutlined title="View All Users For Event" />{" "}
+                
               </Link>
+              
             </>
           }
 

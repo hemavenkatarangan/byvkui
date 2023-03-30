@@ -15,6 +15,7 @@ import axios from "axios";
 import moment from "moment";
 import "../Quill.css";
 import ReactQuill from "react-quill";
+import {ExportExcel} from './ExportExcel'
 
 
 const Quill = ReactQuill.Quill;
@@ -37,7 +38,7 @@ function UserRegistertedForProgram(props) {
    const [paymentImageData, setPaymentImageData] = useState([]);
    const [moreInfo,setMoreInfo] = useState("");
   const [rejectReason,setRejectReason] = useState("");
-  
+  const fileName = "myfile";
   const [userData, setUserData] = useState({});
   useEffect(() => {
    
@@ -121,6 +122,7 @@ function UserRegistertedForProgram(props) {
       key: "action",
       render: (id, data) => (
         <>
+        
           {console.log("Data of user ", data)}
            {console.log("user info ", user)}
           {
@@ -458,7 +460,16 @@ const rejectHandler = (e) => {
       </div>
       <div className="ex-basic-1 pt-4" style={{ marginTop: "-50px" }}>
         <div className="container">
+        
+         
+       
+        
           <div className="row">
+          <div className="col-xl-10 offset-xl-1">
+           <div style={{ float: "right" }} className="row">
+                  <ExportExcel apiData={programsData} fileName={programInfo.name} />
+              </div>
+          </div>
             <div className="col-xl-10 offset-xl-1">
               <Table
                 width="100%"
