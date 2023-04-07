@@ -2342,11 +2342,7 @@ console.log("Validated till medicine details "+valid);
 						</>
 					)}
 					
-
-					{docs.map((data, index) => {
-						return (
-							<>
-								<h1
+<h1
 								style={{
 									fontFamily: "Poppins",
 									color: "darkblue",
@@ -2361,6 +2357,10 @@ console.log("Validated till medicine details "+valid);
 									Please upload documents carefully, once you uploaded its
 									not able to replace. use (Jpeg/png/pdf)
 								</p>
+					{docs.map((data, index) => {
+						return (
+							<>
+								
 								<div
 									className="row"
 									style={{ padding: "10px" }}

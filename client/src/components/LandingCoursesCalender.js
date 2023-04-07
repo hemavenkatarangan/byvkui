@@ -216,7 +216,7 @@ const validateForCourse = () => {
                           borderRadius: "18px",
                         }}
                       >
-                        {(data.name.toLowerCase().includes('sakhyam'))|| (data.name.toLowerCase().includes('kausalam'))||(data.name.toLowerCase().includes('yogam')) || (data.name.toLowerCase().includes('monthlym')) ? (<a href={"../registercourse/" + data._id}>
+                        {(data.name.toLowerCase().includes('sakhyam'))||data.name.toLowerCase().includes('t t c')|| (data.name.toLowerCase().includes('kausalam'))||(data.name.toLowerCase().includes('yogam')) || (data.name.toLowerCase().includes('monthlym')) ? (<a href={"../registercourse/" + data._id}>
                           Register Course
                         </a>):(<a href={"../registercourse/" + data._id} onClick={(e)=>{
 							let valid = validateForCourse();
