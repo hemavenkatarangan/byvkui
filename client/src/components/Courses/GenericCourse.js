@@ -182,7 +182,7 @@ const compareDates = (date) => {
                               
                               data.status == "STARTED" &&
                                 
-                  compareDates(data.program_start_date) && (data.name.toLowerCase().includes('yoga') || data.name.toLowerCase().includes('monthly')|| data.name.toLowerCase().includes('atha yoga'))? (
+                  compareDates(data.program_start_date) && (data.name.toLowerCase().includes('yoga') || data.name.toLowerCase().includes('monthly')|| data.name.toLowerCase().includes('atha yoga')||  (data.name.toLowerCase().includes('t t c')))? (
 	                      <>
                           <div key={index} className="row">
                             <div
