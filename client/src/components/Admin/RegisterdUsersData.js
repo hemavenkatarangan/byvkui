@@ -261,7 +261,7 @@ function UserRegistertedForProgram(props) {
   };
 
   const getFormatedDate = (date) => {
-    return moment(date).format("DD-MMM-YYYY HH:mm");
+    return moment(date).format("DD-MMM-YYYY");
   };
 
   const getUserRegisteredData = () => {
