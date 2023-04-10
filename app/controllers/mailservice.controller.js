@@ -11,7 +11,22 @@ const handlebarOptions = {
     viewPath: path.resolve('./views/'),
 };
 		
-		
+const mailauth={
+        user: "admin@bharatyogavidyakendra.in",
+        pass: "admin12345" 
+    }	
+const mailTransport = nodemailer.createTransport({    
+    host: "smtpout.secureserver.net",  
+    secure: true,
+    secureConnection: false, // TLS requires secureConnection to be false
+    tls: {
+        ciphers:'SSLv3'
+    },
+    requireTLS:true,
+    port: 465,
+    debug: true,
+    auth: mailauth
+});
 module.exports = {
 
     mailService: async (req, res) => {
@@ -24,22 +39,7 @@ module.exports = {
 	var payments_url=req.body.payments_url;
     	
 	
-		
-		const mailTransport = nodemailer.createTransport({    
-    host: "smtpout.secureserver.net",  
-    secure: true,
-    secureConnection: false, // TLS requires secureConnection to be false
-    tls: {
-        ciphers:'SSLv3'
-    },
-    requireTLS:true,
-    port: 465,
-    debug: true,
-    auth: {
-        user: "admin@bharatyogavidyakendra.in",
-        pass: "Bharatyoga#1974" 
-    }
-});
+	
 
 mailTransport.use('compile', hbs(handlebarOptions))
 		
@@ -87,21 +87,7 @@ mailPaymentService: async (req, res) => {
 		    }
 		}));*/
 		
-		const mailTransport = nodemailer.createTransport({    
-    host: "smtpout.secureserver.net",  
-    secure: true,
-    secureConnection: false, // TLS requires secureConnection to be false
-    tls: {
-        ciphers:'SSLv3'
-    },
-    requireTLS:true,
-    port: 465,
-    debug: true,
-    auth: {
-        user: "admin@bharatyogavidyakendra.in",
-        pass: "Bharatyoga#1974" 
-    }
-});
+		
 
 mailTransport.use('compile', hbs(handlebarOptions))
 		
@@ -137,21 +123,6 @@ mailApprovalService: async (req, res) => {
 	var event_start_date = req.body.event_start_date;
     	
 	
-		const mailTransport = nodemailer.createTransport({    
-    host: "smtpout.secureserver.net",  
-    secure: true,
-    secureConnection: false, // TLS requires secureConnection to be false
-    tls: {
-        ciphers:'SSLv3'
-    },
-    requireTLS:true,
-    port: 465,
-    debug: true,
-    auth: {
-        user: "admin@bharatyogavidyakendra.in",
-        pass: "Bharatyoga#1974" 
-    }
-});
 
 mailTransport.use('compile', hbs(handlebarOptions))
 		
@@ -186,22 +157,7 @@ mailTransport.use('compile', hbs(handlebarOptions))
 	var email_body = req.body.email_body;
     email_body = email_body.replace("<p>", "");	
     email_body = email_body.replace("</p>", "");	
-	
-		const mailTransport = nodemailer.createTransport({    
-    host: "smtpout.secureserver.net",  
-    secure: true,
-    secureConnection: false, // TLS requires secureConnection to be false
-    tls: {
-        ciphers:'SSLv3'
-    },
-    requireTLS:true,
-    port: 465,
-    debug: true,
-    auth: {
-        user: "admin@bharatyogavidyakendra.in",
-        pass: "Bharatyoga#1974" 
-    }
-});
+
 
 mailTransport.use('compile', hbs(handlebarOptions))
 		
@@ -241,21 +197,7 @@ mailCustomService: async (req, res) => {
 		    }
 		}));*/
 		
-		const mailTransport = nodemailer.createTransport({    
-    host: "smtpout.secureserver.net",  
-    secure: true,
-    secureConnection: false, // TLS requires secureConnection to be false
-    tls: {
-        ciphers:'SSLv3'
-    },
-    requireTLS:true,
-    port: 465,
-    debug: true,
-    auth: {
-        user: "admin@bharatyogavidyakendra.in",
-        pass: "Bharatyoga#1974" 
-    }
-});
+
 
 email_body = "<h2> Namaste "+name+"</h2></br></br>"+email_body+"</br></br>Thank you For your Co-operation , </br>Bharat Yoga Vidya Kendra ";
 mailTransport.use('compile', hbs(handlebarOptions))
