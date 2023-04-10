@@ -2342,7 +2342,7 @@ console.log("Validated till medicine details "+valid);
 						</>
 					)}
 					
-<h1
+{docs.length>0 &&(<h1
 								style={{
 									fontFamily: "Poppins",
 									color: "darkblue",
@@ -2352,11 +2352,10 @@ console.log("Validated till medicine details "+valid);
 								Upload Documents (Please upload documents carefully, once you uploaded its
 									not able to replace. use (Jpeg/png/pdf))
 							</h1>
+							
+							)}
 
-                    <p style={noteStyle}>
-									Please upload documents carefully, once you uploaded its
-									not able to replace. use (Jpeg/png/pdf)
-								</p>
+                    
 					{docs.map((data, index) => {
 						return (
 							<>
