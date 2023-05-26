@@ -23,6 +23,7 @@ var EventSchema = new Schema(
         receivedApplicationCount:{type : Number},
         registrationAcceptanceCount : {type: Number},
         closeRegistration:{type: Boolean, default: false},
+        kendra:{type: String}
         users: [{ type: Schema.Types.ObjectId, ref: 'User' }]
     },
     {

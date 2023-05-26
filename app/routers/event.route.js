@@ -10,7 +10,7 @@ router.route('/:eventId')
      .get(eventsController.getEvent)
      .put(eventsController.replaceEvent)
      .patch(eventsController.updateEvent)
-     .delete(eventsController.removeEvent); 
-
-
+     .delete(eventsController.removeEvent);
+router.route('/kendra/:kendraId')
+    .get(eventsController.getEventsForKendra);
 module.exports = router;

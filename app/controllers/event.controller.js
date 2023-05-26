@@ -1,3 +1,4 @@
+
 const Event = require('../models/event.model.js');
 
 module.exports = {
@@ -23,7 +24,16 @@ module.exports = {
         }
         res.status(200).json(event);
     },
-
+    getEventsForKendra: async (req, res) => {
+        const {kendraId} = req.params;
+        const events = await Event.find({
+            kendra: kendraId});
+        if (!events) {
+            return res.status(404).send({status_code:"403",status_message: "Events not found with kendra id " + req.params.kendraId
+            });
+        }
+        res.status(200).json(events);
+    },
     getCompleteEvent: async (req, res) => {
         const {eventId} = req.params;
         const event = await Event.findById(eventId).populate('courseType').populate('users');
