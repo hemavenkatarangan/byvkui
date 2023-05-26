@@ -1,9 +1,4 @@
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 import { Provider } from "react-redux";
@@ -39,6 +34,7 @@ import Refund from "./components/Rules/Refund";
 import GenericCourses from "./components/Courses/GenericCourse";
 import CourseDashboard from "./components/Admin/CourseDashboard";
 import ProgramDashboard from "./components/Admin/ProgramDashboard";
+import KendraManagement from "./components/Admin/KendraManagement";
 import ProblemDashboard from "./components/Admin/ProblemDashboard";
 import CreateProgram from "./components/Admin/CreateProgram";
 import MediaDashboard from "./components/Admin/ImagesDashboard";
@@ -90,6 +86,7 @@ function App() {
         <Route exact path="/createprogram" component={CreateProgram} />
         <Route exact path="/createprogram/:id" component={CreateProgram} />
         <Route exact path="/mediadashboard" component={MediaDashboard} />
+        <Route exact path="/kendradashboard" component={KendraManagement} />
         <Route exact path="/problemdashboard" component={ProblemDashboard} />
         <Route exact path="/course/:id" component={GenericCourses} />
         <Route exact path="/ttc" component={TTC} />
@@ -118,9 +115,7 @@ function App() {
         />
         <Switch>
           <PrivateRoute exact path="/home" component={Home} />
-          
         </Switch>
-       
       </Router>
       <Footer />
     </Provider>
