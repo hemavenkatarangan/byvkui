@@ -19,7 +19,7 @@ const payments = require("./app/routers/payments.route");
 const dotenv = require("dotenv");
 const mailservice = require("./app/routers/mail_service.route");
 const profile = require("./app/routers/profile.route");
-
+const kendra = require("./app/routers/kendra.route");
 const auth = require("./app/helpers/authHelper")();
 const passport = require("passport");
 
@@ -75,6 +75,7 @@ app.use("/payments", payments);
 app.use("/mailservice", mailservice);
 app.use("/profile", profile);
 app.use("/problem", problem);
+app.use("/kendras", kendra);
 
 
 
