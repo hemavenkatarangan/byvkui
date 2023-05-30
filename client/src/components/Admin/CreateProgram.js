@@ -17,12 +17,10 @@ const docsOptions = [
   "RTPCR",
   "MEDICAL_REPORTS FOR CBC BP ECG",
   "PASSPORT",
-  "PHOTO"
+  "PHOTO",
 ];
 
-const noDocument = [
-	"No Document"
-];
+const noDocument = ["No Document"];
 
 const programType = [
   {
@@ -39,18 +37,17 @@ const programType = [
   },
 ];
 
-
-
 function CreateProgram(props) {
   const user = useSelector((state) => state.auth);
   const [isAuthenticated, setAuthenticated] = useState(false);
   const [courseData, setCourseData] = useState([]);
-  const [document,setDocument] = useState(true);
+  const [document, setDocument] = useState(true);
+  const [kendras, setKendras] = useState([]);
   const [program, setProgram] = useState({
     name: "",
     description: "",
     program_fee: "",
-    program_fee_in_usd:"",
+    program_fee_in_usd: "",
     course: "",
     program_type: "",
     status: "NOT_STARTED",
@@ -63,12 +60,13 @@ function CreateProgram(props) {
     program_end_date: "",
     program_max_size: "",
     required_documents: [],
+    kendra: "",
   });
   const [errObj, setErrObj] = useState({
     name: "",
     description: "",
     program_fee: "",
-    program_fee_in_usd:"",
+    program_fee_in_usd: "",
     course: "",
     program_type: "",
     status: "",
@@ -81,6 +79,7 @@ function CreateProgram(props) {
     program_end_date: "",
     program_max_size: "",
     required_documents: [],
+    kendra: "",
   });
 
   useEffect(() => {
@@ -94,6 +93,7 @@ function CreateProgram(props) {
       setAuthenticated(false);
     }
     getCourseData();
+    getKendraData();
 
     if (props.match.params.id) {
       getProgramDataBasedOnId(props.match.params.id);
@@ -132,6 +132,7 @@ function CreateProgram(props) {
           program_end_date: getFormatedDate(res.data.result.program_end_date),
           program_max_size: res.data.result.program_max_size,
           required_documents: res.data.required_documents,
+          kendra: res.data.result.kendra,
         }));
       })
       .catch((err) => {
@@ -150,6 +151,18 @@ function CreateProgram(props) {
       });
   };
 
+  const getKendraData = () => {
+    axios
+      .get("/kendras/")
+      .then((res) => {
+        console.log(res.data.result, "res data");
+        setKendras(res.data.result.reverse());
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const onProgramChange = (e) => {
     const { id, value } = e.target;
     setProgram((program) => ({ ...program, [id]: value }));
@@ -157,6 +170,15 @@ function CreateProgram(props) {
 
   const validateProgramData = () => {
     let valid = true;
+
+    if (program.kendra === "S_O") {
+      valid = false;
+      setErrObj((errObj) => ({
+        ...errObj,
+        kendra: "Please select a Kendra",
+      }));
+    }
+
     if (program.name.length <= 3) {
       valid = false;
       setErrObj((errObj) => ({
@@ -180,7 +202,7 @@ function CreateProgram(props) {
         program_fee: "Program fee should be mandatory",
       }));
     }
- if (program.program_fee_in_usd.length <= 0) {
+    if (program.program_fee_in_usd.length <= 0) {
       valid = false;
       setErrObj((errObj) => ({
         ...errObj,
@@ -269,7 +291,7 @@ function CreateProgram(props) {
         name: "",
         description: "",
         program_fee: "",
-         program_fee_in_usd: "",
+        program_fee_in_usd: "",
         course: "",
         program_type: "",
         status: "",
@@ -282,14 +304,14 @@ function CreateProgram(props) {
         program_end_date: "",
         program_max_size: "",
         required_documents: [],
+        kendra: "",
       }));
     }
   };
 
   const submitProgram = () => {
-	
     if (props.match.params.id) {
-	program.status="NOT_STARTED";
+      program.status = "NOT_STARTED";
       axios
         .patch("/programs/" + props.match.params.id, program)
         .then((res) => {
@@ -332,15 +354,14 @@ function CreateProgram(props) {
       required_documents: checkedValues,
     }));
   };
-  
-  const noDocumentHandler = () =>{
-	if(document){
-		setDocument(false);
-	}else{
-		setDocument(true);
-	}
-}
 
+  const noDocumentHandler = () => {
+    if (document) {
+      setDocument(false);
+    } else {
+      setDocument(true);
+    }
+  };
 
   return (
     <>
@@ -490,6 +511,32 @@ function CreateProgram(props) {
                                 <p style={errStyle}>{errObj.status}</p>
                             </div> */}
               <div className="form-group">
+                <select
+                  className="form-control-input notEmpty"
+                  id="kendra"
+                  onChange={(e) => onProgramChange(e)}
+                  //value={program.kendra}
+                  required
+                >
+                  <option value="S_O" key="k" selected>
+                    Select Option
+                  </option>
+                  {kendras.map((kendras, index) => {
+                    return (
+                      <option value={kendras.name} key={index}>
+                        {kendras.name} - {kendras.address}
+                      </option>
+                    );
+                  })}
+                </select>
+
+                <label className="label-control" htmlFor="kendra">
+                  Event Location (Kendra)
+                  <span style={{ color: "red" }}>*</span>
+                </label>
+                <p style={errStyle}>{errObj.kendra}</p>
+              </div>
+              <div className="form-group">
                 <input
                   type="number"
                   className="form-control-input notEmpty"
@@ -600,21 +647,22 @@ function CreateProgram(props) {
               </div>
               <div className="form-group">
                 <Checkbox.Group
-                	options={noDocument}
+                  options={noDocument}
                   onChange={noDocumentHandler}
                 />
                 {/* <label className="label-control" htmlFor="documents">
                   Documents needed
                 </label> */}
               </div>
-              <hr/>
-              {document &&
-              (<div className="form-group">
-                <Checkbox.Group
-                  options={docsOptions}
-                  onChange={onCheckChange}
-                />
-              </div>)}
+              <hr />
+              {document && (
+                <div className="form-group">
+                  <Checkbox.Group
+                    options={docsOptions}
+                    onChange={onCheckChange}
+                  />
+                </div>
+              )}
               <div className="form-group">
                 <button
                   type="submit"
