@@ -11,13 +11,11 @@ import moment from "moment";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-
 function ProgramDashboard() {
   const user = useSelector((state) => state.auth);
   const [isAuthenticated, setAuthenticated] = useState(false);
   const [programsData, setProgramsData] = useState([]);
   useEffect(() => {
-    
     if (user.isAuthenticated) {
       setAuthenticated(true);
     } else {
@@ -46,17 +44,20 @@ function ProgramDashboard() {
       render: (data) => getFormatedDate(data),
     },
     {
+      title: "Kendra",
+      dataIndex: "kendra",
+      key: "kendra",
+    },
+    {
       title: "Status",
       dataIndex: "status",
       key: "status",
-     
     },
     {
       title: "Action",
       key: "action",
       render: (id, data) => (
         <>
-         
           {data.status === "STARTED" ? null : (
             <>
               <Link to={{ pathname: "/createprogram/" + data._id, data: data }}>
@@ -75,13 +76,11 @@ function ProgramDashboard() {
                 to={{ pathname: "/userforprogram/" + data._id, data: data }}
               >
                 <EyeOutlined title="View All Users For Event" />{" "}
-                
               </Link>
-              
             </>
           }
 
-          {(data.status === "NOT_STARTED" || data.status === "INACTIVE" )? (
+          {data.status === "NOT_STARTED" || data.status === "INACTIVE" ? (
             <>
               <FastForwardOutlined
                 title="Start the Registrations for Event"
