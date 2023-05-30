@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Button, Table, Modal } from "antd";
+import { Modal, Button, Table, Tag } from "antd";
 import {
   EditOutlined,
   DeleteOutlined,
@@ -22,6 +22,7 @@ const KendraManagement = () => {
   const [isAuthenticated, setAuthenticated] = useState(false);
   const [kendraData, setKendraData] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [boolVal, setBoolVal] = useState(false);
   const [kendra, setKendra] = useState({
     name: "",
     address: "",
@@ -34,18 +35,16 @@ const KendraManagement = () => {
   });
 
   useEffect(() => {
-    console.log(user.userData.roles[0], "roles");
+    //console.log(user.userData.roles[0], "roles");
     if (user.userData.roles[0] !== "ADMIN") {
       window.location.href = "/home";
       return;
     }
-
     if (user.isAuthenticated) {
       setAuthenticated(true);
     } else {
       setAuthenticated(false);
     }
-
     getKendraData();
   }, []);
 
@@ -73,9 +72,9 @@ const KendraManagement = () => {
           <>
             <EditOutlined
               title="Edit the Kendra Detail"
-              onClick={(e) => editKendra(data)}
+              onClick={() => editKendra(data)}
             />
-            <DeleteOutlined onClick={(e) => deleteKendra(data)} />
+            <DeleteOutlined onClick={() => deleteKendra(data)} />
           </>
         </>
       ),
@@ -84,9 +83,10 @@ const KendraManagement = () => {
 
   const getKendraData = () => {
     axios
-      .get("/problem/")
+      .get("/kendras/")
       .then((res) => {
-        setKendraData(res.data.result);
+        //console.log(res.data.result, "get");
+        setKendraData(res.data.result.reverse());
       })
       .catch((err) => {
         console.log(err);
@@ -96,28 +96,25 @@ const KendraManagement = () => {
   const editKendra = (data) => {
     console.log(data);
     console.log("Edit Kendra");
-    axios
-      .patch("/problem/" + data._id + "/status/CLOSED")
-      .then((res) => {
-        if (res.data.status_code === "200") {
-          alert(res.data.status_message);
-          getKendraData();
-        } else {
-          alert(res.data.error);
-        }
-      })
-      .catch((err) => {
-        console.log("Error" + err);
-      });
+    setKendra((kendra) => ({
+      ...kendra,
+      _id: data._id,
+      name: data.name,
+      gps: data.gps,
+      address: data.address,
+    }));
+    setIsModalVisible(true);
+    setBoolVal(true);
   };
 
   const deleteKendra = (data) => {
-    // console.log(data)
+    console.log(data._id);
     axios
-      .delete("/courses/" + data._id)
+      .delete("/kendras/" + data._id)
       .then((res) => {
-        // console.log(res)
-        setKendraData();
+        //console.log(res, "delete res");
+        alert("Kendra Deleted");
+        getKendraData();
       })
       .catch((err) => {
         console.log(err);
@@ -129,27 +126,26 @@ const KendraManagement = () => {
   };
 
   const submitKendraData = () => {
-    console.log("hello");
-    //     // validations here
-    //     let valid = true;
-    //     if (kendra.name.length <= 2) {
-    //       valid = false;
-    //       setErrObj((errObj) => ({
-    //         ...errObj,
-    //         name: "Kendra name should be minimum 3 letters",
-    //       }));
-    //     }
-    //     if (kendra.address.length <= 3) {
-    //       valid = false;
-    //       setErrObj((errObj) => ({
-    //         ...errObj,
-    //         address: "Enter a valid Address",
-    //       }));
-    //     }
-    //      console.log(valid,"valid");
-    //     if (valid) {
-    //       submit();
-    //     }
+    // validations here
+    let valid = true;
+    if (kendra.name.length <= 2) {
+      valid = false;
+      setErrObj((errObj) => ({
+        ...errObj,
+        name: "Kendra name should be minimum 3 letters",
+      }));
+    }
+    if (kendra.address.length <= 3) {
+      valid = false;
+      setErrObj((errObj) => ({
+        ...errObj,
+        address: "Enter a valid Address",
+      }));
+    }
+    console.log(valid, "valid");
+    if (valid) {
+      submit();
+    }
   };
 
   const submit = () => {
@@ -159,35 +155,35 @@ const KendraManagement = () => {
       address: kendra.address,
       gps: kendra.gps,
     };
-    // if (boolVal) {
-    //   axios
-    //     .patch("/courses/" + course.course_id, obj)
-    //     .then((res) => {
-    //       // console.log(res)
-    //       setIsModalVisible(false);
-    //       setKendraDataAsNull();
-    //       getCoursesData();
-    //       setBoolVal(false);
-    //       alert(res.data.status_message);
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // } else {
-    axios
-      .post("/courses/", obj)
-      .then((res) => {
-        // console.log(res)
-        setIsModalVisible(false);
-        setKendraDataAsNull();
-        getKendraData();
-        //setBoolVal(false);
-        alert(res.data.status_message);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    // }
+    //console.log(obj, "obj");
+    if (boolVal) {
+      axios
+        .put("/kendras/" + kendra._id, obj)
+        .then((res) => {
+          // console.log(res)
+          setIsModalVisible(false);
+          setKendraDataAsNull();
+          getKendraData();
+          setBoolVal(false);
+          alert("Kendra Updated Successfully");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      axios
+        .post("/kendras/", obj)
+        .then((res) => {
+          //console.log(res);
+          setIsModalVisible(false);
+          setKendraDataAsNull();
+          getKendraData();
+          alert("Kendra Created Successfully");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   const setKendraDataAsNull = () => {
@@ -200,6 +196,7 @@ const KendraManagement = () => {
   };
 
   const handleCancel = () => {
+    setKendraDataAsNull();
     setIsModalVisible(false);
   };
 
