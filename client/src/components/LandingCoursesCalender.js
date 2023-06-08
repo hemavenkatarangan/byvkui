@@ -6,19 +6,18 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 
 function LandingCoursesCalender() {
-
   const user = useSelector((state) => state.auth);
   const [isAuthenticated, setAuthenticated] = useState(false);
   const [isUserHasRegistered, setUserAlreadyRegistered] = useState(false);
 
   const [cData, setcData] = useState([]);
-  
-  const [profileData,setProfileData] = useState({});
 
-const history = useHistory();
-	
+  const [profileData, setProfileData] = useState({});
+  const [kendras, setKendras] = useState([]);
+  const [isActive, setIsActive] = useState(null);
+  const history = useHistory();
+
   useEffect(() => {
-   
     if (user.isAuthenticated) {
       setAuthenticated(true);
     } else {
@@ -29,54 +28,63 @@ const history = useHistory();
   useEffect(() => {
     getProgramsData();
     getProfileData();
+    getKendras();
   }, []);
-  
+
+  const getKendras = () => {
+    axios
+      .get("/kendras/")
+      .then((res) => {
+        if (res.data.status_code === "200") {
+          console.log(res.data.result, "kendra data");
+          setKendras(res.data.result);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const getProfileData = () => {
-	if(user.userData)
-	{
-	axios
-	.get("/profile/"+user.userData.email_id)
-	.then((res) => {
-		if(res.data.status_code === "200")
-		{
-		
-		setProfileData(res.data.result[0]);
-		}
-	})
-		.catch((err)=>{
-		console.log(err);
-		});
-		}
-		
-};
+    if (user.userData) {
+      axios
+        .get("/profile/" + user.userData.email_id)
+        .then((res) => {
+          if (res.data.status_code === "200") {
+            setProfileData(res.data.result[0]);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
 
   const getProgramsData = () => {
     axios
       .get("/programs/activeprograms")
       .then((res) => {
-	console.log("Data in landing courses ");
-	console.log(res.data.result);
-	var landingEvents=res.data.result;
+        console.log("Data in landing courses ");
+        console.log(res.data.result);
+        var landingEvents = res.data.result;
         setcData(res.data.result);
-
       })
       .catch((err) => {
         console.log(err);
       });
   };
-const getCourse = (courseId) => {
-	console.log("Getting course name for "+courseId);
+  const getCourse = (courseId) => {
+    console.log("Getting course name for " + courseId);
     axios
-      .get("/courses?courseId="+courseId)
+      .get("/courses?courseId=" + courseId)
       .then((res) => {
-       console.log("Course name "+res.data.result.course_name);
-      return res.data.result.course_name;
+        console.log("Course name " + res.data.result.course_name);
+        return res.data.result.course_name;
       })
       .catch((err) => {
         console.log(err);
       });
   };
- 
 
   const getFormatedDate = (date) => {
     // console.log("formatting......")
@@ -92,19 +100,51 @@ const getCourse = (courseId) => {
     }
     return val;
   };
-  
 
-const validateForCourse = () => {
+  const validateForCourse = () => {
+    if (isAuthenticated) {
+      console.log(profileData, "Profile data to validate");
+      if (
+        profileData.about_byuk == "" ||
+        profileData.address_1 == "" ||
+        profileData.address_2 == "" ||
+        profileData.age == "" ||
+        profileData.city == "" ||
+        profileData.country == "" ||
+        profileData.dob == "" ||
+        profileData.email_id == "" ||
+        profileData.expert_level == "" ||
+        profileData.first_name == "" ||
+        profileData.gender == "" ||
+        profileData.languages == "" ||
+        profileData.last_name == "" ||
+        profileData.maritalstatus == "" ||
+        profileData.nationality == "" ||
+        profileData.occupation == "" ||
+        profileData.previous_experience == "" ||
+        profileData.qualification == "" ||
+        profileData.state == "" ||
+        profileData.phone_num == ""
+      ) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+  };
 
-	if(isAuthenticated){
-		console.log(profileData,"Profile data to validate");
-		if (profileData.about_byuk == "" || profileData.address_1 == "" || profileData.address_2 == "" || profileData.age == "" || profileData.city == "" || profileData.country == "" || profileData.dob== "" || profileData.email_id == "" || profileData.expert_level == "" || profileData.first_name== "" || profileData.gender == "" || profileData.languages == "" || profileData.last_name == "" || profileData.maritalstatus == "" || profileData.nationality == "" || profileData.occupation == "" || profileData.previous_experience == "" || profileData.qualification == "" || profileData.state == "" || profileData.phone_num == ""){
-			return false;
-		}else{
-			return true;
-		}
-	}
-}
+  const handleKendra = (data) => {
+    console.log(data._id, "name");
+    axios
+      .get("/events/kendra/" + data._id)
+      .then((res) => {
+        console.log(res.data, "get");
+        setcData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <>
@@ -132,9 +172,37 @@ const validateForCourse = () => {
             {/* <p className="p-heading"></p> */}
           </div>
         </div>
-       
+
+        <ul class="nav justify-content-center my-4">
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              style={{ textDecoration: "none", fontSize: "20px" }}
+              onClick={(e) => {
+                getProgramsData();
+              }}
+            >
+              <b>All Events</b>
+            </a>
+          </li>
+          {kendras.map((data, index) => {
+            return (
+              <>
+                <li class="nav-item">
+                  <a
+                    class="nav-link"
+                    style={{ textDecoration: "none", fontSize: "20px" }}
+                    onClick={(e) => handleKendra(data)}
+                  >
+                    <b>{data.name}</b>
+                  </a>
+                </li>
+              </>
+            );
+          })}
+        </ul>
+
         {cData.map((data, index) => {
-	
           return (
             <>
               <div key={index} className="row">
@@ -175,12 +243,12 @@ const validateForCourse = () => {
                     </Button>
                   </div>
 
-                  
-                  {
-                  data.status !== "INACTIVE" &&
+                  {data.status !== "INACTIVE" &&
                   data.status == "STARTED" &&
-                  
-                  compareDates(data.program_start_date) && (data.name.toLowerCase().includes('yogam') || data.name.toLowerCase().includes('monthly') || data.name.toLowerCase().includes('atha yoga')) ? (
+                  compareDates(data.program_start_date) &&
+                  (data.name.toLowerCase().includes("yogam") ||
+                    data.name.toLowerCase().includes("monthly") ||
+                    data.name.toLowerCase().includes("atha yoga")) ? (
                     <div className="" style={{ marginTop: "0px" }}>
                       <Button
                         type="primary"
@@ -200,11 +268,12 @@ const validateForCourse = () => {
                   ) : (
                     ""
                   )}
-                  {
-                  data.status !== "INACTIVE" &&
+                  {data.status !== "INACTIVE" &&
                   data.status == "STARTED" &&
-                  
-                  compareDates(data.program_start_date) && (data.name.toLowerCase().includes('sakhyam')||data.name.toLowerCase().includes('kausalam')||data.name.toLowerCase().includes('t t c')) ? (
+                  compareDates(data.program_start_date) &&
+                  (data.name.toLowerCase().includes("sakhyam") ||
+                    data.name.toLowerCase().includes("kausalam") ||
+                    data.name.toLowerCase().includes("t t c")) ? (
                     <div className="" style={{ marginTop: "0px" }}>
                       <Button
                         type="primary"
@@ -216,31 +285,42 @@ const validateForCourse = () => {
                           borderRadius: "18px",
                         }}
                       >
-                        {(data.name.toLowerCase().includes('sakhyam'))||data.name.toLowerCase().includes('t t c')|| (data.name.toLowerCase().includes('kausalam'))||(data.name.toLowerCase().includes('yogam')) || (data.name.toLowerCase().includes('monthlym')) ? (<a href={"../registercourse/" + data._id}>
-                          Register Course
-                        </a>):(<a href={"../registercourse/" + data._id} onClick={(e)=>{
-							let valid = validateForCourse();
-							if (!valid) {
-								e.preventDefault();
-								alert("Please Complete Your Profile Before Registering To This Event");
-								return false;
-							}
-						}}>
-                          Register Course
-                        </a>)}
+                        {data.name.toLowerCase().includes("sakhyam") ||
+                        data.name.toLowerCase().includes("t t c") ||
+                        data.name.toLowerCase().includes("kausalam") ||
+                        data.name.toLowerCase().includes("yogam") ||
+                        data.name.toLowerCase().includes("monthlym") ? (
+                          <a href={"../registercourse/" + data._id}>
+                            Register Course
+                          </a>
+                        ) : (
+                          <a
+                            href={"../registercourse/" + data._id}
+                            onClick={(e) => {
+                              let valid = validateForCourse();
+                              if (!valid) {
+                                e.preventDefault();
+                                alert(
+                                  "Please Complete Your Profile Before Registering To This Event"
+                                );
+                                return false;
+                              }
+                            }}
+                          >
+                            Register Course
+                          </a>
+                        )}
                       </Button>
                     </div>
                   ) : (
                     ""
                   )}
-                  
                 </div>
               </div>
               <hr style={{ marginTop: "4px" }} />
             </>
           );
         })}
-       
       </div>
     </>
   );

@@ -27,7 +27,8 @@ var ProgramSchema = new Schema(
     registration_acceptance_count: { type: Number },
     close_registration: { type: Boolean, default: false },
     required_documents: { type: Array },
-    kendra: { type: String },
+    kendraId: { type: String },
+    KendraName: { type: String },
   },
   {
     timestamps: true,
