@@ -99,7 +99,7 @@ const compareDates = (date) => {
       .get(`/programs/course/${cId}/programtype/`+type)
       .then((res) => {
         if (res.data.status_code === "200") {
-	console.log(res.data.result);
+            console.log(res.data.result);
           if (type === "ALL") {
             setCourseRelatedData(res.data.result);
             console.log(res.data.result);
@@ -182,7 +182,7 @@ const compareDates = (date) => {
                               
                               data.status == "STARTED" &&
                                 
-                  compareDates(data.program_start_date) && (data.name.toLowerCase().includes('yoga') || data.name.toLowerCase().includes('monthly')|| data.name.toLowerCase().includes('atha yoga')||  (data.name.toLowerCase().includes('t t c')))? (
+                  compareDates(data.program_start_date) && (data.name.toLowerCase().includes('yogam') || data.name.toLowerCase().includes('monthly')|| data.name.toLowerCase().includes('atha yoga')||  (data.name.toLowerCase().includes('t t c')))? (
 	                      <>
                           <div key={index} className="row">
                             <div
