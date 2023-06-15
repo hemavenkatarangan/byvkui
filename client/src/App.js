@@ -33,6 +33,7 @@ import Privacy from "./components/Rules/Privacy";
 import Refund from "./components/Rules/Refund";
 import GenericCourses from "./components/Courses/GenericCourse";
 import CourseDashboard from "./components/Admin/CourseDashboard";
+import UserRoleDashboard from "./components/Admin/UserRoleDashboard";
 import ProgramDashboard from "./components/Admin/ProgramDashboard";
 import KendraManagement from "./components/Admin/KendraManagement";
 import ProblemDashboard from "./components/Admin/ProblemDashboard";
@@ -53,8 +54,6 @@ if (localStorage.jwtToken) {
   setAuthToken(token);
   const decoded = jwt_decode(token);
   const userData = localStorage.userData;
-  // console.log("Logger user data ");
-  // console.log(userData);
   store.dispatch(setCurrentUser(decoded));
   store.dispatch(setUserData(JSON.parse(userData)));
   const currentTime = Date.now() / 1000; // to get in milliseconds
@@ -108,6 +107,7 @@ function App() {
         <Route exact path="/onlinerefund" component={OnlineRefund} />
         <Route exact path="/completeprofile" component={CompleteProfile} />
         <Route exact path="/yourregistrations" component={YourRegistrations} />
+         <Route exact path="/userroledashboard" component={UserRoleDashboard} />
         <Route
           exact
           path="/userforprogram/:id"

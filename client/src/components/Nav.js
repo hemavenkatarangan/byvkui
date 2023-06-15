@@ -113,7 +113,6 @@ function Nav() {
                 <b
                   style={{
                     color: "gray",
-                    fontSize: ".85rem",
                     fontFamily: "Droid Serif",
                     fontStyle: "italic",
                     marginLeft: ".2rem",
@@ -271,6 +270,15 @@ function Nav() {
                     href="/programdashboard"
                   >
                     Events Dashboard
+                  </a>
+                  <div className="dropdown-divider"></div>
+
+                  <a
+                       className="dropdown-item page-scroll"
+                       style={{ color: "black", fontSize: "14px" }}
+                       href="/userroledashboard"
+                       >
+                       User Management Dashboard
                   </a>
                   <div className="dropdown-divider"></div>
                   <a

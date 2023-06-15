@@ -32,12 +32,7 @@ router
     ],
     usersController.replaceUser
   )
-  .patch(
-    [
-      validateParam(schemas.idSchema, ["userId"]),
-      validateBody(schemas.userOptionalSchema),
-    ],
-    usersController.updateUser
+  .patch(usersController.updateUser
   )
   .delete(
     validateParam(schemas.idSchema, ["userId"]),
@@ -68,8 +63,6 @@ router
     validateParam(schemas.idSchema, ["userId", "registredEventId"]),
     usersController.getRegisteredEvent
   );
-// .put(usersController.replaceRegisteredEvent)
-// .patch(usersController.updateRegisteredEvent)
-// .delete(usersController.removeRegisteredEvent);
+
 
 module.exports = router;

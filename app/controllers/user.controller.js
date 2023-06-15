@@ -143,7 +143,10 @@ module.exports = {
     },
 
     updateUser: async (req, res) => {
-        const user = await User.findByIdAndUpdate(req.value.params.userId, req.body, { new: true });
+        console.log("Update user ")
+        console.log(req.body);
+        console.log(req)
+        const user = await User.findByIdAndUpdate(req.params.userId, req.body, { new: true });
         if (!user) {
             return res.status(404).send({
                 message: "User not found with id " + req.params.userId
