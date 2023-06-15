@@ -165,11 +165,18 @@ function CreateProgram(props) {
 
   const onProgramChange = (e) => {
     const { id, value } = e.target;
+
+    if (id == "kendra") {
+      const kendraValue = value.split("+");
+      setProgram((program) => ({ ...program, kendraId: kendraValue[1] }));
+      setProgram((program) => ({ ...program, kendraName: kendraValue[0] }));
+    }
     setProgram((program) => ({ ...program, [id]: value }));
   };
 
   const validateProgramData = () => {
     let valid = true;
+    //console.log(program, "pro");
 
     if (program.kendra === "S_O") {
       valid = false;
@@ -283,8 +290,9 @@ function CreateProgram(props) {
         program_max_size: "Program Maximum size should be mandatory",
       }));
     }
-
+    console.log(valid, "val");
     if (valid) {
+      console.log(program, "p");
       submitProgram();
       setErrObj((errObj) => ({
         ...errObj,
@@ -523,7 +531,11 @@ function CreateProgram(props) {
                   </option>
                   {kendras.map((kendras, index) => {
                     return (
-                      <option value={kendras.name} key={index}>
+                      <option
+                        value={kendras.name + "+" + kendras._id}
+                        id={kendras._id}
+                        key={index}
+                      >
                         {kendras.name} - {kendras.address}
                       </option>
                     );
