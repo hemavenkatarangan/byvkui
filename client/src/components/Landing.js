@@ -60,7 +60,19 @@ const user = useSelector((state) => state.auth);
               </h3>
           <div className="slider-container" >
             <div className="swiper-container slide-slider">
+
+
+
+
               <div className="swiper-wrapper">
+
+                  <div className="swiper-slide">
+                      {/* <a href='/about'> */}
+                      <img src="/images/slider/WorldYogaDay.png" className="img-fluid" alt="Byvk" />
+                      {/* </a> */}
+                  </div>
+
+
                 {images.map((data, index) => {
                   return (
                     <div className="swiper-slide">
