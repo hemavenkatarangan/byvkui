@@ -64,7 +64,7 @@ const user = useSelector((state) => state.auth);
                 {images.map((data, index) => {
                   return (
                     <div className="swiper-slide">
-                      {/* <a href='/about'> */}
+
                       <img src={data} className="img-fluid" alt="Byvk" />
 
                     </div>
