@@ -66,7 +66,7 @@ const user = useSelector((state) => state.auth);
                     <div className="swiper-slide">
                       {/* <a href='/about'> */}
                       <img src={data} className="img-fluid" alt="Byvk" />
-                      {/* </a> */}
+
                     </div>
                   );
                 })}
