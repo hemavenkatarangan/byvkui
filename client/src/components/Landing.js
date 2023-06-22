@@ -20,6 +20,7 @@ const user = useSelector((state) => state.auth);
       media_type: "sliderimages",
     };
 
+
     axios
       .post("/mediamanagement/media", obj)
       .then((res) => {
