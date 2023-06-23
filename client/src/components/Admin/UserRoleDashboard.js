@@ -1,10 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Modal, Button, Table, Tag } from "antd";
-import {
-  CloseSquareOutlined,
-  CheckOutlined,
-} from "@ant-design/icons";
+import { CloseSquareOutlined, CheckOutlined } from "@ant-design/icons";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -16,10 +13,10 @@ const errStyle = {
 };
 
 const UserRoleManagement = () => {
-
   const user = useSelector((state) => state.auth);
   const [isAuthenticated, setAuthenticated] = useState(false);
   const [userData, setUserData] = useState([]);
+  const [kendraData, setKendraData] = useState([]);
 
   useEffect(() => {
     //console.log(user.userData.roles[0], "roles");
@@ -33,6 +30,7 @@ const UserRoleManagement = () => {
       setAuthenticated(false);
     }
     getAllUsers();
+    getAllKendras();
   }, []);
 
   const columns = [
@@ -58,19 +56,17 @@ const UserRoleManagement = () => {
       render: (id, data) => (
         <>
           <>
-            {
-                (data.roles[0] === "ADMIN")?
-                    <CheckOutlined
-                        title="Remove Admin Role"
-                        onClick={() => changeRole("USER",data)}
-                    />:
-                    <CloseSquareOutlined
-                        title="Assign Admin Role"
-                        onClick={() => changeRole("ADMIN",data)}
-                    />
-            }
-
-
+            {data.roles[0] === "ADMIN" ? (
+              <CheckOutlined
+                title="Remove Admin Role"
+                onClick={() => changeRole("USER", data)}
+              />
+            ) : (
+              <CloseSquareOutlined
+                title="Assign Admin Role"
+                onClick={() => changeRole("ADMIN", data)}
+              />
+            )}
           </>
         </>
       ),
@@ -79,49 +75,81 @@ const UserRoleManagement = () => {
       title: "Super Admin",
       key: "superadminrole",
       render: (id, data) => (
+        <>
           <>
-            <>
-              {
-                (data.roles[0] === "SUPER_ADMIN")?
-                    <CheckOutlined
-                        title="Remove Super Admin Role"
-                        onClick={() => changeRole("USER",data)}
-                    />:
-                    <CloseSquareOutlined
-                        title="Assign Super Admin Role"
-                        onClick={() => changeRole("SUPER_ADMIN",data)}
-                    />
-              }
-
-
-            </>
+            {data.roles[0] === "SUPER_ADMIN" ? (
+              <CheckOutlined
+                title="Remove Super Admin Role"
+                onClick={() => changeRole("USER", data)}
+              />
+            ) : (
+              <CloseSquareOutlined
+                title="Assign Super Admin Role"
+                onClick={() => changeRole("SUPER_ADMIN", data)}
+              />
+            )}
           </>
+        </>
       ),
     },
     {
       title: "Kendra Admin",
       key: "kendraadminrole",
       render: (id, data) => (
+        <>
           <>
-            <>
-              {
-                (data.roles[0] === "KENDRA_ADMIN")?
-                    <CheckOutlined
+            {data.roles[0].includes("KENDRA_ADMIN") ? (
+              <>
+                <br></br>
+                {kendraData.map((item, index) => {
+                  return item.name + "_KENDRA_ADMIN" === data.roles[0] ? (
+                    <>
+                      <CheckOutlined
                         title="Remove Kendra Admin Role"
-                        onClick={() => changeRole("USER",data)}
-                    />:
-                    <CloseSquareOutlined
+                        onClick={() =>
+                          changeRole(item.name + "_KENDRA_ADMIN", data)
+                        }
+                      />
+                      {item.name}
+                      <br></br>
+                    </>
+                  ) : (
+                    <>
+                      <CloseSquareOutlined
                         title="Assign Kendra Admin Role"
-                        onClick={() => changeRole("KENDRA_ADMIN",data)}
-                    />
-              }
-
-
-            </>
+                        onClick={() =>
+                          changeRole(item.name + "_KENDRA_ADMIN", data)
+                        }
+                      />
+                      {item.name}
+                      <br></br>
+                    </>
+                  );
+                })}
+              </>
+            ) : (
+              <CloseSquareOutlined
+                title="Assign Kendra Admin Role"
+                onClick={() => changeRole("KENDRA_ADMIN", data)}
+              />
+            )}
           </>
+        </>
       ),
-    }
+    },
   ];
+
+  const getAllKendras = () => {
+    axios
+      .get("/kendras/")
+      .then((res) => {
+        //console.log(res.data.result, "get");
+        setKendraData(res.data.result.reverse());
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const getAllUsers = () => {
     axios
@@ -135,23 +163,20 @@ const UserRoleManagement = () => {
       });
   };
 
-  const changeRole = (role,data) => {
-    console.log(data);
-    data.roles[0]=role;
+  const changeRole = (role, data) => {
+    console.log(role, data, "d");
+    data.roles[0] = role;
     var id = data._id;
     axios
-        .patch("/users/" + id, data)
-        .then((res) => {
-          window.location.reload(false);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      .patch("/users/" + id, data)
+      .then((res) => {
+        window.location.reload(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     console.log("Edit Kendra");
-
   };
-
-
 
   return (
     <>
@@ -178,12 +203,11 @@ const UserRoleManagement = () => {
         <div className="container">
           <div className="row">
             <div className="col-xl-10 offset-xl-1">
-               <Table width="100%" columns={columns} dataSource={userData} />
+              <Table width="100%" columns={columns} dataSource={userData} />
             </div>
           </div>
         </div>
       </div>
-
     </>
   );
 };
