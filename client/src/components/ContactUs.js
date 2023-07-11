@@ -153,8 +153,7 @@ function ContactUs() {
                 >
                   bharatyoga@satsang-foundation.org
                 </a>
-                , or you may call us on +91-8999-039-823 during office hours
-                (10am-5pm IST).
+                , or you may call us on following numbers ,+918333 981 308 (Available from 1 PM to 7 PM IST) ,+918333 981 309 (Available from 9:30 AM to 1:00 PM IST)
               </p>
               <p
                 className=""
