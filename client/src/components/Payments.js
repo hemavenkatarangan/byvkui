@@ -241,9 +241,21 @@ function Payments(props) {
                   className=""
                   style={{ fontFamily: "Poppins", fontSize: "12px" }}
                 >
-                 <a href="https://ind01.safelinks.protection.outlook.com/?url=https%3A%2F%2Feasypay.axisbank.co.in%2FeasyPay%2FmakePayment%3Fmid%3DNTY0MjY%253D&data=04%7C01%7CNarella.Padmaja%40axisbank.com%7Ce12312bb02414e87576208d97aa2c8cf%7C2d538e6436c741bc8b7d4d804956e957%7C0%7C0%7C637675661863167467%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&sdata=YmLx79oU%2BVvIykobJJQFfpiso4%2BQ4A2TnFUoHlfBcFE%3D&reserved=0">https://ind01.safelinks.protection.outlook.com/?url=https%3A%2F%2Feasypay.axisbank.co.in%2FeasyPay%2FmakePayment%3Fmid%3DNTY0MjY%253D&data=04%7C01%7CNarella.Padmaja%40axisbank.com%7Ce12312bb02414e87576208d97aa2c8cf%7C2d538e6436c741bc8b7d4d804956e957%7C0%7C0%7C637675661863167467%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&sdata=YmLx79oU%2BVvIykobJJQFfpiso4%2BQ4A2TnFUoHlfBcFE%3D&reserved=0</a>
+                  FCRA Registration No: 094420889
                 </p>
-               
+      <p
+          className=""
+          style={{ fontFamily: "Poppins", fontSize: "12px" }}
+      >
+        Account Name : The Satsang Foundation<br/>
+
+        Bank Name : State Bank of India<br/>
+        Account No: 40128018416<br/>
+        Branch Code : 00691<br/>
+        IFSC : SBIN0000691<br/>
+        SWIFT : SBININBB104<br/>
+        Branch Address : FCRA Cell, 4th Floor, State Bank of India, New Delhi Main Branch, 11 , Sansad Marg, New Delhi -110001<br/>
+      </p>
                 </>
       )}
                 <div className="form-group mt-5">
